@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd111455bca9ba4bb4b1d6daac2e73b, type: 3}
+  m_Name: Client_Eorth3
+  m_EditorClassIdentifier: 
+  _clientName: Mikki
+  _clientIcon: {fileID: 21300000, guid: b62f3ef5bc137bd4d8790016bfe290fa, type: 3}
+  _clientNumber: 3
+  _isCritic: 0
+  _askingDialogue: Well hello. Me and my brother here are arguing about something
+    and getting hungry. Can you bring me something with Apple?
+  _deliveredDialogue: Hmm, it's free so I can't complain.
+  _perfectDialogue: You're actually really good! It was so sweet too.
+  _repeatingDialogue: Rokko is always trying to bother the poor animals.
+  _wrongDialogue: Not that, something with apple. Maybe with blended apple...
+  _plateIngredientsScripts:
+  - {fileID: 7897004253190308203, guid: 78797eed7ed938849ab69be1cac43051, type: 3}
+  - {fileID: 7897004253190308203, guid: 64b42e02c0997d545afe572539f3d6f3, type: 3}
+  - {fileID: 7897004253190308203, guid: 8fcdeea7cf5751f4e92cacb02822bd57, type: 3}
+  _orderDescription: Apple Pudin

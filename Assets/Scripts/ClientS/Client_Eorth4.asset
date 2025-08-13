@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd111455bca9ba4bb4b1d6daac2e73b, type: 3}
+  m_Name: Client_Eorth4
+  m_EditorClassIdentifier: 
+  _clientName: Rokko
+  _clientIcon: {fileID: 21300000, guid: 8bf7c275875989f4483890f31741273d, type: 3}
+  _clientNumber: 4
+  _isCritic: 0
+  _askingDialogue: Hey. I want to fish some Salmon but my sister over here is such
+    a nuissance. Something about the delicate balance of nature or whatever. I don't
+    care! I'm hungry!!
+  _deliveredDialogue: Huh I thought Salmon tasted better... Wouldn't you mind trying
+    again?
+  _perfectDialogue: HAHA YES! I knew it, Salmon's the best!!
+  _repeatingDialogue: I don't know if she told you something about me but don't believe
+    her, she always got me into trouble with mom and dad.
+  _wrongDialogue: Hmmm no I don't want to eat that. Looks good but I want cooked
+    Salmon!!
+  _plateIngredientsScripts:
+  - {fileID: 7897004253190308203, guid: 78797eed7ed938849ab69be1cac43051, type: 3}
+  - {fileID: 7897004253190308203, guid: 254615f2db4807d48a3c4e96dd212377, type: 3}
+  - {fileID: 7897004253190308203, guid: 3dffbf0233f1b46468ae0a19f02101af, type: 3}
+  _orderDescription: Salmon Plate

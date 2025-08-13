@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd111455bca9ba4bb4b1d6daac2e73b, type: 3}
+  m_Name: Client_Earth1
+  m_EditorClassIdentifier: 
+  _clientName: Murmu
+  _clientIcon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
+  _clientNumber: 1
+  _isCritic: 0
+  _askingDialogue: Hey~ Feel free to take whatever you need from my farm. BUT! I
+    want a plate in return, make me a Salmon Omelette please.
+  _deliveredDialogue: Thank you so much ^^ but as I said, you could improve!
+  _perfectDialogue: Now that's a perfect Salmon Omelette if I've ever seen one!!
+    Thank you~
+  _repeatingDialogue: As I said, my farm's open for you!
+  _wrongDialogue: Uhm... that's not what I want u.u
+  _plateIngredientsScripts:
+  - {fileID: 7897004253190308203, guid: 9b1f471e016db2640b19681af0c20e96, type: 3}
+  - {fileID: 7897004253190308203, guid: b3929f02f19095c4ea060868312be113, type: 3}
+  - {fileID: 7897004253190308203, guid: 254615f2db4807d48a3c4e96dd212377, type: 3}
+  _orderDescription: Salmon Omelette

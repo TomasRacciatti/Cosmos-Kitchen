@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd111455bca9ba4bb4b1d6daac2e73b, type: 3}
+  m_Name: Client_Eorth5
+  m_EditorClassIdentifier: 
+  _clientName: Pororin
+  _clientIcon: {fileID: 21300000, guid: a1d8d38e6a3dab641b9890fa98c475d7, type: 3}
+  _clientNumber: 5
+  _isCritic: 0
+  _askingDialogue: 'Hoi! I was watching you from the window and I got hungry!! Please
+    make me something with fish and apples .w. '
+  _deliveredDialogue: 'It was okay!! '
+  _perfectDialogue: Ohhh~ I loved it
+  _repeatingDialogue: Did I mention I got kicked out of the city for spying on strangers?
+  _wrongDialogue: I can't eat that!! I'm intolerant to anything that isn't Salmon,
+    Apple and Corn.
+  _plateIngredientsScripts:
+  - {fileID: 7897004253190308203, guid: 8fcdeea7cf5751f4e92cacb02822bd57, type: 3}
+  - {fileID: 7897004253190308203, guid: 6ccb2232a72d7704da7f8193fc85b8f3, type: 3}
+  - {fileID: 7897004253190308203, guid: e351df7cb9894c44a943e29a5d1179ba, type: 3}
+  _orderDescription: Fish and Apple Ceviche

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bd111455bca9ba4bb4b1d6daac2e73b, type: 3}
+  m_Name: Client_Earth0
+  m_EditorClassIdentifier: 
+  _clientName: Ozone
+  _clientIcon: {fileID: 21300000, guid: 8b5f843b48f633741bf0f226f88c465b, type: 3}
+  _clientNumber: 0
+  _isCritic: 0
+  _askingDialogue: Salutations, that's a nice space truck you got. Would you mind
+    getting me an Apple Pie?
+  _deliveredDialogue: It's fine I guess. Please get me another one, I'm still insatiable.
+  _perfectDialogue: Damn, that Apple Pie really was perfect. Alright, thanks I won't
+    over again.
+  _repeatingDialogue: This farm is nice, it's nice leaving the big city once in a
+    while.
+  _wrongDialogue: I said Apple Pie, darling. You must have missheard me.
+  _plateIngredientsScripts:
+  - {fileID: 7897004253190308203, guid: 78797eed7ed938849ab69be1cac43051, type: 3}
+  - {fileID: 7897004253190308203, guid: b3929f02f19095c4ea060868312be113, type: 3}
+  - {fileID: 7897004253190308203, guid: 572048504bfc61543ae4a769352a9a38, type: 3}
+  _orderDescription: Apple Pie
