@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using System;
+using UnityEngine.Serialization;
 
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;   
     public static AudioManager instance;
 
-    [SerializeField] AudioSource SFXSource; //NEW
+    [SerializeField] AudioSource _sfxSource; //NEW
     [SerializeField] AudioSource musicSource;
+    
+    public AudioSource SFXSource => _sfxSource;
 
     void Awake()
     {
@@ -39,7 +42,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
         musicSource.loop = true;*/
         musicSource.volume = 0.5f;
-        SFXSource.volume = 0.5f;
+        _sfxSource.volume = 0.5f;
 
         SetSliders();
     }
@@ -64,20 +67,20 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySFX(AudioClip clip)
     {
-        SFXSource.PlayOneShot(clip);
+        _sfxSource.PlayOneShot(clip);
     }
 
     public void StopAllSFX()
     {
-        SFXSource.Stop();
+        _sfxSource.Stop();
     }
 
 
     public void SetSliders()
     {
         AudioSliders.instance.musicSlider.onValueChanged.AddListener((v) => {musicSource.volume = v;});
-        AudioSliders.instance.SFXSlider.onValueChanged.AddListener((v) => {SFXSource.volume = v;});
+        AudioSliders.instance.SFXSlider.onValueChanged.AddListener((v) => {_sfxSource.volume = v;});
         AudioSliders.instance.musicSlider.value = musicSource.volume;
-        AudioSliders.instance.SFXSlider.value = SFXSource.volume;
+        AudioSliders.instance.SFXSlider.value = _sfxSource.volume;
     }
 }
