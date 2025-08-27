@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_SG_WaterWaves
-  m_Shader: {fileID: -6465566751694194690, guid: da4c9b1206710f04992b86c7f2cd01bb,
+  m_Shader: {fileID: -6465566751694194690, guid: 115908dfbcba9534db5dace78848455b,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -39,7 +39,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.5
+    - _DepthRadius: 1
     - _Direction: 1
+    - _FoamDensity: 5
+    - _FoamSpeed: 0.5
+    - _FoamThiccness: 5
     - _Halo: 2.33
     - _QueueControl: 0
     - _QueueOffset: 0
@@ -50,6 +54,8 @@ Material:
     m_Colors:
     - _Color: {r: 0, g: 4, b: 2.7643843, a: 1}
     - _Direction: {r: 1, g: 1, b: 1, a: 0}
+    - _Direction2: {r: 0.5, g: 0, b: 0, a: 0}
+    - _FoamColor: {r: 2.138422, g: 2.216734, b: 1.035173, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1384367267951630871
 MonoBehaviour:
