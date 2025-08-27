@@ -55,7 +55,7 @@ public class PanelManager : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-        CloseAll();
+        //CloseAll();
         _menuManager.ToggleMainMenu();
     }
 
