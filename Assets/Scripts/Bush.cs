@@ -48,7 +48,6 @@ public class Bush : MonoBehaviour
         {
             playerInside = true;
             controller = other.GetComponent<CharacterController>();
-            print("Player is inside");
         }
     }
 
@@ -58,7 +57,6 @@ public class Bush : MonoBehaviour
         {
             playerInside = false;
             controller = null;
-            print("Player is not inside");
         }
     }
 }
