@@ -45,7 +45,7 @@ public class CuttingMinigame : MonoBehaviour, IMinigame
         RotateNeedle();
 
         if (Input.GetKeyDown(KeyCode.Space)) TryCutting();
-        if (Input.GetKeyDown(KeyCode.Escape)) EscapeMinigame();
+        //if (Input.GetKeyDown(KeyCode.Escape)) EscapeMinigame();
     }
 
     void RotateNeedle()
