@@ -1103,6 +1103,7 @@ MonoBehaviour:
     type: 3}
   EnterSound: {fileID: 0}
   FinishSound: {fileID: 8300000, guid: 511d4cfb13a2eb6438e3e1044d13c64e, type: 3}
+  _cornCue: {fileID: 0}
 --- !u!65 &610727193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2394,6 +2395,7 @@ MonoBehaviour:
     type: 3}
   EnterSound: {fileID: 8300000, guid: 0d549fd43df74d8468dd81e024e06d35, type: 3}
   FinishSound: {fileID: 8300000, guid: 79a6cd03b52b97941b2be4612eb52cd8, type: 3}
+  _cornCue: {fileID: 0}
 --- !u!65 &1301393993
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2853,6 +2855,7 @@ MonoBehaviour:
     type: 3}
   EnterSound: {fileID: 8300000, guid: 0d549fd43df74d8468dd81e024e06d35, type: 3}
   FinishSound: {fileID: 8300000, guid: 79a6cd03b52b97941b2be4612eb52cd8, type: 3}
+  _cornCue: {fileID: 0}
 --- !u!65 &1431279822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4427,6 +4430,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc073fb7933b9764aa649508af2a9e30, type: 3}
+--- !u!82 &1918442321 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 7972001247620843872, guid: 158293c0c4b37794f9654ef4d6076791,
+    type: 3}
+  m_PrefabInstance: {fileID: 699665400096020578}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1924700894 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 900508918807700964, guid: 634bba6e52f08f64bb54ee11c317265f,
@@ -5017,6 +5026,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1183293600414669771, guid: 158293c0c4b37794f9654ef4d6076791,
+        type: 3}
+      propertyPath: _sfxSource
+      value: 
+      objectReference: {fileID: 1918442321}
     - target: {fileID: 1183293600414669771, guid: 158293c0c4b37794f9654ef4d6076791,
         type: 3}
       propertyPath: musicSource
