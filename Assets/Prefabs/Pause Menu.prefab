@@ -4372,10 +4372,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13ed18fac7637b44b2db6379e24aaae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolumeSlider: {fileID: 9206346584461449805}
-  musicVolumeSlider: {fileID: 8771025094187607531}
-  sfxVolumeSlider: {fileID: 8887344606481544636}
+  masterSlider: {fileID: 9206346584461449805}
+  musicSlider: {fileID: 8887344606481544636}
+  sfxSlider: {fileID: 8771025094187607531}
   fullscreenToggle: {fileID: 1739468483603833085}
+  store: {fileID: 11400000, guid: f82f9831baa44154b90e284de0184594, type: 2}
+  applier: {fileID: 11400000, guid: 94cc1ffdcdb74434aac881684a6353e8, type: 2}
+  menuManager: {fileID: 3461332820694971692}
 --- !u!1 &7715140530031557498
 GameObject:
   m_ObjectHideFlags: 0

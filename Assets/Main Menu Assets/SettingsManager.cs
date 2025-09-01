@@ -1,82 +1,70 @@
+using System;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("Configuración de Audio")]
-    [SerializeField] private Slider masterVolumeSlider;
-    [SerializeField] private Slider musicVolumeSlider;
-    [SerializeField] private Slider sfxVolumeSlider;
-
-    [Header("Configuración de Graficos")]
-    // [SerializeField] private TMP_Dropdown resolutionDropdown;
-    // [SerializeField] private TMP_Dropdown qualityDropdown;
+    [FormerlySerializedAs("masterVolumeSlider")]
+    [Header("UI")]
+    [SerializeField] private Slider masterSlider;
+    [SerializeField] private Slider musicSlider;
+    [SerializeField] private Slider sfxSlider;
     [SerializeField] private Toggle fullscreenToggle;
+    
+    [Header("Backend")]
+    [SerializeField] private PlayerPrefAudioStore_SO store;
+    [SerializeField] private AudioMixerApplier_SO applier;
+    
+    [Header("Safe find")]
+    [SerializeField] private MenuManager menuManager;
+
+    private void Awake()
+    {
+        ConfigureSlider(masterSlider);
+        ConfigureSlider(musicSlider);
+        ConfigureSlider(sfxSlider);
+    }
+    
+    // Helper para asegurarnos que los valores estend donde los queremos. No es verdaderamente necesario pero  
+    // nos ayuda a evitar errores
+    private static void ConfigureSlider(Slider s)
+    {
+        s.minValue = 0.0001f;
+        s.maxValue = 1f;
+        s.wholeNumbers = false;
+    }
 
     private void Start()
     {
-        // Music Sliders
-        masterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1f);
-        musicVolumeSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
-        sfxVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
+        masterSlider.SetValueWithoutNotify(store.Master);
+        musicSlider.SetValueWithoutNotify(store.Music);
+        sfxSlider.SetValueWithoutNotify(store.Sfx);
 
-        // Resoluciones disponibles
-        // SetupResolutions();
-
-        // qualityDropdown.value = QualitySettings.GetQualityLevel();
+        applier.ApplyAll(store.Master, store.Music, store.Sfx);
+        
         fullscreenToggle.isOn = Screen.fullScreen;
+        
+        masterSlider.onValueChanged.AddListener(OnMasterChanged);
+        musicSlider.onValueChanged.AddListener(OnMusicChanged);
+        sfxSlider.onValueChanged.AddListener(OnSfxChanged);
+        fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
     }
-
-    public void SetMasterVolume(float volume)
-    {
-        PlayerPrefs.SetFloat("MasterVolume", volume);
-    }
-
-    public void SetMusicVolume(float volume)
-    {
-        PlayerPrefs.SetFloat("MusicVolume", volume);
-    }
-
-    public void SetSFXVolume(float volume)
-    {
-        PlayerPrefs.SetFloat("SFXVolume", volume);
-    }
-
-    public void SetFullscreen(bool isFullscreen)
-    {
-        Screen.fullScreen = isFullscreen;
-    }
+    
+    private void OnMasterChanged(float volume) { store.Master = volume; applier.ApplyMaster(volume);}
+    private void OnMusicChanged (float volume) { store.Music = volume; applier.ApplyMusic(volume);}
+    private void OnSfxChanged   (float volume) { store.Sfx = volume; applier.ApplySfx(volume);}
+    
+    private void SetFullscreen(bool isFullscreen) => Screen.fullScreen = isFullscreen;
 
     public void SaveSettings()
     {
-        PlayerPrefs.Save();
-        FindObjectOfType<MenuManager>().ShowMainMenu();
+        store.Save();
+        
+        if (menuManager != null) 
+            menuManager.ShowMainMenu();
+        else // Fallback por las dudas pero no deberia entrar aca si asigno desde el inspector
+            FindObjectOfType<MenuManager>()?.ShowMainMenu();
     }
-    
-    /* private void SetupResolutions()
-    {
-        resolutionDropdown.ClearOptions();
-
-        Resolution[] resolutions = Screen.resolutions;
-
-        foreach (Resolution res in resolutions)
-        {
-            resolutionDropdown.options.Add(new TMP_Dropdown.OptionData(res.width + "x" + res.height));
-        }
-
-        resolutionDropdown.value = resolutions.Length - 1;
-        resolutionDropdown.RefreshShownValue();
-    }
-
-   public void SetQuality(int qualityIndex)
-   {
-       QualitySettings.SetQualityLevel(qualityIndex);
-   }
-
-   public void SetResolution(int resolutionIndex)
-    {
-        Resolution resolution = Screen.resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-    } */
 }

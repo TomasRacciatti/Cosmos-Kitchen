@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource _sfxSource; //NEW
     [SerializeField] AudioSource musicSource;
     
+    
+    
     public AudioSource SFXSource => _sfxSource;
 
     void Awake()

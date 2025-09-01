@@ -4801,10 +4801,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13ed18fac7637b44b2db6379e24aaae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterVolumeSlider: {fileID: 1568519601}
-  musicVolumeSlider: {fileID: 1886062146}
-  sfxVolumeSlider: {fileID: 470410236}
+  masterSlider: {fileID: 1568519601}
+  musicSlider: {fileID: 470410236}
+  sfxSlider: {fileID: 1886062146}
   fullscreenToggle: {fileID: 2105523198}
+  store: {fileID: 11400000, guid: f82f9831baa44154b90e284de0184594, type: 2}
+  applier: {fileID: 11400000, guid: 94cc1ffdcdb74434aac881684a6353e8, type: 2}
+  menuManager: {fileID: 543434580}
 --- !u!4 &1495739130
 Transform:
   m_ObjectHideFlags: 0
