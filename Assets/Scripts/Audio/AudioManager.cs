@@ -13,6 +13,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource _sfxSource; //NEW
     [SerializeField] AudioSource musicSource;
     
+    
+    
     public AudioSource SFXSource => _sfxSource;
 
     void Awake()
@@ -26,7 +28,7 @@ public class AudioManager : MonoBehaviour
         
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
+            s.source = gameObject.AddComponent<AudioSource>(); // Esto NO tiene que estar!!!
             s.source.clip = s.clip;
             
             s.source.volume = s.volume;

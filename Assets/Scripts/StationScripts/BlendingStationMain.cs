@@ -85,7 +85,7 @@ public class BlendingStationMain : MonoBehaviour, IDropHandler
             _ingredientInSlot.ProcessFood(CookingState.Blended, _qualityResult);
             InventoryManager._instance.Add(_itemInSlot);
 
-            AudioSource source = gameObject.AddComponent<AudioSource>();
+            AudioSource source = AudioManager.instance.SFXSource;
             source.clip = StationSound;
             source.Play();
             StartCoroutine(FadeOutSFX(source, 1.2f));
