@@ -10,10 +10,10 @@ public class AudioManager : MonoBehaviour
     public Sound[] sounds;   
     public static AudioManager instance;
 
-    [SerializeField] AudioSource _sfxSource; //NEW
+    [SerializeField] AudioSource _sfxSource;
     [SerializeField] AudioSource musicSource;
     
-    
+    private Dictionary<string, Sound> _byName;
     
     public AudioSource SFXSource => _sfxSource;
 
@@ -24,65 +24,44 @@ public class AudioManager : MonoBehaviour
             instance = this;
         else { Destroy(gameObject); return; }
         
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
         
-        foreach (Sound s in sounds)
-        {
-            s.source = gameObject.AddComponent<AudioSource>(); // Esto NO tiene que estar!!!
-            s.source.clip = s.clip;
-            
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.spatialBlend = s.spatialBlend;
-            s.source.loop = s.loop;
-        }
-    }
-
-    void Start()
-    {
-        /*musicSource.clip = background;
-        musicSource.Play();
-        musicSource.loop = true;*/
-        musicSource.volume = 0.5f;
-        _sfxSource.volume = 0.5f;
-
-        SetSliders();
+        _byName = new Dictionary<string, Sound>(StringComparer.Ordinal);
+        foreach (var s in sounds) _byName[s.name] = s;
     }
 
     public void SetAmbiance(AudioClip background)
     {
         musicSource.clip = background;
-        musicSource.Play();
         musicSource.loop = true;
+        musicSource.Play();
     }
 
     public void Play(string name)
     {
-        Sound s = Array.Find(sounds, sound => sound.name == name);
-        if (s == null)
+        if (!_byName.TryGetValue(name, out var s))
         {
-            Debug.LogWarning( "Audio: " + name + " not found.");
+            Debug.LogWarning($"Audio: {name} not found.");
             return;
         }
-        s.source.Play();
+
+        // apply per-sound pitch momentarily, then restore
+        float prevPitch = _sfxSource.pitch;
+        _sfxSource.pitch = s.pitch;
+        _sfxSource.PlayOneShot(s.clip, s.volume);
+        _sfxSource.pitch = prevPitch;
     }
 
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip, float volume = 1f, float pitch = 1f)
     {
-        _sfxSource.PlayOneShot(clip);
+        float prevPitch = _sfxSource.pitch;
+        _sfxSource.pitch = pitch;
+        _sfxSource.PlayOneShot(clip, volume);
+        _sfxSource.pitch = prevPitch;
     }
 
     public void StopAllSFX()
     {
         _sfxSource.Stop();
-    }
-
-
-    public void SetSliders()
-    {
-        AudioSliders.instance.musicSlider.onValueChanged.AddListener((v) => {musicSource.volume = v;});
-        AudioSliders.instance.SFXSlider.onValueChanged.AddListener((v) => {_sfxSource.volume = v;});
-        AudioSliders.instance.musicSlider.value = musicSource.volume;
-        AudioSliders.instance.SFXSlider.value = _sfxSource.volume;
     }
 }
