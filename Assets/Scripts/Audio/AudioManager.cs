@@ -1,33 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 using System;
-using UnityEngine.Serialization;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;   
+    [Header("Funcionalidad")] 
+    public Sound[] sounds;
     public static AudioManager instance;
 
     [SerializeField] AudioSource _sfxSource;
     [SerializeField] AudioSource musicSource;
-    
-    private Dictionary<string, Sound> _byName;
-    
-    public AudioSource SFXSource => _sfxSource;
 
+    [SerializeField] private PlayerPrefAudioStore_SO store;
+    [SerializeField] private AudioMixerApplier_SO applier;
+
+    private Dictionary<string, Sound> _byName;
+
+    public AudioSource SFXSource => _sfxSource;
+    
+    
     void Awake()
     {
-        
         if (instance == null)
             instance = this;
-        else { Destroy(gameObject); return; }
-        
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         DontDestroyOnLoad(gameObject);
-        
+
         _byName = new Dictionary<string, Sound>(StringComparer.Ordinal);
         foreach (var s in sounds) _byName[s.name] = s;
+
+        applier.ApplyAll(store.Master, store.Music, store.Sfx);
+        
+        StartCoroutine(DelayedApplySavedVolumes());
+    }
+    
+    private IEnumerator DelayedApplySavedVolumes()
+    {
+        yield return null;
+        
+        applier.ApplyAll(store.Master, store.Music, store.Sfx);
+        
     }
 
     public void SetAmbiance(AudioClip background)
