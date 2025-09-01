@@ -14,7 +14,7 @@ public class AudioSliders : MonoBehaviour
 
     void Start()
     {
-        AudioManager.instance.SetSliders();
+        //AudioManager.instance.SetSliders();
     }
 
     public Slider musicSlider;
