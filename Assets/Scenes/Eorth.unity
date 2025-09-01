@@ -4414,7 +4414,7 @@ PrefabInstance:
     - target: {fileID: 7100194766886865636, guid: 7c1d49f25689dd54bbafc2e0235c4a44,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4489,12 +4489,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc073fb7933b9764aa649508af2a9e30, type: 3}
---- !u!82 &1918442321 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7972001247620843872, guid: 158293c0c4b37794f9654ef4d6076791,
-    type: 3}
-  m_PrefabInstance: {fileID: 699665400096020578}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1924700894 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 900508918807700964, guid: 634bba6e52f08f64bb54ee11c317265f,
@@ -5085,11 +5079,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 880157622}
     m_Modifications:
-    - target: {fileID: 1183293600414669771, guid: 158293c0c4b37794f9654ef4d6076791,
-        type: 3}
-      propertyPath: _sfxSource
-      value: 
-      objectReference: {fileID: 1918442321}
     - target: {fileID: 1183293600414669771, guid: 158293c0c4b37794f9654ef4d6076791,
         type: 3}
       propertyPath: musicSource
