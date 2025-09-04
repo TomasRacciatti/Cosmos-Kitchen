@@ -27,12 +27,12 @@ public class Column : MonoBehaviour
         balls.Push(ball);
         ball.fromColumn = this;
         ball.transform.SetParent(transform, false);
+        ball.transform.SetAsFirstSibling();
     }
 
     public bool TryPopBall(Ball ball)
     {
-        if (balls.Count == 0) return false;
-        if (!ReferenceEquals(balls.Peek(), ball)) return false;
+        if (balls.Count == 0 || balls.Peek() != ball) return false;
 
         balls.Pop();
         return true;
