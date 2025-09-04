@@ -22,32 +22,27 @@ public class BallSortLogic : MonoBehaviour
     private void SetupPuzzle()
     {
         foreach (var column in allColumns)
-        {
-            foreach (Transform child in column.transform)
-                Destroy(child.gameObject);
-            column.balls.Clear();
-        }
+            column.ClearAll();
 
-        List<Color> allBalls = new List<Color>();
-        foreach (Color color in ballColors)
-        {
+        var allBalls = new List<Color>();
+        foreach (var color in ballColors)
             for (int i = 0; i < ballsPerColumn; i++)
                 allBalls.Add(color);
-        }
 
         System.Random rnd = new System.Random();
-        allBalls = allBalls.OrderBy(x => rnd.Next()).ToList();
+        allBalls = allBalls.OrderBy(_ => rnd.Next()).ToList();
 
         int colIndex = 0;
-        foreach (Color color in allBalls)
+        foreach (var color in allBalls)
         {
             Column column = allColumns[colIndex % (allColumns.Count - 1)];
-            GameObject ball = Instantiate(ballPrefab, column.transform);
-            Ball ballScript = ball.GetComponent<Ball>();
+            GameObject ball = Instantiate(ballPrefab);
+            var ballScript = ball.GetComponent<Ball>();
             ballScript.SetColor(color);
             ballScript.fromColumn = column;
-            ballScript.canvas = column.canvas;
-            column.AddBall(ball);
+            //ballScript.canvas = column.canvas;
+
+            column.PushBall(ballScript);
             colIndex++;
         }
     }
@@ -58,34 +53,25 @@ public class BallSortLogic : MonoBehaviour
 
         foreach (var column in allColumns)
         {
-            if (column.balls.Count != ballsPerColumn)
+            // rely on UI hierarchy count
+            if (column.transform.childCount != ballsPerColumn)
                 continue;
 
-            Color? targetColor = null;
+            Color? target = null;
             bool allSame = true;
 
-            foreach (var ballObj in column.balls)
+            foreach (Transform child in column.transform)
             {
-                if (ballObj == null) continue;
+                var b = child.GetComponent<Ball>();
+                if (b == null) continue;
 
-                Ball ball = ballObj.GetComponent<Ball>();
-                if (ball == null) continue;
-
-                if (targetColor == null)
-                {
-                    targetColor = ball.GetColor();
-                }
-                else if (ball.GetColor() != targetColor)
-                {
-                    allSame = false;
-                    break;
-                }
+                if (target == null) target = b.GetColor();
+                else if (b.GetColor() != target) { allSame = false; break; }
             }
 
-            if (allSame)
-                validColumns++;
+            if (allSame) validColumns++;
         }
 
-        return validColumns == 3;
+        return validColumns == ballColors.Length;
     }
 }

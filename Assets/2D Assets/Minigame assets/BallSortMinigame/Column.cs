@@ -4,55 +4,50 @@ using UnityEngine;
 
 public class Column : MonoBehaviour
 {
-    public Stack<GameObject> balls = new Stack<GameObject>();
-    public Canvas canvas;
     [SerializeField] private int maxBalls = 3;
-
-    public void AddBall(GameObject ballObj)
-    {
-        ballObj.transform.SetParent(transform);
-        ballObj.transform.SetSiblingIndex(transform.childCount);
-        balls.Push(ballObj);
-        UpdateBallInteractivity();
-    }
-
-    public void RemoveBall(Ball ball)
-    {
-        Stack<GameObject> tempStack = new Stack<GameObject>();
-        bool removed = false;
-
-        while (balls.Count > 0)
-        {
-            var top = balls.Pop();
-            if (!removed && top == ball.gameObject)
-            {
-                removed = true;
-                continue;
-            }
-            tempStack.Push(top);
-        }
-
-        while (tempStack.Count > 0)
-            balls.Push(tempStack.Pop());
-
-        UpdateBallInteractivity();
-    }
-
-    public void UpdateBallInteractivity()
-    {
-        foreach (var ballObj in balls)
-        {
-            if (ballObj == null) continue;
-
-            CanvasGroup cg = ballObj.GetComponent<CanvasGroup>();
-            if (cg == null) continue;
-
-            cg.blocksRaycasts = true;
-        }
-    }
+    
+    private readonly Stack<Ball> balls = new Stack<Ball>();
+    public int BallCount => balls.Count;
+    public int Capacity => maxBalls;
+    public bool IsEmpty => balls.Count == 0;
+    
+    public Ball TopBall => balls.Count > 0 ? balls.Peek() : null;
+    public bool IsTop(Ball ball) => TopBall == ball.gameObject;
 
     public bool CanAddBall(Ball ball)
     {
-        return balls.Count < maxBalls;
+        if (ball == null) return false;
+        if (balls.Count >= maxBalls) return false;
+
+        return true;
+    }
+
+    public void PushBall(Ball ball)
+    {
+        balls.Push(ball);
+        ball.fromColumn = this;
+        ball.transform.SetParent(transform, false);
+    }
+
+    public bool TryPopBall(Ball ball)
+    {
+        if (balls.Count == 0) return false;
+        if (!ReferenceEquals(balls.Peek(), ball)) return false;
+
+        balls.Pop();
+        return true;
+    }
+    
+    public void AddBall(GameObject ballGO)
+    {
+        var ball = ballGO.GetComponent<Ball>();
+        PushBall(ball);
+    }
+    
+    public void ClearAll()
+    {
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
+        balls.Clear();
     }
 }

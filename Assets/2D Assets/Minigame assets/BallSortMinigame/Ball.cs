@@ -7,128 +7,138 @@ public class Ball : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
 {
     public Canvas canvas;
     public Column fromColumn;
-
-    private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
-    private Vector3 originalPosition;
-    private int originalSiblingIndex;
-    private Color ballColor;
-    private Vector2 dragOffset;
-    private Transform originalParent;
-    private Transform dragLayer;
-
-    [Header("SFX")]
+    
+    [Header("SFX")] 
     [SerializeField] AudioClip DragSound;
     [SerializeField] AudioClip DropSound;
+    
+    private RectTransform _rt;
+    private CanvasGroup _cg;
+    private Transform _originalParent;
+    private int _originalSiblingIndex;
+    private Vector3 _originalPosition;
+    private bool _draggingAllowed;
+    private RectTransform _dragLayer;
+    private Vector2 _dragOffset;
+    private GraphicRaycaster _raycaster;
 
+    private Color _ballColor = Color.white;
+    
     private void Awake()
     {
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup = GetComponent<CanvasGroup>();
+        _rt = GetComponent<RectTransform>();
+        _cg = GetComponent<CanvasGroup>();
     }
-
-    public void SetColor(Color color)
-    {
-        ballColor = color;
-        GetComponent<Image>().color = color;
-    }
-
-    public Color GetColor()
-    {
-        return ballColor;
-    }
-
-    public void OnBeginDrag(PointerEventData eventData)
-{
-    AudioManager.instance.StopAllSFX();
-    AudioManager.instance.PlaySFX(DragSound);
     
-    originalPosition = rectTransform.anchoredPosition;
-    originalSiblingIndex = rectTransform.GetSiblingIndex();
-    originalParent = transform.parent;
+    private void Start()
+    {
+        if (canvas == null)
+            canvas = GetComponentInParent<Canvas>();
 
-    canvasGroup.blocksRaycasts = false;
+        _raycaster = canvas != null
+            ? canvas.GetComponent<GraphicRaycaster>() ?? canvas.gameObject.AddComponent<GraphicRaycaster>()
+            : null;
 
-    if (dragLayer == null)
-        dragLayer = canvas.transform.Find("DragLayer");
+        var t = canvas != null ? canvas.transform.Find("DragLayer") : null;
+        if (t != null) _dragLayer = t as RectTransform;
+    }
+    
+    #region Color API
+    public void SetColor(Color c)
+    {
+        _ballColor = c;
+        var img = GetComponent<Image>();
+        if (img != null) img.color = c;
+    }
 
-    if (dragLayer != null)
-        transform.SetParent(dragLayer, worldPositionStays: false);
-
-    RectTransform columnRect = fromColumn.transform as RectTransform;
-    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        columnRect,
-        eventData.position,
-        canvas.worldCamera,
-        out Vector2 localPoint);
-
-    dragOffset = rectTransform.anchoredPosition - localPoint;
-}
+    public Color GetColor() => _ballColor;
+    #endregion
+    
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        // Only allow if we are at the top of our source column
+        _draggingAllowed = (fromColumn != null && fromColumn.TopBall == this);
+        if (!_draggingAllowed) return;
 
 
+        _originalParent = transform.parent;
+        _originalSiblingIndex = transform.GetSiblingIndex();
+        _originalPosition = _rt.anchoredPosition;
+
+        // Move to drag layer (or canvas) so we’re visually on top
+        var newParent = (Transform)_dragLayer ?? canvas.transform;
+        transform.SetParent(newParent, true);
+
+        // Block raycasts from this ball while dragging so the ray hits the drop areas
+        if (_cg != null) _cg.blocksRaycasts = false;
+
+        // Offset so the cursor grabs where you clicked, not the center
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            _rt, eventData.position, eventData.pressEventCamera, out _dragOffset);
+
+        if (AudioManager.instance != null && DragSound != null)
+            AudioManager.instance.PlaySFX(DragSound);
+    }
+    
     public void OnDrag(PointerEventData eventData)
     {
-        
-        if (canvas == null || fromColumn == null) return;
+        if (!_draggingAllowed) return;
 
-        RectTransform columnRect = fromColumn.transform as RectTransform;
+        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            columnRect,
-            eventData.position,
-            canvas.worldCamera,
-            out Vector2 localPoint);
+            canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
 
-        rectTransform.anchoredPosition = localPoint + dragOffset;
+        // Keep the click offset so the ball doesn’t “jump” under the cursor
+        _rt.anchoredPosition = localPoint - _dragOffset;
     }
-
+    
     public void OnEndDrag(PointerEventData eventData)
     {
-        AudioManager.instance.StopAllSFX();
-        AudioManager.instance.PlaySFX(DropSound);
-        
-        canvasGroup.blocksRaycasts = true;
+        if (!_draggingAllowed) return;
 
-        Column targetColumn = null;
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, results);
-        foreach (var result in results)
-        {
-            Column col = result.gameObject.GetComponent<Column>();
-            if (col != null)
-            {
-                targetColumn = col;
-                break;
-            }
-        }
+        // Re-enable raycasts from this ball
+        if (_cg != null) _cg.blocksRaycasts = true;
 
-        if (targetColumn != null && targetColumn.CanAddBall(this))
+        // Find a drop area under the pointer
+        ColumnDropArea dropArea = RaycastForDropArea(eventData);
+
+        if (dropArea != null && dropArea.column != null && dropArea.column.CanAddBall(this))
         {
-            if (targetColumn != fromColumn)
-            {
-                fromColumn.RemoveBall(this);
-                targetColumn.AddBall(gameObject);
-                fromColumn = targetColumn;
-            }
-            UpdatePositionToColumnTop();
-            fromColumn.UpdateBallInteractivity();
+            // Update stacks (source pop first, then push into target)
+            if (fromColumn != null) fromColumn.TryPopBall(this);
+            dropArea.column.PushBall(this);
+
+            if (AudioManager.instance != null && DropSound != null)
+                AudioManager.instance.PlaySFX(DropSound);
         }
         else
         {
-            ReturnToOriginalPosition();
-            fromColumn.UpdateBallInteractivity();
+            // Snap back to original position/parent and keep stack unchanged
+            transform.SetParent(_originalParent, worldPositionStays: true);
+            transform.SetSiblingIndex(_originalSiblingIndex);
+            _rt.anchoredPosition = _originalPosition;
+
+            if (AudioManager.instance != null && DropSound != null)
+                AudioManager.instance.PlaySFX(DropSound);
         }
+
+        _draggingAllowed = false;
+    }
+    
+    private ColumnDropArea RaycastForDropArea(PointerEventData eventData)
+    {
+        if (_raycaster == null) return null;
+
+        var results = new List<RaycastResult>();
+        _raycaster.Raycast(eventData, results);
+
+        for (int i = 0; i < results.Count; i++)
+        {
+            var go = results[i].gameObject;
+            var area = go.GetComponent<ColumnDropArea>();
+            if (area != null) return area;
+        }
+        return null;
     }
 
-    private void UpdatePositionToColumnTop()
-    {
-        rectTransform.SetParent(fromColumn.transform);
-        rectTransform.SetSiblingIndex(fromColumn.balls.Count - 1);
-        rectTransform.anchoredPosition = new Vector2(0, -30 * (fromColumn.balls.Count - 1));
-    }
-
-    private void ReturnToOriginalPosition()
-    {
-        rectTransform.anchoredPosition = originalPosition;
-        rectTransform.SetSiblingIndex(originalSiblingIndex);
-    }
 }
