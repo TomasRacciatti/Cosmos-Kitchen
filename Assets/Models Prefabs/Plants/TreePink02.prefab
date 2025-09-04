@@ -126,6 +126,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3278292906577859618}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 455453a04d3ca0247b4721ead404cc80,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5342122793114785677}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 455453a04d3ca0247b4721ead404cc80,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 289254775886393663}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 455453a04d3ca0247b4721ead404cc80,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1980887874305985852}
   m_SourcePrefab: {fileID: 100100000, guid: 455453a04d3ca0247b4721ead404cc80, type: 3}
 --- !u!23 &398341299423806350 stripped
 MeshRenderer:
@@ -250,6 +262,69 @@ LODGroup:
     fadeTransitionWidth: 0
     renderers: []
   m_Enabled: 1
+--- !u!135 &5342122793114785677
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265016245449884759}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 1.22, y: 6.29, z: 1.88}
+--- !u!135 &289254775886393663
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265016245449884759}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.3
+  m_Center: {x: 0.62, y: 5, z: -2.1}
+--- !u!135 &1980887874305985852
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265016245449884759}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.6
+  m_Center: {x: -2.09, y: 5, z: -0.66}
 --- !u!23 &8878388004853517473 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: -6843509781152877145, guid: 455453a04d3ca0247b4721ead404cc80,
