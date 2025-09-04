@@ -20,6 +20,7 @@ public class Ball : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     private bool _draggingAllowed;
     private RectTransform _dragLayer;
     private Vector2 _dragOffset;
+    private RectTransform _parentRect;
     private GraphicRaycaster _raycaster;
 
     private Color _ballColor = Color.white;
@@ -56,7 +57,6 @@ public class Ball : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // Only allow if we are at the top of our source column
         _draggingAllowed = (fromColumn != null && fromColumn.TopBall == this);
         if (!_draggingAllowed) return;
 
@@ -65,16 +65,18 @@ public class Ball : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
         _originalSiblingIndex = transform.GetSiblingIndex();
         _originalPosition = _rt.anchoredPosition;
 
-        // Move to drag layer (or canvas) so we’re visually on top
         var newParent = (Transform)_dragLayer ?? canvas.transform;
-        transform.SetParent(newParent, true);
-
-        // Block raycasts from this ball while dragging so the ray hits the drop areas
-        if (_cg != null) _cg.blocksRaycasts = false;
-
-        // Offset so the cursor grabs where you clicked, not the center
+        transform.SetParent(newParent, worldPositionStays: true);
+        _rt.localScale = Vector3.one;
+        
+        _parentRect = newParent as RectTransform;
+        
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            _rt, eventData.position, eventData.pressEventCamera, out _dragOffset);
+            _parentRect, eventData.position, eventData.pressEventCamera, out var mouseLocal);
+        
+        _dragOffset = _rt.anchoredPosition - mouseLocal;
+        
+        if (_cg != null) _cg.blocksRaycasts = false;
 
         if (AudioManager.instance != null && DragSound != null)
             AudioManager.instance.PlaySFX(DragSound);
@@ -84,20 +86,16 @@ public class Ball : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHand
     {
         if (!_draggingAllowed) return;
 
-        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out localPoint);
+            _parentRect, eventData.position, eventData.pressEventCamera, out var mouseLocal);
 
-        // Keep the click offset so the ball doesn’t “jump” under the cursor
-        _rt.anchoredPosition = localPoint - _dragOffset;
+        _rt.anchoredPosition = mouseLocal + _dragOffset;
     }
     
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!_draggingAllowed) return;
-
-        // Re-enable raycasts from this ball
-        if (_cg != null) _cg.blocksRaycasts = true;
+        if (_cg) _cg.blocksRaycasts = true;
 
         // Find a drop area under the pointer
         ColumnDropArea dropArea = RaycastForDropArea(eventData);
