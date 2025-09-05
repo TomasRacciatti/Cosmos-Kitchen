@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Audio;
 using UnityEngine;
 
-public class CutDownMinigame : MonoBehaviour
+public class PickupMinigame : MonoBehaviour
 {
     [SerializeField] GameObject _ingredientPrefab;
     private bool _interactionEnabled = false;
