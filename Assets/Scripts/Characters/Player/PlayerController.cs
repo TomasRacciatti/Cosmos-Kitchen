@@ -1,16 +1,20 @@
-﻿using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
+﻿using Cinemachine;
+using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
 namespace Characters.Player
 {
+    public enum ECameraMode
+    {
+        ThirdPerson,
+        FirstPerson
+    }
+    
     [RequireComponent(typeof(CharacterController))]
-#if ENABLE_INPUT_SYSTEM
-    [RequireComponent(typeof(PlayerInput))]
-#endif
+    [RequireComponent(typeof(PlayerInputs))]
+    [RequireComponent(typeof(PlayerView))]
     public class PlayerController : MonoBehaviour
     {
         [Header("Player")]
@@ -29,16 +33,23 @@ namespace Characters.Player
         
         [Header("Player Grounded")]
         public bool grounded = true;
-        [FormerlySerializedAs("GroundLayers")] public LayerMask groundLayers;
+        public LayerMask groundLayers;
 
         [Header("Cinemachine")]
         public GameObject cinemachineCameraTarget;
         public float topClamp = 85f;
         public float bottomClamp = -85f;
         
-        public float cameraAngleOverride = 0.0f;
+        public float cameraAngleOverride;
         
-        public bool lockCameraPosition = false;
+        public bool lockCameraPosition;
+        
+        [SerializeField] private Camera mainCamera;
+        [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
+        [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
+        
+        [Header("Movement Options")]
+        [SerializeField] private bool lockForwardFacing;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -47,7 +58,7 @@ namespace Characters.Player
         // player
         private float _speed;
         private float _animationBlend;
-        private float _targetRotation = 0.0f;
+        private float _targetRotation;
         private float _rotationVelocity;
         private float _verticalVelocity;
         private const float TerminalVelocity = 50.0f;
@@ -55,26 +66,19 @@ namespace Characters.Player
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
-
-#if ENABLE_INPUT_SYSTEM
-        private PlayerInput _playerInput;
-#endif
+        
         private CharacterController _controller;
         private PlayerInputs _input;
-        private GameObject _mainCamera;
         private CharacterController _characterController;
         private PlayerView _playerView;
 
-        private const float _threshold = 0.01f;
+        private const float Threshold = 0.01f;
+        
+        private ECameraMode _cameraMode = ECameraMode.ThirdPerson;
 
 
         private void Awake()
         {
-            // get a reference to our main camera
-            if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-            }
             _characterController = GetComponent<CharacterController>();
             _playerView = GetComponent<PlayerView>();
         }
@@ -84,14 +88,10 @@ namespace Characters.Player
             _cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<PlayerInputs>();
-#if ENABLE_INPUT_SYSTEM
-            _playerInput = GetComponent<PlayerInput>();
-#else
-			Debug.LogError( "Starter Assets package is missing dependencies. Please use Tools/Starter Assets/Reinstall Dependencies to fix it");
-#endif
-            // reset our timeouts on start
             _jumpTimeoutDelta = jumpTimeout;
             _fallTimeoutDelta = fallTimeout;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void Update()
@@ -161,7 +161,7 @@ namespace Characters.Player
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !lockCameraPosition)
+            if (_input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
                 _cinemachineTargetYaw += _input.look.x;
                 _cinemachineTargetPitch += _input.look.y;
@@ -178,30 +178,15 @@ namespace Characters.Player
 
         private void HorizontalMovement()
         {
-            // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
-
-            // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
-
-            // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is no input, set the target speed to 0
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-
-            // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
-
             float speedOffset = 0.1f;
-
-            // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
             {
-                // creates curved result rather than a linear one giving a more organic speed change
-                // note T in Lerp is clamped, so we don't need to clamp our speed
                 _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed,
                     Time.deltaTime * speedChangeRate);
-
-                // round speed to 3 decimal places
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
@@ -212,24 +197,34 @@ namespace Characters.Player
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * speedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            
+            Vector3 targetDirection;
 
-            // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
-            // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
+            if (!lockForwardFacing)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    rotationSmoothTime);
+                if (_input.move != Vector2.zero)
+                {
+                    _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
+                                      mainCamera.transform.eulerAngles.y;
+                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                        rotationSmoothTime);
 
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
+
+                targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
             }
-
-
-            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+            else
+            {
+                float cameraYaw = mainCamera.transform.eulerAngles.y;
+                transform.rotation = Quaternion.Euler(0.0f, cameraYaw, 0.0f);
+                
+                targetDirection = mainCamera.transform.forward * inputDirection.z +
+                                  mainCamera.transform.right * inputDirection.x;
+                targetDirection.y = 0f;
+                targetDirection.Normalize();
+            }
 
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
@@ -303,6 +298,22 @@ namespace Characters.Player
         private void OnFootstep(AnimationEvent animationEvent)
         {
             _playerView.Footstep();
+        }
+
+        public void SwitchCameraMode()
+        {
+            _cameraMode = _cameraMode != ECameraMode.ThirdPerson ? ECameraMode.ThirdPerson : ECameraMode.FirstPerson;
+            switch (_cameraMode)
+            {
+                case ECameraMode.FirstPerson:
+                    firstPersonCamera.Priority = 20;
+                    lockForwardFacing = true;
+                    break;
+                case ECameraMode.ThirdPerson:
+                    firstPersonCamera.Priority = 0;
+                    lockForwardFacing = false;
+                    break;
+            }
         }
     }
 }

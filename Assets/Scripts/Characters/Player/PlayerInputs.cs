@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
+
+	
 	public class PlayerInputs : MonoBehaviour
 	{
 		[Header("Character Input Values")]
@@ -32,13 +34,32 @@ namespace Characters.Player
 
 		public void OnJump(InputValue value)
 		{
+			/*
 			jump = value.isPressed;
-			//if (jump) _playerController.Jump(); //Jump Commented
+			if (jump) _playerController.Jump();
+			//Jump Commented
+			*/
 		}
 
 		public void OnSprint(InputValue value)
 		{
 			sprint = value.isPressed;
+		}
+		
+		public void OnInteract(InputValue value)
+		{
+			if (value.isPressed)
+			{
+				
+			}
+		}
+
+		public void OnTest(InputValue value)
+		{
+			if (value.isPressed)
+			{
+				_playerController.SwitchCameraMode();
+			}
 		}
 #endif
 	}
