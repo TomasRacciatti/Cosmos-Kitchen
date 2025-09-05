@@ -191,7 +191,6 @@ namespace Characters.Player
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -199,7 +198,7 @@ namespace Characters.Player
             {
                 // creates curved result rather than a linear one giving a more organic speed change
                 // note T in Lerp is clamped, so we don't need to clamp our speed
-                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude,
+                _speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed,
                     Time.deltaTime * speedChangeRate);
 
                 // round speed to 3 decimal places
@@ -254,17 +253,6 @@ namespace Characters.Player
                     _verticalVelocity = -2f;
                 }
 
-                // Jump
-                /*
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-                {
-                    // the square root of H * -2 * G = how much velocity needed to reach desired height
-                    _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-                    // update animator if using character
-                    _playerView.Jumped();
-                }*/
-
                 // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
@@ -286,15 +274,22 @@ namespace Characters.Player
                     // update animator if using character
                     _playerView.SetFalling(true);
                 }
-
-                // if we are not grounded, do not jump
-                _input.jump = false;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
             if (_verticalVelocity < TerminalVelocity)
             {
                 _verticalVelocity += gravity * Time.deltaTime;
+            }
+        }
+
+        public void Jump()
+        {
+            if (_jumpTimeoutDelta <= 0.0f)
+            {
+                // the square root of H * -2 * G = how much velocity needed to reach desired height
+                _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                _playerView.Jumped();
             }
         }
 

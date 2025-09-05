@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 
 namespace Features
@@ -15,13 +16,10 @@ namespace Features
 
         void Start()
         {
-            if (audioSource == null)
-                audioSource = GetComponent<AudioSource>();
+            if (audioSource == null) audioSource = GetComponent<AudioSource>();
 
             audioSource.volume = 0f;
             audioSource.loop = true;
-            audioSource.clip = audioCue.GetRandomClip();
-            audioSource.Play();
         }
 
         void Update()
@@ -29,17 +27,13 @@ namespace Features
             if (playerInside && controller != null)
             {
                 float speed = controller.velocity.magnitude;
-
-                if (speed > 0.1f)
-                    targetVolume = 1f;
-                else
-                    targetVolume = 0f;
+                
+                targetVolume = speed > 0.1f ? 1f : 0f;
             }
             else
             {
                 targetVolume = 0f;
             }
-        
             audioSource.volume = Mathf.Lerp(audioSource.volume, targetVolume, Time.deltaTime * fadeSpeed);
         }
     
