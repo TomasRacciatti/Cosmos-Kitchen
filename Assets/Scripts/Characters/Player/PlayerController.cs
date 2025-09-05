@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using System;
+using Cinemachine;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -6,12 +7,6 @@ using UnityEngine;
 
 namespace Characters.Player
 {
-    public enum ECameraMode
-    {
-        ThirdPerson,
-        FirstPerson
-    }
-    
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInputs))]
     [RequireComponent(typeof(PlayerView))]
@@ -36,7 +31,8 @@ namespace Characters.Player
         public LayerMask groundLayers;
 
         [Header("Cinemachine")]
-        public GameObject cinemachineCameraTarget;
+        public GameObject cinemachineCameraTarget1;
+        public GameObject cinemachineCameraTarget2;
         public float topClamp = 85f;
         public float bottomClamp = -85f;
         
@@ -85,7 +81,7 @@ namespace Characters.Player
 
         private void Start()
         {
-            _cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            _cinemachineTargetYaw = cinemachineCameraTarget1.transform.rotation.eulerAngles.y;
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<PlayerInputs>();
             _jumpTimeoutDelta = jumpTimeout;
@@ -172,7 +168,9 @@ namespace Characters.Player
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
 
             // Cinemachine will follow this target
-            cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
+            cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
+                _cinemachineTargetYaw, 0.0f);
+            cinemachineCameraTarget2.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
         }
 
@@ -315,5 +313,12 @@ namespace Characters.Player
                     break;
             }
         }
+    }
+    
+    public enum ECameraMode
+    {
+        ThirdPerson,
+        FirstPerson,
+        Custom
     }
 }
