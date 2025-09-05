@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutDownMinigame : MonoBehaviour
+public class PickupMinigame : MonoBehaviour
 {
     [SerializeField] GameObject _ingredientPrefab;
     private bool _interactionEnabled = false;
