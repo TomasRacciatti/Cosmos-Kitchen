@@ -449,6 +449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4442483242290364903}
   - {fileID: 1453340826536682215}
   - {fileID: 1047416126569275256}
   - {fileID: 6280956364400065042}
@@ -540,7 +541,8 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
-  cinemachineCameraTarget: {fileID: 7200766944801273207}
+  cinemachineCameraTarget1: {fileID: 7200766944801273207}
+  cinemachineCameraTarget2: {fileID: 3681948017350630616}
   topClamp: 85
   bottomClamp: -70
   cameraAngleOverride: 0
@@ -711,6 +713,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6598471895017738052}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3681948017350630616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4442483242290364903}
+  m_Layer: 0
+  m_Name: ThirdPersonCameraRoot
+  m_TagString: CinemachineTarget
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4442483242290364903
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3681948017350630616}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3138055237133593497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4390127293815256790
 GameObject:
@@ -1263,8 +1296,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6580661204044910940}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.046810735, y: 0.45723432, z: -0.024592789, w: 0.8877729}
-  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -3.75}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1290,7 +1323,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1453340826536682215}
+  m_Follow: {fileID: 4442483242290364903}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 10
@@ -1464,7 +1497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1453340826536682215}
   m_Layer: 0
-  m_Name: PlayerCameraRoot
+  m_Name: FirstPersonCameraRoot
   m_TagString: CinemachineTarget
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1629,7 +1662,7 @@ Transform:
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -3.75}
+  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
