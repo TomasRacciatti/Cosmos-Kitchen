@@ -10,6 +10,7 @@ public class CutDownMinigame : MonoBehaviour
     [Header("SFX")]
     [SerializeField] AudioClip EnterSound;
     [SerializeField] AudioClip FinishSound;
+    [SerializeField] AudioCue _cornCue;
 
     private void Update()
     {
@@ -58,5 +59,16 @@ public class CutDownMinigame : MonoBehaviour
     {
         DialogueManager._instance.HideInteraction();
         _interactionEnabled = false;
+    }
+    
+    public void PlayCornClip()
+    {
+        var clip = _cornCue.GetRandomClip();
+        var source = AudioManager.instance.SFXSource;
+        
+        if (clip != null)
+        {
+            source.PlayOneShot(clip);
+        }
     }
 }

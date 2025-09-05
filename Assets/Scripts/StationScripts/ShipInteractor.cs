@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ShipInteractor : MonoBehaviour, IPointerClickHandler
+public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     private bool _active;
     private bool _isPlayerMovement;
@@ -11,11 +11,13 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler
     
     [Header("SFX")]
     [SerializeField] AudioClip EnterShipSound;
+    [SerializeField] GameObject SignExit;
 
     private void Start()
     {
         _active = false;
         _isPlayerMovement = true;
+        SignExit.SetActive(false);
     }
 
     private void Update()
@@ -26,7 +28,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler
             {
                 if (InputManager._instance._canInteract)
                 {
-                    AudioSource source = gameObject.AddComponent<AudioSource>();
+                    AudioSource source = AudioManager.instance.SFXSource;
                     source.clip = EnterShipSound;
                     source.Play();
                     StartCoroutine(FadeOutSFX(source, 1.35f));
@@ -77,6 +79,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler
     {
         CameraMovement._instance.SwitchCamera();
         SwitchPlayerMovement();
+        print(_isPlayerMovement);
     }
 
     private void SwitchPlayerMovement()
@@ -105,14 +108,25 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler
             _active = true;
             _playerViewer.ShowPlayer();
         }
+        SignExit.SetActive(false);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioSource source = gameObject.AddComponent<AudioSource>();
+        AudioSource source = AudioManager.instance.SFXSource;
         source.clip = EnterShipSound;
         source.Play();
         StartCoroutine(FadeOutSFX(source, 1.35f));
         
         Interact();
+    }
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        SignExit.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SignExit.SetActive(false);
     }
 }

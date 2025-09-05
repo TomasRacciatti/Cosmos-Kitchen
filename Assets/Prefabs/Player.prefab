@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3478170467132409607}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,10 @@ MonoBehaviour:
   _cameraTransform: {fileID: 0}
   _speed: 6
   _gravityMultiplier: 2
+  NormalStep: {fileID: 0}
+  GrassFootsteps: []
+  GravelFootsteps: []
+  WoodFootsteps: []
 --- !u!143 &3728210375892211337
 CharacterController:
   m_ObjectHideFlags: 0
