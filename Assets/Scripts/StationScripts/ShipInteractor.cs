@@ -28,7 +28,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
             {
                 if (InputManager._instance._canInteract)
                 {
-                    AudioSource source = gameObject.AddComponent<AudioSource>();
+                    AudioSource source = AudioManager.instance.SFXSource;
                     source.clip = EnterShipSound;
                     source.Play();
                     StartCoroutine(FadeOutSFX(source, 1.35f));
@@ -112,7 +112,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        AudioSource source = gameObject.AddComponent<AudioSource>();
+        AudioSource source = AudioManager.instance.SFXSource;
         source.clip = EnterShipSound;
         source.Play();
         StartCoroutine(FadeOutSFX(source, 1.35f));
