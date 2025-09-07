@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Dialogue;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClientScript : MonoBehaviour
+public class ClientScript : MonoBehaviour, IClient
 {
     [SerializeField] GameObject _signal;
     [SerializeField] Sprite _questionSprite;
@@ -35,6 +36,10 @@ public class ClientScript : MonoBehaviour
 
     private string _orderNotification = "List of Clients Updated at the Cooking Station!!";
 
+    public string Name  => ReturnClientName();
+    public Sprite Icon  => ReturnClientIcon();
+    public void RetryRequest() => Retry();
+    
     private void Awake()
     {
         _animator = this.GetComponent<Animator>();
