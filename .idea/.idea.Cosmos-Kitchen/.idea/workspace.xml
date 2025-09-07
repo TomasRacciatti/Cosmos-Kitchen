@@ -6,14 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2607b7f2-e82f-4693-b59e-9401d76322d8" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Cosmos-Kitchen/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Cosmos-Kitchen/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Characters/Player/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Characters/Player/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/KsaScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/KsaScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Player/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Player/PlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Characters/Player/PlayerInputs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Characters/Player/PlayerInputs.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemAmount.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemAmount.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemPickUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemPickUp.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/SoItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Core/SoItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Inventory/InvView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Inventory/InvView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemPickUp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemPickup.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemPickUp.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemsUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemsUtility.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,11 +22,13 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Audio/AudioSettingsBootstrap.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemsManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Core/ItemsUtility.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Core/SoItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Inventory/InvSlotUI.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Items/Inventory/InvView.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/MinigamesScripts/PickupMinigame.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Regulators/ObjectPooled.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/Samples~/UIvsGameInput/UIvsGameInputHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.terrain-tools@5.0.6/Editor/TerrainTools/BrushControllers/BaseBrushUIGroup.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.test-framework@1.1.33/UnityEngine.TestRunner/TestRunner/Callbacks/TestResultRenderer.cs" root0="SKIP_HIGHLIGHTING" />
@@ -47,6 +46,8 @@
     <setting file="file://$PROJECT_DIR$/../Dark-Tidings/Assets/Scripts/Items/Base/ItemPrefab.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Dark-Tidings/Assets/Scripts/Items/Base/ItemsUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Dark-Tidings/Assets/Scripts/Items/Base/SO_Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Dark-Tidings/Assets/Scripts/Managers/ObjectPool/ObjectPoolManager.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Dark-Tidings/Assets/Scripts/Managers/ObjectPool/PooledObjectInfo.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -135,6 +136,8 @@
       <workItem from="1757198331424" duration="4331000" />
       <workItem from="1757232605754" duration="1173000" />
       <workItem from="1757236703562" duration="13195000" />
+      <workItem from="1757263844941" duration="8339000" />
+      <workItem from="1757277138171" duration="2910000" />
     </task>
     <servers />
   </component>

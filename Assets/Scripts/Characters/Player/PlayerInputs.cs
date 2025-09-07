@@ -1,4 +1,6 @@
 using System;
+using Items.Core;
+using Regulators;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +17,7 @@ namespace Characters.Player
 		public bool sprint;
 		
 		private PlayerController _playerController;
+		public SoItem item;
 
 		private void Awake()
 		{
@@ -58,7 +61,10 @@ namespace Characters.Player
 		{
 			if (value.isPressed)
 			{
-				_playerController.SwitchCameraMode();
+				//_playerController.SwitchCameraMode();
+				GameObject gameObject = ObjectPool.GetObjectInPool(ItemsManager.Instance.itemPrefabPickup,transform.position,Quaternion.identity,2);
+				gameObject.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(item, 10));
+				gameObject.SetActive(true);
 			}
 		}
 #endif

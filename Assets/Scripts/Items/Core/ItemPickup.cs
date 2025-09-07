@@ -1,12 +1,13 @@
 using System;
 using Interfaces;
 using Items.Inventory;
+using Regulators;
 using UnityEngine;
 
 namespace Items.Core
 {
     [Serializable]
-    public class ItemPickUp : MonoBehaviour, IInteractable
+    public class ItemPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemAmount itemAmount;
         private MeshFilter _meshFilter;
@@ -22,7 +23,7 @@ namespace Items.Core
         
         private void OnEnable()
         {
-            // if (TestEmptyDestroy()) return; activar esto si usamos object pool
+            if (TestEmptyDestroy()) return;
             
             //assign mesh and material
             if (itemAmount.SoItem.Mesh != null)
@@ -33,6 +34,11 @@ namespace Items.Core
             {
                 _meshRenderer.materials = itemAmount.SoItem.Materials;
             }
+        }
+
+        public void SetItemAmount(ItemAmount newItemAmount)
+        {
+            itemAmount = newItemAmount;
         }
         
         public void Interact(GameObject interactableObject) //agarrar
@@ -45,7 +51,7 @@ namespace Items.Core
         private bool TestEmptyDestroy()
         {
             if (!itemAmount.IsEmpty) return false;
-            Destroy(gameObject);
+            ObjectPool.ReturnObjectToPool(gameObject);
             return true;
         }
     }
