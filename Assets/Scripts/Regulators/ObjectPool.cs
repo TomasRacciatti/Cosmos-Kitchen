@@ -110,7 +110,7 @@ namespace Regulators
             }
         }
 
-        public static GameObject GetObjectInPool(GameObject prefab, Vector3 position, Quaternion rotation)
+        public static GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation, bool active = true)
         {
             PooledObjectInfo pool = GetPool(prefab.name);
         
@@ -121,7 +121,7 @@ namespace Regulators
                 spawnableObject = pool.InactiveObjects.Dequeue();
                 spawnableObject.transform.position = position;
                 spawnableObject.transform.rotation = rotation;
-                //spawnableObject.SetActive(true);
+                spawnableObject.SetActive(active);
             }
             else
             {
@@ -131,9 +131,9 @@ namespace Regulators
         }
 
         //Sobrecarga con tiempo de vida establecido
-        public static GameObject GetObjectInPool(GameObject prefab, Vector3 position, Quaternion rotation, float delay)
+        public static GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation, float delay, bool active  = true)
         {
-            GameObject spawnableObject = GetObjectInPool(prefab, position, rotation);
+            GameObject spawnableObject = SpawnObject(prefab, position, rotation, active);
             ReturnObjectToPool(spawnableObject, delay);
             return spawnableObject;
         }
