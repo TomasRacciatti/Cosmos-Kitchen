@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 6188746044263030481}
   - component: {fileID: 4798918916221814678}
   - component: {fileID: 6539916698303342183}
+  - component: {fileID: 3795158615934497444}
   - component: {fileID: 1445804373821102550}
   - component: {fileID: 32475516860610485}
   m_Layer: 8
@@ -450,7 +451,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4442483242290364903}
-  - {fileID: 1453340826536682215}
+  - {fileID: 3352479326031914024}
   - {fileID: 1047416126569275256}
   - {fileID: 6280956364400065042}
   m_Father: {fileID: 3692604517208257073}
@@ -541,7 +542,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
-  cinemachineCameraTarget1: {fileID: 7200766944801273207}
+  cinemachineCameraTarget1: {fileID: 8477347015847489024}
   cinemachineCameraTarget2: {fileID: 3681948017350630616}
   topClamp: 85
   bottomClamp: -70
@@ -567,6 +568,20 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+--- !u!114 &3795158615934497444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205784997367604600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c161ebb7d5c69147829c7fe62fcbe03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 10
+  items: []
 --- !u!114 &1445804373821102550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,11 +594,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73aa4d5ce7108b74fbc999588db0f6c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canPush: 0
+  canPush: 1
   pushLayers:
     serializedVersion: 2
     m_Bits: 0
-  strength: 2
+  strength: 1
 --- !u!114 &32475516860610485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1284,7 +1299,7 @@ GameObject:
   m_Layer: 0
   m_Name: ThirdPersonCamera
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1486,38 +1501,6 @@ Transform:
   m_Children:
   - {fileID: 2047170092005153306}
   m_Father: {fileID: 2363496299457448477}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7200766944801273207
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1453340826536682215}
-  m_Layer: 0
-  m_Name: FirstPersonCameraRoot
-  m_TagString: CinemachineTarget
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1453340826536682215
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7200766944801273207}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3352479326031914024}
-  m_Father: {fileID: 3138055237133593497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7320414478923633037
 GameObject:
@@ -1850,9 +1833,9 @@ GameObject:
   - component: {fileID: 3352479326031914024}
   - component: {fileID: 663221032224734603}
   m_Layer: 0
-  m_Name: FirstPersonCamera
+  m_Name: FirstPersonCameraAndRoot
   m_TagString: Untagged
-  m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1865,12 +1848,12 @@ Transform:
   m_GameObject: {fileID: 8477347015847489024}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9062739794940859653}
-  m_Father: {fileID: 1453340826536682215}
+  m_Father: {fileID: 3138055237133593497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &663221032224734603
 MonoBehaviour:

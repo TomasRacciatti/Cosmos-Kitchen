@@ -298,20 +298,25 @@ namespace Characters.Player
             _playerView.Footstep();
         }
 
-        public void SwitchCameraMode()
+        public void SwitchCameraMode() //rever
         {
             _cameraMode = _cameraMode != ECameraMode.ThirdPerson ? ECameraMode.ThirdPerson : ECameraMode.FirstPerson;
             switch (_cameraMode)
             {
                 case ECameraMode.FirstPerson:
                     firstPersonCamera.Priority = 20;
-                    lockForwardFacing = true;
+                    Invoke(nameof(SetLockForwardTrue), 1.5f);
                     break;
                 case ECameraMode.ThirdPerson:
                     firstPersonCamera.Priority = 0;
                     lockForwardFacing = false;
                     break;
             }
+        }
+
+        private void SetLockForwardTrue() //rever
+        {
+            lockForwardFacing = true;
         }
     }
     
