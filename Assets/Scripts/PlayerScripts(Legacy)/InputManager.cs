@@ -84,7 +84,7 @@ public class InputManager : MonoBehaviour
                 SwitchMouselock();
             }
             //InventoryManager._instance.CloseAll();
-            DialogueManager._instance.CloseDialogue();
+            DialogueManager.instance.CloseDialogue();
             //PanelManager._instance.CloseAll();
             PanelManager._instance.TogglePauseMenu();
         }

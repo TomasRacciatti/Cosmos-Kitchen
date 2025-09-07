@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager _instance;
+    public static DialogueManager instance;
     [SerializeField] GameObject _dialoguePanel;
     [SerializeField] GameObject _plateReceiver;
     [SerializeField] GameObject _interactionButton;
@@ -23,9 +23,9 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        if (_instance == null)
+        if (instance == null)
         {
-            _instance = this;
+            instance = this;
         }
         else { Destroy(this); }
 
