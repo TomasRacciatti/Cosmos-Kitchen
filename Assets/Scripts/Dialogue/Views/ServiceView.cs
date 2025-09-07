@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Dialogue
+namespace Dialogue.Views
 {
     public abstract class ServiceView : MonoBehaviour
     {
