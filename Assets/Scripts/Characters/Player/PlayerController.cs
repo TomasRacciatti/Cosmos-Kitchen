@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using Interfaces;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -29,6 +30,7 @@ namespace Characters.Player
         [Header("Player Grounded")]
         public bool grounded = true;
         public LayerMask groundLayers;
+        public LayerMask interactableLayers;
 
         [Header("Cinemachine")]
         public GameObject cinemachineCameraTarget1;
@@ -39,7 +41,8 @@ namespace Characters.Player
         public float cameraAngleOverride;
         
         public bool lockCameraPosition;
-        
+
+        [SerializeField] private float cameraRadius = 10f;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
@@ -317,6 +320,20 @@ namespace Characters.Player
         private void SetLockForwardTrue() //rever
         {
             lockForwardFacing = true;
+        }
+        
+        public void CameraRaycast()
+        {
+            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
+            
+            if (Physics.Raycast(ray, out var hit, cameraRadius, interactableLayers | groundLayers))
+            {
+                Debug.Log("Collider: " + hit.collider.name);
+                if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+                {
+                    interactable.Interact(gameObject);
+                }
+            }
         }
     }
     

@@ -50,7 +50,7 @@ namespace Characters.Player
 		{
 			if (value.isPressed)
 			{
-				
+				_playerController.CameraRaycast();
 			}
 		}
 

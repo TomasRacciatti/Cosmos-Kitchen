@@ -11,11 +11,12 @@ namespace Items.Core
         [SerializeField] private int amount;
         
         //Getters
-        public int Amount => amount;
         public SoItem SoItem => soItem;
+        public int Amount => amount;
+        public int Stack => soItem != null ? soItem.Stack : 0;
+        public bool ValidSoItem => soItem != null;
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
-        public int Stack => soItem.Stack;
         
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
@@ -31,18 +32,20 @@ namespace Items.Core
         }
         
         //Setters
-        public int SetItem(ItemAmount itemAmount)
+        public int SetItem(ItemAmount itemAmount, bool clampToStack = true)
         {
             soItem = itemAmount.SoItem;
-            SetAmount(Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
-            return Mathf.Max(0, itemAmount.Amount - SoItem.Stack);
+            return SetAmount(itemAmount.Amount, clampToStack);
         }
         
-        public int SetAmount(int newAmount)
+        public int SetAmount(int newAmount, bool clampToStack = true)
         {
-            if (IsEmpty) return newAmount;
+            if (!ValidSoItem) return newAmount;
 
-            int clampedAmount = Mathf.Clamp(newAmount, 0, soItem.Stack);
+            int clampedAmount = clampToStack 
+                ? Mathf.Clamp(newAmount, 0, SoItem.Stack)
+                : Mathf.Max(0, newAmount);
+
             amount = clampedAmount;
 
             if (amount <= 0) Clear();
@@ -58,7 +61,7 @@ namespace Items.Core
         public int RemoveAmount(int amountToRemove)
         {
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
-            return SetAmount(amount - amountToRemove);
+            return SetAmount(amount - amountToRemove, false);
         }
 
         public void Clear()

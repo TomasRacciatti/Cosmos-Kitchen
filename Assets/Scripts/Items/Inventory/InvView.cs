@@ -21,12 +21,26 @@ namespace Items.Inventory
         private void Start()
         {
             inventorySystem.Subscribe(OnItemChanged);
+            UpdateInventory();
         }
 
         private void OnItemChanged(int index, ItemAmount item)
         {
             if (index < 0 || index >= slots.Length) return;
             //slots[index].SetItem(item);
+        }
+
+        private void UpdateInventory()
+        {
+            var items = inventorySystem.Items;
+/*
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (i < items.Count)
+                    slots[i].SetItem(items[i]);
+                else
+                    slots[i].Clear();
+            }*/
         }
     }
 }
