@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,19 +15,31 @@ namespace Dialogue.Views
         [SerializeField] private Image clientPortrait;
         [SerializeField] private GameObject deliverButton;
         [SerializeField] private GameObject retryButton;
+        [SerializeField] private GameObject plateReceiver;
         
         [Header("Buttons")]
-        [SerializeField] private UnityEvent onDeliverClicked;
-        [SerializeField] private UnityEvent onRetryClicked;
+        [SerializeField] private UnityEvent onDeliverClicked = new UnityEvent();
+        [SerializeField] private UnityEvent onRetryClicked = new UnityEvent();
 
         
         public void DeliverClicked() => onDeliverClicked?.Invoke();
         public void RetryClicked()   => onRetryClicked?.Invoke();
 
 
-        /* Tal vez no es necesario
-         
-        protected override void OnEnable()
+        private void Awake()
+        {
+            panel?.SetActive(false);
+            deliverButton?.SetActive(false);
+            retryButton?.SetActive(false);
+            plateReceiver?.SetActive(false);
+            if (dialogueTMP) dialogueTMP.text = "";
+            if (clientNameTMP) clientNameTMP.text = "";
+            if (clientPortrait) clientPortrait.sprite = null;
+        }
+        
+        
+        //Por si el UI se corre antes que el service, esto lo va a rescatar
+        protected override void OnEnable() 
         {
             base.OnEnable();
             
@@ -38,7 +51,6 @@ namespace Dialogue.Views
             if (c != null) 
                 OnClientChanged(new ClientInfo(c.Name, c.Icon));
         }
-        */
         
         protected override void Subscribe(bool on)
         {
@@ -50,6 +62,7 @@ namespace Dialogue.Views
                 dialogueService.ClientChanged += OnClientChanged;
                 dialogueService.DeliveryToggled += OnDeliveryToggled;
                 dialogueService.RetryToggled += OnRetryToggled;
+                dialogueService.PlateReceiverToggled += OnPlateReceiverToggled;
             }
             else
             {
@@ -59,16 +72,22 @@ namespace Dialogue.Views
                 dialogueService.ClientChanged -= OnClientChanged;
                 dialogueService.DeliveryToggled -= OnDeliveryToggled;
                 dialogueService.RetryToggled -= OnRetryToggled;
+                dialogueService.PlateReceiverToggled -= OnPlateReceiverToggled;
             }
         }
         
-        private void OnOpened() => panel?.SetActive(true);
+        private void OnOpened() 
+        {
+            panel?.SetActive(true);
+            plateReceiver?.SetActive(true);
+        }
 
         private void OnClosed()
         {
             panel?.SetActive(false);
             deliverButton?.SetActive(false);
             retryButton?.SetActive(false);
+            plateReceiver?.SetActive(false);
         }
 
         private void OnLineChanged(string line)
@@ -87,6 +106,6 @@ namespace Dialogue.Views
 
         void OnDeliveryToggled(bool on) => deliverButton?.SetActive(on);
         void OnRetryToggled(bool on)    => retryButton?.SetActive(on);
+        private void OnPlateReceiverToggled(bool on) => plateReceiver?.SetActive(on);
     }
-    
 }
