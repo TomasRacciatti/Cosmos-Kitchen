@@ -331,6 +331,12 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1406093667}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &173461062 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4972590576499502844, guid: f94edf4021e5cb24f9791a9fb8deab9c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1530480121}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &174342746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2033,7 +2039,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003607324}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1167631, y: 0.33862647, z: -0.04239274, w: 0.932685}
+  m_LocalRotation: {x: 0.11676309, y: 0.3386264, z: -0.04239274, w: 0.9326851}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3978,12 +3984,12 @@ PrefabInstance:
         type: 3}
       propertyPath: _stationCameras.Array.data[0]
       value: 
-      objectReference: {fileID: 1046309824}
+      objectReference: {fileID: 1200556168}
     - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
         type: 3}
       propertyPath: _stationCameras.Array.data[1]
       value: 
-      objectReference: {fileID: 628538787}
+      objectReference: {fileID: 872640937}
     - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
         type: 3}
       propertyPath: _stationCameras.Array.data[2]
@@ -3993,12 +3999,27 @@ PrefabInstance:
         type: 3}
       propertyPath: _stationCameras.Array.data[3]
       value: 
-      objectReference: {fileID: 872640937}
+      objectReference: {fileID: 0}
     - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
         type: 3}
       propertyPath: _stationCameras.Array.data[4]
       value: 
-      objectReference: {fileID: 1200556168}
+      objectReference: {fileID: 0}
+    - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
+        type: 3}
+      propertyPath: _stationCameras.Array.data[8]
+      value: 
+      objectReference: {fileID: 628538787}
+    - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
+        type: 3}
+      propertyPath: _stationCameras.Array.data[9]
+      value: 
+      objectReference: {fileID: 1046309824}
+    - target: {fileID: 2729812578764950231, guid: 634bba6e52f08f64bb54ee11c317265f,
+        type: 3}
+      propertyPath: _stationCameras.Array.data[10]
+      value: 
+      objectReference: {fileID: 173461062}
     - target: {fileID: 4487054660582868809, guid: 634bba6e52f08f64bb54ee11c317265f,
         type: 3}
       propertyPath: m_Name
