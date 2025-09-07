@@ -61,7 +61,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
         _playerViewer = _other.GetComponent<PlayerViewer>();
         if (_other.GetComponent<PlayerViewer>())
         {
-            DialogueManager._instance.ShowInteraction();
+            DialogueManager.instance.ShowInteraction();
             _active = true;
         }
     }
@@ -70,7 +70,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         if (_other.GetComponent<PlayerViewer>())
         {
-            DialogueManager._instance.HideInteraction();
+            DialogueManager.instance.HideInteraction();
             _active = false;
         }
     }
@@ -86,7 +86,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
     {
         if (_isPlayerMovement)
         {
-            DialogueManager._instance.HideInteraction();
+            DialogueManager.instance.HideInteraction();
             _playerViewer.HidePlayer();
             InputManager._instance.StopPlayerMovement();
             InputManager._instance.LockMovement();
@@ -97,7 +97,7 @@ public class ShipInteractor : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
         else
         {
-            DialogueManager._instance.ShowInteraction();
+            DialogueManager.instance.ShowInteraction();
             InputManager._instance.UnlockMovement();
             InputManager._instance.ResumePlayerMovement();
             InputManager._instance.ResumeCamera();

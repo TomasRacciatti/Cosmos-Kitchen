@@ -307,23 +307,23 @@ public class NavigationPanelManager : MonoBehaviour
             {
                 case 3:
                     ClientManager.instance.UnlockCritic("Eorth");
-                    DialogueManager._instance.Notify("The Critic has appeared in Eorth!");
+                    DialogueManager.instance.Notify("The Critic has appeared in Eorth!");
                     break;
                 case 6:
                     ClientManager.instance.UnlockCritic("Desert");
-                    DialogueManager._instance.Notify("The Critic has appeared in Desert!");
+                    DialogueManager.instance.Notify("The Critic has appeared in Desert!");
                     break;
                 case 12:
                     ClientManager.instance.UnlockCritic("Ocean");
-                    DialogueManager._instance.Notify("The Critic has appeared in Ocean!");
+                    DialogueManager.instance.Notify("The Critic has appeared in Ocean!");
                     break;
                 case 15:
                     ClientManager.instance.UnlockCritic("Frozen");
-                    DialogueManager._instance.Notify("The Critic has appeared in Frozen!");
+                    DialogueManager.instance.Notify("The Critic has appeared in Frozen!");
                     break;
                 case 30:
                     ClientManager.instance.UnlockCritic("Volcano");
-                    DialogueManager._instance.Notify("The Critic has appeared in Volcano!");
+                    DialogueManager.instance.Notify("The Critic has appeared in Volcano!");
                     break;
                 default:
                     break;
@@ -338,19 +338,19 @@ public class NavigationPanelManager : MonoBehaviour
         {
             case "Desert":
                 _isDesertUnlocked = true;
-                DialogueManager._instance.Notify("You can travel to Desert!");
+                DialogueManager.instance.Notify("You can travel to Desert!");
                 break;
             case "Volcano":
                 _isVolcanoUnlocked = true;
-                DialogueManager._instance.Notify("You can travel to Volcano!");
+                DialogueManager.instance.Notify("You can travel to Volcano!");
                 break;
             case "Frozen":
                 _isFrozenUnlocked = true;
-                DialogueManager._instance.Notify("You can travel to Frozen!");
+                DialogueManager.instance.Notify("You can travel to Frozen!");
                 break;
             case "Ocean":
                 _isOceanUnlocked = true;
-                DialogueManager._instance.Notify("You can travel to Ocean!");
+                DialogueManager.instance.Notify("You can travel to Ocean!");
                 break;
             default:
                 break;

@@ -47,7 +47,7 @@ public class MinigameManager : MonoBehaviour
         GameObject ingredient = Instantiate(_ingredientPrefab);
         ingredient.GetComponent<IngredientScript>().SetIngredientQuality(Random.Range(0, 6));
         string ingredientName = ingredient.GetComponent<IngredientScript>().ReturnIngredientName();
-        DialogueManager._instance.Notify("You got " + ingredientName + "!!!");
+        DialogueManager.instance.Notify("You got " + ingredientName + "!!!");
         InventoryManager._instance.Add(ingredient);
         ShowInteractionButton();
     }
@@ -62,13 +62,13 @@ public class MinigameManager : MonoBehaviour
 
     private void ShowInteractionButton()
     {
-        DialogueManager._instance.ShowInteraction();
+        DialogueManager.instance.ShowInteraction();
         _interactionEnabled = true;
     }
 
     private void HideInteractionButton()
     {
-        DialogueManager._instance.HideInteraction();
+        DialogueManager.instance.HideInteraction();
         _interactionEnabled = false;
     }
 }

@@ -60,24 +60,24 @@ public class ClientScript : MonoBehaviour
 
             if (_perfectDelivery)
             {
-                DialogueManager._instance.ChangeDialogue(_repeatingText);
+                DialogueManager.instance.ChangeDialogue(_repeatingText);
             }
 
             if (_deliveryComplete && !_perfectDelivery)
             {
-                DialogueManager._instance.ChangeDialogue(_deliveredText);
-                DialogueManager._instance.SetClient(this);
-                DialogueManager._instance.ShowRetryButton();
+                DialogueManager.instance.ChangeDialogue(_deliveredText);
+                DialogueManager.instance.SetClient(this);
+                DialogueManager.instance.ShowRetryButton();
             }
             
             if (!_perfectDelivery && !_deliveryComplete)
             {
-                DialogueManager._instance.ChangeDialogue(_askingText);
-                DialogueManager._instance.SetClient(this);
-                DialogueManager._instance.ShowDeliveryButton();
+                DialogueManager.instance.ChangeDialogue(_askingText);
+                DialogueManager.instance.SetClient(this);
+                DialogueManager.instance.ShowDeliveryButton();
             }
 
-            DialogueManager._instance.SwitchDialogue();
+            DialogueManager.instance.SwitchDialogue();
         }
     }
 
@@ -87,17 +87,17 @@ public class ClientScript : MonoBehaviour
         {
             if (_plate._plateIngredients[_ingredients[0]] == _processes[0] && _plate._plateIngredients[_ingredients[1]] == _processes[1] && _plate._plateIngredients[_ingredients[2]] == _processes[2])
             {
-                DialogueManager._instance.CorrectPlate();
+                DialogueManager.instance.CorrectPlate();
                 CheckPlate(_plate);
             }
             else
             {
-                DialogueManager._instance.ChangeDialogue(_wrongText);
+                DialogueManager.instance.ChangeDialogue(_wrongText);
             }
         }
         else
         {
-            DialogueManager._instance.ChangeDialogue(_wrongText);
+            DialogueManager.instance.ChangeDialogue(_wrongText);
         }
     }
 
@@ -106,7 +106,7 @@ public class ClientScript : MonoBehaviour
         _plateQuality = _plate.ReturnQualityLevel();
         if (_plateQuality == QualityLevel.Perfect)
         {
-            DialogueManager._instance.ChangeDialogue(_perfectText);
+            DialogueManager.instance.ChangeDialogue(_perfectText);
             _perfectDelivery = true;
         }
         else
@@ -121,12 +121,12 @@ public class ClientScript : MonoBehaviour
                 }
             }
 
-            DialogueManager._instance.ChangeDialogue(_critiqueText);
+            DialogueManager.instance.ChangeDialogue(_critiqueText);
 
         }
         _deliveryComplete = true;
         ChangeSignal();
-        DialogueManager._instance.ClosePlateReceiver();
+        DialogueManager.instance.ClosePlateReceiver();
         NavigationPanelManager._instance.ClientAdd(this);
 
         if (_clientData._isCritic)
@@ -139,7 +139,7 @@ public class ClientScript : MonoBehaviour
     {
         if (_other.gameObject.GetComponent<PlayerMovement>())
         {
-            DialogueManager._instance.ShowInteraction();
+            DialogueManager.instance.ShowInteraction();
             _canInteract = true;
             
             FindObjectOfType<AudioManager>().Play("NPC_talk");
@@ -151,7 +151,7 @@ public class ClientScript : MonoBehaviour
         if (_other.gameObject.GetComponent<PlayerMovement>())
         {
             _canInteract = false;
-            DialogueManager._instance.HideInteraction();
+            DialogueManager.instance.HideInteraction();
             
         }
     }
@@ -199,7 +199,7 @@ public class ClientScript : MonoBehaviour
         {
             _signal.GetComponent<Image>().sprite = _questionSprite;
             _order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
-            DialogueManager._instance.Notify(_orderNotification);
+            DialogueManager.instance.Notify(_orderNotification);
         }
         else
         {
@@ -213,7 +213,7 @@ public class ClientScript : MonoBehaviour
         _signal.SetActive(true);
         _signal.GetComponent<Image>().sprite = _questionSprite;
         _order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
-        DialogueManager._instance.Notify(_orderNotification);
+        DialogueManager.instance.Notify(_orderNotification);
         NavigationPanelManager._instance.ClientRetry();
         _deliveryComplete = false;
     }
