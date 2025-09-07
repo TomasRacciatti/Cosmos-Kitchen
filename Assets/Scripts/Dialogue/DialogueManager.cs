@@ -1,160 +1,124 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+namespace Dialogue
 {
-    public static DialogueManager instance;
-    [SerializeField] GameObject _dialoguePanel;
-    [SerializeField] GameObject _plateReceiver;
-    [SerializeField] GameObject _interactionButton;
-    [SerializeField] GameObject _notification;
-    [SerializeField] GameObject _deliverButton;
-    [SerializeField] GameObject _retryButton;
-    [SerializeField] Image _clientPicture;
-    [SerializeField] TextMeshProUGUI _notificationText;
-    [SerializeField] TextMeshProUGUI _dialogueMesh;
-    [SerializeField] TextMeshProUGUI _clientName;
-    private ClientScript _clientScript;
-    private PlateScript _plate;
-    private bool _isShowing;
-
-    void Start()
+    [DefaultExecutionOrder(-100)] // Queremos que esto se corra antes que los views
+    public class DialogueManager : MonoBehaviour, IDialogueService
     {
-        if (instance == null)
+        public static DialogueManager instance { get; private set; } // Legacy. Esto lo ponemos para que no se rompa el codigo viejo
+    
+        public static IDialogueService Instance => instance; // Eventualmente solo vamos a querer usar este
+    
+        public bool IsOpen { get; private set; }
+        public IClient CurrentClient { get; private set; }
+
+    
+        public event Action Opened;
+        public event Action Closed;
+        public event Action<string> LineChanged;
+        public event Action<ClientInfo> ClientChanged;
+        public event Action<bool> DeliveryToggled;
+        public event Action<bool> RetryToggled;
+        public event Action<bool> PlateReceiverToggled;
+        public event Action<bool> InteractionPromptToggled;
+        public event Action<string> Notified;
+
+        private void Awake()
         {
-            instance = this;
+            if (instance == null) 
+                instance = this;
+            else
+                Destroy(gameObject);
         }
-        else { Destroy(this); }
 
-        _isShowing = false;
-
-    }
-
-    public void GetPlate()
-    {
-        if (_plateReceiver.GetComponentInChildren<PlateScript>())
+        private void OnDestroy()
         {
-            _plate = _plateReceiver.GetComponentInChildren<PlateScript>();
-            _clientScript.GetPlate(_plate);
+            instance = null;
         }
-    }
 
-    public void CorrectPlate()
-    {
-        _clientScript._deliveryComplete = true;
-        Destroy(_plateReceiver.GetComponentInChildren<PlateScript>().gameObject);
-    }
-
-    public void ChangeDialogue(string _dialogue)
-    {
-        _dialogueMesh.text = _dialogue;
-    }
-
-    public void ShowInteraction()
-    {
-        _interactionButton.SetActive(true);
-    }
-
-    public void HideInteraction()
-    {
-        _interactionButton.SetActive(false);
-    }
-    public void OpenDialogue()
-    {
-        InputManager._instance.LockMovement();
-        InputManager._instance.StopPlayerMovement();
-        InputManager._instance.StopCamera();
-        InputManager._instance.UnlockMouse();
-        _dialoguePanel.SetActive(true);
-        _isShowing = true;
-    }
-
-    public void CloseDialogue()
-    {
-        ClosePlateReceiver();
-        _dialoguePanel.SetActive(false);
-        _isShowing = false;
-        InputManager._instance.UnlockMovement();
-        InputManager._instance.ResumePlayerMovement();
-        InputManager._instance.ResumeCamera();
-        InputManager._instance.LockMouse();
-        if (InventoryManager._instance._inventoryOpen)
+        public void StartConversation(IClient client)
         {
-            InventoryManager._instance.ToggleInventory();
+            CurrentClient = client;
+            IsOpen = true;
+            ClientChanged?.Invoke(new ClientInfo(client?.Name ?? string.Empty, client?.Icon));
+            InteractionPromptToggled?.Invoke(false); // Legacy
+            Opened?.Invoke();
         }
-    }
 
-    public void ShowDeliveryButton()
-    {
-        _deliverButton.SetActive(true);
-        OpenPlateReceiver();
-    }
-
-    public void ShowRetryButton()
-    {
-        _retryButton.SetActive(true);
-    }
-
-    public void HideDeliveryButton()
-    {
-        _deliverButton.SetActive(false);
-    }
-
-    public void SwitchDialogue()
-    {
-        if (_isShowing)
+        public void Close()
         {
-            InputManager._instance.TurnOnMouselock();
-            CloseDialogue();
-            ShowInteraction();
+            if (!IsOpen) return;
+            IsOpen = false;
+            Closed?.Invoke();
+            DeliveryToggled?.Invoke(false);
+            RetryToggled?.Invoke(false);
+            PlateReceiverToggled?.Invoke(false);
+            InteractionPromptToggled?.Invoke(false);
+            CurrentClient = null;
         }
-        else
+    
+        public void SetLine(string line) => LineChanged?.Invoke(line ?? string.Empty);
+        public void EnableDelivery(bool enable) => DeliveryToggled?.Invoke(enable);
+        public void EnableRetry(bool enable) => RetryToggled?.Invoke(enable);
+        public void TogglePlateReceiver(bool show) => PlateReceiverToggled?.Invoke(show);
+        public void Notify(string notification) => Notified?.Invoke(notification ?? string.Empty);
+
+
+        #region Legacy. Borrar cuando no genere errores
+    
+        // M (Model) -> Este codigo
+        // V (View) -> DialogueView, InteractionPromptView, etc son todos los scripts que manejan los distintos elementos del canvas
+        // C (Controller) -> Van a ser las condiciones que llaman a las funciones del M para activar al V.
+    
+        // === Legacy methods. Borrar esto cuando no tengamos mas las refs. ===
+        [Obsolete("Use InteractionPromptToggled event via a view")]
+        public void ShowInteraction() => InteractionPromptToggled?.Invoke(true);
+
+        [Obsolete("Use InteractionPromptToggled event via a view")]
+        public void HideInteraction() => InteractionPromptToggled?.Invoke(false);
+
+        [Obsolete("Controller should call StartConversation(IClient)")]
+        public void SetClient(ClientScript c)
         {
-            InputManager._instance.TurnOffMouselock();
-            OpenDialogue();
-            HideInteraction();
+            CurrentClient = c;
+            ClientChanged?.Invoke(new ClientInfo(c?.ReturnClientName() ?? "", c?.ReturnClientIcon()));
         }
-    }
 
-    public void Retry()
-    {
-        _retryButton.SetActive(false);
-        ShowDeliveryButton();
-        _clientScript.Retry();
-    }
+        [Obsolete("Use SetLine(string)")]
+        public void ChangeDialogue(string t) => SetLine(t);
 
-    public void OpenPlateReceiver()
-    {
-        _plateReceiver.SetActive(true);
-    }
+        [Obsolete("Use EnableDelivery(true) + TogglePlateReceiver(true)")]
+        public void ShowDeliveryButton() { EnableDelivery(true); TogglePlateReceiver(true); }
 
-    public void ClosePlateReceiver()
-    {
-        _plateReceiver.SetActive(false);
-        HideDeliveryButton();
-    }
+        [Obsolete("Use EnableDelivery(false)")]
+        public void HideDeliveryButton() => EnableDelivery(false);
 
-    public void SetClient(ClientScript _client)
-    {
-        _clientScript = _client;
-        _clientName.text = _client.ReturnClientName();
-        _clientPicture.sprite = _client.ReturnClientIcon();
-    }
+        [Obsolete("Use EnableRetry(true)")]
+        public void ShowRetryButton() => EnableRetry(true);
 
-    public void Notify(string text)
-    {
-        _notificationText.text = text;
-        StartCoroutine(Notification());
-    }
+        [Obsolete("Use TogglePlateReceiver(true/false)")]
+        public void OpenPlateReceiver() => TogglePlateReceiver(true);
 
-    IEnumerator Notification()
-    {
-        _notification.SetActive(true);
-        yield return new WaitForSeconds(4f);
-        _notification.SetActive(false);
-    }
+        [Obsolete("Use TogglePlateReceiver(false) + EnableDelivery(false)")]
+        public void ClosePlateReceiver() { TogglePlateReceiver(false); EnableDelivery(false); }
 
+        [Obsolete("Use Close()")]
+        public void CloseDialogue() => Close();
+
+        [Obsolete("Controller should own this flow; here it's a no-op")]
+        public void SwitchDialogue()
+        {
+            if (IsOpen) Close();
+            else if (CurrentClient != null) StartConversation(CurrentClient);
+        }
+
+        [Obsolete("Model no longer fetches plates")]
+        public void GetPlate() { }
+
+        [Obsolete("Outcome should be handled in gameplay logic")]
+        public void CorrectPlate() { }
+    
+        #endregion
+    }
 }

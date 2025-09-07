@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Dialogue;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
