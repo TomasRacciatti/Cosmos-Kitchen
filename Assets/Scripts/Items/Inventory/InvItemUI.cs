@@ -68,18 +68,6 @@ namespace Items.Inventory
             _canvas.sortingOrder = 10;
             transform.localPosition = Vector3.zero;
             ItemsDropper.Hide();
-            
-            // Saber qué está debajo del cursor
-            GameObject hitObject = eventData.pointerCurrentRaycast.gameObject;
-
-            if(hitObject != null)
-            {
-                Debug.Log("Chocaste con: " + hitObject.name);
-            }
-            else
-            {
-                Debug.Log("No chocaste con nada");
-            }
         }
         
         public void OnPointerClick(PointerEventData eventData)
@@ -89,16 +77,16 @@ namespace Items.Inventory
                 case PointerEventData.InputButton.Left:
                     break;
                 case PointerEventData.InputButton.Right:
-                    SplitItem();
                     break;
                 case PointerEventData.InputButton.Middle:
+                    SplitItem();
                     break;
             }
         }
 
         private void SplitItem()
         {
-            //_invSlotUI.InventoryUI.InventorySystem.SplitItemStack(slotUI.SlotIndex);
+            _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
         }
         
         public void OnPointerEnter(PointerEventData eventData)

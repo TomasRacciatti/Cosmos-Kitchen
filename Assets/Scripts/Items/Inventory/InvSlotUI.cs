@@ -48,13 +48,13 @@ namespace Items.Inventory
         public void OnDrop(PointerEventData eventData)
         {
             InvItemUI fromItemUI = eventData.pointerDrag.GetComponent<InvItemUI>();
-            InvSlotUI fromSlotUI = fromItemUI.GetComponentInParent<InvSlotUI>();
+            InvSlotUI fromSlotUI = fromItemUI.SlotUI;
             ItemsDropper.Hide();
             ItemsTooltip.Show(fromItemUI.ItemAmount);
 
             if (fromSlotUI == null) return;
 
-            //fromSlotUI.InventoryUI.InventorySystem.TransferIndexToIndex(InventoryUI.InventorySystem, fromSlotUI.SlotIndex,SlotIndex);
+            fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(fromSlotUI.InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
         }
     }
 }

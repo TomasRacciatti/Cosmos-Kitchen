@@ -181,5 +181,72 @@ namespace Items.Inventory
             for (int i = 0; i < items.Count; i++)
                 NotifySlotChanged(i);
         }
+        
+        public void TransferIndexToIndex(InvSystem targetInventory, int fromIndex, int targetIndex)
+        {
+            if (targetInventory == null) return;
+            if (fromIndex < 0 || fromIndex >= Slots) return;
+            if (targetIndex < 0 || targetIndex >= targetInventory.Slots) return;
+            if (this == targetInventory && fromIndex == targetIndex) return;
+
+            ItemAmount fromItem = items[fromIndex];
+            if (fromItem.IsEmpty) return;
+
+            ItemAmount targetItem = targetInventory.Item(targetIndex);
+            
+            if (targetItem.IsEmpty) //si esta vacio
+            {
+                targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
+                ClearSlot(fromIndex);
+                NotifySlotChanged(fromIndex);
+                return;
+            }
+            
+            if (ItemsUtility.Stackable(fromItem, targetItem)) //si son stackeables
+            {
+                int remaining = targetInventory.items[targetIndex].AddAmount(fromItem.Amount);
+                targetInventory.NotifySlotChanged(targetIndex);
+
+                items[fromIndex].SetAmount(remaining);
+                NotifySlotChanged(fromIndex);
+                return;
+            }
+
+            // Si no son stackeables, hacemos un swap
+            targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
+            SetItemByIndex(fromIndex, targetItem);
+        }
+        
+        public bool SplitItemStack(int index)
+        {
+            if (index < 0 || index >= Items.Count) return false;
+
+            var item = Items[index];
+            if (item.IsEmpty || item.Amount <= 1) return false;
+            
+            int halfAmount = item.Amount / 2;
+            int remainder = item.Amount - halfAmount;
+            
+            int emptyIndex = GetFirstEmptySlotIndex();
+            if (emptyIndex == -1) return false;
+
+            // Asignar cantidades
+            items[index].SetAmount(remainder);
+            items[emptyIndex] = new ItemAmount(item.SoItem, halfAmount);
+
+            NotifySlotChanged(index);
+            NotifySlotChanged(emptyIndex);
+
+            return true;
+        }
+        
+        private int GetFirstEmptySlotIndex()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].IsEmpty) return i;
+            }
+            return -1;
+        }
     }
 }
