@@ -1,18 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
+using Items.Inventory;
 using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+namespace Managers
 {
-    // Start is called before the first frame update
-    void Start()
+    public class CanvasManager : MonoBehaviour
     {
+        private static CanvasManager _instance;
         
-    }
+        [SerializeField] private InvManager invManager;
+        [SerializeField] private GameObject pauseMenuUI;
 
-    // Update is called once per frame
-    void Update()
-    {
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(_instance.gameObject);
+            }
+            _instance = this;
+        }
+
+        private void Start()
+        {
+            GameManager.RegisterCanvas(this);
+        }
         
+        public bool ToggleInventory()
+        {
+            return invManager.ToggleInventory();
+        }
     }
 }

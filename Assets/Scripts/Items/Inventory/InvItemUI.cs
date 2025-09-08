@@ -25,6 +25,12 @@ namespace Items.Inventory
         {
             _canvas = GetComponent<Canvas>();
             _canvas.sortingOrder = 10;
+            amountText.raycastTarget = false;
+        }
+
+        public void SetSlotUI(InvSlotUI invSlotUI)
+        {
+            _invSlotUI = invSlotUI;
         }
         
         public void SetItem(ItemAmount newItemAmount)
@@ -45,6 +51,7 @@ namespace Items.Inventory
             image.raycastTarget = false;
             _canvas.sortingOrder = 15;
             ItemsDropper.Show();
+            ItemsTooltip.Hide();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -58,9 +65,21 @@ namespace Items.Inventory
         public void OnEndDrag(PointerEventData eventData)
         {
             image.raycastTarget = true;
-            _canvas.sortingOrder = 5;
+            _canvas.sortingOrder = 10;
             transform.localPosition = Vector3.zero;
             ItemsDropper.Hide();
+            
+            // Saber qué está debajo del cursor
+            GameObject hitObject = eventData.pointerCurrentRaycast.gameObject;
+
+            if(hitObject != null)
+            {
+                Debug.Log("Chocaste con: " + hitObject.name);
+            }
+            else
+            {
+                Debug.Log("No chocaste con nada");
+            }
         }
         
         public void OnPointerClick(PointerEventData eventData)
@@ -79,8 +98,7 @@ namespace Items.Inventory
 
         private void SplitItem()
         {
-            InvSlotUI slotUI = GetComponentInParent<InvSlotUI>();
-            //slotUI.InventoryUI.InventorySystem.SplitItemStack(slotUI.SlotIndex);
+            //_invSlotUI.InventoryUI.InventorySystem.SplitItemStack(slotUI.SlotIndex);
         }
         
         public void OnPointerEnter(PointerEventData eventData)

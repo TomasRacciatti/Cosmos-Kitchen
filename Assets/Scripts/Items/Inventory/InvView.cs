@@ -1,4 +1,5 @@
 using Items.Core;
+using Managers;
 using UnityEngine;
 
 namespace Items.Inventory
@@ -20,6 +21,7 @@ namespace Items.Inventory
 
         private void Start()
         {
+            if (inventorySystem == null) inventorySystem = GameManager.Player.GetComponent<InvSystem>();
             if (inventorySystem == null) return;
             inventorySystem.Subscribe(OnItemChanged);
             UpdateInventory();

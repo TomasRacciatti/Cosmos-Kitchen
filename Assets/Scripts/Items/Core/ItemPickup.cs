@@ -10,9 +10,8 @@ namespace Items.Core
     public class ItemPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemAmount itemAmount;
-        [SerializeField] private Transform interactionPoint;
         
-        public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
+        public Transform InteractionPoint => transform;
         
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;

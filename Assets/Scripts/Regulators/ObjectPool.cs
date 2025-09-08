@@ -140,7 +140,7 @@ namespace Regulators
 
         public static void ReturnObjectToPool(GameObject obj)
         {
-            string objName = obj.name.Replace("(Clone)", "").Trim();
+            string objName = obj.name.Split('(')[0].Replace(" ", "");
             PooledObjectInfo pool = GetPool(objName);
             obj.transform.SetParent(pool.Folder.transform);
             obj.SetActive(false);

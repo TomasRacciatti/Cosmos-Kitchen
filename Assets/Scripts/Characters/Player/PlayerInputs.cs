@@ -1,68 +1,110 @@
 using System;
 using Items.Core;
+using Managers;
 using Regulators;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Characters.Player
 {
+    public class PlayerInputs : MonoBehaviour
+    {
+        [Header("Character Input Values")] public Vector2 move;
+        public Vector2 look;
+        public bool jump;
+        public bool sprint;
 
-	
-	public class PlayerInputs : MonoBehaviour
-	{
-		[Header("Character Input Values")]
-		public Vector2 move;
-		public Vector2 look;
-		public bool jump;
-		public bool sprint;
-		
-		private PlayerController _playerController;
+        private PlayerController _playerController;
+        public bool inventoryOpen = false;
 
-		private void Awake()
-		{
-			_playerController = GetComponent<PlayerController>();
-		}
+        private void Awake()
+        {
+            _playerController = GetComponent<PlayerController>();
+        }
+
+        private void Start()
+        {
+            SetCursor(false);
+        }
+
+        public static void SetCursor(bool visible)
+        {
+            if (visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+        }
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
-		{
-			move = value.Get<Vector2>();
-		}
+        public void OnMove(InputValue value)
+        {
+            move = value.Get<Vector2>();
+        }
 
-		public void OnLook(InputValue value)
-		{
-			look = value.Get<Vector2>();
-		}
+        public void OnLook(InputValue value)
+        {
+            //cambiar la condicion del operador ternario
+            look = inventoryOpen ? look = new Vector2(0, 0) : value.Get<Vector2>();
+        }
 
-		public void OnJump(InputValue value)
-		{
-			/*
-			jump = value.isPressed;
-			if (jump) _playerController.Jump();
-			//Jump Commented
-			*/
-		}
+        public void OnJump(InputValue value)
+        {
+            /*
+            jump = value.isPressed;
+            if (jump) _playerController.Jump();
+            //Jump Commented
+            */
+        }
 
-		public void OnSprint(InputValue value)
-		{
-			sprint = value.isPressed;
-		}
-		
-		public void OnInteract(InputValue value)
-		{
-			if (value.isPressed)
-			{
-				_playerController.CameraRaycast();
-			}
-		}
+        public void OnSprint(InputValue value)
+        {
+            sprint = value.isPressed;
+        }
 
-		public void OnTest(InputValue value)
-		{
-			if (value.isPressed)
-			{
-				//_playerController.SwitchCameraMode();
-			}
-		}
+        public void OnInteract(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                _playerController.CameraRaycast();
+            }
+        }
+
+        public void OnInventory(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                inventoryOpen = GameManager.Canvas.ToggleInventory();
+                SetCursor(inventoryOpen);
+            }
+        }
+
+        public void OnBook(InputValue value)
+        {
+            if (value.isPressed)
+            {
+            }
+        }
+
+        public void OnBackUI(InputValue value)
+        {
+            if (value.isPressed)
+            {
+            }
+        }
+
+        public void OnTest(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                //_playerController.SwitchCameraMode();
+            }
+        }
 #endif
-	}
+    }
 }

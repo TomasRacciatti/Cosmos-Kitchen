@@ -90,9 +90,9 @@ namespace Characters.Player
             _input = GetComponent<PlayerInputs>();
             _jumpTimeoutDelta = jumpTimeout;
             _fallTimeoutDelta = fallTimeout;
-            SetCursorVisible(false);
             GameManager.Resume();
             GameManager.RegisterPlayer(this);
+            Instantiate(PrefabsManager.Canvas, null, false);
         }
 
         private void Update()
@@ -118,28 +118,6 @@ namespace Characters.Player
 
             _playerView.Landed();
         }
-        private void OnDrawGizmosSelected()
-        {
-            if (_characterController == null) return;
-
-            // --- GroundedCheck ---
-            Vector3 spherePosition = new Vector3(
-                transform.position.x,
-                transform.position.y - (-_characterController.radius),
-                transform.position.z
-            );
-
-            bool groundedHit = Physics.CheckSphere(
-                spherePosition,
-                _characterController.radius,
-                groundLayers,
-                QueryTriggerInteraction.Ignore
-            );
-
-            Gizmos.color = groundedHit ? Color.blue : Color.cyan;
-            Gizmos.DrawWireSphere(spherePosition, _characterController.radius);
-        }
-
         
         private void CeilingCheck()
         {
@@ -161,22 +139,18 @@ namespace Characters.Player
 
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
                 _cinemachineTargetYaw += _input.look.x;
                 _cinemachineTargetPitch += _input.look.y;
             }
 
-            // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
-
-            // Cinemachine will follow this target
+            
             cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
-            cinemachineCameraTarget2.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }
 
         private void HorizontalMovement()
@@ -240,18 +214,14 @@ namespace Characters.Player
         {
             if (grounded)
             {
-                // reset the fall timeout timer
                 _fallTimeoutDelta = fallTimeout;
                 
                 _playerView.SetGrounded(true);
-
-                // stop our velocity dropping infinitely when grounded
+                
                 if (_verticalVelocity < 0.0f)
                 {
-                    _verticalVelocity = -2f;
+                    _verticalVelocity = -1f;
                 }
-
-                // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
@@ -259,22 +229,18 @@ namespace Characters.Player
             }
             else
             {
-                // reset the jump timeout timer
                 _jumpTimeoutDelta = jumpTimeout;
-
-                // fall timeout
+                
                 if (_fallTimeoutDelta >= 0.0f)
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
                 }
                 else
                 {
-                    // update animator if using character
                     _playerView.SetFalling(true);
                 }
             }
-
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            
             if (_verticalVelocity < TerminalVelocity)
             {
                 _verticalVelocity += gravity * Time.deltaTime;
@@ -319,38 +285,25 @@ namespace Characters.Player
             }
         }
 
-        private void SetLockForwardTrue() //rever
+        private void SetLockForwardTrue()
         {
             lockForwardFacing = true;
         }
         
-        public void CameraRaycast()
+        public void CameraRaycast() //rever el tema del rango
         {
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
             
             if (Physics.Raycast(ray, out var hit, cameraRadius, interactableLayers | groundLayers))
             {
-                Debug.Log("Collider: " + hit.collider.name);
                 if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
                 {
                     interactable.Interact(gameObject);
                 }
             }
         }
-        
-        public static void SetCursorVisible(bool visible)
-        {
-            if (visible)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
+
+        public Vector3 GetThrowPosition => transform.position + 0.5f * transform.forward + transform.up;
     }
     
     public enum ECameraMode

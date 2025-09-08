@@ -71,7 +71,7 @@ namespace Items.Inventory
         }
 
         
-        public void SetItemByIndex(int index, ref ItemAmount itemAmount)
+        public void SetItemByIndex(int index, ItemAmount itemAmount)
         {
             if (!ValidIndex(index)) return;
             

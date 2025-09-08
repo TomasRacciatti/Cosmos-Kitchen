@@ -1,4 +1,6 @@
 using Items.Inventory;
+using Managers;
+using Regulators;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -30,24 +32,23 @@ namespace Items.Core
         {
             InvItemUI fromItemUI = eventData.pointerDrag.GetComponent<InvItemUI>();
             if (fromItemUI == null) return;
-            InvSlotUI fromSlotUI = fromItemUI.SlotUI;
+            InvSlotUI slotUI = fromItemUI.SlotUI;
             Drop(fromItemUI.ItemAmount);
+            slotUI.InvView.InventorySystem.SetItemByIndex(slotUI.InvSlot, new ItemAmount());
             Hide();
         }
 
         public static void Drop(ItemAmount itemAmount)
         {
-            //fromSlotUI.InvView.InventorySystem.SetItemByIndex(fromSlotUI.InvSlot, new ItemAmount());
-            /*
-            GameObject itemObject = Instantiate(_instance.itemPrefab, GameManager.Player.transform.position + 1.2f * Vector3.up,
-                Quaternion.identity);
-            itemObject.GetComponent<ItemPrefab>().SetItemAmount(new ItemAmount(itemAmount));
-            
-            Rigidbody rb = itemObject.GetComponent<Rigidbody>();
+            if (itemAmount.IsEmpty) return;
+            GameObject itemPickup = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, GameManager.Player.GetThrowPosition, Quaternion.identity, false);
+            itemPickup.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(itemAmount));
+            itemPickup.SetActive(true);
+            Rigidbody rb = itemPickup.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddForce((GameManager.Player.transform.forward + 0.8f * Vector3.up).normalized * 3.5f, ForceMode.Impulse);
-            }*/
+                rb.AddForce((GameManager.Player.transform.forward + Vector3.up).normalized * 3f, ForceMode.Impulse);
+            }
         }
     }
 }

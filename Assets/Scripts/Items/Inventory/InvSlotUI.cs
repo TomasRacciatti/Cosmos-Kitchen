@@ -20,23 +20,26 @@ namespace Items.Inventory
             invSlot = inventorySlot;
         }
         
-        public void SetItem(ItemAmount itemAmount)
+        public void SetItem(ItemAmount itemAmount) //cambiar con object pool si despues se puede
         {
             InvItemUI itemUI = GetComponentInChildren<InvItemUI>();
             if (itemAmount.IsEmpty)
             {
                 if (itemUI != null)
                 {
-                    ObjectPool.ReturnObjectToPool(gameObject);
+                    Destroy(itemUI.gameObject);
                 }
                 return;
             }
 
             if (itemUI == null)
             {
-                GameObject newItem = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabUI, Vector3.zero, Quaternion.identity);
+                GameObject newItem = Instantiate(PrefabsManager.ItemPrefabUI, Vector3.zero, Quaternion.identity);
                 itemUI = newItem.GetComponent<InvItemUI>();
-                //falta asignar padre
+                itemUI.SetSlotUI(this);
+                newItem.transform.SetParent(transform, false);
+                newItem.transform.localPosition = Vector3.zero;
+                newItem.transform.localRotation = Quaternion.identity;
             }
 
             itemUI.SetItem(itemAmount);

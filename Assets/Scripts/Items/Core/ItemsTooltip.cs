@@ -13,8 +13,8 @@ namespace Items.Core
         [SerializeField] private TMP_Text itemDescriptionText;
         [SerializeField] private Image itemIcon;
         
-        private RectTransform _rectTransform;
-        private Canvas _canvas;
+        public RectTransform _rectTransform;
+        public Canvas _canvas;
         
         private void Awake()
         {
@@ -50,12 +50,13 @@ namespace Items.Core
 
             AdjustPivotToStayOnScreen(mouseScreenPos);
 
+            RectTransform parentRect = _rectTransform.parent as RectTransform;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                _canvas.transform as RectTransform,
+                parentRect,
                 mouseScreenPos,
                 _canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _canvas.worldCamera,
                 out var anchoredPos);
-
+            
             _rectTransform.anchoredPosition = anchoredPos;
         }
         
