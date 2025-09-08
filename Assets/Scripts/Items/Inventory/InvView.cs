@@ -20,6 +20,7 @@ namespace Items.Inventory
 
         private void Start()
         {
+            if (inventorySystem == null) return;
             inventorySystem.Subscribe(OnItemChanged);
             UpdateInventory();
         }
@@ -27,7 +28,7 @@ namespace Items.Inventory
         private void OnItemChanged(int index, ItemAmount item)
         {
             if (index < 0 || index >= slots.Length) return;
-            //slots[index].SetItem(item);
+            slots[index].SetItem(item);
         }
 
         private void UpdateInventory()

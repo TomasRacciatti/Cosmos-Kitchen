@@ -1,9 +1,12 @@
 using Items.Core;
+using Managers;
+using Regulators;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Items.Inventory
 {
-    public class InvSlotUI : MonoBehaviour
+    public class InvSlotUI : MonoBehaviour, IDropHandler
     {
         private InvView invView;
         private int invSlot;
@@ -17,7 +20,6 @@ namespace Items.Inventory
             invSlot = inventorySlot;
         }
         
-        /*
         public void SetItem(ItemAmount itemAmount)
         {
             InvItemUI itemUI = GetComponentInChildren<InvItemUI>();
@@ -25,19 +27,31 @@ namespace Items.Inventory
             {
                 if (itemUI != null)
                 {
-                    Destroy(itemUI.gameObject);
+                    ObjectPool.ReturnObjectToPool(gameObject);
                 }
-
                 return;
             }
 
             if (itemUI == null)
             {
-                GameObject newItem = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, transform);
+                GameObject newItem = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabUI, Vector3.zero, Quaternion.identity);
                 itemUI = newItem.GetComponent<InvItemUI>();
+                //falta asignar padre
             }
 
             itemUI.SetItem(itemAmount);
-        }*/
+        }
+        
+        public void OnDrop(PointerEventData eventData)
+        {
+            InvItemUI fromItemUI = eventData.pointerDrag.GetComponent<InvItemUI>();
+            InvSlotUI fromSlotUI = fromItemUI.GetComponentInParent<InvSlotUI>();
+            ItemsDropper.Hide();
+            ItemsTooltip.Show(fromItemUI.ItemAmount);
+
+            if (fromSlotUI == null) return;
+
+            //fromSlotUI.InventoryUI.InventorySystem.TransferIndexToIndex(InventoryUI.InventorySystem, fromSlotUI.SlotIndex,SlotIndex);
+        }
     }
 }

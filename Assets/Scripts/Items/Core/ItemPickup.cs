@@ -10,9 +10,13 @@ namespace Items.Core
     public class ItemPickup : MonoBehaviour, IInteractable
     {
         [SerializeField] private ItemAmount itemAmount;
+        [SerializeField] private Transform interactionPoint;
+        
+        public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
+        
         private MeshFilter _meshFilter;
         private MeshRenderer _meshRenderer;
-
+        
         private void Awake()
         {
             if (TestEmptyDestroy()) return;
@@ -41,7 +45,7 @@ namespace Items.Core
             itemAmount = newItemAmount;
         }
         
-        public void Interact(GameObject interactableObject) //agarrar
+        public void Interact(GameObject interactableObject) //pick up
         {
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);

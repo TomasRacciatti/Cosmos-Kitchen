@@ -1,6 +1,7 @@
 ﻿using System;
 using Cinemachine;
 using Interfaces;
+using Managers;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -89,8 +90,9 @@ namespace Characters.Player
             _input = GetComponent<PlayerInputs>();
             _jumpTimeoutDelta = jumpTimeout;
             _fallTimeoutDelta = fallTimeout;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            SetCursorVisible(false);
+            GameManager.Resume();
+            GameManager.RegisterPlayer(this);
         }
 
         private void Update()
@@ -333,6 +335,20 @@ namespace Characters.Player
                 {
                     interactable.Interact(gameObject);
                 }
+            }
+        }
+        
+        public static void SetCursorVisible(bool visible)
+        {
+            if (visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
         }
     }
