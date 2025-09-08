@@ -555,6 +555,7 @@ MonoBehaviour:
   mainCamera: {fileID: 6982369444525410813}
   firstPersonCamera: {fileID: 663221032224734603}
   thirdPersonCamera: {fileID: 2641274836487050433}
+  actualCamera: {fileID: 0}
   lockForwardFacing: 0
 --- !u!114 &6539916698303342183
 MonoBehaviour:
@@ -572,6 +573,7 @@ MonoBehaviour:
   look: {x: 0, y: 0}
   jump: 0
   sprint: 0
+  inventoryOpen: 0
 --- !u!114 &3795158615934497444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1339,7 +1341,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 10
+  m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 4442483242290364903}
@@ -1734,7 +1736,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []

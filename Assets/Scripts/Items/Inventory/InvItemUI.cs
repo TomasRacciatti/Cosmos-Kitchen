@@ -79,14 +79,9 @@ namespace Items.Inventory
                 case PointerEventData.InputButton.Right:
                     break;
                 case PointerEventData.InputButton.Middle:
-                    SplitItem();
+                    _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
                     break;
             }
-        }
-
-        private void SplitItem()
-        {
-            _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
         }
         
         public void OnPointerEnter(PointerEventData eventData)

@@ -47,6 +47,11 @@ namespace Characters.Player
         [SerializeField] private Camera mainCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
+        [SerializeField] private CinemachineVirtualCamera actualCamera;
+
+        public CinemachineVirtualCamera FirstPersonCamera => firstPersonCamera;
+        public CinemachineVirtualCamera ThirdPersonCamera => thirdPersonCamera;
+        public CinemachineVirtualCamera ActualCamera => actualCamera;
         
         [Header("Movement Options")]
         [SerializeField] private bool lockForwardFacing;
@@ -73,14 +78,12 @@ namespace Characters.Player
         private PlayerView _playerView;
 
         private const float Threshold = 0.01f;
-        
-        private ECameraMode _cameraMode = ECameraMode.ThirdPerson;
-
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             _playerView = GetComponent<PlayerView>();
+            SetCamera(ThirdPersonCamera);
         }
 
         private void Start()
@@ -269,20 +272,12 @@ namespace Characters.Player
             _playerView.Footstep();
         }
 
-        public void SwitchCameraMode() //rever
+        public void SetCamera(CinemachineVirtualCamera newCamera)
         {
-            _cameraMode = _cameraMode != ECameraMode.ThirdPerson ? ECameraMode.ThirdPerson : ECameraMode.FirstPerson;
-            switch (_cameraMode)
-            {
-                case ECameraMode.FirstPerson:
-                    firstPersonCamera.Priority = 20;
-                    Invoke(nameof(SetLockForwardTrue), 1.5f);
-                    break;
-                case ECameraMode.ThirdPerson:
-                    firstPersonCamera.Priority = 0;
-                    lockForwardFacing = false;
-                    break;
-            }
+            if (actualCamera != null) actualCamera.Priority = 0;
+            actualCamera = newCamera;
+            if (actualCamera != null) actualCamera.Priority = 10;
+            Invoke(nameof(SetLockForwardTrue), 1.5f);
         }
 
         private void SetLockForwardTrue()
@@ -304,12 +299,5 @@ namespace Characters.Player
         }
 
         public Vector3 GetThrowPosition => transform.position + 0.5f * transform.forward + transform.up;
-    }
-    
-    public enum ECameraMode
-    {
-        ThirdPerson,
-        FirstPerson,
-        Custom
     }
 }
