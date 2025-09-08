@@ -31,7 +31,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         _byName = new Dictionary<string, Sound>(StringComparer.Ordinal);
         foreach (var s in sounds) _byName[s.name] = s;

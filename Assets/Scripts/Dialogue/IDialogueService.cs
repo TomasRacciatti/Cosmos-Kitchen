@@ -15,6 +15,7 @@ namespace Dialogue
         event Action<bool> DeliveryToggled;
         event Action<bool> RetryToggled;
         event Action<bool> PlateReceiverToggled;
+        event Action<bool> InteractionPromptToggled; // Legacy 
         event Action<string> Notified;
     
         void StartConversation(IClient client);

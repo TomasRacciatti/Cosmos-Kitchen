@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Audio;
+using Dialogue;
 using UnityEngine;
 
 public class PickupMinigame : MonoBehaviour
