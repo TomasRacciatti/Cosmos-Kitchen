@@ -34,15 +34,26 @@ namespace Items.Core
             {
                 _meshFilter.mesh = itemAmount.SoItem.Mesh;
             }
+            else
+            {
+                Debug.LogWarning("No Mesh Found");
+            }
             if (itemAmount.SoItem.Materials is { Length: > 0 })
             {
                 _meshRenderer.materials = itemAmount.SoItem.Materials;
             }
+            
+            Invoke(nameof(ReturnInTime), 300); // hacer que baje de calidad con el tiempo tirado
         }
 
         public void SetItemAmount(ItemAmount newItemAmount)
         {
             itemAmount = newItemAmount;
+        }
+
+        private void ReturnInTime()
+        {
+            ObjectPool.ReturnObjectToPool(gameObject);
         }
         
         public void Interact(GameObject interactableObject) //pick up
@@ -57,6 +68,16 @@ namespace Items.Core
             {
                 //inv lleno
             }
+        }
+
+        public void EnableInteract()
+        {
+            
+        }
+
+        public void DisableInteract()
+        {
+            
         }
 
         private bool TestEmptyDestroy()

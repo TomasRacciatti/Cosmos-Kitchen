@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace InteractionOutline
 {
-    public class OutlineController : MonoBehaviour, IHighlightable
+    public class OutlineController : MonoBehaviour, IInteractable
     {
         [Header("Renderer Collection")] 
         [SerializeField] private bool _autoCollectRenderers = true; // Si esto es true, va a agarrar todos los mesh
@@ -42,20 +42,6 @@ namespace InteractionOutline
                 _isOn = false;
                 ApplyToAll();
             }
-        }
-
-        public void EnableHighlight()
-        {
-            if (_isOn) return;
-            _isOn = true;
-            ApplyToAll();
-        }
-
-        public void DisableHighlight()
-        {
-            if (!_isOn) return;
-            _isOn = false;
-            ApplyToAll();
         }
 
         private void CollectRenderers()
@@ -101,6 +87,25 @@ namespace InteractionOutline
             CollectRenderers();
             if (_isOn)
                 ApplyToAll();
+        }
+
+        public void Interact(GameObject interactableObject)
+        {
+            
+        }
+
+        public void EnableInteract()
+        {
+            if (_isOn) return;
+            _isOn = true;
+            ApplyToAll();
+        }
+
+        public void DisableInteract()
+        {
+            if (!_isOn) return;
+            _isOn = false;
+            ApplyToAll();
         }
     }
 }

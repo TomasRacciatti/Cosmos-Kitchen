@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.065258294, g: 0.60473865, b: 0.98032355, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1080,12 +1080,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8e948fbeebd29e4681eca87867a4543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dialoguePanel: {fileID: 1738860361}
-  _plateReceiver: {fileID: 2102345602}
-  _interactionButton: {fileID: 71399923}
-  _notification: {fileID: 1581617929}
-  _notificationText: {fileID: 1836656353}
-  _dialogueMesh: {fileID: 1924700894}
 --- !u!1 &101631244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,10 +1804,6 @@ MonoBehaviour:
   _clientOrderList: {fileID: 1407481670}
   _clientPrefab: []
   _isCriticEorthUnlocked: 0
-  _isCriticDesertUnlocked: 0
-  _isCriticOceanUnlocked: 0
-  _isCriticFrozenUnlocked: 0
-  _isCriticVolcanoUnlocked: 0
 --- !u!4 &197254383
 Transform:
   m_ObjectHideFlags: 0
@@ -2219,6 +2209,10 @@ MonoBehaviour:
   _inventoryOpen: 0
   _bookOpen: 0
   _canToggleBook: 1
+  OpenBookSound: {fileID: 0}
+  CloseBookSound: {fileID: 0}
+  InventoryOpenSound: {fileID: 0}
+  InventoryCloseSound: {fileID: 0}
 --- !u!1 &214041517
 GameObject:
   m_ObjectHideFlags: 0
@@ -3438,111 +3432,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302199467}
-  m_CullTransparentMesh: 1
---- !u!1 &303781321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 303781322}
-  - component: {fileID: 303781325}
-  - component: {fileID: 303781324}
-  - component: {fileID: 303781323}
-  m_Layer: 5
-  m_Name: Next Page
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &303781322
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303781321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 443119537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &303781323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303781321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1937373521}
-          m_TargetAssemblyTypeName: BookContents, Assembly-CSharp
-          m_MethodName: NextPage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &303781324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303781321}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &303781325
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 303781321}
   m_CullTransparentMesh: 1
 --- !u!1 &306409141
 GameObject:
@@ -5431,45 +5320,6 @@ RectTransform:
   m_AnchoredPosition: {x: 208.99994, y: 200.00002}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &443119536
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 443119537}
-  m_Layer: 5
-  m_Name: Right Page
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &443119537
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443119536}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1209148378}
-  - {fileID: 886647608}
-  - {fileID: 1717197583}
-  - {fileID: 303781322}
-  m_Father: {fileID: 932413146}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 365, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &445812572
 GameObject:
   m_ObjectHideFlags: 0
@@ -7233,6 +7083,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemInSlot: {fileID: 0}
   _ingredientInSlot: {fileID: 0}
+  StationSound: {fileID: 0}
 --- !u!1 &579607802 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7534286529895954302, guid: a1c97eb669f42e044b8bc21c11afa26f,
@@ -7698,6 +7549,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientPrefab: {fileID: 3298949948797066638, guid: d66f7e846bcc00045a66bacbff093a9a,
     type: 3}
+  EnterSound: {fileID: 0}
+  FinishSound: {fileID: 0}
+  _cornCue: {fileID: 0}
 --- !u!65 &610727193
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8110,6 +7964,8 @@ MonoBehaviour:
   - {fileID: 616893690}
   forwardButton: {fileID: 1124547909}
   backButton: {fileID: 322245600}
+  PageForwardSound: {fileID: 0}
+  PageBackSound: {fileID: 0}
 --- !u!1 &630381012
 GameObject:
   m_ObjectHideFlags: 0
@@ -10141,7 +9997,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802272874}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.098982014, y: 0.776078, z: -0.1259401, w: 0.6099546}
+  m_LocalRotation: {x: 0.09898201, y: 0.7760779, z: -0.12594013, w: 0.60995466}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10737,8 +10593,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 1857092914}
+  _followCamera: {fileID: 0}
   _firstPersonCamera: {fileID: 669808383}
   _rotationSpeed: 95
+  _firstPersonCameraTransform: {fileID: 0}
+  _stationCameras: []
 --- !u!1 &874121384
 GameObject:
   m_ObjectHideFlags: 0
@@ -10814,223 +10673,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 874121384}
   m_CullTransparentMesh: 1
---- !u!1 &886647605
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 886647608}
-  - component: {fileID: 886647607}
-  - component: {fileID: 886647606}
-  m_Layer: 5
-  m_Name: RightText Box
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &886647606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886647605}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-    cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod
-    maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-    eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-    earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores
-    alias consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam
-    libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo
-    minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est,
-    omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut
-    rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 8
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 5
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 2
-  m_margin: {x: -252.37044, y: -349.26248, z: -252.37033, w: -295.5726}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &886647607
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886647605}
-  m_CullTransparentMesh: 1
---- !u!224 &886647608
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 886647605}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 443119537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &895690384
 GameObject:
   m_ObjectHideFlags: 0
@@ -11470,80 +11112,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0592969fec2462d4f96ce25b0cc741a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &932413145
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 932413146}
-  - component: {fileID: 932413148}
-  - component: {fileID: 932413147}
-  m_Layer: 5
-  m_Name: BookCover
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &932413146
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932413145}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1712738653}
-  - {fileID: 443119537}
-  m_Father: {fileID: 1937373520}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000061035156, y: 0.000030517578}
-  m_SizeDelta: {x: 1500, y: 823}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &932413147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932413145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.6132076, g: 0.4253976, b: 0.21115166, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 0}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &932413148
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 932413145}
-  m_CullTransparentMesh: 1
 --- !u!1 &943091222
 GameObject:
   m_ObjectHideFlags: 0
@@ -13012,215 +12580,6 @@ RectTransform:
   m_AnchoredPosition: {x: 208.99994, y: -200}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1045273743
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1045273746}
-  - component: {fileID: 1045273745}
-  - component: {fileID: 1045273744}
-  m_Layer: 5
-  m_Name: Left Page Number
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1045273744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045273743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 1
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1045273745
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045273743}
-  m_CullTransparentMesh: 1
---- !u!224 &1045273746
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1045273743}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1712738653}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -353}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1061400966
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1061400967}
-  - component: {fileID: 1061400969}
-  - component: {fileID: 1061400968}
-  m_Layer: 5
-  m_Name: Left Page Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1061400967
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061400966}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1712738653}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1061400968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061400966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.8172698, b: 0.55633676, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1061400969
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1061400966}
-  m_CullTransparentMesh: 1
 --- !u!1 &1062345701
 GameObject:
   m_ObjectHideFlags: 0
@@ -14973,81 +14332,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203846526}
-  m_CullTransparentMesh: 1
---- !u!1 &1209148377
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1209148378}
-  - component: {fileID: 1209148380}
-  - component: {fileID: 1209148379}
-  m_Layer: 5
-  m_Name: Right Page Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1209148378
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209148377}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 443119537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1209148379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209148377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8867924, g: 0.8172698, b: 0.55633676, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1209148380
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1209148377}
   m_CullTransparentMesh: 1
 --- !u!1 &1216814288
 GameObject:
@@ -17471,6 +16755,7 @@ MonoBehaviour:
   _buttonText: {fileID: 1868873111}
   _toolCheck: {fileID: 0}
   _thermoRunning: 0
+  StationSound: {fileID: 0}
 --- !u!1 &1352581654
 GameObject:
   m_ObjectHideFlags: 0
@@ -164745,6 +164030,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ingredientPrefab: {fileID: 3298949948797066638, guid: f860e085f11e6ae46b2f3e91da1563d5,
     type: 3}
+  EnterSound: {fileID: 0}
+  FinishSound: {fileID: 0}
+  _cornCue: {fileID: 0}
 --- !u!65 &1431279822
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -164853,7 +164141,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433339323}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.087870866, y: 0.77824026, z: -0.1118028, w: 0.61165416}
+  m_LocalRotation: {x: 0.08787087, y: 0.7782404, z: -0.11180281, w: 0.61165416}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -165680,6 +164968,7 @@ MonoBehaviour:
   _itemInSlot: {fileID: 0}
   _ingredientInSlot: {fileID: 0}
   _toolCheck: {fileID: 620872748}
+  StationSound: {fileID: 0}
 --- !u!1 &1449884928
 GameObject:
   m_ObjectHideFlags: 0
@@ -166572,6 +165861,9 @@ MonoBehaviour:
   - {fileID: 294069077}
   - {fileID: 1595667385}
   - {fileID: 350050185}
+  _menuManager: {fileID: 0}
+  _firstPersonHud: {fileID: 0}
+  _isAnimating: 0
 --- !u!1 &1543181833
 GameObject:
   m_ObjectHideFlags: 0
@@ -167551,6 +166843,7 @@ MonoBehaviour:
   - {fileID: 7897004253190308203, guid: 27e959538e3fb7d4fbc5984fd1418b7e, type: 3}
   - {fileID: 7897004253190308203, guid: d66f7e846bcc00045a66bacbff093a9a, type: 3}
   - {fileID: 7897004253190308203, guid: fc5042ab50a38a143afecf8913b645c2, type: 3}
+  StationSound: {fileID: 0}
 --- !u!1 &1608015635
 GameObject:
   m_ObjectHideFlags: 0
@@ -168048,74 +167341,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1624836642}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1638643993
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3732363645066683430, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_Name
-      value: Tree_01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 27.429472
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -2.0937877
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 41.736084
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4073457868013600412, guid: 536a719b396a4b043bc288f14517fec1,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 536a719b396a4b043bc288f14517fec1, type: 3}
 --- !u!1 &1640166599
 GameObject:
   m_ObjectHideFlags: 0
@@ -168891,284 +168116,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0592969fec2462d4f96ce25b0cc741a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1712738652
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1712738653}
-  m_Layer: 5
-  m_Name: Left Page
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1712738653
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1712738652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1061400967}
-  - {fileID: 2091156861}
-  - {fileID: 1045273746}
-  - {fileID: 1729394508}
-  m_Father: {fileID: 932413146}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -365, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1717197580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1717197583}
-  - component: {fileID: 1717197582}
-  - component: {fileID: 1717197581}
-  m_Layer: 5
-  m_Name: Right Page Number
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1717197581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717197580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: 2
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &1717197582
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717197580}
-  m_CullTransparentMesh: 1
---- !u!224 &1717197583
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717197580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 443119537}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -353}
-  m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1729394507
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1729394508}
-  - component: {fileID: 1729394511}
-  - component: {fileID: 1729394510}
-  - component: {fileID: 1729394509}
-  m_Layer: 5
-  m_Name: Previous Page
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1729394508
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729394507}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1712738653}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 725, y: 772}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1729394509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729394507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 4
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1937373521}
-          m_TargetAssemblyTypeName: BookContents, Assembly-CSharp
-          m_MethodName: PreviousPage
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &1729394510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729394507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1729394511
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729394507}
-  m_CullTransparentMesh: 1
 --- !u!1 &1738860361
 GameObject:
   m_ObjectHideFlags: 0
@@ -169649,14 +168596,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'For the purpose of this demo everything WILL be unlocked for you to try
 
-    
+
 
     In
     Cosmo''s Kitchen you will find a variety of people and ingredients, as such not
     everything will be available from the get go. You will need to explore, research
     and try to accomplish the main goal.
 
-    
+
 
     - Your Goal
 
@@ -171231,7 +170178,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857092914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09898199, y: 0.77607805, z: -0.1259401, w: 0.6099546}
+  m_LocalRotation: {x: 0.098982014, y: 0.7760779, z: -0.12594011, w: 0.6099547}
   m_LocalPosition: {x: 10.656914, y: 2.03, z: -8.926158}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -171887,6 +170834,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5748327185954352914, guid: 53f4326e668d6d14785a70c0c9fb5b90,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -172318,143 +171270,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 676e93287e62d1747972c1b67982218c, type: 3}
---- !u!1 &1937373519
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1937373520}
-  - component: {fileID: 1937373521}
-  m_Layer: 5
-  m_Name: Book Type 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1937373520
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937373519}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 932413146}
-  m_Father: {fileID: 1998791899}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1937373521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1937373519}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2153118db4f8ea418f508d29c1770f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  content: "Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n
-    Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit,
-    quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda
-    est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis
-    aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et
-    molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus,
-    ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus
-    asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt
-    harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum
-    soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime
-    placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-    eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-    earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores
-    alias consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam
-    libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo
-    minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est,
-    omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut
-    rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  leftSide: {fileID: 2091156859}
-  rightSide: {fileID: 886647606}
-  leftPagination: {fileID: 1045273744}
-  rightPagination: {fileID: 1717197581}
 --- !u!1 &1940746469
 GameObject:
   m_ObjectHideFlags: 0
@@ -173159,7 +171974,6 @@ RectTransform:
   - {fileID: 1107873231}
   - {fileID: 1386073606}
   - {fileID: 870243356}
-  - {fileID: 1937373520}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -174162,204 +172976,178 @@ MonoBehaviour:
     pitch: 1
     spatialBlend: 0
     loop: 1
-    source: {fileID: 0}
   - name: ui-click
     clip: {fileID: 8300000, guid: e7b7834635310ed48be87f9acb15e537, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: page-foward
     clip: {fileID: 8300000, guid: ffc09bdd1640a6b48aac45588022649d, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: page-back
     clip: {fileID: 8300000, guid: d28f97a706f6ca64c820cb542ac8fd7b, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: AmbientSound
     clip: {fileID: 8300000, guid: 7961cae33c68ef846a12ce52c403f59e, type: 3}
     volume: 0.1
     pitch: 1
     spatialBlend: 0
     loop: 1
-    source: {fileID: 0}
   - name: NPC_talk
     clip: {fileID: 8300000, guid: 1339f4d14aca121498290ed222517d6f, type: 3}
     volume: 0.7
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: client-eat
     clip: {fileID: 8300000, guid: 08c4b23e43497024faa2de383330e8bd, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: navigation-scrren-enter
     clip: {fileID: 8300000, guid: faa239bdb85ed694592692cae0f62362, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: navigation-screen-on
     clip: {fileID: 8300000, guid: 8eae6f4fb29433348b988fc6fe3c0a9e, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: landing-ship-door
     clip: {fileID: 8300000, guid: 5e565c3d268383046a04e1831a02bc20, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: enter-ship-metal
     clip: {fileID: 8300000, guid: 9f6f01e1e3c5fa34481c21f231f0f23f, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: out-ship-sail
     clip: {fileID: 8300000, guid: 6a70c4d23649faa4aaa62e714f4a3767, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: ship-ambience
     clip: {fileID: 8300000, guid: 18cbf2fe971db454eb1a1a453698c819, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 1
     loop: 1
-    source: {fileID: 0}
   - name: barn-ambience
     clip: {fileID: 8300000, guid: c592e7c2c57b3574680925d1fb74820c, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 1
     loop: 1
-    source: {fileID: 0}
   - name: AI-welcome
     clip: {fileID: 8300000, guid: fcc782c24e7a025479a2a2adf0d71a6b, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: corn-enter-minigame
     clip: {fileID: 8300000, guid: 0d549fd43df74d8468dd81e024e06d35, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: egg-gather
     clip: {fileID: 8300000, guid: 409d381a912f42546b12d2a20844996f, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: corn-gather
     clip: {fileID: 8300000, guid: 79a6cd03b52b97941b2be4612eb52cd8, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: cow-gather
     clip: {fileID: 8300000, guid: 511d4cfb13a2eb6438e3e1044d13c64e, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: blend-sound
     clip: {fileID: 8300000, guid: 08e6365b6ae22fc41a48e68227c4df4e, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: blend-station-enter
     clip: {fileID: 8300000, guid: cb00fac1a8dda6b4aa2b61366e315c4f, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: cooking-sound
     clip: {fileID: 8300000, guid: dfa950e540e9e674fa024a9440b9ef83, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: cooking-station-enter
     clip: {fileID: 8300000, guid: 76a81e1abb869c647bdf432d3b01ccbe, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: cutting-sound
     clip: {fileID: 8300000, guid: 06a5bc02b60b723469084f12bdbf2d02, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: cutting-station-enter
     clip: {fileID: 8300000, guid: 00ad16f97f675bc4c9d0c42365900eb3, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: plate-prepare
     clip: {fileID: 8300000, guid: d3844af7519089043ae7991c8a20656a, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: plate-prepare-enter
     clip: {fileID: 8300000, guid: 8c70a6b8563ea314cad65f76fcc6aef8, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 0
     loop: 0
-    source: {fileID: 0}
   - name: wind-up-machine
     clip: {fileID: 8300000, guid: 222f019a9f3403542bec91a2b150ae71, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 1
     loop: 0
-    source: {fileID: 0}
   - name: river-ambience
     clip: {fileID: 8300000, guid: b3a61fbcc5cdb19468dbd0e129ff3bf7, type: 3}
     volume: 0.3
     pitch: 1
     spatialBlend: 1
     loop: 1
-    source: {fileID: 0}
-  SFXSource: {fileID: 1019788541}
+  _sfxSource: {fileID: 0}
+  musicSource: {fileID: 0}
+  store: {fileID: 0}
+  applier: {fileID: 0}
 --- !u!4 &2071636565
 Transform:
   m_ObjectHideFlags: 0
@@ -174593,223 +173381,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0592969fec2462d4f96ce25b0cc741a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2091156858
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2091156861}
-  - component: {fileID: 2091156860}
-  - component: {fileID: 2091156859}
-  m_Layer: 5
-  m_Name: Left Text Box
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2091156859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091156858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: "Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-    cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod
-    maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-    Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe
-    eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque
-    earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores
-    alias consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam
-    libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo
-    minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est,
-    omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut
-    rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\nEt harum quidem rerum
-    facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est
-    eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere
-    possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem
-    quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut
-    et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum
-    hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias
-    consequatur aut perferendis doloribus asperiores repellat.\r\n\r\n Nam libero
-    tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus
-    id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis
-    dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum
-    necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae
-    non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis
-    voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 8
-  m_VerticalAlignment: 256
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 5
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: -243.81056, y: -349.26248, z: -242.09839, w: -298.9966}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &2091156860
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091156858}
-  m_CullTransparentMesh: 1
---- !u!224 &2091156861
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2091156858}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1712738653}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 190, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2092097174
 GameObject:
   m_ObjectHideFlags: 0
@@ -175201,12 +173772,6 @@ MonoBehaviour:
   _ingredientPrefab: {fileID: 3298949948797066638, guid: fc5042ab50a38a143afecf8913b645c2,
     type: 3}
   _minigameBehaviour: {fileID: 598449736}
---- !u!1 &2102345602 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8980667478334356139, guid: 20802232f9d17bc4cb17d6d79af0b4cb,
-    type: 3}
-  m_PrefabInstance: {fileID: 1434906149}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2104391884
 GameObject:
   m_ObjectHideFlags: 0
@@ -176521,4 +175086,3 @@ SceneRoots:
   - {fileID: 1463277645}
   - {fileID: 1889847517}
   - {fileID: 1130351516}
-  - {fileID: 1638643993}

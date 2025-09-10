@@ -51,6 +51,16 @@ namespace MiniGames
             }
         }
 
+        public void EnableInteract()
+        {
+            
+        }
+
+        public void DisableInteract()
+        {
+            
+        }
+
         protected virtual void EnterMiniGame()
         {
             AudioSource?.PlayOneShot(enterSound);
