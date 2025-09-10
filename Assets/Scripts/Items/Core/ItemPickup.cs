@@ -1,6 +1,7 @@
 using System;
 using Interfaces;
 using Items.Inventory;
+using Managers;
 using Regulators;
 using UnityEngine;
 
@@ -48,7 +49,14 @@ namespace Items.Core
         {
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);
-            TestEmptyDestroy();
+            if (TestEmptyDestroy())
+            {
+                AudioSource.PlayClipAtPoint(PrefabsManager.ItemPickupSound, transform.position);
+            }
+            else
+            {
+                //inv lleno
+            }
         }
 
         private bool TestEmptyDestroy()

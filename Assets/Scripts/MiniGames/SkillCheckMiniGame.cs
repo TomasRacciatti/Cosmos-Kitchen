@@ -81,7 +81,7 @@ namespace MiniGames
                     return;
                 }
                 SetSkillCheck();
-                _audioSource?.PlayOneShot(correctSound);
+                AudioSource?.PlayOneShot(correctSound);
             }
             else
             {
@@ -94,7 +94,7 @@ namespace MiniGames
                     return;
                 }
                 SetSkillCheck();
-                _audioSource?.PlayOneShot(wrongSound);
+                AudioSource?.PlayOneShot(wrongSound);
             }
         }
 

@@ -99,7 +99,7 @@ GameObject:
   m_Layer: 7
   m_Name: TreeApple
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rewardedItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
   rewardedAmount: 1
-  cooldownTime: 10
+  cooldownTime: 30
   drop: {fileID: 3260306799988664013}
   difficulty: 1
   scaleDifficulty: 0.15
@@ -207,6 +207,36 @@ MonoBehaviour:
   loseSound: {fileID: 8300000, guid: 731f97b4abfefa44fac21b7edbab6ac9, type: 3}
   correctSound: {fileID: 8300000, guid: 8a5712c1a076d614096c74e8a79b0f37, type: 3}
   wrongSound: {fileID: 8300000, guid: 462d28a39aba4b345927bd7b0637cce0, type: 3}
+  onCooldown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 377694773505119602}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onFinishCooldown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 377694773505119602}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   rotationSpeed: 120
   successThreshold: 20
   safeThreshold: 90
