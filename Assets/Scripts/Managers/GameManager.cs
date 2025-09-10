@@ -1,4 +1,3 @@
-using System;
 using Characters.Player;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ namespace Managers
         public static GameManager Instance { get; private set; }
         public static PlayerController Player { get; private set; }
         public static CanvasManager Canvas { get; private set; }
+        public static Camera MainCamera => Player.MainCamera;
         
         private void Awake()
         {

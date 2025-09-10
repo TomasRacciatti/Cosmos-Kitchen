@@ -50,6 +50,7 @@ namespace Characters.Player
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
         [SerializeField] private CinemachineVirtualCamera actualCamera;
 
+        public Camera MainCamera => mainCamera;
         public CinemachineVirtualCamera FirstPersonCamera => firstPersonCamera;
         public CinemachineVirtualCamera ThirdPersonCamera => thirdPersonCamera;
         public CinemachineVirtualCamera ActualCamera => actualCamera;

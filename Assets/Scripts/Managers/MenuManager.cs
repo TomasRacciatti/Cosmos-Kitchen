@@ -21,6 +21,8 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         _isOpen = false;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void ButtonSound()
@@ -77,7 +79,7 @@ public class MenuManager : MonoBehaviour
         AudioManager.instance.StopAllSFX();
         AudioManager.instance.PlaySFX(UIClickSound);
         
-        SceneManager.LoadScene("Eorth");
+        SceneManager.LoadScene("KsaScene");
     }
     
     // Back to Main Menu
