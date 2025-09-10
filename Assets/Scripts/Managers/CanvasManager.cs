@@ -10,6 +10,9 @@ namespace Managers
         
         [SerializeField] private InvManager invManager;
         [SerializeField] private GameObject pauseMenuUI;
+        [SerializeField] private MiniGamesUIManager miniGamesUI;
+        
+        public MiniGamesUIManager MiniGamesUI => miniGamesUI;
 
         private void Awake()
         {
@@ -18,6 +21,8 @@ namespace Managers
                 Destroy(_instance.gameObject);
             }
             _instance = this;
+            
+            invManager.gameObject.SetActive(true);
         }
 
         private void Start()

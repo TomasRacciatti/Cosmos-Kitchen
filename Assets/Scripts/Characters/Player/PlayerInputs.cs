@@ -9,7 +9,10 @@ namespace Characters.Player
 {
     public class PlayerInputs : MonoBehaviour
     {
-        [Header("Character Input Values")] public Vector2 move;
+        public bool active = true;
+        
+        [Header("Character Input Values")]
+        public Vector2 move;
         public Vector2 look;
         public bool jump;
         public bool sprint;
@@ -44,13 +47,13 @@ namespace Characters.Player
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            move = value.Get<Vector2>();
+            move = active ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = inventoryOpen ? look = new Vector2(0, 0) : value.Get<Vector2>();
+            look = active && !inventoryOpen ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
@@ -64,12 +67,12 @@ namespace Characters.Player
 
         public void OnSprint(InputValue value)
         {
-            sprint = value.isPressed;
+            sprint = active && value.isPressed;
         }
 
         public void OnInteract(InputValue value)
         {
-            if (value.isPressed)
+            if (active && value.isPressed)
             {
                 _playerController.CameraRaycast();
             }
@@ -88,6 +91,7 @@ namespace Characters.Player
         {
             if (value.isPressed)
             {
+                
             }
         }
 
@@ -95,6 +99,7 @@ namespace Characters.Player
         {
             if (value.isPressed)
             {
+                
             }
         }
 
@@ -102,7 +107,7 @@ namespace Characters.Player
         {
             if (value.isPressed)
             {
-                //_playerController.SwitchCameraMode();
+
             }
         }
 #endif

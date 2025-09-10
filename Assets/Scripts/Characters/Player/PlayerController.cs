@@ -1,6 +1,7 @@
 ﻿using System;
 using Cinemachine;
 using Interfaces;
+using Items.Inventory;
 using Managers;
 using UnityEngine;
 
@@ -76,21 +77,25 @@ namespace Characters.Player
         private PlayerInputs _input;
         private CharacterController _characterController;
         private PlayerView _playerView;
+        private InvSystem _inventory;
 
         private const float Threshold = 0.01f;
+        
+        public InvSystem Inventory => _inventory;
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             _playerView = GetComponent<PlayerView>();
+            _input = GetComponent<PlayerInputs>();
+            _controller = GetComponent<CharacterController>();
+            _inventory = GetComponent<InvSystem>();
             SetCamera(ThirdPersonCamera);
         }
 
         private void Start()
         {
             _cinemachineTargetYaw = cinemachineCameraTarget1.transform.rotation.eulerAngles.y;
-            _controller = GetComponent<CharacterController>();
-            _input = GetComponent<PlayerInputs>();
             _jumpTimeoutDelta = jumpTimeout;
             _fallTimeoutDelta = fallTimeout;
             GameManager.Resume();
@@ -274,10 +279,24 @@ namespace Characters.Player
 
         public void SetCamera(CinemachineVirtualCamera newCamera)
         {
+            CancelInvoke(nameof(SetLockForwardTrue));
             if (actualCamera != null) actualCamera.Priority = 0;
             actualCamera = newCamera;
             if (actualCamera != null) actualCamera.Priority = 10;
-            Invoke(nameof(SetLockForwardTrue), 1.5f);
+            if (actualCamera == thirdPersonCamera)
+            {
+                lockForwardFacing = false;
+                _input.active = true;
+                return;
+            }
+            if (actualCamera == firstPersonCamera)
+            {
+                Invoke(nameof(SetLockForwardTrue), 0.8f);
+                _input.active = true;
+                return;
+            }
+            lockForwardFacing = false;
+            _input.active = false;
         }
 
         private void SetLockForwardTrue()

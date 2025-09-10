@@ -10375,6 +10375,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8635054910311943439}
     m_Modifications:
+    - target: {fileID: 396272440357296889, guid: 21d6c55a72b2bcc4a8d4693eaeda8260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1959964184124665017, guid: 21d6c55a72b2bcc4a8d4693eaeda8260,
         type: 3}
       propertyPath: m_Pivot.x
@@ -10479,6 +10484,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CuttingManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071592162984309667, guid: 21d6c55a72b2bcc4a8d4693eaeda8260,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7071592162984309667, guid: 21d6c55a72b2bcc4a8d4693eaeda8260,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131810453289965235, guid: 21d6c55a72b2bcc4a8d4693eaeda8260,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

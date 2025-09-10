@@ -130,14 +130,6 @@ namespace Regulators
             return spawnableObject;
         }
 
-        //Sobrecarga con tiempo de vida establecido
-        public static GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation, float delay, bool active  = true)
-        {
-            GameObject spawnableObject = SpawnObject(prefab, position, rotation, active);
-            ReturnObjectToPool(spawnableObject, delay);
-            return spawnableObject;
-        }
-
         public static void ReturnObjectToPool(GameObject obj)
         {
             string objName = obj.name.Split('(')[0].Replace(" ", "");
@@ -145,18 +137,6 @@ namespace Regulators
             obj.transform.SetParent(pool.Folder.transform);
             obj.SetActive(false);
             pool.InactiveObjects.Enqueue(obj);
-        }
-        
-        //Sobrecarga con tiempo de vida establecido
-        public static void ReturnObjectToPool(GameObject obj, float delay)
-        {
-            _instance.StartCoroutine(_instance.ReturnObjectWithDelay(obj, delay));
-        }
-
-        private IEnumerator ReturnObjectWithDelay(GameObject obj, float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            ReturnObjectToPool(obj);
         }
     }
 }
