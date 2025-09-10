@@ -44,6 +44,7 @@ namespace Items.Core
             GameObject itemPickup = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, GameManager.Player.GetThrowPosition, Quaternion.identity, false);
             itemPickup.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(itemAmount));
             itemPickup.SetActive(true);
+            AudioSource.PlayClipAtPoint(PrefabsManager.ItemThrowSound, GameManager.Player.transform.position);
             Rigidbody rb = itemPickup.GetComponent<Rigidbody>();
             if (rb != null)
             {

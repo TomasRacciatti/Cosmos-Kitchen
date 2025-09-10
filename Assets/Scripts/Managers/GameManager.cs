@@ -1,4 +1,3 @@
-using System;
 using Characters.Player;
 using UnityEngine;
 

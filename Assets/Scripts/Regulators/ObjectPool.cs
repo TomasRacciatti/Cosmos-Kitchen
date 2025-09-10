@@ -28,7 +28,7 @@ namespace Regulators
         {
             if (_instance != null && _instance != this)
             {
-                Destroy(gameObject);
+                Destroy(_instance.gameObject);
                 return;
             }
             _instance = this;
@@ -37,6 +37,13 @@ namespace Regulators
         private void Start()
         {
             StartCoroutine(InitialSpawnsAsync());
+        }
+        
+        private void OnDestroy()
+        {
+            if (_instance != this) return;
+            ObjectPools.Clear();
+            _instance = null;
         }
 
         private static PooledObjectInfo NewPool(string poolName)

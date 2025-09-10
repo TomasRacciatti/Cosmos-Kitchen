@@ -1,6 +1,7 @@
 using System;
 using Interfaces;
 using Items.Inventory;
+using Managers;
 using Regulators;
 using UnityEngine;
 
@@ -33,22 +34,50 @@ namespace Items.Core
             {
                 _meshFilter.mesh = itemAmount.SoItem.Mesh;
             }
+            else
+            {
+                Debug.LogWarning("No Mesh Found");
+            }
             if (itemAmount.SoItem.Materials is { Length: > 0 })
             {
                 _meshRenderer.materials = itemAmount.SoItem.Materials;
             }
+            
+            Invoke(nameof(ReturnInTime), 300); // hacer que baje de calidad con el tiempo tirado
         }
 
         public void SetItemAmount(ItemAmount newItemAmount)
         {
             itemAmount = newItemAmount;
         }
+
+        private void ReturnInTime()
+        {
+            ObjectPool.ReturnObjectToPool(gameObject);
+        }
         
         public void Interact(GameObject interactableObject) //pick up
         {
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);
-            TestEmptyDestroy();
+            if (TestEmptyDestroy())
+            {
+                AudioSource.PlayClipAtPoint(PrefabsManager.ItemPickupSound, transform.position);
+            }
+            else
+            {
+                //inv lleno
+            }
+        }
+
+        public void EnableInteract()
+        {
+            
+        }
+
+        public void DisableInteract()
+        {
+            
         }
 
         private bool TestEmptyDestroy()

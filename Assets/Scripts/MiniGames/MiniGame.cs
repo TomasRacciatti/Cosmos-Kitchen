@@ -4,6 +4,7 @@ using Items.Core;
 using Managers;
 using Regulators;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Serialization;
 
 namespace MiniGames
@@ -14,7 +15,7 @@ namespace MiniGames
         [SerializeField] private SoItem rewardedItem;
         [SerializeField] private int rewardedAmount = 1;
         
-        [SerializeField] private float cooldownTime = 10f;
+        [SerializeField] private float cooldownTime = 30f;
         [SerializeField] private Transform drop;
         [SerializeField] protected float difficulty = 1f;
         [SerializeField] protected float scaleDifficulty = 0.1f;
@@ -26,16 +27,18 @@ namespace MiniGames
         [SerializeField] private AudioClip loseSound;
         [SerializeField] protected AudioClip correctSound;
         [SerializeField] protected AudioClip wrongSound;
+        [SerializeField] private UnityEvent onCooldown;
+        [SerializeField] private UnityEvent onFinishCooldown;
         
         //Privates
-        protected AudioSource _audioSource;
+        protected AudioSource AudioSource;
         private Cooldown _cooldown;
         protected bool IsActive = false;
         protected int Lives;
 
         protected virtual void Awake()
         {
-            _audioSource = GetComponent<AudioSource>();
+            AudioSource = GetComponent<AudioSource>();
         }
 
         public void Interact(GameObject interactableObject)
@@ -48,13 +51,22 @@ namespace MiniGames
             }
         }
 
+        public void EnableInteract()
+        {
+            
+        }
+
+        public void DisableInteract()
+        {
+            
+        }
+
         protected virtual void EnterMiniGame()
         {
-            _audioSource?.PlayOneShot(enterSound);
+            AudioSource?.PlayOneShot(enterSound);
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.gameObject.SetActive(false);
             Lives = 3;
-            _cooldown.StartCooldown(cooldownTime);
             IsActive = true;
         }
 
@@ -64,17 +76,25 @@ namespace MiniGames
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.gameObject.SetActive(true);
             IsActive = false;
+            _cooldown.StartCooldown(cooldownTime);
+            onCooldown?.Invoke();
+            Invoke(nameof(FinishCooldown), cooldownTime);
         }
 
         protected virtual void WinMiniGame()
         {
-            _audioSource?.PlayOneShot(winSound);
+            AudioSource?.PlayOneShot(winSound);
             RewardPlayer();
         }
 
         protected virtual void LoseMiniGame()
         {
-            _audioSource?.PlayOneShot(loseSound);
+            AudioSource?.PlayOneShot(loseSound);
+        }
+
+        private void FinishCooldown()
+        {
+            onFinishCooldown?.Invoke();
         }
 
         private void RewardPlayer()
