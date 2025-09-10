@@ -11,7 +11,8 @@ namespace Managers
         [SerializeField] private InvManager invManager;
         [SerializeField] private GameObject pauseMenuUI;
         [SerializeField] private MiniGamesUIManager miniGamesUI;
-        
+
+        public InvManager InvManager => invManager;
         public MiniGamesUIManager MiniGamesUI => miniGamesUI;
 
         private void Awake()

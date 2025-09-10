@@ -317,6 +317,11 @@ namespace Characters.Player
             }
         }
 
+        public void SetInputActive(bool value)
+        {
+            _input.active = value;
+        }
+
         public Vector3 GetThrowPosition => transform.position + 0.5f * transform.forward + transform.up;
     }
 }

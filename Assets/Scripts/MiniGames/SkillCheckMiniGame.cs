@@ -15,7 +15,7 @@ namespace MiniGames
         [SerializeField] private float minSize = 0.5f;
         [SerializeField] private float maxSize = 1.3f;
         
-        private float _currentSkillChecks;
+        private int _currentSkillChecks;
         private float _currentZoneAngle;
         private float _currentNeedleAngle;
         private bool _positiveRotation;
@@ -31,6 +31,8 @@ namespace MiniGames
             _currentNeedleAngle = 0;
             _currentSkillChecks = 0;
             _skillCheckUI.SetSkillCheck(_currentZoneAngle, _currentNeedleAngle, new Vector2(0, 0), 1);
+            _skillCheckUI.SetLives(Lives);
+            _skillCheckUI.SetRemainingSkillChecks(skillChecks - _currentSkillChecks);
         }
 
         protected override void LeaveMiniGame()
@@ -71,7 +73,7 @@ namespace MiniGames
             if (Mathf.Abs(Mathf.DeltaAngle(_currentZoneAngle, _currentNeedleAngle)) <= successThreshold)
             {
                 _currentSkillChecks++;
-                print($"Skill Check: {_currentSkillChecks}");
+                _skillCheckUI.SetRemainingSkillChecks(skillChecks - _currentSkillChecks);
                 if (_currentSkillChecks >= skillChecks)
                 {
                     WinMiniGame();
@@ -79,11 +81,12 @@ namespace MiniGames
                     return;
                 }
                 SetSkillCheck();
+                _audioSource?.PlayOneShot(correctSound);
             }
             else
             {
                 Lives--;
-                print($"Lives: {Lives}");
+                _skillCheckUI.SetLives(Lives);
                 if (Lives <= 0)
                 {
                     LoseMiniGame();
@@ -91,13 +94,14 @@ namespace MiniGames
                     return;
                 }
                 SetSkillCheck();
+                _audioSource?.PlayOneShot(wrongSound);
             }
         }
 
         private void RotateNeedle()
         {
             var dir = _positiveRotation ? 1f : -1f;
-            _currentNeedleAngle += dir * rotationSpeed * Time.deltaTime * (difficulty + scaleDifficulty * _currentSkillChecks);
+            _currentNeedleAngle += dir * rotationSpeed * Time.deltaTime * (difficulty + scaleDifficulty * _currentSkillChecks + (3 - Lives) * 0.5f);
             _currentNeedleAngle = NormalizeAngle(_currentNeedleAngle);
             _skillCheckUI.SetNeedle(_currentNeedleAngle);
         }

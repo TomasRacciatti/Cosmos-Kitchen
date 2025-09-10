@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace MiniGames
@@ -6,6 +7,8 @@ namespace MiniGames
     {
         [SerializeField] private RectTransform zoneTransform;
         [SerializeField] private RectTransform needleTransform;
+        [SerializeField] private TextMeshProUGUI livesText;
+        [SerializeField] private TextMeshProUGUI skillCheckText;
         
         private RectTransform _rectTransform;
 
@@ -25,6 +28,16 @@ namespace MiniGames
         public void SetNeedle(float needleAngle)
         {
             needleTransform.localEulerAngles = new Vector3(0f, 0f, needleAngle);
+        }
+
+        public void SetLives(int lives)
+        {
+            livesText.SetText("Lives: " + lives);
+        }
+        
+        public void SetRemainingSkillChecks(int remaining)
+        {
+            skillCheckText.SetText(remaining + " Left");
         }
     }
 }

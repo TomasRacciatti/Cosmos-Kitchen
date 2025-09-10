@@ -24,9 +24,11 @@ namespace MiniGames
         [SerializeField] private AudioClip leaveSound;
         [SerializeField] private AudioClip winSound;
         [SerializeField] private AudioClip loseSound;
+        [SerializeField] protected AudioClip correctSound;
+        [SerializeField] protected AudioClip wrongSound;
         
         //Privates
-        private AudioSource _audioSource;
+        protected AudioSource _audioSource;
         private Cooldown _cooldown;
         protected bool IsActive = false;
         protected int Lives;
@@ -48,8 +50,9 @@ namespace MiniGames
 
         protected virtual void EnterMiniGame()
         {
-            //_audioSource?.PlayOneShot(enterSound);
-            //GameManager.Canvas.gameObject.SetActive(false);
+            _audioSource?.PlayOneShot(enterSound);
+            GameManager.Player.SetInputActive(false);
+            GameManager.Canvas.InvManager.gameObject.SetActive(false);
             Lives = 3;
             _cooldown.StartCooldown(cooldownTime);
             IsActive = true;
@@ -58,18 +61,20 @@ namespace MiniGames
         protected virtual void LeaveMiniGame()
         {
             //_audioSource?.PlayOneShot(leaveSound);
+            GameManager.Player.SetInputActive(true);
+            GameManager.Canvas.InvManager.gameObject.SetActive(true);
             IsActive = false;
         }
 
         protected virtual void WinMiniGame()
         {
-            //_audioSource?.PlayOneShot(winSound);
+            _audioSource?.PlayOneShot(winSound);
             RewardPlayer();
         }
 
         protected virtual void LoseMiniGame()
         {
-            //_audioSource?.PlayOneShot(loseSound);
+            _audioSource?.PlayOneShot(loseSound);
         }
 
         private void RewardPlayer()
