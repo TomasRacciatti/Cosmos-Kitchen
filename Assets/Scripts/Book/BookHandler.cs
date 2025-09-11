@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BookButtonScript : MonoBehaviour
+public class BookHandler : MonoBehaviour
 {
     [SerializeField] float pageSpeed = 0.5f;
     [SerializeField] List<GameObject> pages;
     [SerializeField] GameObject forwardButton;
     [SerializeField] GameObject backButton;
-    
-    [Header("SFX")]
+
+    [Header("SFX")] 
     [SerializeField] AudioClip PageForwardSound;
     [SerializeField] AudioClip PageBackSound;
-    
+
     int index = -1;
     bool rotate = false;
     private bool _invert;
@@ -24,21 +24,26 @@ public class BookButtonScript : MonoBehaviour
 
     public void InitialState()
     {
-        for (int i = 0; i <pages.Count; i++)
+        for (int i = 0; i < pages.Count; i++)
         {
             pages[i].transform.rotation = Quaternion.identity;
         }
+
         pages[0].transform.SetAsLastSibling();
         backButton.SetActive(false);
     }
-    
+
     public void RotateForward()
     {
-        if (rotate == true) { return; }
+        if (rotate == true)
+        {
+            return;
+        }
+
         InputManager._instance._canToggleBook = false;
         InventoryManager._instance._canToggleBook = false;
 
-        AudioManager.instance.PlaySFX(PageForwardSound); 
+        AudioManager.instance.PlaySFX(PageForwardSound);
 
         index++;
         float angle = 180;
@@ -50,12 +55,16 @@ public class BookButtonScript : MonoBehaviour
 
     public void RotateBack()
     {
-        if (rotate == true) { return; }
+        if (rotate == true)
+        {
+            return;
+        }
+
         InputManager._instance._canToggleBook = false;
         InventoryManager._instance._canToggleBook = false;
-        
-        AudioManager.instance.PlaySFX(PageBackSound); 
-        
+
+        AudioManager.instance.PlaySFX(PageBackSound);
+
         float angle = 0;
         _invert = false;
         pages[index].transform.SetAsLastSibling();
@@ -69,11 +78,13 @@ public class BookButtonScript : MonoBehaviour
         {
             backButton.SetActive(true);
         }
+
         if (index == pages.Count - 1)
         {
             forwardButton.SetActive(false);
         }
     }
+
     private void BackwardButtonActions()
     {
         if (forwardButton.activeInHierarchy == false)
@@ -113,7 +124,6 @@ public class BookButtonScript : MonoBehaviour
 
             if (angle1 < 0.1f)
             {
-
                 if (forward == false)
                 {
                     index--;
@@ -122,9 +132,11 @@ public class BookButtonScript : MonoBehaviour
                 rotate = false;
                 break;
             }
+
             yield return null;
         }
-            InputManager._instance._canToggleBook = true;
+
+        InputManager._instance._canToggleBook = true;
         InventoryManager._instance._canToggleBook = true;
     }
 }

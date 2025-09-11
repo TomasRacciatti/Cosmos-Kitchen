@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Audio
 {
-    [CreateAssetMenu(fileName = "AudioCue", menuName = "Scriptables/Audio/AudioCue")]
+    [CreateAssetMenu(fileName = "AudioCue", menuName = "ScriptableObject/Audio/AudioCue")]
     public class AudioCue : ScriptableObject
     {
         [SerializeField] private AudioClip[] clips;
