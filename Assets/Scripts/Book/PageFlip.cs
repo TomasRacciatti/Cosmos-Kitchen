@@ -21,8 +21,8 @@ namespace Book
 
         private int _index = -1;
         private bool _isFlipping;
-        private float _forwardAngle = 0f;
-        private float _backAngle = 180f;
+        private float _forwardAngle = 180f;
+        private float _backAngle = 0f;
 
         private void Start()
         {
@@ -110,7 +110,7 @@ namespace Book
             var clip = flipCue.GetRandomClip();
             if (clip != null)
             {
-                AudioManager.instance?.PlaySFX(clip); // Cambiar si dejamos de usar el AudioManager
+                AudioManager.instance?.PlaySFX(clip);
             }
         }
 
