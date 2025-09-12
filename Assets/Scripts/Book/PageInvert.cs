@@ -1,25 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PageInvert : MonoBehaviour
+namespace Book
 {
-    [SerializeField] GameObject _pageNormal;
-    [SerializeField] GameObject _pageInverted;
+    public class PageInvert : MonoBehaviour
+    {
+        [SerializeField] GameObject _pageNormal;
+        [SerializeField] GameObject _pageInverted;
 
-    private void Start()
-    {
-        ShowNormal();
-    }
+        private void Start()
+        {
+            ShowNormal();
+        }
 
-    public void ShowNormal()
-    {
-        _pageNormal.SetActive(true);
-        _pageInverted.SetActive(false);
-    }
-    public void ShowInverted()
-    {
-        _pageNormal.SetActive(false);
-        _pageInverted.SetActive(true);
+        public void ShowNormal()
+        {
+            _pageNormal.SetActive(true);
+            _pageInverted.SetActive(false);
+        }
+        public void ShowInverted()
+        {
+            _pageNormal.SetActive(false);
+            _pageInverted.SetActive(true);
+        }
     }
 }
