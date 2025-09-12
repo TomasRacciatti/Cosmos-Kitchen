@@ -110,7 +110,7 @@ namespace Book
             var clip = flipCue.GetRandomClip();
             if (clip != null)
             {
-                AudioManager.instance?.PlaySFX(clip); // Cambiar si dejamos de usar el AudioManager
+                AudioManager.instance?.PlaySFX(clip);
             }
         }
 

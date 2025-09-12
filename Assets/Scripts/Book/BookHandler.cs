@@ -27,7 +27,7 @@ namespace Book
             animator.speed = 1;
             animator.Play(_bookOpen ? "OpenBook" : "CloseBook", 0, 
                 1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
-            //AudioManager.instance.PlaySFX(_bookOpen ? openSfx : closeSfx);
+            AudioManager.instance?.PlaySFX(_bookOpen ? openSfx : closeSfx);
             return _bookOpen;
         }
     }
