@@ -20,7 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _FoamSpeed
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -39,7 +39,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.05
-    - _DepthRadius: 3
+    - _DepthRadius: 0.2
     - _FoamDensity: 50
     - _FoamSpeed: 2
     - _FoamThiccness: 4.2
