@@ -29,7 +29,8 @@ namespace MiniGames
         [SerializeField] protected AudioClip wrongSound;
         [SerializeField] private UnityEvent onCooldown;
         [SerializeField] private UnityEvent onFinishCooldown;
-
+        [SerializeField] private Transform interactionPoint;
+        public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         private Transform DropTransform => dropTransform ? dropTransform : transform;
         
         //Privates

@@ -24,6 +24,8 @@ namespace InteractionOutline
         // Material = shared recipe.
         // MaterialPropertyBlock = temporary per-object seasoning sprinkled at render
         // time. No asset changes, no new materials.
+        [SerializeField] private Transform interactionPoint;
+        public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
 
         private void Awake()
         {
