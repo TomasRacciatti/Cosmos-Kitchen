@@ -65,7 +65,7 @@ public class PickupMinigame : MonoBehaviour
     
     public void PlayCornClip()
     {
-        var clip = _cornCue.GetRandomClip();
+        var clip = AudioCue.GetRandomClip(_cornCue.Clips);
         var source = AudioManager.instance.SFXSource;
         
         if (clip != null)

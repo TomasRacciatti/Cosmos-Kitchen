@@ -107,7 +107,7 @@ namespace Book
         {
             if (flipCue == null) return;
 
-            var clip = flipCue.GetRandomClip();
+            var clip = AudioCue.GetRandomClip(flipCue.Clips);
             if (clip != null)
             {
                 AudioManager.instance?.PlaySFX(clip);

@@ -16,7 +16,7 @@ namespace MiniGames
         [SerializeField] private int rewardedAmount = 1;
         
         [SerializeField] private float cooldownTime = 30f;
-        [SerializeField] private Transform drop;
+        [SerializeField] private Transform dropTransform;
         [SerializeField] protected float difficulty = 1f;
         [SerializeField] protected float scaleDifficulty = 0.1f;
         
@@ -29,10 +29,12 @@ namespace MiniGames
         [SerializeField] protected AudioClip wrongSound;
         [SerializeField] private UnityEvent onCooldown;
         [SerializeField] private UnityEvent onFinishCooldown;
+
+        private Transform DropTransform => dropTransform ? dropTransform : transform;
         
         //Privates
         protected AudioSource AudioSource;
-        private Cooldown _cooldown;
+        protected Cooldown Cooldown;
         protected bool IsActive = false;
         protected int Lives;
 
@@ -41,9 +43,9 @@ namespace MiniGames
             AudioSource = GetComponent<AudioSource>();
         }
 
-        public void Interact(GameObject interactableObject)
+        public virtual void Interact(GameObject interactableObject)
         {
-            if (!_cooldown.IsReady) return;
+            if (!Cooldown.IsReady) return;
 
             if (interactableObject == GameManager.Player.gameObject)
             {
@@ -76,9 +78,7 @@ namespace MiniGames
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.gameObject.SetActive(true);
             IsActive = false;
-            _cooldown.StartCooldown(cooldownTime);
-            onCooldown?.Invoke();
-            Invoke(nameof(FinishCooldown), cooldownTime);
+            StartCooldown();
         }
 
         protected virtual void WinMiniGame()
@@ -92,16 +92,23 @@ namespace MiniGames
             AudioSource?.PlayOneShot(loseSound);
         }
 
+        protected void StartCooldown()
+        {
+            Cooldown.StartCooldown(cooldownTime);
+            onCooldown?.Invoke();
+            Invoke(nameof(FinishCooldown), cooldownTime);
+        }
+
         private void FinishCooldown()
         {
             onFinishCooldown?.Invoke();
         }
 
-        private void RewardPlayer()
+        protected void RewardPlayer()
         {
             if (rewardedItem == null) return;
             
-            GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, drop.position, drop.rotation, false);
+            GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, DropTransform.position, DropTransform.rotation, false);
             item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardedAmount));
             item.SetActive(true);
         }

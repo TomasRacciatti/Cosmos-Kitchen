@@ -55,7 +55,7 @@ namespace Items.Core
         {
             ObjectPool.ReturnObjectToPool(gameObject);
         }
-        
+
         public void Interact(GameObject interactableObject) //pick up
         {
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
