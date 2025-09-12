@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invManager: {fileID: 2301843022727035277}
-  bookHandler: {fileID: 0}
+  bookHandler: {fileID: 5389271196321003381}
   pauseMenuUI: {fileID: 0}
   miniGamesUI: {fileID: 6538939077755897780}
 --- !u!1 &7246368168688086098
@@ -2321,11 +2321,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Book
       objectReference: {fileID: 0}
+    - target: {fileID: 9033667641307922286, guid: c45586da8c1a08142bcea7c8a9a1955c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c45586da8c1a08142bcea7c8a9a1955c, type: 3}
+--- !u!114 &5389271196321003381 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4756281886276008953, guid: c45586da8c1a08142bcea7c8a9a1955c,
+    type: 3}
+  m_PrefabInstance: {fileID: 633666923043622028}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4edc2e81bd8fb543ac6eccefe705d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &5676906022518100141 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5044971968472390689, guid: c45586da8c1a08142bcea7c8a9a1955c,

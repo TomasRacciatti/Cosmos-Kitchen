@@ -26,6 +26,7 @@ namespace Managers
             _instance = this;
             
             invManager.gameObject.SetActive(true);
+            bookHandler.gameObject.SetActive(true);
         }
 
         private void Start()
