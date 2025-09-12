@@ -16,14 +16,14 @@ namespace Book
     
         private void Start()
         {
-            animator.Play("CloseInventory", 0,1f);
+            animator.Play("CloseBook", 0,1f);
         }
     
         public bool ToggleBook()
         {
             _bookOpen = !_bookOpen;
             animator.speed = 1;
-            animator.Play(_bookOpen ? "OpenInventory" : "CloseInventory", 0, 
+            animator.Play(_bookOpen ? "OpenBook" : "CloseBook", 0, 
                 1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
             return _bookOpen;
         }
