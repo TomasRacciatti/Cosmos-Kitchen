@@ -61,7 +61,7 @@ namespace Characters.Player
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = active && !inventoryOpen ? value.Get<Vector2>() : Vector2.zero;
+            look = active && !inventoryOpen && !bookOpen && !menuOpen ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
