@@ -1,4 +1,5 @@
 using System;
+using Book;
 using Items.Inventory;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Managers
         private static CanvasManager _instance;
         
         [SerializeField] private InvManager invManager;
+        [SerializeField] private BookHandler bookHandler;
         [SerializeField] private GameObject pauseMenuUI;
         [SerializeField] private MiniGamesUIManager miniGamesUI;
 
@@ -24,6 +26,7 @@ namespace Managers
             _instance = this;
             
             invManager.gameObject.SetActive(true);
+            bookHandler.gameObject.SetActive(true);
         }
 
         private void Start()
@@ -38,7 +41,7 @@ namespace Managers
         
         public bool ToggleBook()
         {
-            return false; //logica
+            return bookHandler.ToggleBook();
         }
         
         public bool ToggleMenu()

@@ -22,6 +22,7 @@ namespace Characters.Player
         
         private InteractComponent _interactComponent;
 
+
         private void Awake()
         {
             _interactComponent = GetComponent<InteractComponent>();
@@ -94,7 +95,7 @@ namespace Characters.Player
         public void OnBook(InputValue value)
         {
             if (!active || !value.isPressed || inventoryOpen || menuOpen) return;
-            
+            bookOpen = GameManager.Canvas.ToggleBook();
             
             CheckCursor();
         }
