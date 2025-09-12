@@ -5190,8 +5190,7 @@ MonoBehaviour:
   - {fileID: 4001914738881026894}
   forwardButton: {fileID: 3773011300327852873}
   backButton: {fileID: 6179080062691861134}
-  PageForwardSound: {fileID: 8300000, guid: ffc09bdd1640a6b48aac45588022649d, type: 3}
-  PageBackSound: {fileID: 8300000, guid: d28f97a706f6ca64c820cb542ac8fd7b, type: 3}
+  flipCue: {fileID: 0}
 --- !u!1 &5767042378460594357
 GameObject:
   m_ObjectHideFlags: 0
@@ -8203,6 +8202,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5044971968472390689}
   - component: {fileID: 7794102908838283303}
+  - component: {fileID: 5122697004560528741}
+  - component: {fileID: 4756281886276008953}
   m_Layer: 5
   m_Name: Book
   m_TagString: Untagged
@@ -8242,6 +8243,39 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!95 &5122697004560528741
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9033667641307922286}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8fc4a16b42e9cd04088e5338321db68a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4756281886276008953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9033667641307922286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4edc2e81bd8fb543ac6eccefe705d69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9103374624701411614
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,7 @@ namespace Characters.Player
 
         private PlayerController _playerController;
         public bool inventoryOpen = false;
+        public bool bookOpen = false;
 
         private void Awake()
         {
@@ -91,7 +92,8 @@ namespace Characters.Player
         {
             if (value.isPressed)
             {
-                
+                bookOpen = GameManager.Canvas.ToggleBook();
+                SetCursor(bookOpen);
             }
         }
 

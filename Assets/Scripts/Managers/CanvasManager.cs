@@ -1,4 +1,5 @@
 using System;
+using Book;
 using Items.Inventory;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Managers
         private static CanvasManager _instance;
         
         [SerializeField] private InvManager invManager;
+        [SerializeField] private BookHandler bookHandler;
         [SerializeField] private GameObject pauseMenuUI;
         [SerializeField] private MiniGamesUIManager miniGamesUI;
 
@@ -34,6 +36,11 @@ namespace Managers
         public bool ToggleInventory()
         {
             return invManager.ToggleInventory();
+        }
+        
+        public bool ToggleBook()
+        {
+            return bookHandler.ToggleBook();
         }
     }
 }
