@@ -16,13 +16,14 @@ namespace Characters.Player
         public Vector2 look;
         public bool jump;
         public bool sprint;
-
-        private PlayerController _playerController;
         public bool inventoryOpen = false;
+        public bool menuOpen = false;
+        
+        private InteractComponent _interactComponent;
 
         private void Awake()
         {
-            _playerController = GetComponent<PlayerController>();
+            _interactComponent = GetComponent<InteractComponent>();
         }
 
         private void Start()
@@ -74,7 +75,7 @@ namespace Characters.Player
         {
             if (active && value.isPressed)
             {
-                _playerController.CameraRaycast();
+                _interactComponent.Interact();
             }
         }
 

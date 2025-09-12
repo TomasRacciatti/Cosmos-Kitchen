@@ -36,7 +36,7 @@ namespace Items.Core
             }
             else
             {
-                Debug.LogWarning("No Mesh Found");
+                //Debug.LogWarning("No Mesh Found"); //activar despues para que no sea rompebolas
             }
             if (itemAmount.SoItem.Materials is { Length: > 0 })
             {
