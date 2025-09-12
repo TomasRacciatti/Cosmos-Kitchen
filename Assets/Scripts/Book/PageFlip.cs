@@ -21,8 +21,8 @@ namespace Book
 
         private int _index = -1;
         private bool _isFlipping;
-        private float _forwardAngle = 0f;
-        private float _backAngle = 180f;
+        private float _forwardAngle = 180f;
+        private float _backAngle = 0f;
 
         private void Start()
         {
