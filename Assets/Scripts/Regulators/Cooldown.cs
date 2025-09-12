@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Managers
+namespace Regulators
 {
     public struct Cooldown
     {

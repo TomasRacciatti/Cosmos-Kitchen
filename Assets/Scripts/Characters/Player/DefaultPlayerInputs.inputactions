@@ -51,18 +51,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
+                    "name": "Inventory",
                     "type": "Button",
-                    "id": "93fc9c1d-96fb-450c-adf3-fa54a4ccf1f2",
+                    "id": "c80a1621-08de-4611-af74-72d686e2f122",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MenuBack",
+                    "name": "Book",
+                    "type": "Button",
+                    "id": "a120c6b3-ecb5-449d-9cc1-31199459bc69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BackUI",
                     "type": "Button",
                     "id": "08773d17-31b7-43b5-8d91-371085d399ed",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Test",
+                    "type": "Button",
+                    "id": "93fc9c1d-96fb-450c-adf3-fa54a4ccf1f2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -270,12 +288,34 @@
                 },
                 {
                     "name": "",
+                    "id": "ba9df62a-1dcc-4da5-afd9-53d78f019520",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Inventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e4c1bb8-9466-45bc-88a2-7febba1bbbe3",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Book",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "8bbaafaa-d7a0-482d-9bd0-39c7abbb3eec",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MenuBack",
+                    "action": "BackUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -286,7 +326,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MenuBack",
+                    "action": "BackUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

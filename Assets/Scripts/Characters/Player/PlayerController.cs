@@ -1,5 +1,8 @@
 ﻿using System;
 using Cinemachine;
+using Interfaces;
+using Items.Inventory;
+using Managers;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -29,6 +32,7 @@ namespace Characters.Player
         [Header("Player Grounded")]
         public bool grounded = true;
         public LayerMask groundLayers;
+        public LayerMask interactableLayers;
 
         [Header("Cinemachine")]
         public GameObject cinemachineCameraTarget1;
@@ -39,10 +43,17 @@ namespace Characters.Player
         public float cameraAngleOverride;
         
         public bool lockCameraPosition;
-        
+
+        [SerializeField] private float cameraRadius = 10f;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
+        [SerializeField] private CinemachineVirtualCamera actualCamera;
+
+        public Camera MainCamera => mainCamera;
+        public CinemachineVirtualCamera FirstPersonCamera => firstPersonCamera;
+        public CinemachineVirtualCamera ThirdPersonCamera => thirdPersonCamera;
+        public CinemachineVirtualCamera ActualCamera => actualCamera;
         
         [Header("Movement Options")]
         [SerializeField] private bool lockForwardFacing;
@@ -67,27 +78,30 @@ namespace Characters.Player
         private PlayerInputs _input;
         private CharacterController _characterController;
         private PlayerView _playerView;
+        private InvSystem _inventory;
 
         private const float Threshold = 0.01f;
         
-        private ECameraMode _cameraMode = ECameraMode.ThirdPerson;
-
+        public InvSystem Inventory => _inventory;
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             _playerView = GetComponent<PlayerView>();
+            _input = GetComponent<PlayerInputs>();
+            _controller = GetComponent<CharacterController>();
+            _inventory = GetComponent<InvSystem>();
+            SetCamera(ThirdPersonCamera);
         }
 
         private void Start()
         {
             _cinemachineTargetYaw = cinemachineCameraTarget1.transform.rotation.eulerAngles.y;
-            _controller = GetComponent<CharacterController>();
-            _input = GetComponent<PlayerInputs>();
             _jumpTimeoutDelta = jumpTimeout;
             _fallTimeoutDelta = fallTimeout;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            GameManager.Resume();
+            GameManager.RegisterPlayer(this);
+            Instantiate(PrefabsManager.Canvas, null, false);
         }
 
         private void Update()
@@ -113,28 +127,6 @@ namespace Characters.Player
 
             _playerView.Landed();
         }
-        private void OnDrawGizmosSelected()
-        {
-            if (_characterController == null) return;
-
-            // --- GroundedCheck ---
-            Vector3 spherePosition = new Vector3(
-                transform.position.x,
-                transform.position.y - (-_characterController.radius),
-                transform.position.z
-            );
-
-            bool groundedHit = Physics.CheckSphere(
-                spherePosition,
-                _characterController.radius,
-                groundLayers,
-                QueryTriggerInteraction.Ignore
-            );
-
-            Gizmos.color = groundedHit ? Color.blue : Color.cyan;
-            Gizmos.DrawWireSphere(spherePosition, _characterController.radius);
-        }
-
         
         private void CeilingCheck()
         {
@@ -156,22 +148,18 @@ namespace Characters.Player
 
         private void CameraRotation()
         {
-            // if there is an input and camera position is not fixed
             if (_input.look.sqrMagnitude >= Threshold && !lockCameraPosition)
             {
                 _cinemachineTargetYaw += _input.look.x;
                 _cinemachineTargetPitch += _input.look.y;
             }
 
-            // clamp our rotations so our values are limited 360 degrees
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
-
-            // Cinemachine will follow this target
+            
             cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
-            cinemachineCameraTarget2.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
-                _cinemachineTargetYaw, 0.0f);
+            cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }
 
         private void HorizontalMovement()
@@ -235,18 +223,14 @@ namespace Characters.Player
         {
             if (grounded)
             {
-                // reset the fall timeout timer
                 _fallTimeoutDelta = fallTimeout;
                 
                 _playerView.SetGrounded(true);
-
-                // stop our velocity dropping infinitely when grounded
+                
                 if (_verticalVelocity < 0.0f)
                 {
-                    _verticalVelocity = -2f;
+                    _verticalVelocity = -1f;
                 }
-
-                // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
@@ -254,22 +238,18 @@ namespace Characters.Player
             }
             else
             {
-                // reset the jump timeout timer
                 _jumpTimeoutDelta = jumpTimeout;
-
-                // fall timeout
+                
                 if (_fallTimeoutDelta >= 0.0f)
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
                 }
                 else
                 {
-                    // update animator if using character
                     _playerView.SetFalling(true);
                 }
             }
-
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
+            
             if (_verticalVelocity < TerminalVelocity)
             {
                 _verticalVelocity += gravity * Time.deltaTime;
@@ -298,27 +278,51 @@ namespace Characters.Player
             _playerView.Footstep();
         }
 
-        public void SwitchCameraMode()
+        public void SetCamera(CinemachineVirtualCamera newCamera)
         {
-            _cameraMode = _cameraMode != ECameraMode.ThirdPerson ? ECameraMode.ThirdPerson : ECameraMode.FirstPerson;
-            switch (_cameraMode)
+            CancelInvoke(nameof(SetLockForwardTrue));
+            if (actualCamera != null) actualCamera.Priority = 0;
+            actualCamera = newCamera;
+            if (actualCamera != null) actualCamera.Priority = 10;
+            if (actualCamera == thirdPersonCamera)
             {
-                case ECameraMode.FirstPerson:
-                    firstPersonCamera.Priority = 20;
-                    lockForwardFacing = true;
-                    break;
-                case ECameraMode.ThirdPerson:
-                    firstPersonCamera.Priority = 0;
-                    lockForwardFacing = false;
-                    break;
+                lockForwardFacing = false;
+                _input.active = true;
+                return;
+            }
+            if (actualCamera == firstPersonCamera)
+            {
+                Invoke(nameof(SetLockForwardTrue), 0.8f);
+                _input.active = true;
+                return;
+            }
+            lockForwardFacing = false;
+            _input.active = false;
+        }
+
+        private void SetLockForwardTrue()
+        {
+            lockForwardFacing = true;
+        }
+        
+        public void CameraRaycast() //rever el tema del rango
+        {
+            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
+            
+            if (Physics.Raycast(ray, out var hit, cameraRadius, interactableLayers | groundLayers))
+            {
+                if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
+                {
+                    interactable.Interact(gameObject);
+                }
             }
         }
-    }
-    
-    public enum ECameraMode
-    {
-        ThirdPerson,
-        FirstPerson,
-        Custom
+
+        public void SetInputActive(bool value)
+        {
+            _input.active = value;
+        }
+
+        public Vector3 GetThrowPosition => transform.position + 0.5f * transform.forward + transform.up;
     }
 }

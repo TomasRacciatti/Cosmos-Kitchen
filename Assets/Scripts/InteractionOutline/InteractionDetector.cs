@@ -18,11 +18,11 @@ namespace InteractionOutline
         [SerializeField] private float _offDelaySeconds = 0.1f; // Nos ayuda a evitar que titile si mira al borde
     
         private Camera _mainCamera;
-        private IHighlightable _currentHighlight;
+        private IInteractable _currentHighlight;
         private Collider _currentCollider;
         private float _lastValidTime;
     
-        public IHighlightable CurrentHighlight => _currentHighlight;
+        public IInteractable CurrentHighlight => _currentHighlight;
         public Collider CurrentCollider => _currentCollider;
 
         private void Awake()
@@ -34,7 +34,7 @@ namespace InteractionOutline
         {
             if (_currentHighlight != null)
             {
-                _currentHighlight.DisableHighlight();
+                _currentHighlight.DisableInteract();
                 _currentHighlight = null;
                 _currentCollider = null;
             }
@@ -50,12 +50,12 @@ namespace InteractionOutline
             var ray = new Ray(_mainCamera.transform.position, _mainCamera.transform.forward);
             RaycastHit hit;
             
-            IHighlightable newHighlight = null;
+            IInteractable newHighlight = null;
             Collider newCol = null;
 
             if (Physics.SphereCast(ray, _sphereRadius, out hit, _detectionRange, _interactableMask, QueryTriggerInteraction.Ignore))
             {
-                newHighlight = hit.collider.GetComponentInParent<IHighlightable>();
+                newHighlight = hit.collider.GetComponentInParent<IInteractable>();
                 newCol = hit.collider;
                 
                 // Manejamos el direct look threshold
@@ -76,11 +76,11 @@ namespace InteractionOutline
             if (newHighlight != _currentHighlight)
             {
                 if (_currentHighlight != null)
-                    _currentHighlight.DisableHighlight();
+                    _currentHighlight.DisableInteract();
 
                 if (newHighlight != null)
                 {
-                    newHighlight.EnableHighlight();
+                    newHighlight.EnableInteract();
                     _lastValidTime = Time.time;
                 }
                 
@@ -99,7 +99,7 @@ namespace InteractionOutline
                 }
                 else if (Time.time - _lastValidTime > _offDelaySeconds)
                 {
-                    _currentHighlight.DisableHighlight();
+                    _currentHighlight.DisableInteract();
                     _currentHighlight = null;
                     _currentCollider = null;
                 }

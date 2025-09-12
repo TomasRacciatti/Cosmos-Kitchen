@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Audio;
+using Dialogue;
 using UnityEngine;
 
 public class PickupMinigame : MonoBehaviour
@@ -47,18 +48,18 @@ public class PickupMinigame : MonoBehaviour
         _ingredient.GetComponent<IngredientScript>().SetIngredientQuality(Random.Range(0,6));
         string ingredientName = _ingredient.GetComponent<IngredientScript>().ReturnIngredientName();
         InventoryManager._instance.Add(_ingredient);
-        DialogueManager._instance.Notify("You got " + ingredientName + "!!!");
+        DialogueManager.instance.Notify("You got " + ingredientName + "!!!");
     }
 
     void ShowInteractionButton()
     {
-        DialogueManager._instance.ShowInteraction();
+        DialogueManager.instance.ShowInteraction();
         _interactionEnabled = true;
     }
 
     void HideInteractionButton()
     {
-        DialogueManager._instance.HideInteraction();
+        DialogueManager.instance.HideInteraction();
         _interactionEnabled = false;
     }
     

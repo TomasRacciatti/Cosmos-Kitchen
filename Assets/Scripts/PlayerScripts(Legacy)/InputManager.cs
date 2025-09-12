@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Dialogue;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -23,7 +24,7 @@ public class InputManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
         else { Destroy(this); }
     }
@@ -84,7 +85,7 @@ public class InputManager : MonoBehaviour
                 SwitchMouselock();
             }
             //InventoryManager._instance.CloseAll();
-            DialogueManager._instance.CloseDialogue();
+            DialogueManager.instance.CloseDialogue();
             //PanelManager._instance.CloseAll();
             PanelManager._instance.TogglePauseMenu();
         }
