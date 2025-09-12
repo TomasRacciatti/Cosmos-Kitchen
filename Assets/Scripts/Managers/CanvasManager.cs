@@ -35,5 +35,15 @@ namespace Managers
         {
             return invManager.ToggleInventory();
         }
+        
+        public bool ToggleBook()
+        {
+            return false; //logica
+        }
+        
+        public bool ToggleMenu()
+        {
+            return false; //logica
+        }
     }
 }
