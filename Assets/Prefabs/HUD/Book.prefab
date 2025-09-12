@@ -3198,7 +3198,7 @@ GameObject:
   - component: {fileID: 6984805625324398129}
   - component: {fileID: 1303256270592356614}
   m_Layer: 5
-  m_Name: BookCover
+  m_Name: BookBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8202,13 +8202,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5044971968472390689}
+  - component: {fileID: 7794102908838283303}
   m_Layer: 5
-  m_Name: Book Type 1
+  m_Name: Book
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5044971968472390689
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8229,6 +8230,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &7794102908838283303
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9033667641307922286}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &9103374624701411614
 GameObject:
   m_ObjectHideFlags: 0

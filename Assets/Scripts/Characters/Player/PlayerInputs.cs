@@ -16,13 +16,15 @@ namespace Characters.Player
         public Vector2 look;
         public bool jump;
         public bool sprint;
-
-        private PlayerController _playerController;
         public bool inventoryOpen = false;
+        public bool bookOpen = false;
+        public bool menuOpen = false;
+        
+        private InteractComponent _interactComponent;
 
         private void Awake()
         {
-            _playerController = GetComponent<PlayerController>();
+            _interactComponent = GetComponent<InteractComponent>();
         }
 
         private void Start()
@@ -42,6 +44,11 @@ namespace Characters.Player
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+
+        public void CheckCursor()
+        {
+            SetCursor(inventoryOpen || menuOpen || bookOpen);
         }
 
 #if ENABLE_INPUT_SYSTEM
@@ -72,35 +79,33 @@ namespace Characters.Player
 
         public void OnInteract(InputValue value)
         {
-            if (active && value.isPressed)
-            {
-                _playerController.CameraRaycast();
-            }
+            if (!active || !value.isPressed) return;
+            _interactComponent.Interact();
         }
 
         public void OnInventory(InputValue value)
         {
-            if (value.isPressed)
-            {
-                inventoryOpen = GameManager.Canvas.ToggleInventory();
-                SetCursor(inventoryOpen);
-            }
+            if (!active || !value.isPressed || bookOpen || menuOpen) return;
+            
+            inventoryOpen = GameManager.Canvas.ToggleInventory();
+            CheckCursor();
         }
 
         public void OnBook(InputValue value)
         {
-            if (value.isPressed)
-            {
-                
-            }
+            if (!active || !value.isPressed || inventoryOpen || menuOpen) return;
+            
+            
+            CheckCursor();
         }
 
         public void OnBackUI(InputValue value)
         {
-            if (value.isPressed)
-            {
-                
-            }
+            if (!active || !value.isPressed) return;
+            
+            
+            
+            CheckCursor();
         }
 
         public void OnTest(InputValue value)
