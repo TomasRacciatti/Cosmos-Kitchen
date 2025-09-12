@@ -12,18 +12,12 @@ namespace Items.Core
     {
         [SerializeField] private ItemAmount itemAmount;
         
-        public Transform InteractionPoint => transform;
+        [Header("Settings")]
+        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private Transform interactionPoint;
         
-        private MeshFilter _meshFilter;
-        private MeshRenderer _meshRenderer;
-        
-        private void Awake()
-        {
-            if (TestEmptyDestroy()) return;
-
-            _meshFilter = GetComponent<MeshFilter>();
-            _meshRenderer = GetComponent<MeshRenderer>();
-        }
+        public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         
         private void OnEnable()
         {
@@ -32,15 +26,16 @@ namespace Items.Core
             //assign mesh and material
             if (itemAmount.SoItem.Mesh != null)
             {
-                _meshFilter.mesh = itemAmount.SoItem.Mesh;
+                meshFilter.mesh = itemAmount.SoItem.Mesh;
+                if (itemAmount.SoItem.Materials is { Length: > 0 })
+                {
+                    meshRenderer.materials = itemAmount.SoItem.Materials;
+                }
             }
             else
             {
-                //Debug.LogWarning("No Mesh Found"); //activar despues para que no sea rompebolas
-            }
-            if (itemAmount.SoItem.Materials is { Length: > 0 })
-            {
-                _meshRenderer.materials = itemAmount.SoItem.Materials;
+                meshFilter.mesh = PrefabsManager.ItemMesh;
+                meshRenderer.materials = PrefabsManager.ItemMaterials;
             }
             
             Invoke(nameof(ReturnInTime), 300); // hacer que baje de calidad con el tiempo tirado

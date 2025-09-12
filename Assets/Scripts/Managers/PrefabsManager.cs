@@ -14,6 +14,8 @@ namespace Managers
         [SerializeField] private GameObject itemPrefabPickup;
         [SerializeField] private GameObject itemPrefabUI;
         [SerializeField] private GameObject slotPrefabUI;
+        [SerializeField] private Mesh itemMesh;
+        [SerializeField] private Material[] itemMaterials;
         
         [Header("Sounds")]
         [SerializeField] private AudioClip itemPickupSound;
@@ -25,6 +27,8 @@ namespace Managers
         public static GameObject ItemPrefabPickup => _instance.itemPrefabPickup;
         public static GameObject ItemPrefabUI => _instance.itemPrefabUI;
         public static GameObject SlotPrefabUI => _instance.slotPrefabUI;
+        public static Mesh ItemMesh => _instance.itemMesh;
+        public static Material[] ItemMaterials => _instance.itemMaterials;
         public static AudioClip ItemPickupSound => _instance.itemPickupSound;
         public static AudioClip ItemThrowSound => _instance.itemThrowSound;
 
