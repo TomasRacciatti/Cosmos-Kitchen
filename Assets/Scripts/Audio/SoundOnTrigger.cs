@@ -9,6 +9,8 @@ namespace Features
         private AudioSource audioSource; 
         [SerializeField] private float fadeSpeed = 10f;
         [SerializeField] private AudioCue audioCue;
+        [SerializeField] private float minPitch = 0.9f;
+        [SerializeField] private float maxPitch = 1.7f;
 
         private bool playerInside = false;
         private Transform player;
@@ -30,6 +32,8 @@ namespace Features
                 float speed = controller.velocity.magnitude;
                 
                 targetVolume = speed > 0.1f ? 1f : 0f;
+                
+                audioSource.pitch = Random.Range(minPitch, maxPitch); // Dejo esto para variar pitch
             }
             else
             {
