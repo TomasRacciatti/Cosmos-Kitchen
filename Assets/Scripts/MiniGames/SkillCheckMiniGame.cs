@@ -20,12 +20,18 @@ namespace MiniGames
         private float _currentNeedleAngle;
         private bool _positiveRotation;
         private SkillCheckUI _skillCheckUI;
-        
+
         protected override void EnterMiniGame()
         {
             base.EnterMiniGame();
-
-            if (_skillCheckUI == null) _skillCheckUI = GameManager.Canvas.MiniGamesUI.SkillCheckUI;
+            _skillCheckUI = GameManager.Canvas.MiniGamesUI.ActiveMiniGame(miniGameType) as SkillCheckUI;
+            
+            if (_skillCheckUI == null)
+            {
+                Debug.LogError($"No se encontró una UI para el minijuego {miniGameType.name}");
+                return;
+            }
+            
             _skillCheckUI.gameObject.SetActive(true);
             _currentZoneAngle = 0;
             _currentNeedleAngle = 0;

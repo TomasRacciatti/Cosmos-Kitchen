@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MiniGames
 {
-    public class SkillCheckUI : MonoBehaviour
+    public class SkillCheckUI : MiniGameUI
     {
         [SerializeField] private RectTransform zoneTransform;
         [SerializeField] private RectTransform needleTransform;

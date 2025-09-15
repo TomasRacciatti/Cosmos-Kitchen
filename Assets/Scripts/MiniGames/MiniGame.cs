@@ -17,8 +17,10 @@ namespace MiniGames
         
         [SerializeField] private float cooldownTime = 30f;
         [SerializeField] private Transform dropTransform;
+        [SerializeField] private Transform interactionPoint;
         [SerializeField] protected float difficulty = 1f;
         [SerializeField] protected float scaleDifficulty = 0.1f;
+        [SerializeField] protected MiniGameType miniGameType;
         
         [Header("SFX")]
         [SerializeField] private AudioClip enterSound;
@@ -29,7 +31,6 @@ namespace MiniGames
         [SerializeField] protected AudioClip wrongSound;
         [SerializeField] private UnityEvent onCooldown;
         [SerializeField] private UnityEvent onFinishCooldown;
-        [SerializeField] private Transform interactionPoint;
         public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         private Transform DropTransform => dropTransform ? dropTransform : transform;
         
@@ -69,6 +70,7 @@ namespace MiniGames
             AudioSource?.PlayOneShot(enterSound);
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.gameObject.SetActive(false);
+            if(miniGameType != null) GameManager.Canvas.MiniGamesUI.ActiveMiniGame(miniGameType);
             Lives = 3;
             IsActive = true;
         }
@@ -112,6 +114,7 @@ namespace MiniGames
             GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, DropTransform.position, DropTransform.rotation, false);
             item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardedAmount));
             item.SetActive(true);
+            print("Rewarded Item: "  + rewardedItem);
         }
     }
 }
