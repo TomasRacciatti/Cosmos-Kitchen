@@ -37,7 +37,6 @@ namespace Items.Core
                 meshFilter.mesh = PrefabsManager.ItemMesh;
                 meshRenderer.materials = PrefabsManager.ItemMaterials;
             }
-            
             Invoke(nameof(ReturnInTime), 300); // hacer que baje de calidad con el tiempo tirado
         }
 

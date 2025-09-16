@@ -556,17 +556,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 252760830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b665135cde46c8aad265c834c20485, type: 3}
+  m_Script: {fileID: 11500000, guid: a6a7604557c94afca1c16e8407da902d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rewardedItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
+  rewardedItem: {fileID: 11400000, guid: f6dde2abff7f05f4caf10c51f15eff76, type: 2}
   rewardedAmount: 1
   cooldownTime: 30
   dropTransform: {fileID: 0}
   interactionPoint: {fileID: 0}
   difficulty: 1
   scaleDifficulty: 0.1
-  miniGameType: {fileID: 0}
+  miniGameType: {fileID: 11400000, guid: fd55f3c8f6ac8704685af989a3cd1378, type: 2}
   enterSound: {fileID: 0}
   leaveSound: {fileID: 0}
   winSound: {fileID: 0}

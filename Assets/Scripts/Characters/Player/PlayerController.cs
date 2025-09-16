@@ -323,6 +323,6 @@ namespace Characters.Player
             _input.active = value;
         }
 
-        public Vector3 GetThrowPosition => transform.position + 0.5f * transform.forward + transform.up;
+        public Vector3 GetThrowPosition => transform.position + 1f * transform.forward + transform.up;
     }
 }

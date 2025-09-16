@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac132577a91450440bc7497712aac420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 10
+  fadeSpeed: 1
   audioCue: {fileID: 11400000, guid: a62337e68ed6761459f2eb9a5d186e5d, type: 2}
   minPitch: 0.9
   maxPitch: 1.7
@@ -543,8 +543,10 @@ MonoBehaviour:
   rewardedAmount: 1
   cooldownTime: 20
   dropTransform: {fileID: 5487162102716607467}
+  interactionPoint: {fileID: 0}
   difficulty: 1
   scaleDifficulty: 0.1
+  miniGameType: {fileID: 0}
   enterSound: {fileID: 0}
   leaveSound: {fileID: 0}
   winSound: {fileID: 0}
@@ -581,7 +583,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-  interactionPoint: {fileID: 0}
 --- !u!82 &629151500406145088
 AudioSource:
   m_ObjectHideFlags: 0

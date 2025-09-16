@@ -181,8 +181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac132577a91450440bc7497712aac420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 10
+  fadeSpeed: 1
   audioCue: {fileID: 11400000, guid: a62337e68ed6761459f2eb9a5d186e5d, type: 2}
+  minPitch: 0.9
+  maxPitch: 1.3
 --- !u!82 &6457200886884131003
 AudioSource:
   m_ObjectHideFlags: 0
@@ -194,7 +196,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2651862625002983832, guid: 5ee51f32adea3fa4c966d529e3b2971f,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 445da2bac1aae014a97f22a8e76531e1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2f5d007b1acc25642af132fb9ee13f48, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

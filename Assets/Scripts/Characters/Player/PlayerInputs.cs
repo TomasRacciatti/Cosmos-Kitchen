@@ -22,6 +22,7 @@ namespace Characters.Player
         
         private InteractComponent _interactComponent;
 
+        public bool ActiveAndNoHUD => active && !inventoryOpen && !bookOpen && !menuOpen;
 
         private void Awake()
         {
@@ -61,7 +62,7 @@ namespace Characters.Player
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = active && !inventoryOpen && !bookOpen && !menuOpen ? value.Get<Vector2>() : Vector2.zero;
+            look = ActiveAndNoHUD ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
@@ -80,7 +81,7 @@ namespace Characters.Player
 
         public void OnInteract(InputValue value)
         {
-            if (!active || !value.isPressed) return;
+            if (!ActiveAndNoHUD || !value.isPressed) return;
             _interactComponent.Interact();
         }
 

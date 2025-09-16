@@ -109,12 +109,16 @@ namespace MiniGames
 
         protected void RewardPlayer()
         {
-            if (rewardedItem == null) return;
+            if (rewardedItem == null)
+            {
+                Debug.LogWarning("No se asignó rewardedItem en el inspector!");
+                return;
+            }
             
+            Debug.Log($"Dropping {rewardedItem.name} x{rewardedAmount}");
             GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, DropTransform.position, DropTransform.rotation, false);
             item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardedAmount));
             item.SetActive(true);
-            print("Rewarded Item: "  + rewardedItem);
         }
     }
 }
