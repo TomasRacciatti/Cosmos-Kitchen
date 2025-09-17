@@ -2,11 +2,14 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Characters.Player;
 
 namespace Utility
 {
     public class SceneTeleport : MonoBehaviour
     {
+        [SerializeField] private bool activateCursor;
+        
         [SerializeField] private string sceneName;
         [SerializeField] private TextMeshProUGUI textMesh;
 
@@ -20,6 +23,11 @@ namespace Utility
             if (!string.IsNullOrEmpty(sceneName))
             {
                 SceneManager.LoadScene(sceneName);
+                
+                if (activateCursor)
+                    PlayerInputs.SetCursor(true);
+                else
+                    PlayerInputs.SetCursor(false);
             }
             else
             {
