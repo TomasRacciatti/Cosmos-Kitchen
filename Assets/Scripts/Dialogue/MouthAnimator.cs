@@ -5,23 +5,22 @@ using UnityEngine;
 public class MouthAnimator : MonoBehaviour
 {
     [Header("Binding")]
-    public NPCSpeaker npc;            // auto-found if empty
-    public Transform target;          // scaled object (defaults to this.transform)
-    public GameObject visual;         // shown/hidden; default = target.gameObject
+    public NPCSpeaker npc;
+    public Transform target;
+    public GameObject visual;
 
     [Header("Y Scale Targets")]
-    [Range(0f, 2f)] public float vowelY = 1.0f;  // on blip  -> (X,Y) ~ (1,1)
-    [Range(0f, 2f)] public float gapY   = 0.3f;  // between blips
-    [Range(0f, 2f)] public float restY  = 0.0f;  // after end -> disable (X,Y) -> (0.5,0)
+    [Range(0f, 2f)] public float vowelY = 1.0f;  // Abierto
+    [Range(0f, 2f)] public float gapY   = 0.3f;  // Descanzo
+    [Range(0f, 2f)] public float restY  = 0.0f;  // Cerrado
 
     [Header("X Width Mapping")]
-    [Tooltip("Minimum X width as a fraction of base X when the mouth is closed.")]
-    [Range(0f, 1f)] public float minXFactor = 0.5f; // <= your requirement
+    [Range(0f, 1f)] public float minXFactor = 0.5f;
 
     [Header("Timings (seconds)")]
-    public float upTime   = 0.03f;   // to vowel
-    public float downTime = 0.06f;   // back to gap
-    public float endTime  = 0.08f;   // to rest then hide
+    public float upTime   = 0.03f;   // Abierto
+    public float downTime = 0.06f;   // Descanzo
+    public float endTime  = 0.08f;   // Fin
 
     Transform t;
     Vector3 baseScale;
@@ -124,11 +123,10 @@ public class MouthAnimator : MonoBehaviour
 
     void ApplyXY(float y)
     {
-        // Normalize Y against "fully open" (vowelY) to drive X
         float norm = (vowelY <= 0f) ? 0f : Mathf.Clamp01(y / vowelY);
 
-        float xMin = baseScale.x * Mathf.Clamp01(minXFactor); // e.g., 0.5 * base X
-        float x    = Mathf.Lerp(xMin, baseScale.x, norm);     // y=0 -> xMin, y=vowelY -> base X
+        float xMin = baseScale.x * Mathf.Clamp01(minXFactor);
+        float x    = Mathf.Lerp(xMin, baseScale.x, norm);
 
         t.localScale = new Vector3(x, y, baseScale.z);
     }

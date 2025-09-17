@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SpeakerManager : MonoBehaviour
 {
-    [Header("Shared Audio")]
+    [Header("AEIOU")]
     [SerializeField] private AudioSource source;
     [SerializeField] private AudioClip[] vowelClips;
 
@@ -15,7 +15,7 @@ public class SpeakerManager : MonoBehaviour
         if (string.IsNullOrEmpty(text) || npc == null) return;
         if (!source || vowelClips == null || vowelClips.Length == 0) return;
 
-        CancelSpeak();                     // cancel any previous speech
+        CancelSpeak();                     // Cortar si esta hablando
         activeNPC = npc;
         activeNPC.RaiseSpeakStart();
 
@@ -39,11 +39,10 @@ public class SpeakerManager : MonoBehaviour
 
     private IEnumerator Co_Speak(string text, NPCSpeaker npc)
     {
-        // Count letters only
         int letters = 0;
         foreach (char c in text) if (char.IsLetter(c)) letters++;
 
-        // Ensure at least 1 blip if there's at least 1 letter
+        // Asegura que al menos haya 1 sonido, independientemente del ratio/letras.
         int playCount = Mathf.CeilToInt(letters * Mathf.Clamp01(npc.ratio));
         if (letters > 0) playCount = Mathf.Max(1, playCount);
 
