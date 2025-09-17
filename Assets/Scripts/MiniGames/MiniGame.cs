@@ -77,7 +77,6 @@ namespace MiniGames
 
         protected virtual void LeaveMiniGame()
         {
-            //_audioSource?.PlayOneShot(leaveSound);
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.gameObject.SetActive(true);
             IsActive = false;
@@ -87,12 +86,16 @@ namespace MiniGames
         protected virtual void WinMiniGame()
         {
             AudioSource?.PlayOneShot(winSound);
+            NotificationsManager.NewNotification("You Win Minigame", PrefabsManager.NotificationWinUI);
             RewardPlayer();
+            LeaveMiniGame();
         }
 
         protected virtual void LoseMiniGame()
         {
             AudioSource?.PlayOneShot(loseSound);
+            NotificationsManager.NewNotification("You Lose Minigame", PrefabsManager.NotificationLoseUI);
+            LeaveMiniGame();
         }
 
         protected void StartCooldown()

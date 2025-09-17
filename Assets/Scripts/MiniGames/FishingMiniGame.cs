@@ -19,14 +19,21 @@ namespace MiniGames
             }
             
             _fishingUI.gameObject.SetActive(true);
+            _fishingUI.StartFishing();
             _fishingUI.OnFishEscape.AddListener(LoseMiniGame);
-            _fishingUI.OnFishEscape.AddListener(LeaveMiniGame);
+            Invoke(nameof(WinInTime), 20f);
         }
 
         protected override void LeaveMiniGame()
         {
             base.LeaveMiniGame();
+            CancelInvoke(nameof(WinInTime));
             _fishingUI.gameObject.SetActive(false);
+        }
+
+        private void WinInTime()
+        {
+            WinMiniGame();
         }
     }
 }
