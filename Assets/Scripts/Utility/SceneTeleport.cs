@@ -15,7 +15,8 @@ namespace Utility
 
         private void Awake()
         {
-            textMesh.SetText("Go to: " + sceneName);
+            if (textMesh != null)
+                textMesh.SetText("Go to: " + sceneName);
         }
 
         public void Teleport()
