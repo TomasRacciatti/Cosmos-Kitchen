@@ -29,7 +29,6 @@ namespace Regulators
             if (_instance != null && _instance != this)
             {
                 Destroy(_instance.gameObject);
-                return;
             }
             _instance = this;
         }

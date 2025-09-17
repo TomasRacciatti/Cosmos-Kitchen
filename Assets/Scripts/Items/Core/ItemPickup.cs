@@ -52,16 +52,23 @@ namespace Items.Core
 
         public void Interact(GameObject interactableObject) //pick up
         {
+            int amount = itemAmount.Amount;
+            string itemName = itemAmount.SoItem.name;
+            Sprite image = itemAmount.SoItem.Image;
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);
             if (TestEmptyDestroy())
             {
-                AudioSource.PlayClipAtPoint(PrefabsManager.ItemPickupSound, transform.position);
+                AudioSource temp = new GameObject("TempAudio").AddComponent<AudioSource>();
+                temp.spatialBlend = 0f; // 2D
+                temp.PlayOneShot(PrefabsManager.ItemPickupSound);
+                Destroy(temp.gameObject, PrefabsManager.ItemPickupSound.length);
             }
             else
             {
                 //inv lleno
             }
+            NotificationsManager.NewNotification("Grabbed: " + itemName + " x" + (amount - itemAmount.Amount).ToString(), image);
         }
 
         public void EnableInteract()

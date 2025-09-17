@@ -17,9 +17,16 @@ namespace Managers
         [SerializeField] private Mesh itemMesh;
         [SerializeField] private Material[] itemMaterials;
         
+        [Header("Notifications")]
+        [SerializeField] private GameObject notificationPrefabUI;
+        [SerializeField] private Sprite notificationWinUI;
+        [SerializeField] private Sprite notificationLoseUI;
+        
         [Header("Sounds")]
         [SerializeField] private AudioClip itemPickupSound;
         [SerializeField] private AudioClip itemThrowSound;
+        
+
 
         //Properties
         public static GameObject Player => _instance.player;
@@ -29,9 +36,12 @@ namespace Managers
         public static GameObject SlotPrefabUI => _instance.slotPrefabUI;
         public static Mesh ItemMesh => _instance.itemMesh;
         public static Material[] ItemMaterials => _instance.itemMaterials;
+        public static GameObject NotificationPrefabUI => _instance.notificationPrefabUI;
+        public static Sprite NotificationWinUI => _instance.notificationWinUI;
+        public static Sprite NotificationLoseUI => _instance.notificationLoseUI;
         public static AudioClip ItemPickupSound => _instance.itemPickupSound;
         public static AudioClip ItemThrowSound => _instance.itemThrowSound;
-
+        
         private void Awake()
         {
             if (_instance != null && _instance != this)
