@@ -17,12 +17,6 @@ namespace MiniGames.EggSort
         [Header("Colors")] 
         [SerializeField] private Color[] ballColors = { Color.red, Color.green, Color.blue };
 
-        [Header("SFX (optional)")] 
-        [SerializeField] private AudioClip enterClip;
-
-        [SerializeField] private AudioClip winClip;
-        [SerializeField] private AudioClip loseClip;
-
         private System.Action<AudioClip> _playSfx;
 
         public void Setup(System.Action<AudioClip> playSfx)
@@ -39,7 +33,6 @@ namespace MiniGames.EggSort
             }
 
             gameObject.SetActive(true);
-            _playSfx?.Invoke(enterClip);
 
             SpawnAndShuffle();
         }
@@ -75,9 +68,6 @@ namespace MiniGames.EggSort
 
             return validColumns == ballColors.Length;
         }
-
-        public void OnWin()  => _playSfx?.Invoke(winClip);
-        public void OnLose() => _playSfx?.Invoke(loseClip);
         
         private void SpawnAndShuffle()
         {

@@ -22,7 +22,7 @@ namespace MiniGames.EggSort
                 return;
             }
 
-            // Provide an SFX delegate so UI/Balls don’t know AudioManager
+            // Este seria el sfx del drag y drop que tenemos en el script de ball
             System.Action<AudioClip> playSfx = (clip) =>
             {
                 if (clip != null) AudioSource?.PlayOneShot(clip);
@@ -32,6 +32,33 @@ namespace MiniGames.EggSort
             _ui.Setup(playSfx);
 
             _nextCheck = Time.time + _checkWinInterval;
+        }
+        
+        protected override void LeaveMiniGame()
+        {
+            if (_ui != null)
+            {
+                _ui.Teardown();
+                _ui = null;
+            }
+
+            base.LeaveMiniGame();
+        }
+        
+        private void Update()
+        {
+            if (!IsActive || _ui == null) return;
+            
+            if (Time.time >= _nextCheck)
+            {
+                _nextCheck = Time.time + _checkWinInterval;
+
+                if (_ui.HasWon())
+                {
+                    // play audio clip
+                    WinMiniGame();
+                }
+            }
         }
     }
 }
