@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace MiniGames.EggSort
 {
-    public class BallSortUI : MiniGameUI
+    public class EggSortUI : MiniGameUI
     {
         [Header("Board")] [SerializeField] private Canvas canvas;
         [SerializeField] private RectTransform dragLayer;
