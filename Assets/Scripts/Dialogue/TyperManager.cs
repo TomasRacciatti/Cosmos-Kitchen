@@ -19,8 +19,8 @@ public class TyperManager : MonoBehaviour
     public NPCSpeaker currentSpeaker;
 
     [Header("Behavior")]
-    public bool loopAtEnd = false;                 // if false, stops on last line
-    public bool skipThenAdvanceSameClick = false;  // normally: first click finishes, next click advances
+    public bool loopAtEnd = false;
+    public bool skipThenAdvanceSameClick = false;  //Estos dos son booleanas para testeo
 
     public event Action OnDialogueEnd;
 
@@ -31,7 +31,7 @@ public class TyperManager : MonoBehaviour
 
     public void SetSpeaker(NPCSpeaker speaker)
     {
-        // fully cancel current session
+        //Cancelar tipeo
         CancelTyping();
         if (speakerManager) speakerManager.CancelSpeak();
 
@@ -45,20 +45,19 @@ public class TyperManager : MonoBehaviour
         if (currentSpeaker == null || currentSpeaker.lines == null || currentSpeaker.lines.Length == 0)
             return;
 
-        // If mid-typing: finish instantly & stop voice
+        // Si esta escribiendo, completar dialogo y mutear npc
         if (isTyping)
         {
-            FinishTyping(currentText);                 // shows full text & sets isTyping=false
+            FinishTyping(currentText);
             if (speakerManager) speakerManager.CancelSpeak();
 
             if (skipThenAdvanceSameClick)
             {
-                AdvanceAndStart();                     // optional: skip+advance in one click
+                AdvanceAndStart();                     // opcional: skip+advance
             }
-            return;                                    // default: require a second click to advance
+            return;
         }
 
-        // Not typing -> go to next line
         AdvanceAndStart();
     }
 
@@ -77,7 +76,6 @@ public class TyperManager : MonoBehaviour
 
     private void StartLine(int i)
     {
-        // defensive: stop anything pending
         CancelTyping();
         if (speakerManager) speakerManager.CancelSpeak();
 
@@ -86,8 +84,8 @@ public class TyperManager : MonoBehaviour
 
         if (nameBox) nameBox.text = currentSpeaker.npcName;
 
-        typeCor = StartCoroutine(TypeLine(currentText));      // typing starts
-        if (speakerManager) speakerManager.Speak(currentText, currentSpeaker); // voice starts
+        typeCor = StartCoroutine(TypeLine(currentText));      // trigger typping
+        if (speakerManager) speakerManager.Speak(currentText, currentSpeaker); // trigger voice
     }
 
     private IEnumerator TypeLine(string text)
@@ -99,12 +97,12 @@ public class TyperManager : MonoBehaviour
 
         for (int i = 0; i < text.Length; i++)
         {
-            if (!isTyping) yield break;                       // cancelled mid-line
+            if (!isTyping) yield break;                       //Cancelar mid typping
             if (dialogBox) dialogBox.text += text[i];
             yield return new WaitForSecondsRealtime(delay);
         }
 
-        isTyping = false;                                     // finished naturally
+        isTyping = false;
     }
 
     private void FinishTyping(string full)
