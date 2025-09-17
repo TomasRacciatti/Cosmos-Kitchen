@@ -55,7 +55,6 @@ namespace MiniGames.EggSort
 
                 if (_ui.HasWon())
                 {
-                    // play audio clip
                     WinMiniGame();
                 }
             }
