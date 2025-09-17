@@ -17,8 +17,8 @@ namespace MiniGames.EggSort
         public Column fromColumn;
     
         [Header("SFX")] 
-        [SerializeField] AudioClip DragSound;
-        [SerializeField] AudioClip DropSound;
+        [SerializeField] AudioClip dragSound;
+        [SerializeField] AudioClip dropSound;
     
         private RectTransform _rt;
         private CanvasGroup _cg;
@@ -68,26 +68,24 @@ namespace MiniGames.EggSort
             _draggingAllowed = (fromColumn != null && fromColumn.TopBall == this);
             if (!_draggingAllowed) return;
 
-
             _originalParent = transform.parent;
             _originalSiblingIndex = transform.GetSiblingIndex();
             _originalPosition = _rt.anchoredPosition;
 
-            var newParent = (Transform)_dragLayer ?? canvas.transform;
+            var newParent = (Transform)dragLayer ?? canvas.transform;
             transform.SetParent(newParent, worldPositionStays: true);
             _rt.localScale = Vector3.one;
-        
+
             _parentRect = newParent as RectTransform;
-        
+
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _parentRect, eventData.position, eventData.pressEventCamera, out var mouseLocal);
-        
+
             _dragOffset = _rt.anchoredPosition - mouseLocal;
-        
+
             if (_cg != null) _cg.blocksRaycasts = false;
 
-            if (AudioManager.instance != null && DragSound != null)
-                AudioManager.instance.PlaySFX(DragSound);
+            playSfx?.Invoke(dragSound);
         }
     
         public void OnDrag(PointerEventData eventData)
@@ -110,22 +108,16 @@ namespace MiniGames.EggSort
 
             if (dropArea != null && dropArea.column != null && dropArea.column.CanAddBall(this))
             {
-                // Update stacks (source pop first, then push into target)
                 if (fromColumn != null) fromColumn.TryPopBall(this);
                 dropArea.column.PushBall(this);
-
-                if (AudioManager.instance != null && DropSound != null)
-                    AudioManager.instance.PlaySFX(DropSound);
+                playSfx?.Invoke(dropSound);
             }
             else
             {
-                // Snap back to original position/parent and keep stack unchanged
                 transform.SetParent(_originalParent, worldPositionStays: true);
                 transform.SetSiblingIndex(_originalSiblingIndex);
                 _rt.anchoredPosition = _originalPosition;
-
-                if (AudioManager.instance != null && DropSound != null)
-                    AudioManager.instance.PlaySFX(DropSound);
+                playSfx?.Invoke(dropSound);
             }
 
             _draggingAllowed = false;

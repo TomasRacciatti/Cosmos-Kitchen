@@ -7,16 +7,18 @@ namespace MiniGames.EggSort
 {
     public class EggSortUI : MiniGameUI
     {
-        [Header("Board")] [SerializeField] private Canvas canvas;
+        [Header("Board")] 
+        [SerializeField] private Canvas canvas;
         [SerializeField] private RectTransform dragLayer;
         [SerializeField] private List<Column> allColumns;
         [SerializeField] private int ballsPerColumn = 3;
         [SerializeField] private GameObject ballPrefab;
 
-        [Header("Colors")] [SerializeField] private Color[] ballColors = { Color.red, Color.green, Color.blue };
+        [Header("Colors")] 
+        [SerializeField] private Color[] ballColors = { Color.red, Color.green, Color.blue };
 
-        [Header("SFX (optional)")] [SerializeField]
-        private AudioClip enterClip;
+        [Header("SFX (optional)")] 
+        [SerializeField] private AudioClip enterClip;
 
         [SerializeField] private AudioClip winClip;
         [SerializeField] private AudioClip loseClip;
