@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using Characters.Player;
 
 namespace MiniGames.EggSort
 {
@@ -12,6 +13,8 @@ namespace MiniGames.EggSort
         protected override void EnterMiniGame()
         {
             base.EnterMiniGame();
+            
+            PlayerInputs.SetCursor(true);
 
             _ui = GameManager.Canvas.MiniGamesUI.ActiveMiniGame(miniGameType) as EggSortUI;
             
@@ -41,6 +44,8 @@ namespace MiniGames.EggSort
                 _ui.Teardown();
                 _ui = null;
             }
+            
+            PlayerInputs.SetCursor(false);
 
             base.LeaveMiniGame();
         }

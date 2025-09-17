@@ -49,7 +49,7 @@ namespace MiniGames.EggSort
                 : null;
 
             var t = canvas != null ? canvas.transform.Find("DragLayer") : null;
-            if (t != null) _dragLayer = t as RectTransform;
+            if (t != null) dragLayer = t as RectTransform;
         }
     
         #region Color API
@@ -72,11 +72,11 @@ namespace MiniGames.EggSort
             _originalSiblingIndex = transform.GetSiblingIndex();
             _originalPosition = _rt.anchoredPosition;
 
-            var newParent = (Transform)dragLayer ?? canvas.transform;
-            transform.SetParent(newParent, worldPositionStays: true);
+            var parentRT = (RectTransform)(dragLayer ?? _dragLayer ?? canvas.transform);
+            transform.SetParent(parentRT, worldPositionStays: true);
             _rt.localScale = Vector3.one;
 
-            _parentRect = newParent as RectTransform;
+            _parentRect = parentRT;
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 _parentRect, eventData.position, eventData.pressEventCamera, out var mouseLocal);
