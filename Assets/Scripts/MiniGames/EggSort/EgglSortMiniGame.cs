@@ -2,7 +2,7 @@ using Managers;
 
 namespace MiniGames
 {
-    public class BallSortMiniGame : MiniGame
+    public class EggSortMiniGame : MiniGame
     {
 
     }
