@@ -1,7 +1,6 @@
-using Characters.Clients.Plates;
 using Items.Core;
 
-namespace Characters.Clients.Order
+namespace Characters.Clients.Plates
 {
     public enum OrderOutcome { Wrong, Delivered, Perfect }
     

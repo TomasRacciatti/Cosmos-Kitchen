@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Clients;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,10 +12,9 @@ public class ClientDisplay : MonoBehaviour
     [SerializeField] Image _clientIcon;
     [SerializeField] Image _clientGrade;
 
-    public void UpdateClientDisplay(ClientScript client)
+    public void UpdateClientDisplay(ClientController client)
     {
-        _clientName.text = client.ReturnClientName();
-        _clientIcon.sprite = client.ReturnClientIcon();
-        _clientGrade.fillAmount = (float)client.ReturnQualityLevel() / 100;
+        _clientName.text = client.Name;
+        _clientIcon.sprite = client.Icon;
     }
 }
