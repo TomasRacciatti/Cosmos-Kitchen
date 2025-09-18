@@ -304,31 +304,31 @@ public class NavigationPanelManager : MonoBehaviour
         {
             _clientsCompleted++;
 
-            switch (_clientsCompleted)
-            {
-                case 3:
-                    ClientManager.instance.UnlockCritic("Eorth");
-                    DialogueManager.instance.Notify("The Critic has appeared in Eorth!");
-                    break;
-                case 6:
-                    ClientManager.instance.UnlockCritic("Desert");
-                    DialogueManager.instance.Notify("The Critic has appeared in Desert!");
-                    break;
-                case 12:
-                    ClientManager.instance.UnlockCritic("Ocean");
-                    DialogueManager.instance.Notify("The Critic has appeared in Ocean!");
-                    break;
-                case 15:
-                    ClientManager.instance.UnlockCritic("Frozen");
-                    DialogueManager.instance.Notify("The Critic has appeared in Frozen!");
-                    break;
-                case 30:
-                    ClientManager.instance.UnlockCritic("Volcano");
-                    DialogueManager.instance.Notify("The Critic has appeared in Volcano!");
-                    break;
-                default:
-                    break;
-            }
+            // switch (_clientsCompleted)
+            // {
+            //     case 3:
+            //         ClientManager.instance.UnlockCritic("Eorth");
+            //         DialogueManager.instance.Notify("The Critic has appeared in Eorth!");
+            //         break;
+            //     case 6:
+            //         ClientManager.instance.UnlockCritic("Desert");
+            //         DialogueManager.instance.Notify("The Critic has appeared in Desert!");
+            //         break;
+            //     case 12:
+            //         ClientManager.instance.UnlockCritic("Ocean");
+            //         DialogueManager.instance.Notify("The Critic has appeared in Ocean!");
+            //         break;
+            //     case 15:
+            //         ClientManager.instance.UnlockCritic("Frozen");
+            //         DialogueManager.instance.Notify("The Critic has appeared in Frozen!");
+            //         break;
+            //     case 30:
+            //         ClientManager.instance.UnlockCritic("Volcano");
+            //         DialogueManager.instance.Notify("The Critic has appeared in Volcano!");
+            //         break;
+            //     default:
+            //         break;
+            // }
         }
     }
 

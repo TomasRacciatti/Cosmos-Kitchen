@@ -235,8 +235,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 5
-  _initialAnimationState: Idle
+  clientId: 5
+  initialIdle: 0
 --- !u!1 &42608173 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5972775252208167907, guid: 04c33d7a1925b8349aebb06adc350ec8,
@@ -325,12 +325,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1164967400}
   m_PrefabAsset: {fileID: 0}
---- !u!82 &138418976 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 1478479214509829746, guid: eaa6c134550112d438682a2077c07ce3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406093667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &174342746
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,8 +369,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 4
-  _initialAnimationState: Idle
+  clientId: 4
+  initialIdle: 0
 --- !u!1 &177712524
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,8 +782,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 0
-  _initialAnimationState: Sitting
+  clientId: 0
+  initialIdle: 1
 --- !u!4 &380888464 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1115508453526633267, guid: bc073fb7933b9764aa649508af2a9e30,
@@ -1991,7 +1985,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1003607324}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.1167631, y: 0.33862647, z: -0.04239274, w: 0.932685}
+  m_LocalRotation: {x: 0.11676309, y: 0.3386264, z: -0.04239274, w: 0.9326851}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2043,8 +2037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 1
-  _initialAnimationState: Idle
+  clientId: 1
+  initialIdle: 0
 --- !u!1 &1093447181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,12 +2664,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc073fb7933b9764aa649508af2a9e30, type: 3}
---- !u!82 &1401743539 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 807642613421624652, guid: eaa6c134550112d438682a2077c07ce3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406093667}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1406093667
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3143,8 +3131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 2
-  _initialAnimationState: Idle
+  clientId: 2
+  initialIdle: 0
 --- !u!1 &1483287727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3489,8 +3477,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 3
-  _initialAnimationState: Sitting
+  clientId: 3
+  initialIdle: 1
 --- !u!82 &1638840858 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 7745676061598103541, guid: f94edf4021e5cb24f9791a9fb8deab9c,
@@ -3901,8 +3889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd771834fa8f0874d87096912c31e9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clientNumber: 6
-  _initialAnimationState: Sitting
+  clientId: 6
+  initialIdle: 1
 --- !u!1001 &1907833909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4109,12 +4097,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SceneBindings.Array.data[12].value
       value: 
-      objectReference: {fileID: 1401743539}
+      objectReference: {fileID: 0}
     - target: {fileID: 4553652678351903188, guid: 7c1d49f25689dd54bbafc2e0235c4a44,
         type: 3}
       propertyPath: m_SceneBindings.Array.data[13].value
       value: 
-      objectReference: {fileID: 138418976}
+      objectReference: {fileID: 0}
     - target: {fileID: 4553652678351903188, guid: 7c1d49f25689dd54bbafc2e0235c4a44,
         type: 3}
       propertyPath: m_SceneBindings.Array.data[14].value
