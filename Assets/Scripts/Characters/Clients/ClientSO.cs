@@ -16,7 +16,7 @@ namespace Characters.Clients
         public ClientDialogueProfileSO dialogueProfile;
 
         [Header("Order / Recipe")]
-        public PlateSO requestedRecipe;
+        public PlateSO requestedPlate;
 
         // Helper que devuelve el string empty si no hay lineas de dialogo.
         public string GetLine(DialogueCategory category) =>
