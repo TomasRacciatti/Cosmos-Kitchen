@@ -5,7 +5,7 @@ using Items.Core;
 
 namespace Characters.Clients.Plates
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Item/Plate", fileName = "Plate")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Items/Plate", fileName = "Plate")]
     public sealed class PlateSO : SoItem
     {
         [Header("Required Ingredients")]
