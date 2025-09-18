@@ -13,24 +13,23 @@ namespace Characters.Clients
         [Range(1, 10)] public int weight = 1; // Por si queremos que algunos textos tengan mas peso que otros
     }
     
-    [CreateAssetMenu(menuName = "ScriptableObject/Client/Dialogue/DialogueList", fileName = "DialogueList_")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Dialogue/DialogueList", fileName = "DialogueList_")]
     public sealed class DialogueListSO : ScriptableObject
     {
         public DialogueCategory category;
         public List<DialogueEntry> lines = new();
     }
     
-    [CreateAssetMenu(menuName = "ScriptableObject/Client/Dialogue/ClientDialogueProfile", fileName = "ClientDialogue_")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Dialogue/ClientDialogueProfile", fileName = "ClientDialogue_")]
     public sealed class ClientDialogueProfileSO : ScriptableObject
     {
-        [Header("Reusable lists (optional)")]
-        public DialogueListSO asking;
+        [Header("General Dialogue Lists (Optional)")]
         public DialogueListSO delivered;
         public DialogueListSO perfect;
         public DialogueListSO repeating;
         public DialogueListSO wrong;
 
-        [Header("Client-specific extra lines (optional)")]
+        [Header("Client-specific extra lines")]
         public List<DialogueEntry> extraAsking    = new();
         public List<DialogueEntry> extraDelivered = new();
         public List<DialogueEntry> extraPerfect   = new();
@@ -43,7 +42,6 @@ namespace Characters.Clients
 
             DialogueListSO baseList = category switch
             {
-                DialogueCategory.Asking    => asking,
                 DialogueCategory.Delivered => delivered,
                 DialogueCategory.Perfect   => perfect,
                 DialogueCategory.Repeating => repeating,
