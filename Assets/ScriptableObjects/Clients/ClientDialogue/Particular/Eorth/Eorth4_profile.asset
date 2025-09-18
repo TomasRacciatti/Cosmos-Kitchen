@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c0dc6efe6b673459d34c4552820fbf, type: 3}
+  m_Name: Eorth4_profile
+  m_EditorClassIdentifier: Assembly-CSharp:Characters.Clients:ClientDialogueProfileSO
+  delivered: {fileID: 11400000, guid: a4bf90783b8ec884ba96197a889bb1d5, type: 2}
+  perfect: {fileID: 11400000, guid: f95706a60ab87a64c91401a54dba613b, type: 2}
+  repeating: {fileID: 11400000, guid: 61cd9354a6dac1c4ca2c26f358fcaf22, type: 2}
+  wrong: {fileID: 0}
+  extraAsking:
+  - text: Hey. I want to fish some Salmon but my sister over here is such a nuissance.
+      Something about the delicate balance of nature or whatever. I don't care! I'm
+      hungry!!
+    weight: 0
+  extraDelivered:
+  - text: Huh I thought Salmon tasted better... Wouldn't you mind trying again?
+    weight: 0
+  extraPerfect:
+  - text: HAHA YES! I knew it, Salmon's the best!!
+    weight: 0
+  extraRepeating:
+  - text: I don't know if she told you something about me but don't believe her,
+      she always got me into trouble with mom and dad.
+    weight: 0
+  extraWrong:
+  - text: Hmmm no I don't want to eat that. Looks good but I want cooked Salmon!!
+    weight: 0

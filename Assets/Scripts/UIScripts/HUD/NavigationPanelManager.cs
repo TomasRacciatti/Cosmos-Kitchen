@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Clients;
 using Dialogue;
 using TMPro;
 using Unity.VisualScripting;
@@ -36,7 +37,7 @@ public class NavigationPanelManager : MonoBehaviour
 
     [Header("Eorth Info")]
     [SerializeField] ScriptableIngredient[] _eorthIngredients;
-    [SerializeField] ClientScript[] _eorthClients;
+    [SerializeField] ClientController[] _eorthClients;
 
     [Header("Desert Info")]
     [SerializeField] ScriptableIngredient[] _desertIngredients;
@@ -60,7 +61,7 @@ public class NavigationPanelManager : MonoBehaviour
 
     [Header("Current Prefabs")]
     [SerializeField] GameObject[] _currentPrefabs;
-    [SerializeField] List<ClientScript> _clients;
+    [SerializeField] List<ClientController> _clients;
     
     [Header("SFX")]
     [SerializeField] AudioClip TravelSound;
@@ -293,44 +294,44 @@ public class NavigationPanelManager : MonoBehaviour
         }
     }
 
-    public void ClientAdd(ClientScript client)
-    {
-        if (!_clients.Contains(client))
-        {
-            _clients.Add(client);
-        }
-
-        if (client._deliveryComplete)
-        {
-            _clientsCompleted++;
-
-            switch (_clientsCompleted)
-            {
-                case 3:
-                    ClientManager.instance.UnlockCritic("Eorth");
-                    DialogueManager.instance.Notify("The Critic has appeared in Eorth!");
-                    break;
-                case 6:
-                    ClientManager.instance.UnlockCritic("Desert");
-                    DialogueManager.instance.Notify("The Critic has appeared in Desert!");
-                    break;
-                case 12:
-                    ClientManager.instance.UnlockCritic("Ocean");
-                    DialogueManager.instance.Notify("The Critic has appeared in Ocean!");
-                    break;
-                case 15:
-                    ClientManager.instance.UnlockCritic("Frozen");
-                    DialogueManager.instance.Notify("The Critic has appeared in Frozen!");
-                    break;
-                case 30:
-                    ClientManager.instance.UnlockCritic("Volcano");
-                    DialogueManager.instance.Notify("The Critic has appeared in Volcano!");
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+    // public void ClientAdd(ClientController client)
+    // {
+    //     if (!_clients.Contains(client))
+    //     {
+    //         _clients.Add(client);
+    //     }
+    //
+    //     if (client._deliveryComplete)
+    //     {
+    //         _clientsCompleted++;
+    //
+    //         // switch (_clientsCompleted)
+    //         // {
+    //         //     case 3:
+    //         //         ClientManager.instance.UnlockCritic("Eorth");
+    //         //         DialogueManager.instance.Notify("The Critic has appeared in Eorth!");
+    //         //         break;
+    //         //     case 6:
+    //         //         ClientManager.instance.UnlockCritic("Desert");
+    //         //         DialogueManager.instance.Notify("The Critic has appeared in Desert!");
+    //         //         break;
+    //         //     case 12:
+    //         //         ClientManager.instance.UnlockCritic("Ocean");
+    //         //         DialogueManager.instance.Notify("The Critic has appeared in Ocean!");
+    //         //         break;
+    //         //     case 15:
+    //         //         ClientManager.instance.UnlockCritic("Frozen");
+    //         //         DialogueManager.instance.Notify("The Critic has appeared in Frozen!");
+    //         //         break;
+    //         //     case 30:
+    //         //         ClientManager.instance.UnlockCritic("Volcano");
+    //         //         DialogueManager.instance.Notify("The Critic has appeared in Volcano!");
+    //         //         break;
+    //         //     default:
+    //         //         break;
+    //         // }
+    //     }
+    // }
 
     public void UnlockPlanet(string planetName)
     {

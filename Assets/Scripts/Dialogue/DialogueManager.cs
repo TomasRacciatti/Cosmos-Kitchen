@@ -78,13 +78,6 @@ namespace Dialogue
         [Obsolete("Use InteractionPromptToggled event via a view")]
         public void HideInteraction() => InteractionPromptToggled?.Invoke(false);
 
-        [Obsolete("Controller should call StartConversation(IClient)")]
-        public void SetClient(ClientScript c)
-        {
-            CurrentClient = c;
-            ClientChanged?.Invoke(new ClientInfo(c?.ReturnClientName() ?? "", c?.ReturnClientIcon()));
-        }
-
         [Obsolete("Use SetLine(string)")]
         public void ChangeDialogue(string t) => SetLine(t);
 
