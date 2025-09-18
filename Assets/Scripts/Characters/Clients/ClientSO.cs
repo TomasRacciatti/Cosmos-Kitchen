@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptables/Client", fileName = "Client_")]
+[CreateAssetMenu(menuName = "ScriptableObject/Client", fileName = "Client_")]
 public class ClientSO : ScriptableObject
 {
     [Header("Client")]
