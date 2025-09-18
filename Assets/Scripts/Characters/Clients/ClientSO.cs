@@ -1,6 +1,6 @@
 using UnityEngine;
 using Characters.Clients.ClientDialogue;
-using Characters.Clients.Recipes;
+using Characters.Clients.Plates;
 
 namespace Characters.Clients
 {
@@ -16,7 +16,7 @@ namespace Characters.Clients
         public ClientDialogueProfileSO dialogueProfile;
 
         [Header("Order / Recipe")]
-        public RecipeSO requestedRecipe;
+        public PlateSO requestedRecipe;
 
         // Helper que devuelve el string empty si no hay lineas de dialogo.
         public string GetLine(DialogueCategory category) =>
