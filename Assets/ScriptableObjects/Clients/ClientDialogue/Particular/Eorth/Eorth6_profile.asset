@@ -10,32 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6c0dc6efe6b673459d34c4552820fbf, type: 3}
-  m_Name: Eorth1_profile
+  m_Name: Eorth6_profile
   m_EditorClassIdentifier: Assembly-CSharp:Characters.Clients:ClientDialogueProfileSO
   delivered: {fileID: 11400000, guid: ac4717c1bedc34b4592fa86ae00a29b4, type: 2}
   perfect: {fileID: 11400000, guid: f95706a60ab87a64c91401a54dba613b, type: 2}
   repeating: {fileID: 11400000, guid: 9da3c48d671ed3542bdd8fe5fc160c76, type: 2}
-  wrong: {fileID: 0}
+  wrong: {fileID: 11400000, guid: 822f866cadecaee4dba8d2c49f017add, type: 2}
   extraAsking:
-  - text: Hey~ Feel free to take whatever you need from my farm. BUT! I want a plate
-      in return, make me a Salmon Omelette please.
+  - text: 'Hoi! I was watching you from the window and I got hungry!! Please make
+      me something with fish and apples .w. '
     weight: 0
   extraDelivered:
-  - text: Thank you so much ^^ but as I said, you could improve!
+  - text: 'It was okay!! '
     weight: 0
   extraPerfect:
-  - text: Now that's a perfect Salmon Omelette if I've ever seen one!! Thank you~
+  - text: Ohhh~ I loved it
     weight: 0
   extraRepeating:
-  - text: As I said, my farm's open for you!
-    weight: 0
-  - text: Sometimes I just lay here with the caows until the sun comes out.
-    weight: 0
-  - text: Did you know caows have 4 chambered stomachs?
-    weight: 0
-  - text: I love salmon, but my pa would make the best caow burger. Come to think
-      about it I think he used my own Betsy for that...
+  - text: Did I mention I got kicked out of the city for spying on strangers?
     weight: 0
   extraWrong:
-  - text: Are you sure this is a salmon omelet?
-    weight: 0
+  - text: I can't eat that!! I'm intolerant to anything that isn't Salmon, Apple
+      and Corn.
+    weight: 3

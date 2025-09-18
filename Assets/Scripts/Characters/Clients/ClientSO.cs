@@ -1,26 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Characters.Clients.ClientDialogue;
+using Characters.Clients.Recipes;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Client", fileName = "Client_")]
-public class ClientSO : ScriptableObject
+namespace Characters.Clients
 {
-    [Header("Client")]
-    public string _clientName;
-    public Sprite _clientIcon;
-    public int _clientNumber;
-    public bool _isCritic;
+    [CreateAssetMenu(menuName = "ScriptableObject/Client", fileName = "Client_")]
+    public class ClientSO : ScriptableObject
+    {
+        [Header("Client")]
+        public string clientName;
+        public Sprite clientIcon;
+        public bool isCritic;
 
-    [Header("Dialogue")]
-    public string _askingDialogue;
-    public string _deliveredDialogue;
-    public string _perfectDialogue;
-    public string _repeatingDialogue;
-    public string _wrongDialogue;
+        [Header("Dialogue")]
+        public ClientDialogueProfileSO dialogueProfile;
 
-    [Header("Plate Required")]
-    public IngredientScript[] _plateIngredientsScripts;
+        [Header("Order / Recipe")]
+        public RecipeSO requestedRecipe;
 
-    [Header("Order Description")]
-    public string _orderDescription;
+        // Helper que devuelve el string empty si no hay lineas de dialogo.
+        public string GetLine(DialogueCategory category) =>
+            dialogueProfile?.PickRandom(category) ?? string.Empty;
+    }
 }

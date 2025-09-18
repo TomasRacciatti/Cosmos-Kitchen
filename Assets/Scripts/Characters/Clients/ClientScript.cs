@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Clients;
 using Dialogue;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,9 +48,9 @@ public class ClientScript : MonoBehaviour, IClient
 
     private void Start()
     {
-        SetClientDialogue(_clientData._askingDialogue, _clientData._deliveredDialogue, _clientData._perfectDialogue, _clientData._repeatingDialogue, _clientData._wrongDialogue);
-        SetClientPlate(_clientData._plateIngredientsScripts);
-        SetClientNumber(_clientData._clientNumber, _clientData._clientName, _clientData._clientIcon);
+        //SetClientDialogue(_clientData._askingDialogue, _clientData._deliveredDialogue, _clientData._perfectDialogue, _clientData._repeatingDialogue, _clientData._wrongDialogue);
+        //SetClientPlate(_clientData._plateIngredientsScripts);
+        //SetClientNumber(_clientData._clientNumber, _clientData._clientName, _clientData._clientIcon);
     }
 
     private void Update()
@@ -134,7 +135,7 @@ public class ClientScript : MonoBehaviour, IClient
         DialogueManager.instance.ClosePlateReceiver();
         NavigationPanelManager._instance.ClientAdd(this);
 
-        if (_clientData._isCritic)
+        if (_clientData.isCritic)
         {
             NavigationPanelManager._instance.UnlockPlanet("Desert");
         }
@@ -203,7 +204,7 @@ public class ClientScript : MonoBehaviour, IClient
         if (_hasInteracted && !_deliveryComplete)
         {
             _signal.GetComponent<Image>().sprite = _questionSprite;
-            _order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
+            //_order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
             DialogueManager.instance.Notify(_orderNotification);
         }
         else
@@ -217,7 +218,7 @@ public class ClientScript : MonoBehaviour, IClient
     {
         _signal.SetActive(true);
         _signal.GetComponent<Image>().sprite = _questionSprite;
-        _order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
+        //_order = ClientManager.instance.MakeClientOrder(_clientName, _clientData._orderDescription);
         DialogueManager.instance.Notify(_orderNotification);
         NavigationPanelManager._instance.ClientRetry();
         _deliveryComplete = false;
