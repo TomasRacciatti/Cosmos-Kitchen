@@ -12,13 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Eorth2_profile
   m_EditorClassIdentifier: Assembly-CSharp:Characters.Clients:ClientDialogueProfileSO
-  asking: {fileID: 0}
-  delivered: {fileID: 0}
+  delivered: {fileID: 11400000, guid: 42389bb0c561cc248825c39795fe72e0, type: 2}
   perfect: {fileID: 0}
-  repeating: {fileID: 0}
-  wrong: {fileID: 0}
-  extraAsking: []
-  extraDelivered: []
-  extraPerfect: []
-  extraRepeating: []
-  extraWrong: []
+  repeating: {fileID: 11400000, guid: 61cd9354a6dac1c4ca2c26f358fcaf22, type: 2}
+  wrong: {fileID: 11400000, guid: a613d09cbeab58f438e786904f352c9d, type: 2}
+  extraAsking:
+  - text: Heyaa, can I get uhhhhh plate of Spaghetti?
+    weight: 0
+  extraDelivered:
+  - text: Tastes like spaghetti kinda. Get me more.
+    weight: 0
+  extraPerfect:
+  - text: Yayyy~ That was so delicious <3 ty
+    weight: 0
+  extraRepeating:
+  - text: I don't really now how to swim or fish, but I like to watch the fishes
+      from here.
+    weight: 0
+  extraWrong:
+  - text: Spaagheettiiii, not whatever this is...
+    weight: 0
