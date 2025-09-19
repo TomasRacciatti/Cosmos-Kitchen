@@ -25,12 +25,12 @@ namespace Minigame2
 
         public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         private Transform DropTransform => dropTransform ? dropTransform : transform;
-        private Cooldown _cooldown;
         private Minigame3 _currentMinigame;
+        protected Cooldown Cooldown;
         
-        public void Interact(GameObject interactableObject)
+        public virtual void Interact(GameObject interactableObject)
         {
-            if (!_cooldown.IsReady)
+            if (!Cooldown.IsReady)
             {
                 NotificationsManager.NewNotification("Minigame in Cooldown", PrefabsManager.NotificationLoseUI);
                 return;
@@ -52,7 +52,7 @@ namespace Minigame2
             
         }
         
-        protected virtual void EnterMiniGame()
+        private void EnterMiniGame()
         {
             GameObject spawnObject = ObjectPool.SpawnObject(minigame, transform.position, Quaternion.identity);
             _currentMinigame = spawnObject.GetComponent<Minigame3>();
@@ -89,7 +89,7 @@ namespace Minigame2
 
         protected void StartCooldown()
         {
-            _cooldown.StartCooldown(cooldownTime);
+            Cooldown.StartCooldown(cooldownTime);
             onCooldown?.Invoke();
             Invoke(nameof(FinishCooldown), cooldownTime);
         }
