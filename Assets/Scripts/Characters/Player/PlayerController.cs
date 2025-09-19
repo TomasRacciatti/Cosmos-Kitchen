@@ -15,34 +15,31 @@ namespace Characters.Player
     [RequireComponent(typeof(PlayerView))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("Player")]
-        public float moveSpeed = 3.0f;
+        [Header("Player")] public float moveSpeed = 3.0f;
         public float sprintSpeed = 4.5f;
-        
-        [Range(0.0f, 0.3f)]
-        public float rotationSmoothTime = 0.12f;
+
+        [Range(0.0f, 0.3f)] public float rotationSmoothTime = 0.12f;
         public float speedChangeRate = 10.0f;
-        
+
         public float jumpHeight = 1.2f;
         public float gravity = -15.0f;
-        
+
         public float jumpTimeout = 0.1f;
         public float fallTimeout = 0.15f;
-        
-        [Header("Player Grounded")]
-        public bool grounded = true;
-        public LayerMask groundLayers;
-        public LayerMask interactableLayers;
 
-        [Header("Cinemachine")]
-        public GameObject cinemachineCameraTarget1;
-        public GameObject cinemachineCameraTarget2;
-        public float topClamp = 85f;
-        public float bottomClamp = -85f;
-        
-        public float cameraAngleOverride;
-        
-        public bool lockCameraPosition;
+        [Header("Player Grounded")]
+        [SerializeField] private bool grounded = true;
+        [SerializeField] private LayerMask groundLayers;
+        [SerializeField] private float groundedOffset = 0.1f;
+
+        [Header("Cinemachine")] [SerializeField]
+        private GameObject cinemachineCameraTarget1;
+
+        [SerializeField] private GameObject cinemachineCameraTarget2;
+        [SerializeField] private float topClamp = 85f;
+        [SerializeField] private float bottomClamp = -85f;
+        [SerializeField] private float cameraAngleOverride;
+        [SerializeField] private bool lockCameraPosition;
 
         [SerializeField] private float cameraRadius = 10f;
         [SerializeField] private Camera mainCamera;
@@ -50,11 +47,11 @@ namespace Characters.Player
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
         [SerializeField] private CinemachineVirtualCamera actualCamera;
 
-        public Camera MainCamera => mainCamera;
-        public CinemachineVirtualCamera FirstPersonCamera => firstPersonCamera;
-        public CinemachineVirtualCamera ThirdPersonCamera => thirdPersonCamera;
-        public CinemachineVirtualCamera ActualCamera => actualCamera;
-        
+        [SerializeField] public Camera MainCamera => mainCamera;
+        [SerializeField] public CinemachineVirtualCamera FirstPersonCamera => firstPersonCamera;
+        [SerializeField] public CinemachineVirtualCamera ThirdPersonCamera => thirdPersonCamera;
+        [SerializeField] public CinemachineVirtualCamera ActualCamera => actualCamera;
+
         [Header("Movement Options")]
         [SerializeField] private bool lockForwardFacing;
 
@@ -73,7 +70,7 @@ namespace Characters.Player
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
-        
+
         private CharacterController _controller;
         private PlayerInputs _input;
         private CharacterController _characterController;
@@ -81,7 +78,7 @@ namespace Characters.Player
         private InvSystem _inventory;
 
         private const float Threshold = 0.01f;
-        
+
         public InvSystem Inventory => _inventory;
 
         private void Awake()
@@ -120,27 +117,27 @@ namespace Characters.Player
         private void GroundedCheck()
         {
             // set sphere position, with offset
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - (-_characterController.radius),
-                transform.position.z);
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y + 
+                _characterController.radius - groundedOffset, transform.position.z);
             grounded = Physics.CheckSphere(spherePosition, _characterController.radius, groundLayers,
                 QueryTriggerInteraction.Ignore);
-
-            _playerView.Landed();
         }
-        
+
         private void CeilingCheck()
         {
             if (_verticalVelocity <= 0f) return;
-            
-            float headPositionY = transform.position.y + _characterController.height - _characterController.radius + 0.05f;
-            
+
+            float headPositionY = transform.position.y + _characterController.height - _characterController.radius +
+                                  groundedOffset;
+
             Vector3 spherePosition = new Vector3(
                 transform.position.x,
                 headPositionY,
                 transform.position.z
             );
 
-            if (Physics.CheckSphere(spherePosition, _characterController.radius, groundLayers, QueryTriggerInteraction.Ignore))
+            if (Physics.CheckSphere(spherePosition, _characterController.radius, groundLayers,
+                    QueryTriggerInteraction.Ignore))
             {
                 _verticalVelocity = 0f;
             }
@@ -156,8 +153,9 @@ namespace Characters.Player
 
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
             _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
-            
-            cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
+
+            cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(
+                _cinemachineTargetPitch + cameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
             cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }
@@ -184,7 +182,7 @@ namespace Characters.Player
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-            
+
             Vector3 targetDirection;
 
             if (!lockForwardFacing)
@@ -193,7 +191,8 @@ namespace Characters.Player
                 {
                     _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                       mainCamera.transform.eulerAngles.y;
-                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
+                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation,
+                        ref _rotationVelocity,
                         rotationSmoothTime);
 
                     transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
@@ -205,7 +204,7 @@ namespace Characters.Player
             {
                 float cameraYaw = mainCamera.transform.eulerAngles.y;
                 transform.rotation = Quaternion.Euler(0.0f, cameraYaw, 0.0f);
-                
+
                 targetDirection = mainCamera.transform.forward * inputDirection.z +
                                   mainCamera.transform.right * inputDirection.x;
                 targetDirection.y = 0f;
@@ -215,7 +214,7 @@ namespace Characters.Player
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
                              new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-            
+
             _playerView.SetSpeed(_animationBlend);
         }
 
@@ -224,13 +223,14 @@ namespace Characters.Player
             if (grounded)
             {
                 _fallTimeoutDelta = fallTimeout;
-                
+
                 _playerView.SetGrounded(true);
-                
+
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -1f;
                 }
+
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
@@ -239,7 +239,7 @@ namespace Characters.Player
             else
             {
                 _jumpTimeoutDelta = jumpTimeout;
-                
+
                 if (_fallTimeoutDelta >= 0.0f)
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
@@ -249,7 +249,7 @@ namespace Characters.Player
                     _playerView.SetFalling(true);
                 }
             }
-            
+
             if (_verticalVelocity < TerminalVelocity)
             {
                 _verticalVelocity += gravity * Time.deltaTime;
@@ -290,12 +290,14 @@ namespace Characters.Player
                 _input.active = true;
                 return;
             }
+
             if (actualCamera == firstPersonCamera)
             {
                 Invoke(nameof(SetLockForwardTrue), 0.8f);
                 _input.active = true;
                 return;
             }
+
             lockForwardFacing = false;
             _input.active = false;
         }
@@ -303,19 +305,6 @@ namespace Characters.Player
         private void SetLockForwardTrue()
         {
             lockForwardFacing = true;
-        }
-        
-        public void CameraRaycast() //rever el tema del rango
-        {
-            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0));
-            
-            if (Physics.Raycast(ray, out var hit, cameraRadius, interactableLayers | groundLayers))
-            {
-                if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
-                {
-                    interactable.Interact(gameObject);
-                }
-            }
         }
 
         public void SetInputActive(bool value)

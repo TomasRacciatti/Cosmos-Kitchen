@@ -7,8 +7,8 @@ namespace MiniGames
     {
         [Header("SkillCheck Settings")]
         [SerializeField] private float rotationSpeed = 120f;
-        [SerializeField] private float successThreshold = 10f;
-        [SerializeField] private float safeThreshold = 50f;
+        [SerializeField] private float successThreshold = 20f;
+        [SerializeField] private float safeThreshold = 90f;
         [SerializeField] private int skillChecks = 10;
         [SerializeField] private float maxDeltaX = 600f;
         [SerializeField] private float maxDeltaY = 200f;

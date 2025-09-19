@@ -333,6 +333,34 @@
             ]
         },
         {
+            "name": "SkillCheck",
+            "id": "1b6aef9b-2def-490d-8cfb-5e00d2bfdb16",
+            "actions": [
+                {
+                    "name": "Confirm",
+                    "type": "Button",
+                    "id": "8b29d491-83b6-456e-ada3-f11ad6d823eb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7250df4-6145-4050-90d1-43da9c3c48ca",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "MilkMinigame",
             "id": "ed3347a5-8124-4687-a050-6d9c18d99f7b",
             "actions": [

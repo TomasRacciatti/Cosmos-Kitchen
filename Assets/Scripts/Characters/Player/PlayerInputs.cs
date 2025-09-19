@@ -20,12 +20,14 @@ namespace Characters.Player
         public bool bookOpen = false;
         public bool menuOpen = false;
         
+        private PlayerController _playerController;
         private InteractComponent _interactComponent;
 
         public bool ActiveAndNoHUD => active && !inventoryOpen && !bookOpen && !menuOpen;
 
         private void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
             _interactComponent = GetComponent<InteractComponent>();
         }
 
@@ -67,11 +69,9 @@ namespace Characters.Player
 
         public void OnJump(InputValue value)
         {
-            /*
+            if (!active) return;
             jump = value.isPressed;
             if (jump) _playerController.Jump();
-            //Jump Commented
-            */
         }
 
         public void OnSprint(InputValue value)
