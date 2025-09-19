@@ -22,6 +22,10 @@ namespace Characters.Clients.Spawner
         [Header("Config")]
         [SerializeField] private List<ClientSlot> slots = new();
         
+        //Anims
+        private static readonly int IdleParam = Animator.StringToHash("Idle");
+        private static readonly int SittingParam = Animator.StringToHash("Sitting");
+        
         // Referencias para respawn o despawn
         private readonly Dictionary<int, GameObject> _spawnedBySpawnpoint = new();
 
@@ -94,6 +98,38 @@ namespace Characters.Clients.Spawner
 
             // Si no funcionan las animaciones, revisar que los nombres de las anims esten igual a los enums de ClientSpawnpoint!
             animator.Play(idle.ToString(), 0, 0f);
+            
+            
+            // Intento de arreglo de anims. Esperar a corroborar que exista anim de sentarse
+            
+            // animator.Rebind();
+            // animator.Update(0f);
+            //
+            // if (HasParam(animator, IdleParam, AnimatorControllerParameterType.Trigger))    animator.ResetTrigger(IdleParam);
+            // if (HasParam(animator, SittingParam, AnimatorControllerParameterType.Trigger)) animator.ResetTrigger(SittingParam);
+            //
+            // if (idle == ClientIdleAnim.Sitting)
+            // {
+            //     if (HasParam(animator, SittingParam, AnimatorControllerParameterType.Trigger))
+            //         animator.SetTrigger(SittingParam);
+            // }
+            // else
+            // {
+            //     if (HasParam(animator, IdleParam, AnimatorControllerParameterType.Trigger))
+            //         animator.SetTrigger(IdleParam);
+            // }
+            //
+            // animator.Update(0f);
         }
+        
+        // private static bool HasParam(Animator animator, int hash, AnimatorControllerParameterType type)
+        // {
+        //     if (!animator) return false;
+        //     var ps = animator.parameters;
+        //     for (int i = 0; i < ps.Length; i++)
+        //         if (ps[i].nameHash == hash && ps[i].type == type)
+        //             return true;
+        //     return false;
+        // }
     }
 }

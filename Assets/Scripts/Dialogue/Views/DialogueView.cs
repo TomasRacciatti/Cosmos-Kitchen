@@ -1,4 +1,5 @@
 using System;
+using Characters.Player;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -80,6 +81,7 @@ namespace Dialogue.Views
         {
             panel?.SetActive(true);
             plateReceiver?.SetActive(true);
+            PlayerInputs.SetCursor(true);
         }
 
         private void OnClosed()
@@ -88,6 +90,7 @@ namespace Dialogue.Views
             deliverButton?.SetActive(false);
             retryButton?.SetActive(false);
             plateReceiver?.SetActive(false);
+            PlayerInputs.SetCursor(false);
         }
 
         private void OnLineChanged(string line)
