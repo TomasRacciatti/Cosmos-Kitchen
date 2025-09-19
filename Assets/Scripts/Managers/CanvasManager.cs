@@ -1,6 +1,7 @@
 using System;
 using Book;
 using Items.Inventory;
+using MiniGames;
 using UnityEngine;
 
 namespace Managers
@@ -13,7 +14,6 @@ namespace Managers
         [SerializeField] private BookHandler bookHandler;
         [SerializeField] private GameObject pauseMenuUI;
         [SerializeField] private MiniGamesUIManager miniGamesUI;
-
         public InvManager InvManager => invManager;
         public MiniGamesUIManager MiniGamesUI => miniGamesUI;
 

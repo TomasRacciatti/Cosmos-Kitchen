@@ -12,18 +12,12 @@ namespace Items.Core
     {
         [SerializeField] private ItemAmount itemAmount;
         
-        public Transform InteractionPoint => transform;
+        [Header("Settings")]
+        [SerializeField] private MeshFilter meshFilter;
+        [SerializeField] private MeshRenderer meshRenderer;
+        [SerializeField] private Transform interactionPoint;
         
-        private MeshFilter _meshFilter;
-        private MeshRenderer _meshRenderer;
-        
-        private void Awake()
-        {
-            if (TestEmptyDestroy()) return;
-
-            _meshFilter = GetComponent<MeshFilter>();
-            _meshRenderer = GetComponent<MeshRenderer>();
-        }
+        public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         
         private void OnEnable()
         {
@@ -32,17 +26,17 @@ namespace Items.Core
             //assign mesh and material
             if (itemAmount.SoItem.Mesh != null)
             {
-                _meshFilter.mesh = itemAmount.SoItem.Mesh;
+                meshFilter.mesh = itemAmount.SoItem.Mesh;
+                if (itemAmount.SoItem.Materials is { Length: > 0 })
+                {
+                    meshRenderer.materials = itemAmount.SoItem.Materials;
+                }
             }
             else
             {
-                //Debug.LogWarning("No Mesh Found"); //activar despues para que no sea rompebolas
+                meshFilter.mesh = PrefabsManager.ItemMesh;
+                meshRenderer.materials = PrefabsManager.ItemMaterials;
             }
-            if (itemAmount.SoItem.Materials is { Length: > 0 })
-            {
-                _meshRenderer.materials = itemAmount.SoItem.Materials;
-            }
-            
             Invoke(nameof(ReturnInTime), 300); // hacer que baje de calidad con el tiempo tirado
         }
 
@@ -55,19 +49,26 @@ namespace Items.Core
         {
             ObjectPool.ReturnObjectToPool(gameObject);
         }
-        
+
         public void Interact(GameObject interactableObject) //pick up
         {
+            int amount = itemAmount.Amount;
+            string itemName = itemAmount.SoItem.name;
+            Sprite image = itemAmount.SoItem.Image;
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);
             if (TestEmptyDestroy())
             {
-                AudioSource.PlayClipAtPoint(PrefabsManager.ItemPickupSound, transform.position);
+                AudioSource temp = new GameObject("TempAudio").AddComponent<AudioSource>();
+                temp.spatialBlend = 0f; // 2D
+                temp.PlayOneShot(PrefabsManager.ItemPickupSound);
+                Destroy(temp.gameObject, PrefabsManager.ItemPickupSound.length);
             }
             else
             {
                 //inv lleno
             }
+            NotificationsManager.NewNotification("Grabbed: " + itemName + " x" + (amount - itemAmount.Amount).ToString(), image);
         }
 
         public void EnableInteract()

@@ -69,7 +69,6 @@ namespace Items.Inventory
                 }
             }
         }
-
         
         public void SetItemByIndex(int index, ItemAmount itemAmount)
         {
@@ -170,7 +169,7 @@ namespace Items.Inventory
             }
         }        
 
-        private void NotifySlotChanged(int index)
+        public void NotifySlotChanged(int index)
         {
             if (!ValidIndex(index)) return;
             OnSlotChanged?.Invoke(index, items[index]);

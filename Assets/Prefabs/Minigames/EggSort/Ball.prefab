@@ -111,9 +111,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
+  dragLayer: {fileID: 0}
   fromColumn: {fileID: 0}
-  DragSound: {fileID: 8300000, guid: e7b7834635310ed48be87f9acb15e537, type: 3}
-  DropSound: {fileID: 8300000, guid: e7b7834635310ed48be87f9acb15e537, type: 3}
+  dragSound: {fileID: 8300000, guid: e7b7834635310ed48be87f9acb15e537, type: 3}
+  dropSound: {fileID: 8300000, guid: e7b7834635310ed48be87f9acb15e537, type: 3}
 --- !u!225 &7326783307135445240
 CanvasGroup:
   m_ObjectHideFlags: 0

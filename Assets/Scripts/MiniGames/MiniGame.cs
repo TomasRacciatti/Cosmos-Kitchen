@@ -16,9 +16,11 @@ namespace MiniGames
         [SerializeField] private int rewardedAmount = 1;
         
         [SerializeField] private float cooldownTime = 30f;
-        [SerializeField] private Transform drop;
+        [SerializeField] private Transform dropTransform;
+        [SerializeField] private Transform interactionPoint;
         [SerializeField] protected float difficulty = 1f;
         [SerializeField] protected float scaleDifficulty = 0.1f;
+        [SerializeField] protected MiniGameType miniGameType;
         
         [Header("SFX")]
         [SerializeField] private AudioClip enterSound;
@@ -29,10 +31,12 @@ namespace MiniGames
         [SerializeField] protected AudioClip wrongSound;
         [SerializeField] private UnityEvent onCooldown;
         [SerializeField] private UnityEvent onFinishCooldown;
+        public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
+        private Transform DropTransform => dropTransform ? dropTransform : transform;
         
         //Privates
         protected AudioSource AudioSource;
-        private Cooldown _cooldown;
+        protected Cooldown Cooldown;
         protected bool IsActive = false;
         protected int Lives;
 
@@ -41,9 +45,9 @@ namespace MiniGames
             AudioSource = GetComponent<AudioSource>();
         }
 
-        public void Interact(GameObject interactableObject)
+        public virtual void Interact(GameObject interactableObject)
         {
-            if (!_cooldown.IsReady) return;
+            if (!Cooldown.IsReady) return;
 
             if (interactableObject == GameManager.Player.gameObject)
             {
@@ -66,30 +70,39 @@ namespace MiniGames
             AudioSource?.PlayOneShot(enterSound);
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.gameObject.SetActive(false);
+            if(miniGameType != null) GameManager.Canvas.MiniGamesUI.ActiveMiniGame(miniGameType);
             Lives = 3;
             IsActive = true;
         }
 
         protected virtual void LeaveMiniGame()
         {
-            //_audioSource?.PlayOneShot(leaveSound);
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.gameObject.SetActive(true);
             IsActive = false;
-            _cooldown.StartCooldown(cooldownTime);
-            onCooldown?.Invoke();
-            Invoke(nameof(FinishCooldown), cooldownTime);
+            StartCooldown();
         }
 
         protected virtual void WinMiniGame()
         {
             AudioSource?.PlayOneShot(winSound);
+            NotificationsManager.NewNotification("You Win Minigame", PrefabsManager.NotificationWinUI);
             RewardPlayer();
+            LeaveMiniGame();
         }
 
         protected virtual void LoseMiniGame()
         {
             AudioSource?.PlayOneShot(loseSound);
+            NotificationsManager.NewNotification("You Lose Minigame", PrefabsManager.NotificationLoseUI);
+            LeaveMiniGame();
+        }
+
+        protected void StartCooldown()
+        {
+            Cooldown.StartCooldown(cooldownTime);
+            onCooldown?.Invoke();
+            Invoke(nameof(FinishCooldown), cooldownTime);
         }
 
         private void FinishCooldown()
@@ -97,11 +110,16 @@ namespace MiniGames
             onFinishCooldown?.Invoke();
         }
 
-        private void RewardPlayer()
+        protected void RewardPlayer()
         {
-            if (rewardedItem == null) return;
+            if (rewardedItem == null)
+            {
+                Debug.LogWarning("No se asignó rewardedItem en el inspector!");
+                return;
+            }
             
-            GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, drop.position, drop.rotation, false);
+            Debug.Log($"Dropping {rewardedItem.name} x{rewardedAmount}");
+            GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, DropTransform.position, DropTransform.rotation, false);
             item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardedAmount));
             item.SetActive(true);
         }

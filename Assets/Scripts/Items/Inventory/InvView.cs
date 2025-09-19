@@ -8,6 +8,7 @@ namespace Items.Inventory
     {
         [SerializeField] protected InvSlotUI[] slots;
         [SerializeField] protected InvSystem inventorySystem;
+        [SerializeField] private bool usePlayerInventoryAsDefault = false;
         
         public InvSystem InventorySystem => inventorySystem;
 
@@ -21,8 +22,22 @@ namespace Items.Inventory
 
         private void Start()
         {
-            if (inventorySystem == null) inventorySystem = GameManager.Player.GetComponent<InvSystem>();
+            if (inventorySystem == null && usePlayerInventoryAsDefault) 
+                inventorySystem = GameManager.Player.GetComponent<InvSystem>();
+
+            if (inventorySystem != null) 
+                SetInventory(inventorySystem);
+        }
+        
+        public void SetInventory(InvSystem newInventory)
+        {
+            if (inventorySystem != null)
+                inventorySystem.Unsubscribe(OnItemChanged);
+
+            inventorySystem = newInventory;
+
             if (inventorySystem == null) return;
+
             inventorySystem.Subscribe(OnItemChanged);
             UpdateInventory();
         }
@@ -36,14 +51,14 @@ namespace Items.Inventory
         private void UpdateInventory()
         {
             var items = inventorySystem.Items;
-/*
+
             for (int i = 0; i < slots.Length; i++)
             {
                 if (i < items.Count)
                     slots[i].SetItem(items[i]);
-                else
-                    slots[i].Clear();
-            }*/
+                //else
+                    //slots[i].Clear();
+            }
         }
     }
 }

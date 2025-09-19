@@ -20,11 +20,14 @@ namespace Characters.Player
         public bool bookOpen = false;
         public bool menuOpen = false;
         
+        private PlayerController _playerController;
         private InteractComponent _interactComponent;
 
+        public bool ActiveAndNoHUD => active && !inventoryOpen && !bookOpen && !menuOpen;
 
         private void Awake()
         {
+            _playerController = GetComponent<PlayerController>();
             _interactComponent = GetComponent<InteractComponent>();
         }
 
@@ -51,7 +54,7 @@ namespace Characters.Player
         {
             SetCursor(inventoryOpen || menuOpen || bookOpen);
         }
-
+        
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
@@ -61,16 +64,14 @@ namespace Characters.Player
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = active && !inventoryOpen && !bookOpen && !menuOpen ? value.Get<Vector2>() : Vector2.zero;
+            look = ActiveAndNoHUD ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
         {
-            /*
+            if (!active) return;
             jump = value.isPressed;
             if (jump) _playerController.Jump();
-            //Jump Commented
-            */
         }
 
         public void OnSprint(InputValue value)
@@ -80,7 +81,7 @@ namespace Characters.Player
 
         public void OnInteract(InputValue value)
         {
-            if (!active || !value.isPressed) return;
+            if (!ActiveAndNoHUD || !value.isPressed) return;
             _interactComponent.Interact();
         }
 

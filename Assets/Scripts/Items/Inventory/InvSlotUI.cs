@@ -54,7 +54,7 @@ namespace Items.Inventory
 
             if (fromSlotUI == null) return;
 
-            fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(fromSlotUI.InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
+            fromSlotUI.InvView.InventorySystem.TransferIndexToIndex(InvView.InventorySystem, fromSlotUI.InvSlot, InvSlot);
         }
     }
 }

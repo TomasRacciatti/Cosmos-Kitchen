@@ -79,7 +79,7 @@ public class MenuManager : MonoBehaviour
         AudioManager.instance.StopAllSFX();
         AudioManager.instance.PlaySFX(UIClickSound);
         
-        SceneManager.LoadScene("KsaScene");
+        SceneManager.LoadScene("Eorth");
     }
     
     // Back to Main Menu

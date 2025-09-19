@@ -3,8 +3,22 @@ guid: 9a5935a53d75883428c00437d5e62f9c
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
-  executionOrder: 0
+  defaultReferences:
+  - player: {fileID: 1341955196358477549, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+      type: 3}
+  - canvas: {fileID: 7074122961922015219, guid: a0160ff9858f91447b63acb343979317,
+      type: 3}
+  - itemPrefabPickup: {fileID: 984471633561911137, guid: fee682d52c2f9fd40874f173be29e8d5,
+      type: 3}
+  - itemPrefabUI: {fileID: 3852094172389186998, guid: a193951c5fe18f54ba559b80dcdaf057,
+      type: 3}
+  - slotPrefabUI: {fileID: 4260937506889647640, guid: 244972f56b475c0488b233b9c266548f,
+      type: 3}
+  - itemMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - notificationPrefabUI: {instanceID: 0}
+  - itemPickupSound: {instanceID: 0}
+  - itemThrowSound: {instanceID: 0}
+  executionOrder: -20
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a86437afe9b3534c8d89ac395f6297d, type: 3}
+  m_Name: Spaghetti
+  m_EditorClassIdentifier: 
+  itemName: Spaghetti
+  image: {fileID: 21300000, guid: 91688f55802395946aec3a5f8eea350f, type: 3}
+  description: A plate of Spaghetti.
+  stack: 10
+  mesh: {fileID: 0}
+  materials: []
+  tools: []
+  ingredientA: {fileID: 11400000, guid: 15a62417ee8b5ed48a051165531724a1, type: 2}
+  ingredientB: {fileID: 11400000, guid: 2c54a5718f72d83468cdc1876178313b, type: 2}
+  ingredientC: {fileID: 11400000, guid: 75a99086cb9d0bf4eb820658479ac9a7, type: 2}

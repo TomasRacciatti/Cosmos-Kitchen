@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: PrefabsManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4335346012159868875}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52,6 +52,13 @@ MonoBehaviour:
     type: 3}
   slotPrefabUI: {fileID: 4260937506889647640, guid: 244972f56b475c0488b233b9c266548f,
     type: 3}
+  itemMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  itemMaterials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  notificationPrefabUI: {fileID: 8394764152200694514, guid: cfd9db8a52c89b64c8920c8f3cee02a4,
+    type: 3}
+  notificationWinUI: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  notificationLoseUI: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
   itemPickupSound: {fileID: 8300000, guid: d75f5a495f9ba4748b15829f3b51c904, type: 3}
   itemThrowSound: {fileID: 8300000, guid: 59607021a8b8f3b429f76a27be718b50, type: 3}
 --- !u!1 &6866639979180664151
@@ -67,7 +74,7 @@ GameObject:
   m_Layer: 0
   m_Name: ObjectPool
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -80,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 6866639979180664151}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -116,7 +123,7 @@ GameObject:
   m_Layer: 0
   m_Name: ManagersInGame
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
