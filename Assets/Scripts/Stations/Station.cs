@@ -6,7 +6,6 @@ using Items.Tools;
 using Managers;
 using Regulators;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Stations
@@ -35,7 +34,6 @@ namespace Stations
             GameManager.Canvas.InvManager.ForceInventory(true);
             PlayerInputs.SetCursor(true);
             Button button = canvasInstance.GetComponentInChildren<Button>();
-            print(button.gameObject.name);
             button.onClick.AddListener(UseTool);
         }
 
