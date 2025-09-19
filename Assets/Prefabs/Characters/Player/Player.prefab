@@ -543,9 +543,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 1
-  interactableLayers:
-    serializedVersion: 2
-    m_Bits: 1152
+  groundedOffset: 0.1
   cinemachineCameraTarget1: {fileID: 8477347015847489024}
   cinemachineCameraTarget2: {fileID: 3681948017350630616}
   topClamp: 85
@@ -1339,7 +1337,7 @@ Transform:
   m_GameObject: {fileID: 6580661204044910940}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999998, y: 1.5, z: -2.5}
+  m_LocalPosition: {x: 0.39999962, y: 1.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1672,7 +1670,7 @@ Transform:
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999998, y: 1.5, z: -2.5}
+  m_LocalPosition: {x: 0.39999962, y: 1.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -54,7 +54,7 @@ namespace Characters.Player
         {
             SetCursor(inventoryOpen || menuOpen || bookOpen);
         }
-
+        
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {

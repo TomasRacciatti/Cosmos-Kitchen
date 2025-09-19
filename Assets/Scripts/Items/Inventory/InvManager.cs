@@ -22,6 +22,12 @@ namespace Items.Inventory
             animator.Play("CloseInventory", 0,1f);
         }
 
+        public void ForceInventory(bool open)
+        {
+            if (inventoryOpen == open) return;
+            ToggleInventory();
+        }
+
         public bool ToggleInventory()
         {
             inventoryOpen = !inventoryOpen;

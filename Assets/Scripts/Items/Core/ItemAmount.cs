@@ -61,6 +61,11 @@ namespace Items.Core
             return SetAmount(itemAmount.Amount, clampToStack);
         }
 
+        public void SetItem(SoItem newItem)
+        {
+            soItem = newItem;
+        }
+
         // Rating - Tomi
         public void SetRating(StarRating rating)
         {

@@ -24,6 +24,7 @@ namespace Items.Core
         public int Stack => stack;
         public Mesh Mesh => mesh;
         public Material[] Materials => materials;
+        public ItemTools[] Tools => tools;
     }
 
     [Serializable]
