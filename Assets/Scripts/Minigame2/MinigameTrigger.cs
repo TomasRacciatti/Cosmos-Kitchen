@@ -52,7 +52,7 @@ namespace Minigame2
             
         }
         
-        private void EnterMiniGame()
+        protected virtual void EnterMiniGame()
         {
             GameObject spawnObject = ObjectPool.SpawnObject(minigame, transform.position, Quaternion.identity);
             _currentMinigame = spawnObject.GetComponent<Minigame3>();
@@ -87,7 +87,7 @@ namespace Minigame2
             LeaveMiniGame();
         }
 
-        private void StartCooldown()
+        protected void StartCooldown()
         {
             _cooldown.StartCooldown(cooldownTime);
             onCooldown?.Invoke();
@@ -99,7 +99,7 @@ namespace Minigame2
             onFinishCooldown?.Invoke();
         }
 
-        private void RewardPlayer(int quality)
+        protected void RewardPlayer(int quality)
         {
             if (rewardedItem == null)
             {
