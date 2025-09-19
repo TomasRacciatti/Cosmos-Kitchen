@@ -42,7 +42,7 @@ namespace Dialogue
             CurrentClient = client;
             IsOpen = true;
             ClientChanged?.Invoke(new ClientInfo(client?.Name ?? string.Empty, client?.Icon));
-            InteractionPromptToggled?.Invoke(false); // Legacy
+            //InteractionPromptToggled?.Invoke(false); // Legacy
             Opened?.Invoke();
         }
 
