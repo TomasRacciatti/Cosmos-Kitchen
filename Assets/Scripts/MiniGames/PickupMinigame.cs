@@ -1,7 +1,7 @@
 using Items.Inventory;
 using UnityEngine;
 
-namespace Minigame2
+namespace MiniGames
 {
     public class PickupMinigame : MinigameTrigger
     {

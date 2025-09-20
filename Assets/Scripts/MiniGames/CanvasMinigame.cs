@@ -1,10 +1,9 @@
-using System;
 using Managers;
 using UnityEngine;
 
-namespace Minigame2
+namespace MiniGames
 {
-    public abstract class CanvasMinigame : Minigame3
+    public abstract class CanvasMinigame : Minigame
     {
         public override void StartMinigame()
         {

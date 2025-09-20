@@ -1,7 +1,7 @@
 using Regulators;
 using UnityEngine;
 
-namespace Minigame2
+namespace MiniGames
 {
     public class FishingMinigame2 : CanvasMinigame
     {
@@ -55,34 +55,15 @@ namespace Minigame2
         
         private void FishMovement()
         {
-            float h = Input.GetAxisRaw("Horizontal"); // A (-1) D (+1)
-            float v = Input.GetAxisRaw("Vertical");   // S (-1) W (+1)
-
-            Vector2 input = new Vector2(h, v).normalized;
-
-            // Movimiento absoluto (UI, sin depender de rotación previa)
-            Vector2 movement = input * moveSpeed * Time.deltaTime;
+            Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            Vector2 movement = input * (moveSpeed * Time.deltaTime);
             fish.anchoredPosition += movement;
 
-            if (movement != Vector2.zero)
-            {
-                velocity = movement;
-
-                // Ángulo objetivo (en grados) para mirar hacia la dirección de movimiento
-                float targetAngle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
-
-                // Rotación actual
-                Quaternion currentRot = fish.rotation;
-
-                // Rotación objetivo
-                Quaternion targetRot = Quaternion.Euler(0, 0, targetAngle);
-
-                // Interpolar suavemente
-                float rotationSpeed = 10f; // ajusta este valor para más o menos suavidad
-                fish.rotation = Quaternion.Slerp(currentRot, targetRot, rotationSpeed * Time.deltaTime);
-            }
+            if (movement == Vector2.zero) return;
+            velocity = movement;
+            float targetAngle = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
+            fish.rotation = Quaternion.Slerp(fish.rotation, Quaternion.Euler(0, 0, targetAngle), 10f * Time.deltaTime);
         }
-
         
         private void ResetFish()
         {

@@ -1,9 +1,7 @@
 using Regulators;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace Minigame2
+namespace MiniGames
 {
     public class FishingMinigame1 : CanvasMinigame
     {

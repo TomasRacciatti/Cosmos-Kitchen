@@ -75,8 +75,13 @@ namespace Items.Inventory
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
+                    if (Input.GetKey(KeyCode.LeftControl))
+                    {
+                        print("pasar mesa");
+                    }
                     break;
                 case PointerEventData.InputButton.Right:
+                    print("abrir panel de opciones");
                     break;
                 case PointerEventData.InputButton.Middle:
                     _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);

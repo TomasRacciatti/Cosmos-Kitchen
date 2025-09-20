@@ -5,7 +5,7 @@ using Regulators;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Minigame2
+namespace MiniGames
 {
     public class MinigameTrigger : MonoBehaviour, IInteractable
     {
@@ -20,12 +20,12 @@ namespace Minigame2
         [SerializeField] private GameObject minigame;
         
         [Header("Actions Cooldown")]
-        [SerializeField] private UnityEvent onCooldown;
+        [SerializeField] private UnityEvent onStartCooldown;
         [SerializeField] private UnityEvent onFinishCooldown;
 
         public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         private Transform DropTransform => dropTransform ? dropTransform : transform;
-        private Minigame3 _currentMinigame;
+        private Minigame _currentMinigame;
         protected Cooldown Cooldown;
         
         public virtual void Interact(GameObject interactableObject)
@@ -55,7 +55,7 @@ namespace Minigame2
         private void EnterMiniGame()
         {
             GameObject spawnObject = ObjectPool.SpawnObject(minigame, transform.position, Quaternion.identity);
-            _currentMinigame = spawnObject.GetComponent<Minigame3>();
+            _currentMinigame = spawnObject.GetComponent<Minigame>();
             _currentMinigame.StartMinigame();
             _currentMinigame.OnWin += WinMiniGame;
             _currentMinigame.OnLose += LoseMiniGame;
@@ -90,7 +90,7 @@ namespace Minigame2
         protected void StartCooldown()
         {
             Cooldown.StartCooldown(cooldownTime);
-            onCooldown?.Invoke();
+            onStartCooldown?.Invoke();
             Invoke(nameof(FinishCooldown), cooldownTime);
         }
 

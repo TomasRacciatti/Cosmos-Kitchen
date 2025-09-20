@@ -1,9 +1,8 @@
 using TMPro;
 using UIScripts.HUD;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace Minigame2
+namespace MiniGames
 {
     public class SkillCheckMinigame : CanvasMinigame
     {

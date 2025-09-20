@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 539556524344699986}
   - component: {fileID: 3681759740666815656}
+  - component: {fileID: 6917292288303076112}
   - component: {fileID: 5889797941970968852}
-  - component: {fileID: 2798565696490027476}
   m_Layer: 0
   m_Name: Coop
   m_TagString: Untagged
@@ -63,6 +63,55 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.076349, y: 1.9805763, z: 1.5439631}
   m_Center: {x: 0.30185175, y: 0.96969354, z: 0.00012988174}
+--- !u!114 &6917292288303076112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 880228740716508904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b652d507a6721429bfa157845a2944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardedItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
+  rewardedAmount: 1
+  cooldownTime: 15
+  dropTransform: {fileID: 3374299677701618903}
+  interactionPoint: {fileID: 0}
+  minigame: {fileID: 5569713011332956766, guid: a27e8f9d75e2e8f4ea7d9fdeaa76c43f,
+    type: 3}
+  onStartCooldown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4544423783424912187}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onFinishCooldown:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4544423783424912187}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!82 &5889797941970968852
 AudioSource:
   m_ObjectHideFlags: 0
@@ -160,62 +209,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2798565696490027476
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 880228740716508904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35b665135cde46c8aad265c834c20485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rewardedItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
-  rewardedAmount: 1
-  cooldownTime: 30
-  dropTransform: {fileID: 3374299677701618903}
-  interactionPoint: {fileID: 0}
-  difficulty: 1
-  scaleDifficulty: 0.1
-  miniGameType: {fileID: 11400000, guid: 862fe21745d85fd40affb4d1e2f2ca04, type: 2}
-  enterSound: {fileID: 8300000, guid: 3e18318f22690ca4ea7d8a44e9f5764f, type: 3}
-  leaveSound: {fileID: 0}
-  winSound: {fileID: 8300000, guid: 409d381a912f42546b12d2a20844996f, type: 3}
-  loseSound: {fileID: 0}
-  correctSound: {fileID: 0}
-  wrongSound: {fileID: 0}
-  onCooldown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4544423783424912187}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onFinishCooldown:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4544423783424912187}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!1 &1224463902241249620
 GameObject:
   m_ObjectHideFlags: 0

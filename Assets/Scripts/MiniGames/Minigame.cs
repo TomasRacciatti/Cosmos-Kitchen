@@ -1,11 +1,9 @@
 using System;
-using Regulators;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Minigame2
+namespace MiniGames
 {
-    public abstract class Minigame3 : MonoBehaviour
+    public abstract class Minigame : MonoBehaviour
     {
         [Header("Minigame Settings")]
         [SerializeField] private int totalLives = 3;
@@ -14,7 +12,7 @@ namespace Minigame2
         [SerializeField] private float scaleDifficulty = 0.1f;
         
         [SerializeField] private AudioClip startSound;
-        [SerializeField] private AudioClip correctSound;
+        [SerializeField] protected AudioClip correctSound;
         [SerializeField] private AudioClip wrongSound;
         [SerializeField] private AudioClip winSound;
         [SerializeField] private AudioClip loseSound;
