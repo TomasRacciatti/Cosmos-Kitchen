@@ -1,10 +1,9 @@
-using System;
 using Regulators;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HUD
+namespace UI
 {
     public class Notification : MonoBehaviour
     {

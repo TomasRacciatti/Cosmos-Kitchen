@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HUD
+namespace UI
 {
     public class Billboard : MonoBehaviour
     {

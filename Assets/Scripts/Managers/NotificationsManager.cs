@@ -1,5 +1,5 @@
-using HUD;
 using Regulators;
+using UI;
 using UnityEngine;
 
 namespace Managers
