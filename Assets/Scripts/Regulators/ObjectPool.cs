@@ -132,6 +132,8 @@ namespace Regulators
             else
             {
                 spawnableObject = NewObject(prefab, position, rotation, false);
+                spawnableObject.SetActive(false);
+                spawnableObject.SetActive(active);
             }
             return spawnableObject;
         }
