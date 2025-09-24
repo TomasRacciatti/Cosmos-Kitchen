@@ -1,6 +1,8 @@
+using System;
 using TMPro;
 using UIScripts.HUD;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace MiniGames
 {
@@ -21,18 +23,21 @@ namespace MiniGames
         [SerializeField] private RectTransform needleTransform;
         [SerializeField] private TextMeshProUGUI livesText;
         [SerializeField] private TextMeshProUGUI skillCheckText;
-        [SerializeField] private LifeBar lifeBar;
         
         private float _currentZoneAngle;
         private float _currentNeedleAngle;
         private bool _positiveRotation;
-        
+
+        private void Awake()
+        {
+            OnCorrect += SetProgress;
+        }
+
         public override void StartMinigame()
         {
             base.StartMinigame();
             _currentZoneAngle = 0;
             _currentNeedleAngle = 0;
-            SetLives();
             SetSkillCheck(_currentZoneAngle, _currentNeedleAngle, Vector2.zero, 1);
         }
         
@@ -94,17 +99,6 @@ namespace MiniGames
             angle %= 360f;
             if (angle < 0f) angle += 360f;
             return angle;
-        }
-
-        protected override void Wrong()
-        {
-            base.Wrong();
-            SetLives();
-        }
-
-        private void SetLives()
-        {
-            lifeBar.SetLives(CurrentLives);
         }
     }
 }

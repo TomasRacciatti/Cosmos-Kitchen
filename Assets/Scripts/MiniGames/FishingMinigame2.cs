@@ -27,6 +27,7 @@ namespace MiniGames
         private void Awake()
         {
             hudRect = GetComponent<RectTransform>();
+            OnCorrect += SetProgress;
         }
         
         public override void StartMinigame()

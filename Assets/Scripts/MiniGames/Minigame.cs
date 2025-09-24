@@ -1,5 +1,9 @@
 using System;
+using UI.Components;
+using UIScripts.HUD;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace MiniGames
 {
@@ -16,24 +20,31 @@ namespace MiniGames
         [SerializeField] private AudioClip wrongSound;
         [SerializeField] private AudioClip winSound;
         [SerializeField] private AudioClip loseSound;
+        [FormerlySerializedAs("linearBar")] [SerializeField] protected ProgressBar progressBar;
+        [SerializeField] private LifeBar lifeBar;
         
         public event Action<int> OnWin;
         public event Action OnLose;
+        public event Action OnCorrect;
+        public event Action OnWrong;
+        
         protected abstract bool IsActionCorrect();
         protected int CurrentLives { get; private set; }
         private int TotalLives => totalLives;
         protected float ProgressLives => (totalLives - (float)CurrentLives) / TotalLives;
         protected int CurrentActions { get; private set; }
-        private int TotalActions => totalActions;
+        protected int TotalActions => totalActions;
         protected float ProgressActions => (float)CurrentActions / TotalActions;
         
-        protected float ProgressDifficulty => difficulty + scaleDifficulty * (ProgressActions + 1) * (4 * ProgressLives + 1);
+        protected float ProgressDifficulty => difficulty + scaleDifficulty * (4 * ProgressActions) * (2 * ProgressLives + 1);
 
         public virtual void StartMinigame()
         {
             AudioManager.instance.PlaySFX(startSound);
             CurrentLives = totalLives;
             CurrentActions = 0;
+            SetProgress();
+            SetLives();
         }
         
         public virtual void ExitMinigame()
@@ -53,6 +64,7 @@ namespace MiniGames
             if (CurrentActions < totalActions)
             {
                 AudioManager.instance.PlaySFX(correctSound);
+                OnCorrect?.Invoke();
                 return;
             }
             Win();
@@ -65,6 +77,8 @@ namespace MiniGames
             if (CurrentLives > 0)
             {
                 AudioManager.instance.PlaySFX(wrongSound);
+                OnWrong?.Invoke();
+                SetLives();
                 return;
             }
             Lose();
@@ -81,6 +95,16 @@ namespace MiniGames
         {
             AudioManager.instance.PlaySFX(loseSound);
             OnLose?.Invoke();
+        }
+
+        protected virtual void SetProgress()
+        {
+            if (progressBar) progressBar.SetProgress(CurrentActions, totalActions);
+        }
+        
+        private void SetLives()
+        {
+            lifeBar.SetLives(CurrentLives);
         }
     }
 }

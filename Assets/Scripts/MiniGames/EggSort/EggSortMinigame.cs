@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters.Player;
@@ -17,6 +18,8 @@ namespace MiniGames.EggSort
         
         [Header("Colors")] 
         [SerializeField] private Color[] ballColors = { Color.red, Color.green, Color.blue };
+
+        private Cooldown _cooldown = new ();
 
         private void Start()
         {
@@ -39,13 +42,23 @@ namespace MiniGames.EggSort
             base.StartMinigame();
             PlayerInputs.SetCursor(true);
             SpawnEggs();
-            CancelInvoke(nameof(Wrong));
-            InvokeRepeating(nameof(Wrong), time, time);
+            _cooldown.StartCooldown(time);
         }
 
         protected override bool IsActionCorrect()
         {
             return true;
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if (_cooldown.IsReady)
+            {
+                Wrong();
+                _cooldown.StartCooldown(time);
+            }
+            SetProgress();
         }
 
         private void SpawnEggs()
@@ -80,7 +93,6 @@ namespace MiniGames.EggSort
         {
             base.ExitMinigame();
             PlayerInputs.SetCursor(false);
-            CancelInvoke(nameof(Wrong));
         }
 
         private void ClearAll()
@@ -99,6 +111,11 @@ namespace MiniGames.EggSort
         protected override void Correct()
         {
             AudioManager.instance.PlaySFX(correctSound);
+        }
+
+        protected override void SetProgress()
+        {
+            if (progressBar) progressBar.SetProgress(_cooldown.RemainingTime, time);
         }
     }
 }
