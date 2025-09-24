@@ -6494,6 +6494,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -2612172993184735524, guid: e421b3f4a380a98478414a47d3a9a870,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1926275
+      objectReference: {fileID: 0}
+    - target: {fileID: -2612172993184735524, guid: e421b3f4a380a98478414a47d3a9a870,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.000363946
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e421b3f4a380a98478414a47d3a9a870,
         type: 3}
       propertyPath: m_Icon
@@ -6525,6 +6535,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7039480843915341172}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e421b3f4a380a98478414a47d3a9a870,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1352199371674789548}
   m_SourcePrefab: {fileID: 100100000, guid: e421b3f4a380a98478414a47d3a9a870, type: 3}
 --- !u!1 &7487236374840498161 stripped
 GameObject:
@@ -6591,6 +6605,8 @@ MonoBehaviour:
   invSystem: {fileID: 7039480843915341172}
   canvas: {fileID: 5255830946825594412, guid: f6fcf095a9c573a44a073c8b565628c3, type: 3}
   soTool: {fileID: 11400000, guid: 30e391f38020a15468e077dc260ca81f, type: 2}
+  openAnimation: {fileID: 7400000, guid: aacd614333ad6364f9c7b42c35ae600e, type: 2}
+  closeAnimation: {fileID: 7400000, guid: 734aad6772f6db44b99f29ccfdf024c4, type: 2}
 --- !u!114 &7039480843915341172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6605,6 +6621,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+--- !u!95 &1352199371674789548
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487236374840498161}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19098e27bbd63db498e689ec66626425, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &7828330911252876619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e421b3f4a380a98478414a47d3a9a870,
@@ -6669,6 +6706,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1764398150738670420, guid: 34ed7a719e8cbe04a8a4dbb4669f6297,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: -1730676172429756871, guid: 34ed7a719e8cbe04a8a4dbb4669f6297,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 919132149155446097, guid: 34ed7a719e8cbe04a8a4dbb4669f6297,
         type: 3}
       propertyPath: m_Icon
@@ -6755,6 +6804,8 @@ MonoBehaviour:
   invSystem: {fileID: 2217676648898550857}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   soTool: {fileID: 11400000, guid: 15e1c145f1114774ea858a147c1e57cd, type: 2}
+  openAnimation: {fileID: 0}
+  closeAnimation: {fileID: 0}
 --- !u!114 &2217676648898550857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6813,6 +6864,8 @@ MonoBehaviour:
   invSystem: {fileID: 5716640235535283491}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   soTool: {fileID: 11400000, guid: 6bd9fb92e69585643999de7050adf164, type: 2}
+  openAnimation: {fileID: 0}
+  closeAnimation: {fileID: 0}
 --- !u!114 &5716640235535283491
 MonoBehaviour:
   m_ObjectHideFlags: 0

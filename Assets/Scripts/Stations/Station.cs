@@ -17,11 +17,15 @@ namespace Stations
         [SerializeField] private InvSystem invSystem;
         [SerializeField] private GameObject canvas;
         [SerializeField] private SoTool soTool;
+        [SerializeField] private AnimationClip openAnimation;
+        [SerializeField] private AnimationClip closeAnimation;
         
         private GameObject canvasInstance;
+        private Animator animator;
 
         private void Awake()
         {
+            animator = GetComponent<Animator>();
             if (!invSystem) invSystem = GetComponent<InvSystem>();
         }
 
@@ -75,12 +79,18 @@ namespace Stations
 
         public void EnableInteract()
         {
-            
+            if (!animator) return;
+            if (!openAnimation) return;
+            animator.Play(openAnimation.name, 0, 
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
 
         public void DisableInteract()
         {
-            
+            if (!animator) return;
+            if (!closeAnimation) return;
+            animator.Play(closeAnimation.name, 0, 
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
     }
 }
