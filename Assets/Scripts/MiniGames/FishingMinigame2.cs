@@ -7,6 +7,7 @@ namespace MiniGames
     {
         [Header("References")]
         [SerializeField] private RectTransform fish;
+        [SerializeField] private RectTransform tideArrow;
 
         [Header("Settings")]
         [SerializeField] private float moveSpeed = 350;
@@ -95,6 +96,12 @@ namespace MiniGames
             Vector2 randomDir = Random.insideUnitCircle.normalized;
             currentForceDirection = randomDir;
             tideCooldown.StartCooldown(_interval);
+            
+            if (tideArrow != null)
+            {
+                float angle = Mathf.Atan2(currentForceDirection.y, currentForceDirection.x) * Mathf.Rad2Deg;
+                tideArrow.rotation = Quaternion.Euler(0, 0, angle);
+            }
         }
         
         protected override bool IsActionCorrect()
