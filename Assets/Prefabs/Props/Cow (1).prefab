@@ -63,24 +63,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 87528787656284846}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36616a7433d4b088c8952c68067b37d, type: 3}
+  m_Script: {fileID: 11500000, guid: d82636afd14c432faf351b36f7fbea91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rewardedItem: {fileID: 11400000, guid: 89727ab181f3a2649ac1c7d1bd19a586, type: 2}
   rewardedAmount: 1
-  cooldownTime: 10
+  cooldownTime: 15
   dropTransform: {fileID: 0}
   interactionPoint: {fileID: 0}
-  difficulty: 1
-  scaleDifficulty: 0.1
-  miniGameType: {fileID: 0}
-  enterSound: {fileID: 0}
-  leaveSound: {fileID: 0}
-  winSound: {fileID: 0}
-  loseSound: {fileID: 0}
-  correctSound: {fileID: 0}
-  wrongSound: {fileID: 0}
-  onCooldown:
+  minigame: {fileID: 0}
+  onStartCooldown:
     m_PersistentCalls:
       m_Calls: []
   onFinishCooldown:
