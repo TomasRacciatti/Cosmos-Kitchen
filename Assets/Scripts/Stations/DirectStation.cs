@@ -1,3 +1,4 @@
+using Items.Inventory;
 using Items.Tools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,10 +7,21 @@ namespace Stations
 {
     public class DirectStation : Station
     {
+        [Header("Direct Station")]
+        [SerializeField] private InvSystem invSystem;
         [SerializeField] private SoTool soTool;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (!invSystem) invSystem = GetComponent<InvSystem>();
+        }
+
         protected override void EnterStation()
         {
             base.EnterStation();
+            InvView invView = CanvasInstance.GetComponentInChildren<InvView>();
+            invView.SetInventory(invSystem);
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.AddListener(UseTool);
         }

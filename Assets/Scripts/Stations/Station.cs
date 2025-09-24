@@ -14,18 +14,18 @@ namespace Stations
     {
         public Transform InteractionPoint => transform;
         
-        [SerializeField] protected InvSystem invSystem;
-        [SerializeField] private GameObject canvas;
+        [Header("VFX")]
         [SerializeField] private AnimationClip openAnimation;
         [SerializeField] private AnimationClip closeAnimation;
+        [Header("Canvas")]
+        [SerializeField] private GameObject canvas;
         
         protected GameObject CanvasInstance;
         private Animator animator;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             animator = GetComponent<Animator>();
-            if (!invSystem) invSystem = GetComponent<InvSystem>();
         }
 
         public void Interact(GameObject interactableObject)
@@ -44,8 +44,6 @@ namespace Stations
         protected virtual void EnterStation()
         {
             CanvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
-            InvView invView = CanvasInstance.GetComponentInChildren<InvView>();
-            invView.SetInventory(invSystem);
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.ForceInventory(true);
             PlayerInputs.SetCursor(true);

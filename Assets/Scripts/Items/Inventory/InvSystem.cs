@@ -50,6 +50,35 @@ namespace Items.Inventory
             AddExtraSlot(ref itemAmount);
         }
         
+        public bool AddItem(SoItem soItem, int amount)
+        {
+            if (soItem == null || amount <= 0)
+                return false;
+
+            int remaining = amount;
+            var itemAmount = new ItemAmount(soItem, remaining);
+
+            // Intentar agregar a stacks existentes
+            AddStackSlot(ref itemAmount);
+            remaining = itemAmount.Amount;
+
+            if (remaining > 0)
+            {
+                // Intentar agregar a slots vacíos
+                AddEmptySlot(ref itemAmount);
+                remaining = itemAmount.Amount;
+            }
+
+            if (remaining > 0 && Infinite)
+            {
+                // Agregar extra slots si es inventario infinito
+                AddExtraSlot(ref itemAmount);
+                remaining = itemAmount.Amount;
+            }
+
+            return remaining == 0;
+        }
+        
         public void RemoveItem(ref ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return;
@@ -69,6 +98,31 @@ namespace Items.Inventory
                 }
             }
         }
+        
+        public bool RemoveItem(SoItem soItem, int amount)
+        {
+            if (soItem == null || amount <= 0)
+                return false;
+
+            int remaining = amount;
+
+            for (int i = 0; i < items.Count && remaining > 0; i++)
+            {
+                var slot = items[i];
+
+                if (!slot.IsEmpty && slot.SoItem == soItem)
+                {
+                    int removed = slot.RemoveAmount(remaining); // quita lo que pueda del slot
+                    remaining -= removed;
+
+                    items[i] = slot.IsEmpty ? new ItemAmount() : slot;
+                    NotifySlotChanged(i);
+                }
+            }
+
+            return remaining == 0;
+        }
+
         
         public void SetItemByIndex(int index, ItemAmount itemAmount)
         {
@@ -114,6 +168,32 @@ namespace Items.Inventory
                     NotifySlotChanged(i);
                 }
             }
+        }
+        
+        public bool HasItem(SoItem soItem, int amount = 1)
+        {
+            if (soItem == null || amount <= 0)
+                return false;
+
+            int total = items
+                .Where(slot => !slot.IsEmpty && slot.SoItem == soItem)
+                .Sum(slot => slot.Amount);
+
+            return total >= amount;
+        }
+        
+        public bool HasItems(params ItemAmount[] requiredItems)
+        {
+            if (requiredItems == null || requiredItems.Length == 0)
+                return true;
+
+            foreach (var req in requiredItems)
+            {
+                if (!HasItem(req.SoItem, req.Amount))
+                    return false;
+            }
+
+            return true;
         }
         
         //Privates

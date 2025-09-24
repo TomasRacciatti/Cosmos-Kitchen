@@ -5430,6 +5430,18 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5166742857897020353}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6330b80f401b9cd438ef2020dce29dae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7721707846238290014}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6330b80f401b9cd438ef2020dce29dae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3899724205471946562}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6330b80f401b9cd438ef2020dce29dae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8506519339444664170}
   m_SourcePrefab: {fileID: 100100000, guid: 6330b80f401b9cd438ef2020dce29dae, type: 3}
 --- !u!4 &395882565482526965 stripped
 Transform:
@@ -5464,6 +5476,59 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.09476425
   m_Center: {x: 0, y: 0.024466788, z: 0}
+--- !u!114 &7721707846238290014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023906683126768207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e329de3eb094aea9cfcc981301e6200, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openAnimation: {fileID: 0}
+  closeAnimation: {fileID: 0}
+  canvas: {fileID: 8100360072370276888, guid: 1f22e3aa2d8699d459c8851eff51a391, type: 3}
+  availablePlates:
+  - {fileID: 11400000, guid: f0fc828470056f84f9a14ae58d1b25b0, type: 2}
+  - {fileID: 11400000, guid: bf0b22318469cb94c9ba198283c19d51, type: 2}
+  - {fileID: 11400000, guid: 7665083ba23ccc74aa0f5dbe81747fa3, type: 2}
+  - {fileID: 11400000, guid: a9ea6544da9cc50458a506c82f284c0f, type: 2}
+  - {fileID: 11400000, guid: 99c6fdfc52e93c145a1a48a7747b7b07, type: 2}
+  - {fileID: 11400000, guid: 1f6a3ad675caaeb40a7123fae4203692, type: 2}
+  - {fileID: 11400000, guid: 48def5608a7a93a40b24bb39bee8166c, type: 2}
+  inputInventory: {fileID: 3899724205471946562}
+  outputInventory: {fileID: 8506519339444664170}
+--- !u!114 &3899724205471946562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023906683126768207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c161ebb7d5c69147829c7fe62fcbe03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 3
+  items: []
+--- !u!114 &8506519339444664170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023906683126768207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c161ebb7d5c69147829c7fe62fcbe03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: 1
+  items: []
 --- !u!1001 &1728836181130787862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6491,10 +6556,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invSystem: {fileID: 7227731837003795515}
-  canvas: {fileID: 5255830946825594412, guid: f6fcf095a9c573a44a073c8b565628c3, type: 3}
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
+  canvas: {fileID: 5255830946825594412, guid: f6fcf095a9c573a44a073c8b565628c3, type: 3}
+  invSystem: {fileID: 7227731837003795515}
   soTool: {fileID: 11400000, guid: a3d5cf9c88ef1cc41a87c35d3c7735cd, type: 2}
 --- !u!114 &7227731837003795515
 MonoBehaviour:
@@ -6703,10 +6768,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invSystem: {fileID: 7039480843915341172}
-  canvas: {fileID: 5255830946825594412, guid: c01b218636d14204182c8e8911d04fe7, type: 3}
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
+  canvas: {fileID: 5255830946825594412, guid: c01b218636d14204182c8e8911d04fe7, type: 3}
+  invSystem: {fileID: 7039480843915341172}
   soTool: {fileID: 11400000, guid: 30e391f38020a15468e077dc260ca81f, type: 2}
 --- !u!114 &7039480843915341172
 MonoBehaviour:
@@ -6902,10 +6967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invSystem: {fileID: 2217676648898550857}
-  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
+  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  invSystem: {fileID: 2217676648898550857}
   soTool: {fileID: 11400000, guid: 15e1c145f1114774ea858a147c1e57cd, type: 2}
 --- !u!114 &2217676648898550857
 MonoBehaviour:
@@ -6962,10 +7027,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invSystem: {fileID: 5716640235535283491}
-  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
+  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  invSystem: {fileID: 5716640235535283491}
   soTool: {fileID: 11400000, guid: 6bd9fb92e69585643999de7050adf164, type: 2}
 --- !u!114 &5716640235535283491
 MonoBehaviour:
