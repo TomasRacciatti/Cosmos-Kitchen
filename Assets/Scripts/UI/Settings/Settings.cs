@@ -61,6 +61,7 @@ namespace UI.Settings
             float dB = Mathf.Log10(linear01) * 20f;
             audioMixer.SetFloat(exposedParam, dB);
         }
+        
         private void ApplyMasterVolume(int value)
         {
             SetVolume("MasterVolume", value);
