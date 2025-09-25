@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UIScripts.HUD
+namespace UI.Components
 {
     public class LifeBar : MonoBehaviour
     {

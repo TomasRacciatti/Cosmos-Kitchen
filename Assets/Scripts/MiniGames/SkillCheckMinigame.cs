@@ -1,6 +1,5 @@
 using System;
 using TMPro;
-using UIScripts.HUD;
 using UnityEngine;
 using Random = UnityEngine.Random;
 

@@ -1,6 +1,5 @@
 using System;
 using UI.Components;
-using UIScripts.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;

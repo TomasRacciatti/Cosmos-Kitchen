@@ -15,9 +15,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] AudioClip UIClickSound;
     [SerializeField] AudioClip UICOpenSound;
     [SerializeField] AudioClip UICloseSound;
-
-
-
+    
     private void Start()
     {
         _isOpen = false;
@@ -53,9 +51,6 @@ public class MenuManager : MonoBehaviour
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
             _isOpen = false;
-            InputManager._instance.ResumeAll();
-            InputManager._instance.ResumeInput();
-            InputManager._instance.SwitchMouselock();
         }
         else
         {
@@ -67,9 +62,6 @@ public class MenuManager : MonoBehaviour
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
             _isOpen = true;
-            InputManager._instance.UnlockMouse();   //algo aca no anda en el main con el boton de exit
-            InputManager._instance.StopAll();
-            InputManager._instance.StopInput();
         }
     }
 

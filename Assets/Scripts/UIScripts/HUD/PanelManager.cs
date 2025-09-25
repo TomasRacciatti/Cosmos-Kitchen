@@ -5,7 +5,7 @@ using UnityEngine;
 using static System.Collections.Specialized.BitVector32;
 
 public class PanelManager : MonoBehaviour
-{
+{/*
     public static PanelManager _instance;
     [SerializeField] GameObject[] _panels;
     [SerializeField] MenuManager _menuManager;
@@ -80,5 +80,5 @@ public class PanelManager : MonoBehaviour
     public void SetCurrent(CookingStationInteractor station)
     {
         _currentStation = station;
-    }
+    }*/
 }
