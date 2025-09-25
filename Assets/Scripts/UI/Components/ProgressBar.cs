@@ -1,12 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace UI.Components
 {
+    [ExecuteInEditMode()]
     public class ProgressBar : MonoBehaviour
     {
         [Header("References")]
