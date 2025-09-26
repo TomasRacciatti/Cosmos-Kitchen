@@ -12,6 +12,7 @@ namespace UI
 
         private void OnEnable()
         {
+            CancelInvoke(nameof(ReturnToPool));
             Invoke(nameof(ReturnToPool), 5);
         }
 
