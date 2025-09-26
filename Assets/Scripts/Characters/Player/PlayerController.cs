@@ -311,6 +311,12 @@ namespace Characters.Player
         {
             _input.active = value;
         }
+        
+        public void SetMoveActive(bool value)
+        {
+            _input.canMove = value;
+        }
+        
 
         public Vector3 GetThrowPosition => transform.position + 1f * transform.forward + transform.up;
     }

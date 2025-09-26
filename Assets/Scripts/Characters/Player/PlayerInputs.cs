@@ -11,6 +11,8 @@ namespace Characters.Player
     {
         public bool active = true;
         
+        public bool canMove = true;
+        
         [Header("Character Input Values")]
         public Vector2 move;
         public Vector2 look;
@@ -58,13 +60,13 @@ namespace Characters.Player
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            move = active ? value.Get<Vector2>() : Vector2.zero;
+            move = !active || !canMove ? Vector2.zero : value.Get<Vector2>();
         }
 
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = ActiveAndNoHUD ? value.Get<Vector2>() : Vector2.zero;
+            look = ActiveAndNoHUD && canMove ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
