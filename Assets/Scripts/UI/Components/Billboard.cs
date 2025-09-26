@@ -16,6 +16,7 @@ namespace UI.Components
 
         private void LateUpdate()
         {
+            if (!mainCamera) mainCamera = Camera.main;
             if (!mainCamera) return;
 
             if (onlyHorizontal)

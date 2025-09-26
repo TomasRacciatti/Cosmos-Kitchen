@@ -9,10 +9,7 @@ namespace Items.Core
         //Variables
         [SerializeField] private SoItem soItem;
         [SerializeField] private int amount;
-        
-        // Rating - Tomi
-        [SerializeField] private bool hasStarRating; // Por ahora pongo este booleano para que no se rompa
-        [SerializeField] private StarRating starRating;
+        [SerializeField] private int rating;
         
         //Getters
         public SoItem SoItem => soItem;
@@ -21,42 +18,28 @@ namespace Items.Core
         public bool ValidSoItem => soItem != null;
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
-        public bool HasStarRating => hasStarRating;
-        public bool TryGetStarRating(out StarRating rating)
-        {
-            rating = starRating;
-            return hasStarRating;
-        }
+        public int Rating => rating;
         
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
         {
             soItem = newItemAmount.SoItem;
             amount = newItemAmount.Amount;
-            
-            // Rating - Tomi
-            hasStarRating = newItemAmount.hasStarRating;
-            starRating    = newItemAmount.starRating;
+            rating    = newItemAmount.Rating;
         }
         
-        public ItemAmount(SoItem newSoItem = null, int newAmount = 0)
+        public ItemAmount(SoItem newSoItem = null, int newAmount = 0, int newStarRating = 3)
         {
             soItem = newSoItem;
             amount = newAmount;
-            
-            // Rating - Tomi
-            hasStarRating = false;
-            starRating    = default;
+            rating    = newStarRating;
         }
         
         //Setters
         public int SetItem(ItemAmount itemAmount, bool clampToStack = true)
         {
             soItem = itemAmount.SoItem;
-            
-            // Rating - Tomi
-            hasStarRating = itemAmount.hasStarRating;
-            starRating    = itemAmount.starRating;
+            rating    = itemAmount.Rating;
             
             return SetAmount(itemAmount.Amount, clampToStack);
         }
@@ -67,10 +50,9 @@ namespace Items.Core
         }
 
         // Rating - Tomi
-        public void SetRating(StarRating rating)
+        public void SetRating(int newStarRating)
         {
-            hasStarRating = true;
-            starRating    = rating;
+            rating = newStarRating;
         }
         
         public int SetAmount(int newAmount, bool clampToStack = true)
@@ -103,17 +85,7 @@ namespace Items.Core
         {
             soItem = null;
             amount = 0;
-            
-            // Rating - Tomi
-            hasStarRating = false;
-            starRating    = default;
+            rating = 0;
         }
-    }
-    
-    public enum StarRating
-    {
-        Bronze = 1,
-        Silver = 2,
-        Gold   = 3
     }
 }
