@@ -105,5 +105,11 @@ namespace MiniGames
         {
             lifeBar.SetLives(CurrentLives);
         }
+
+        protected void ResetProgress()
+        {
+            CurrentActions = 0;
+            SetProgress();
+        }
     }
 }

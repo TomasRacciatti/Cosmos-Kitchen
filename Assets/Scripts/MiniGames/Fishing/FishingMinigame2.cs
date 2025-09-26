@@ -75,6 +75,8 @@ namespace MiniGames
             currentForceDirection = Random.insideUnitCircle.normalized;
             tideCooldown.ResetCooldown();
             velocity = Vector2.zero;
+
+            ResetProgress();
         }
         
         private void Tide()
