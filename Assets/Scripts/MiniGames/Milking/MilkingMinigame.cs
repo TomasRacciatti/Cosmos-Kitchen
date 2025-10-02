@@ -153,14 +153,14 @@ namespace MiniGames.Milking
 
         protected override void Wrong()
         {
-            base.Wrong();
-            
             _progress = Mathf.Max(0f, _progress - baseLoss);
-
+            
             ResolveMiss();
+
+            base.Wrong();
         }
         
-        #region Strategy - Lo que hago porque no me dejas usar un switch hdp
+        #region Strategy - Lo que hago porque no me dejas usar un switch
         
         private void EnterWaitingPhase()
         {
