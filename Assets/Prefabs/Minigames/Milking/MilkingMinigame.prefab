@@ -1019,6 +1019,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3895287651830924977}
+  - component: {fileID: 6483726037635911032}
   m_Layer: 5
   m_Name: Keys
   m_TagString: Untagged
@@ -1047,6 +1048,18 @@ RectTransform:
   m_AnchoredPosition: {x: 4, y: 246}
   m_SizeDelta: {x: 1262, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &6483726037635911032
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5600024538586158390}
+  m_Enabled: 1
+  m_Alpha: 0.76
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5904172873413883999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,7 +1725,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
