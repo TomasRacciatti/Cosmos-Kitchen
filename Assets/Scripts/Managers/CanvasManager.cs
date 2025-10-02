@@ -11,8 +11,13 @@ namespace Managers
         [SerializeField] private InvManager invManager;
         [SerializeField] private BookHandler bookHandler;
         [SerializeField] private MenuManager pauseMenuUI;
+        
+        [Header("Deliever")]
         [SerializeField] private InvSlotUI invSlotUI;
+        [SerializeField] private InvSystem invSystem;
         public InvManager InvManager => invManager;
+        public InvSlotUI InvSlotUI => invSlotUI;
+        public InvSystem InvSystem => invSystem;
 
         private void Awake()
         {

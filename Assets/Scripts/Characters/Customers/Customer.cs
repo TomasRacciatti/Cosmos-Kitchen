@@ -4,9 +4,9 @@ using Characters.Player;
 using Cinemachine;
 using DialogueEditor;
 using Interfaces;
+using Items.Core;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Characters.Customers
 {
@@ -15,7 +15,9 @@ namespace Characters.Customers
         [SerializeField] private Transform playerTransform;
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private NPCSpeaker npcSpeaker;
+        [SerializeField] private ClientSO soClient;
         private NPCConversation conversation;
+        
 
         private void Awake()
         {
@@ -29,6 +31,7 @@ namespace Characters.Customers
             GameManager.Player.SetMoveActive(false);
             GameManager.Player.SetCamera(cinemachineVirtualCamera);
             GameManager.Player.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);
+            GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
         }
 
         public void LeaveInteraction()
@@ -36,6 +39,8 @@ namespace Characters.Customers
             PlayerInputs.SetCursor(false);
             GameManager.Player.SetMoveActive(true);
             GameManager.Player.SetThirdPersonCamera();
+            GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
+            GameManager.Canvas.InvManager.ForceInventory(false);
         }
 
         public void EnableInteract()
@@ -55,7 +60,24 @@ namespace Characters.Customers
 
         public void ShowSlot()
         {
-            //GameManager.Canvas
+            GameManager.Canvas.InvManager.ForceInventory(true);
+            GameManager.Canvas.InvSlotUI.gameObject.SetActive(true);
+        }
+
+        public void TestPlate()
+        {
+            var itemTested = GameManager.Canvas.InvSystem.Items[0];
+            if (!itemTested.IsEmpty && soClient.requestedSoPlate == itemTested.SoItem)
+            {
+                ConversationManager.Instance.SetInt("Quality", itemTested.Rating);
+            }
+            else
+            {
+                ConversationManager.Instance.SetInt("Quality", -1);
+            }
+            GameManager.Canvas.InvSystem.ClearSlot(0);
+            GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
+            GameManager.Canvas.InvManager.ForceInventory(false);
         }
 
         public Transform InteractionPoint => transform;
