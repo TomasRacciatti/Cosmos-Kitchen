@@ -49,8 +49,9 @@ namespace MiniGames.Milking
             
             _ended = false;
             _pressed = 0;
+            _progress = 0;
             
-            _totalTime = Mathf.Max(0.1f, stageDuration);
+            _totalTime = Mathf.Max(0.1f, stageDuration * Mathf.Max(1, stages));
             _remainingTime = _totalTime;
             
             SetAnim(sideL, false);
