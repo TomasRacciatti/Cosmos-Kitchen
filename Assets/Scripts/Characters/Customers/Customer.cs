@@ -14,6 +14,7 @@ namespace Characters.Customers
     {
         [SerializeField] private Transform playerTransform;
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
+        [SerializeField] private NPCSpeaker npcSpeaker;
         private NPCConversation conversation;
 
         private void Awake()
@@ -45,6 +46,16 @@ namespace Characters.Customers
         public void DisableInteract()
         {
             
+        }
+
+        public void Speak(string text)
+        {
+            SpeakerManager.Speak(text, npcSpeaker);
+        }
+
+        public void ShowSlot()
+        {
+            //GameManager.Canvas
         }
 
         public Transform InteractionPoint => transform;

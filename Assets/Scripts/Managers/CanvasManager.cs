@@ -10,7 +10,8 @@ namespace Managers
         
         [SerializeField] private InvManager invManager;
         [SerializeField] private BookHandler bookHandler;
-        [SerializeField] private GameObject pauseMenuUI;
+        [SerializeField] private MenuManager pauseMenuUI;
+        [SerializeField] private InvSlotUI invSlotUI;
         public InvManager InvManager => invManager;
 
         private void Awake()
@@ -29,6 +30,12 @@ namespace Managers
         {
             GameManager.RegisterCanvas(this);
         }
+
+        public bool TogglePauseMenu()
+        {
+            pauseMenuUI.ToggleMainMenu();
+            return pauseMenuUI.Open;
+        }
         
         public bool ToggleInventory()
         {
@@ -38,11 +45,6 @@ namespace Managers
         public bool ToggleBook()
         {
             return bookHandler.ToggleBook();
-        }
-        
-        public bool ToggleMenu()
-        {
-            return false; //logica
         }
     }
 }

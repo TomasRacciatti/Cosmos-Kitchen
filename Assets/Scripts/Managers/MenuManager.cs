@@ -15,6 +15,8 @@ public class MenuManager : MonoBehaviour
     [SerializeField] AudioClip UIClickSound;
     [SerializeField] AudioClip UICOpenSound;
     [SerializeField] AudioClip UICloseSound;
+
+    public bool Open => _isOpen;
     
     private void Start()
     {
