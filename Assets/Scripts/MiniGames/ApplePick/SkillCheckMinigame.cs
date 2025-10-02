@@ -20,8 +20,6 @@ namespace MiniGames
         [SerializeField] private RectTransform canvasTransform;
         [SerializeField] private RectTransform zoneTransform;
         [SerializeField] private RectTransform needleTransform;
-        [SerializeField] private TextMeshProUGUI livesText;
-        [SerializeField] private TextMeshProUGUI skillCheckText;
         
         private float _currentZoneAngle;
         private float _currentNeedleAngle;

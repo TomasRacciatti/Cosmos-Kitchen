@@ -2,6 +2,7 @@ using System;
 using Items.Core;
 using Managers;
 using Regulators;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,17 +45,27 @@ namespace Characters.Player
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                CrosshairManager.ShowCrosshair(false);
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                CrosshairManager.ShowCrosshair(true);
             }
         }
 
         private void CheckCursor()
         {
             SetCursor(inventoryOpen || menuOpen || bookOpen);
+        }
+
+        public void SetCanMove(bool value)
+        {
+            canMove = value;
+            if (value) return;
+            move = Vector2.zero;
+            look = Vector2.zero;
         }
         
 #if ENABLE_INPUT_SYSTEM
@@ -107,7 +118,7 @@ namespace Characters.Player
         {
             if (!active || !value.isPressed) return;
             
-            
+            menuOpen = GameManager.Canvas.TogglePauseMenu();
             
             CheckCursor();
         }

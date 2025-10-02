@@ -1,12 +1,9 @@
-using System.Collections.Generic;
-using Items.Core;
 using UnityEngine;
-using Items.Core;
 
-namespace Characters.Clients.Plates
+namespace Items.Core
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Items/Plate", fileName = "Plate")]
-    public sealed class PlateSO : SoItem
+    public sealed class SoPlate : SoItem
     {
         [Header("Required Ingredients")]
         [SerializeField] private SoItem ingredientA;

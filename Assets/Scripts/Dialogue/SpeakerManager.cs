@@ -10,16 +10,28 @@ public class SpeakerManager : MonoBehaviour
     private Coroutine speakCor;
     private NPCSpeaker activeNPC;
 
-    public void Speak(string text, NPCSpeaker npc)
+    public static SpeakerManager _instance;
+    
+    private void Awake()
+    {
+        if (_instance != null && _instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        _instance = this;
+    }
+    
+    public static void Speak(string text, NPCSpeaker npc)
     {
         if (string.IsNullOrEmpty(text) || npc == null) return;
-        if (!source || vowelClips == null || vowelClips.Length == 0) return;
+        if (!_instance.source || _instance.vowelClips == null || _instance.vowelClips.Length == 0) return;
 
-        CancelSpeak();                     // Cortar si esta hablando
-        activeNPC = npc;
-        activeNPC.RaiseSpeakStart();
+        _instance.CancelSpeak();                     // Cortar si esta hablando
+        _instance.activeNPC = npc;
+        _instance.activeNPC.RaiseSpeakStart();
 
-        speakCor = StartCoroutine(Co_Speak(text, activeNPC));
+        _instance.speakCor = _instance.StartCoroutine(_instance.Co_Speak(text, _instance.activeNPC));
     }
 
     public void CancelSpeak()

@@ -1,6 +1,8 @@
 using UnityEngine;
 using Characters.Clients.ClientDialogue;
 using Characters.Clients.Plates;
+using Items.Core;
+using UnityEngine.Serialization;
 
 namespace Characters.Clients
 {
@@ -15,8 +17,8 @@ namespace Characters.Clients
         [Header("Dialogue")]
         public ClientDialogueProfileSO dialogueProfile;
 
-        [Header("Order / Recipe")]
-        public PlateSO requestedPlate;
+        [FormerlySerializedAs("requestedPlate")] [Header("Order / Recipe")]
+        public SoPlate requestedSoPlate;
 
         // Helper que devuelve el string empty si no hay lineas de dialogo.
         public string GetLine(DialogueCategory category) =>

@@ -85,7 +85,7 @@ public class TyperManager : MonoBehaviour
         if (nameBox) nameBox.text = currentSpeaker.npcName;
 
         typeCor = StartCoroutine(TypeLine(currentText));      // trigger typping
-        if (speakerManager) speakerManager.Speak(currentText, currentSpeaker); // trigger voice
+        if (speakerManager) SpeakerManager.Speak(currentText, currentSpeaker); // trigger voice
     }
 
     private IEnumerator TypeLine(string text)

@@ -46,7 +46,7 @@ namespace Characters.Clients
             
             // Warnings de setteo
             if (clientData == null) Debug.LogWarning($"{name}: ClientSO not set.");
-            if (clientData.requestedPlate == null) Debug.LogWarning($"{name}: requestedPlate not set.");
+            if (clientData.requestedSoPlate == null) Debug.LogWarning($"{name}: requestedPlate not set.");
         }
 
         private void OnDisable()
@@ -96,10 +96,10 @@ namespace Characters.Clients
 
         public void Deliver(ItemAmount delivered)
         {
-            if (dialogue == null || clientData == null || clientData.requestedPlate == null)
+            if (dialogue == null || clientData == null || clientData.requestedSoPlate == null)
                 return;
             
-            var outcome = verifier.Verify(clientData.requestedPlate, delivered);
+            var outcome = verifier.Verify(clientData.requestedSoPlate, delivered);
             
             switch (outcome)
             {
