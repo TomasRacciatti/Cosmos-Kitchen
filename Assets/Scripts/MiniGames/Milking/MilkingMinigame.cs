@@ -30,6 +30,7 @@ namespace MiniGames.Milking
         
         [Header("Game Settings")]
         [SerializeField, Min(0f)] private float baseGain = 0.18f;
+        [SerializeField, Min(0f)] private float minGain = 0.02f;
         [SerializeField, Min(0.5f)] private float resistance = 1.6f;
         [SerializeField, Min(0f)] private float baseLoss = 0.20f;
         [SerializeField, Min(0f)] private float decayPerSecond = 0.12f;
@@ -49,7 +50,7 @@ namespace MiniGames.Milking
             _ended = false;
             _pressed = 0;
             
-            _totalTime = Mathf.Max(0.1f, stageDuration * Mathf.Max(1, stages));
+            _totalTime = Mathf.Max(0.1f, stageDuration);
             _remainingTime = _totalTime;
             
             SetAnim(sideL, false);
@@ -138,9 +139,13 @@ namespace MiniGames.Milking
             if (keyA) keyA.SetActive(aActive);
             if (keyD) keyD.SetActive(dActive);
         }
-        
-        private float ComputeGain(float progress) 
-            => baseGain * Mathf.Pow(1f - Mathf.Clamp01(progress), resistance); // Cuanto mas cerca del final, mas cuesta sumar
+
+        private float ComputeGain(float progress)
+        {
+            // Cuanto mas cerca del final, mas cuesta sumar
+            float resist = baseGain * Mathf.Pow(1f - Mathf.Clamp01(progress), resistance);
+            return Mathf.Max(minGain, resist);
+        }
 
         private void ApplyAccepted(Expected pressed)
         {

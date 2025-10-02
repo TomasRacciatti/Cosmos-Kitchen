@@ -1286,10 +1286,11 @@ MonoBehaviour:
   squishParam: Squish
   keyA: {fileID: 7827696407078813602}
   keyD: {fileID: 5240577033168449177}
-  baseGain: 0.15
-  resistance: 0.7
+  baseGain: 0.12
+  minGain: 0.05
+  resistance: 1.5
   baseLoss: 0.2
-  decayPerSecond: 0.12
+  decayPerSecond: 0.1
 --- !u!1 &6514485968137033012
 GameObject:
   m_ObjectHideFlags: 0
