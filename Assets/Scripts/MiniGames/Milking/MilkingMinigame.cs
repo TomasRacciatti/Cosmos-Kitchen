@@ -171,6 +171,17 @@ namespace MiniGames.Milking
         private void TickWaiting()
         {
             _phaseTimer -= Time.deltaTime;
+            
+            // Tecla prematura
+            bool aDown = Input.GetKeyDown(KeyCode.A);
+            bool dDown = Input.GetKeyDown(KeyCode.D);
+            if (aDown || dDown)
+            {
+                _lastPressed = aDown ? Expected.A : Expected.D;
+                Wrong();
+                return;
+            }
+            
             if (_phaseTimer <= 0f)
                 EnterShowingPhase();
         }
