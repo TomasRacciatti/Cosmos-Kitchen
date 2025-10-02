@@ -302,6 +302,16 @@ namespace Characters.Player
             _input.active = false;
         }
 
+        public void SetThirdPersonCamera()
+        {
+            SetCamera(thirdPersonCamera);
+        }
+        
+        public void SetFirstPersonCamera()
+        {
+            SetCamera(firstPersonCamera);
+        }
+
         private void SetLockForwardTrue()
         {
             lockForwardFacing = true;
@@ -314,10 +324,17 @@ namespace Characters.Player
         
         public void SetMoveActive(bool value)
         {
-            _input.canMove = value;
+            _input.SetCanMove(value);
+        }
+
+        public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
+        {
+            _characterController.enabled = false;
+            gameObject.transform.position = position;
+            gameObject.transform.rotation = rotation;
+            _characterController.enabled = true;
         }
         
-
         public Vector3 GetThrowPosition => transform.position + 1f * transform.forward + transform.up;
     }
 }

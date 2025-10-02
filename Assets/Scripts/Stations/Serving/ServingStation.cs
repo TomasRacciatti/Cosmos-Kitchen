@@ -1,5 +1,6 @@
 using System.Linq;
 using Characters.Clients.Plates;
+using Items.Core;
 using Items.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ namespace Stations.Serving
     public class ServingStation : Station
     {
         [Header("Serving Settings")]
-        [SerializeField] private PlateSO[] availablePlates; // Todos los platos que esta estación puede preparar
+        [SerializeField] private SoPlate[] availablePlates; // Todos los platos que esta estación puede preparar
         [SerializeField] private InvSystem inputInventory;  // Donde el jugador pone los ingredientes
         [SerializeField] private InvSystem outputInventory; // Donde se entrega el plato (puede ser el mismo o distinto)
 
@@ -44,9 +45,9 @@ namespace Stations.Serving
             }
         }
 
-        private bool CanCraftPlate(PlateSO plate)
+        private bool CanCraftPlate(SoPlate soPlate)
         {
-            var required = plate.RequiredIngredients.Where(i => i != null).ToArray();
+            var required = soPlate.RequiredIngredients.Where(i => i != null).ToArray();
 
             foreach (var ingredient in required)
             {
@@ -56,18 +57,18 @@ namespace Stations.Serving
             return true;
         }
 
-        private void CraftPlate(PlateSO plate)
+        private void CraftPlate(SoPlate soPlate)
         {
             // Sacar ingredientes
-            foreach (var ingredient in plate.RequiredIngredients.Where(i => i != null))
+            foreach (var ingredient in soPlate.RequiredIngredients.Where(i => i != null))
             {
                 inputInventory.RemoveItem(ingredient, 1);
             }
 
             // Agregar el plato resultante
-            outputInventory.AddItem(plate, 1);
+            outputInventory.AddItem(soPlate, 1);
 
-            Debug.Log($"¡Se preparó el plato {plate.name}!");
+            Debug.Log($"¡Se preparó el plato {soPlate.name}!");
         }
     }
 }
