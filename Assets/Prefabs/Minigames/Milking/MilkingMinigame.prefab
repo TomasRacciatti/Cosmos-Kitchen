@@ -1056,7 +1056,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5600024538586158390}
   m_Enabled: 1
-  m_Alpha: 0.76
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1264,19 +1264,30 @@ MonoBehaviour:
   loseSound: {fileID: 0}
   progressBar: {fileID: 3511618002737597502}
   lifeBar: {fileID: 1373543125026711391}
-  stageDuration: 10
-  stages: 3
+  totalTime: 20
   milkBarFill: {fileID: 9193136573610572664}
   sideL: {fileID: 3366557441395991341}
   sideR: {fileID: 425065237313161520}
   squishParam: Squish
-  keyA: {fileID: 7827696407078813602}
-  keyD: {fileID: 5240577033168449177}
+  keysGroup: {fileID: 6483726037635911032}
+  keyA: {fileID: 2992249016042647763}
+  keyD: {fileID: 2900413692263146031}
+  minGapBetweenPrompts: 0.1
+  maxGapBetweenPrompts: 0.4
+  perfectWindow: 0.15
+  goodWindow: 0.4
+  missHold: 0.05
+  fadeOutSeconds: 0.1
   baseGain: 0.12
   minGain: 0.05
+  perfectMultiplier: 1.5
   resistance: 1.5
   baseLoss: 0.2
   decayPerSecond: 0.1
+  colorDefault: {r: 1, g: 1, b: 1, a: 1}
+  colorMiss: {r: 1, g: 0, b: 0, a: 1}
+  colorOk: {r: 1, g: 0.843, b: 0, a: 1}
+  colorPerfect: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &6514485968137033012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1725,7 +1736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

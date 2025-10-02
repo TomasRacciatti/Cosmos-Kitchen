@@ -1,20 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
-using UI.Components;
-using MiniGames;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace MiniGames.Milking
 {
     public class MilkingMinigame : CanvasMinigame
     {
         private enum Expected { None, A, D }
-        private enum Side { Left, Right }
         
         [Header("Timer ")]
-        //[SerializeField] private ProgressBar radialTimer;
-        [SerializeField] private float stageDuration = 10f;
-        [SerializeField] private int stages = 3;
+        [SerializeField] private float totalTime  = 20f;
         
         [Header("Milk Bar")]
         [SerializeField] private Image milkBarFill;
@@ -25,22 +21,44 @@ namespace MiniGames.Milking
         [SerializeField] private string squishParam = "Squish";
         
         [Header("Keys")]
-        [SerializeField] private GameObject keyA;
-        [SerializeField] private GameObject keyD;
+        [SerializeField] private CanvasGroup keysGroup;
+        [SerializeField] private Image keyA;
+        [SerializeField] private Image keyD;
+        
+        [Header("Rhythm")]
+        [SerializeField, Min(0f)] private float minGapBetweenPrompts = 0.1f;
+        [SerializeField, Min(0f)] private float maxGapBetweenPrompts = 0.3f;
+        [SerializeField, Min(0f)] private float perfectWindow = 0.15f;
+        [SerializeField, Min(0f)] private float goodWindow = 0.40f;
+        [SerializeField, Min(0f)] private float missHold = 0.05f;
+        [SerializeField, Min(0f)] private float fadeOutSeconds = 0.1f;
         
         [Header("Game Settings")]
         [SerializeField, Min(0f)] private float baseGain = 0.18f;
         [SerializeField, Min(0f)] private float minGain = 0.02f;
+        [SerializeField, Min(0f)] private float perfectMultiplier = 1.5f;
         [SerializeField, Min(0.5f)] private float resistance = 1.6f;
         [SerializeField, Min(0f)] private float baseLoss = 0.20f;
         [SerializeField, Min(0f)] private float decayPerSecond = 0.12f;
         
-        private float _progress; // 1 = ganado
-        private float _totalTime;
-        private float _remainingTime;
-        private Expected _expected = Expected.None;
-        private Expected _pressed = Expected.None;
+        [Header("Colors")]
+        [SerializeField] private Color colorDefault = Color.white;
+        [SerializeField] private Color colorMiss = new Color(1f, 0f, 0f);
+        [SerializeField] private Color colorOk = new Color(1f, 0.843f, 0f);
+        [SerializeField] private Color colorPerfect= new Color(0f, 1f, 0f);
+        
+        private float _progress;
+        private float _timeRemaining;
         private bool _ended;
+        
+        private Expected _expected = Expected.None;
+        private Expected _lastPressed  = Expected.None;
+        private Expected _currentPrompt = Expected.None;
+
+        private Action _tickPhase;
+        private float _phaseTimer;
+        private float _promptElapsed;
+        private float _fadeClock;
 
 
         public override void StartMinigame()
@@ -48,16 +66,18 @@ namespace MiniGames.Milking
             base.StartMinigame();
             
             _ended = false;
-            _pressed = 0;
             _progress = 0;
+            _timeRemaining = Mathf.Max(0.1f, totalTime);
             
-            _totalTime = Mathf.Max(0.1f, stageDuration * Mathf.Max(1, stages));
-            _remainingTime = _totalTime;
+            SetSquish(false, false);
+            SetKeysVisible(false, 0f);
+            TintKeys(colorDefault, colorDefault);
             
-            SetAnim(sideL, false);
-            SetAnim(sideR, false);
-            SetKeyHints(true, true);
             _expected = Expected.None;
+            _currentPrompt = Expected.None;
+            _lastPressed = Expected.None;
+            
+            EnterWaitingPhase();
             
             UpdateVisuals();
         }
@@ -67,9 +87,9 @@ namespace MiniGames.Milking
             base.Update();
             if (_ended) return;
             
-            _remainingTime -= Time.deltaTime;
-
-            if (_remainingTime < 0 && _progress < 1f)
+            // Timer
+            _timeRemaining  -= Time.deltaTime;
+            if (_timeRemaining  < 0 && _progress < 1f)
             {
                 Lose();
                 _ended = true;
@@ -80,83 +100,179 @@ namespace MiniGames.Milking
             if (_progress > 0f)
                 _progress = Mathf.Max(0f, _progress - decayPerSecond * Time.deltaTime);
             
-            // Captura de input
-            bool inputA = Input.GetKeyDown(KeyCode.A);
-            bool inputD = Input.GetKeyDown(KeyCode.D);
 
-            if (inputA || inputD)
-            {
-                _pressed = inputA ? Expected.A : Expected.D;
-                EvaluateAction();
-            }
-            
+            _tickPhase?.Invoke();
             UpdateVisuals();
         }
         
         protected override bool IsActionCorrect()
         {
-            if (_pressed == Expected.None) return false;
-
-            if (_expected == Expected.None) return true; // Para el arranque A o D son validas
-
-            return _pressed == _expected;
+            return _lastPressed == _currentPrompt;
         }
 
         protected override void Correct()
         {
-            _progress = Mathf.Min(1f, _progress + ComputeGain(_progress));
+            float multiplier;
+            
+            if (_promptElapsed <= perfectWindow)
+            {
+                multiplier = perfectMultiplier;
+                TintKeys(_currentPrompt == Expected.A ? colorPerfect : colorDefault,
+                         _currentPrompt == Expected.D ? colorPerfect : colorDefault);
+            }
+            else
+            {
+                multiplier = 1f;
+                TintKeys(_currentPrompt == Expected.A ? colorOk : colorDefault,
+                         _currentPrompt == Expected.D ? colorOk : colorDefault);
+            }
 
-            ApplyAccepted(_pressed);
+            float resistedGain = baseGain * Mathf.Pow(1f - Mathf.Clamp01(_progress), resistance);
+            float gain = Mathf.Max(minGain, resistedGain);
 
-            if (_progress >= 1 && !_ended)
+            _progress += gain * multiplier;
+            
+            // Anim
+            if (_currentPrompt == Expected.A) 
+                SetSquish(true, false);
+            else
+                SetSquish(false, true);
+            
+            _expected = (_currentPrompt == Expected.A) ? Expected.D : Expected.A;
+            
+            // Win
+            if (_progress >= 1f && !_ended)
             {
                 Win();
                 _ended = true;
+                return;
             }
+
+            EnterResolvingPhase();
         }
 
         protected override void Wrong()
         {
+            base.Wrong();
+            
             _progress = Mathf.Max(0f, _progress - baseLoss);
-            // Deberia poner el audio aca dado que no esta el base.Wrong()?
-            // En ese caso tengo que hacer que la variable del audio sea protected
+
+            ResolveMiss();
         }
         
+        #region Strategy - Lo que hago porque no me dejas usar un switch hdp
+        
+        private void EnterWaitingPhase()
+        {
+            _phaseTimer = Random.Range(minGapBetweenPrompts, maxGapBetweenPrompts);
+            _tickPhase = TickWaiting;
+        }
+
+        private void TickWaiting()
+        {
+            _phaseTimer -= Time.deltaTime;
+            if (_phaseTimer <= 0f)
+                EnterShowingPhase();
+        }
+
+        private void EnterShowingPhase()
+        {
+            _currentPrompt = (_expected == Expected.None)
+                ? (Random.value < 0.5f ? Expected.A : Expected.D)
+                : _expected;
+
+            TintKeys(colorDefault, colorDefault);
+            keyA.gameObject.SetActive(_currentPrompt == Expected.A);
+            keyD.gameObject.SetActive(_currentPrompt == Expected.D);
+            SetKeysVisible(true, 1f);
+
+            _promptElapsed = 0f;
+            _tickPhase = TickShowing;
+        }
+
+        private void TickShowing()
+        {
+            _promptElapsed += Time.deltaTime;
+
+            bool aDown = Input.GetKeyDown(KeyCode.A);
+            bool dDown = Input.GetKeyDown(KeyCode.D);
+
+            if (aDown || dDown)
+            {
+                _lastPressed = aDown ? Expected.A : Expected.D;
+                EvaluateAction();
+                return;
+            }
+            
+            if (_promptElapsed > goodWindow) // Se le acabo el tiempo
+                ResolveMiss();
+        }
+        
+        private void EnterResolvingPhase()
+        {
+            _phaseTimer = missHold + fadeOutSeconds;
+            _fadeClock = fadeOutSeconds;
+            _tickPhase = TickResolving;
+        }
+
+        private void TickResolving()
+        {
+            _phaseTimer -= Time.deltaTime;
+            if (_phaseTimer <= 0f)
+                EnterWaitingPhase();
+        }
+        
+        #endregion
+        
+        
         #region Helpers
+        private void ResolveMiss()
+        {
+            if (_currentPrompt == Expected.A) 
+                TintKeys(colorMiss, colorDefault);
+            else                              
+                TintKeys(colorDefault, colorMiss);
+            
+            EnterResolvingPhase();
+        }
 
         private void UpdateVisuals()
         {
             if (milkBarFill) milkBarFill.fillAmount = Mathf.Clamp01(_progress);
-            if (progressBar) progressBar.SetProgress(Mathf.Max(0f, _remainingTime), _totalTime);
+            if (progressBar) progressBar.SetProgress(Mathf.Max(0f, _timeRemaining), totalTime);
+            
+            if (keysGroup && _fadeClock > 0f)
+            {
+                _fadeClock -= Time.deltaTime;
+                float fade = Mathf.Clamp01(1f - (_fadeClock / fadeOutSeconds));
+                keysGroup.alpha = 1f - fade;
+                if (_fadeClock <= 0f)
+                {
+                    SetKeysVisible(false, 0f);
+                    keyA.gameObject.SetActive(false);
+                    keyD.gameObject.SetActive(false);
+                }
+            }
         }
         
-        private void SetAnim(Animator anim, bool value)
+        private void SetSquish(bool left, bool right)
         {
-            if (anim) anim.SetBool(squishParam, value);
+            if (sideL) sideL.SetBool(squishParam, left);
+            if (sideR) sideR.SetBool(squishParam, right);
         }
 
-        private void SetKeyHints(bool aActive, bool dActive)
+        private void SetKeysVisible(bool visible, float alphaIfVisible = 1f)
         {
-            if (keyA) keyA.SetActive(aActive);
-            if (keyD) keyD.SetActive(dActive);
+            if (!keysGroup) return;
+            keysGroup.alpha = visible ? alphaIfVisible : 0f;
+            keysGroup.interactable = visible;
+            keysGroup.blocksRaycasts = visible;
         }
 
-        private float ComputeGain(float progress)
+        private void TintKeys(Color colorA, Color colorD)
         {
-            // Cuanto mas cerca del final, mas cuesta sumar
-            float resist = baseGain * Mathf.Pow(1f - Mathf.Clamp01(progress), resistance);
-            return Mathf.Max(minGain, resist);
-        }
-
-        private void ApplyAccepted(Expected pressed)
-        {
-            var next = (pressed == Expected.A) ? Expected.D : Expected.A;
-            
-            SetAnim(sideL, pressed == Expected.A);
-            SetAnim(sideR, pressed == Expected.D);
-            SetKeyHints(next == Expected.A, next == Expected.D);
-
-            _expected = next;
+            if (keyA) keyA.color = colorA;
+            if (keyD) keyD.color = colorD;
         }
         
         #endregion
