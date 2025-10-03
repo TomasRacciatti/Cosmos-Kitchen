@@ -261,7 +261,6 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -964775841984383328, guid: 34ed7a719e8cbe04a8a4dbb4669f6297, type: 3}
-  - {fileID: -8896624839919815055, guid: 34ed7a719e8cbe04a8a4dbb4669f6297, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -549,6 +548,10 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  shouldOutline: 0
+  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
+  outlineMeshes:
+  - {fileID: 4085034360820517289}
   invSystem: {fileID: 1562529459002612542}
   soTool: {fileID: 11400000, guid: 6bd9fb92e69585643999de7050adf164, type: 2}
 --- !u!114 &1562529459002612542
@@ -687,6 +690,14 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  shouldOutline: 1
+  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
+  outlineMeshes:
+  - {fileID: 5889135266426103701}
+  - {fileID: 4084502754067260346}
+  - {fileID: 4372407379090419242}
+  - {fileID: 2228262827840487158}
+  - {fileID: 7194186002352369427}
   invSystem: {fileID: 4916923003396223572}
   soTool: {fileID: 11400000, guid: 15e1c145f1114774ea858a147c1e57cd, type: 2}
 --- !u!114 &4916923003396223572
