@@ -20,16 +20,41 @@ namespace Characters.Customers
         private NPCConversation conversation;
         private CustomerState state = CustomerState.Waiting;
         
+        
+        
+        [Header("Eyes")]
+        [SerializeField] Texture2D[] eyeTex;
+        [SerializeField] Material eyeMat;
+
+        [Header("Mouth")]
+        [SerializeField] Texture2D[] mouthTex;
+        [SerializeField] Material mouthMat;
+
+        [Header("Icon")]
+        [SerializeField] Texture2D[] iconTex;
+        [SerializeField] Material iconMat;
+        
+        [Header("Refs Face")]
+        [SerializeField] private SkinnedMeshRenderer eyeMesh;
+        [SerializeField] private SkinnedMeshRenderer mouthMesh;
+        [SerializeField] private MeshRenderer iconMesh;
+        
         private enum CustomerState
         {
             Waiting,
             Ordered,
             Served
         }
-
+        
         private void Awake()
         {
             conversation = GetComponent<NPCConversation>();
+            eyeMat = new Material(eyeMat);
+            eyeMesh.material = eyeMat;
+            mouthMat = new Material(mouthMat);
+            mouthMesh.material = mouthMat;
+            iconMat = new Material(iconMat);
+            iconMesh.material = iconMat;
         }
 
         public void Interact(GameObject interactableObject)
@@ -78,6 +103,13 @@ namespace Characters.Customers
         {
             state = CustomerState.Ordered;
             customerSignal.SetSignal(1);
+        }
+        
+        public void SetExpression(int index)
+        {
+            eyeMat.SetTexture("_BaseMap", eyeTex[index]);
+            mouthMat.SetTexture("_BaseMap", mouthTex[index]);
+            iconMat.SetTexture("_BaseMap", iconTex[index]);
         }
 
         public void TestPlate()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NPCExpressions : MonoBehaviour
+public class NPCExpressions : MonoBehaviour //desuso
 {
     [Header("Eyes")]
     [SerializeField] Texture2D[] eyeTex;
@@ -28,35 +28,10 @@ public class NPCExpressions : MonoBehaviour
         iconMesh.material = iconMat;
     }
 
-    public enum Expressions
-    {
-        Happy = 0,
-        Neutral = 1,
-        Sad = 2
-    }
-
-    public void ChangeEyes(int index)
-    {
-        if (eyeMat != null && eyeTex != null && index >= 0 && index < eyeTex.Length)
-        {
-            eyeMat.SetTexture("_BaseMap", eyeTex[index]);
-        }
-        else
-        {
-            Debug.LogWarning("Algo salio mal asignando el material de los ojos :(.");
-        }
-    }
-
     public void Shuffle()
     {
         eyeMat.SetTexture("_BaseMap", eyeTex[Random.Range(0, eyeTex.Length)]);
         mouthMat.SetTexture("_BaseMap", mouthTex[Random.Range(0, mouthTex.Length)]);
         iconMat.SetTexture("_BaseMap", iconTex[Random.Range(0, iconTex.Length)]);
-    }
-
-    public void SetExpression(int index)
-    {
-        eyeMat.SetTexture("_BaseMap", eyeTex[index]);
-        iconMat.SetTexture("_BaseMap", iconTex[index]);
     }
 }
