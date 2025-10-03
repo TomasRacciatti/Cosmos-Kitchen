@@ -80,6 +80,7 @@ namespace Characters.Player
         private const float Threshold = 0.01f;
 
         public InvSystem Inventory => _inventory;
+        public PlayerInputs Input => _input;
 
         private void Awake()
         {

@@ -57,6 +57,11 @@ namespace Characters.Customers
             iconMesh.material = iconMat;
         }
 
+        private void Start()
+        {
+            SetExpression(1);
+        }
+
         public void Interact(GameObject interactableObject)
         {
             ConversationManager.Instance.StartConversation(conversation);

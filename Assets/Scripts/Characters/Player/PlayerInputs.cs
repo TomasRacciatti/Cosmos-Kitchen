@@ -55,7 +55,7 @@ namespace Characters.Player
             }
         }
 
-        private void CheckCursor()
+        public void CheckCursor()
         {
             SetCursor(inventoryOpen || menuOpen || bookOpen);
         }

@@ -1,3 +1,5 @@
+using Characters.Player;
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -63,6 +65,9 @@ public class MenuManager : MonoBehaviour
             controlsPanel.SetActive(false);
             _isOpen = true;
         }
+
+        GameManager.Player.Input.menuOpen = _isOpen;
+        GameManager.Player.Input.CheckCursor();
     }
 
     // Play
