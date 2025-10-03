@@ -16,7 +16,16 @@ namespace Characters.Customers
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private NPCSpeaker npcSpeaker;
         [SerializeField] private ClientSO soClient;
+        [SerializeField] private CustomerSignal customerSignal;
         private NPCConversation conversation;
+        private CustomerState state = CustomerState.Waiting;
+        
+        private enum CustomerState
+        {
+            Waiting,
+            Ordered,
+            Served
+        }
 
         private void Awake()
         {
@@ -31,6 +40,8 @@ namespace Characters.Customers
             GameManager.Player.SetCamera(cinemachineVirtualCamera);
             GameManager.Player.SetPositionAndRotation(playerTransform.position, playerTransform.rotation);
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
+            if (state == CustomerState.Ordered) ConversationManager.Instance.SetBool("Requested", true);
+            if (state == CustomerState.Served) ConversationManager.Instance.SetBool("Served", true);
         }
 
         public void LeaveInteraction()
@@ -63,16 +74,28 @@ namespace Characters.Customers
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(true);
         }
 
+        public void SetRequested()
+        {
+            state = CustomerState.Ordered;
+            customerSignal.SetSignal(1);
+        }
+
         public void TestPlate()
         {
             var itemTested = GameManager.Canvas.InvSystem.Items[0];
             if (!itemTested.IsEmpty && soClient.requestedSoPlate == itemTested.SoItem)
             {
                 ConversationManager.Instance.SetInt("Quality", itemTested.Rating);
+                if (itemTested.Rating >= 3)
+                {
+                    customerSignal.SetSignal(-1);
+                    state = CustomerState.Served;
+                }
             }
             else
             {
                 ConversationManager.Instance.SetInt("Quality", -1);
+                customerSignal.SetSignal(1);
             }
             GameManager.Canvas.InvSystem.ClearSlot(0);
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
