@@ -17,7 +17,6 @@ namespace Characters.Customers
         [SerializeField] private NPCSpeaker npcSpeaker;
         [SerializeField] private ClientSO soClient;
         private NPCConversation conversation;
-        
 
         private void Awake()
         {
