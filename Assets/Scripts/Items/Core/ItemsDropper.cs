@@ -1,7 +1,9 @@
 using Items.Inventory;
 using Managers;
 using Regulators;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 
 namespace Items.Core
@@ -9,6 +11,7 @@ namespace Items.Core
     public class ItemsDropper : MonoBehaviour, IDropHandler
     {
         private static ItemsDropper _instance;
+        [SerializeField] private AudioMixerGroup audioMixerGroup;
         
         public static bool IsActive => _instance.gameObject.activeSelf;
 
@@ -44,7 +47,10 @@ namespace Items.Core
             GameObject itemPickup = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, GameManager.Player.GetThrowPosition, Quaternion.identity, false);
             itemPickup.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(itemAmount));
             itemPickup.SetActive(true);
-            AudioSource.PlayClipAtPoint(PrefabsManager.ItemThrowSound, GameManager.Player.transform.position);
+            AudioSource temp = new GameObject("TempAudio").AddComponent<AudioSource>();
+            temp.spatialBlend = 0f; // 2D
+            temp.outputAudioMixerGroup = _instance.audioMixerGroup;
+            temp.PlayOneShot(PrefabsManager.ItemThrowSound);
             Rigidbody rb = itemPickup.GetComponent<Rigidbody>();
             if (rb != null)
             {
