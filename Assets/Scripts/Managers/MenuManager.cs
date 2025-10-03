@@ -21,8 +21,6 @@ public class MenuManager : MonoBehaviour
     private void Start()
     {
         _isOpen = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void ButtonSound()
