@@ -4602,53 +4602,10 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Dale te espero
+          m_StringArgument: Can't wait or that tasty apple pie!
           m_BoolArgument: 0
         m_CallState: 2
   NodeID: 3
-  TMPFont: {fileID: 0}
-  Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
-  Audio: {fileID: 0}
---- !u!114 &1605219061743883541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087465192007649731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 74675502}
-        m_TargetAssemblyTypeName: NPCExpressions, Assembly-CSharp
-        m_MethodName: SetExpression
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8380120757223060422}
-        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
-        m_MethodName: Speak
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: esta piola mi bro
-          m_BoolArgument: 0
-        m_CallState: 2
-  NodeID: 9
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
   Audio: {fileID: 0}
@@ -4738,7 +4695,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: dame plato de tal
+          m_StringArgument: Would you mind getting me an Apple Pie?
           m_BoolArgument: 0
         m_CallState: 2
   NodeID: 6
@@ -4868,49 +4825,6 @@ MonoBehaviour:
   TMPFont: {fileID: 0}
   Icon: {fileID: 0}
   Audio: {fileID: 0}
---- !u!114 &4867287754794131566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087465192007649731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8380120757223060422}
-        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
-        m_MethodName: Speak
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: ta podrido loco
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 74675502}
-        m_TargetAssemblyTypeName: NPCExpressions, Assembly-CSharp
-        m_MethodName: SetExpression
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  NodeID: 12
-  TMPFont: {fileID: 0}
-  Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
-  Audio: {fileID: 0}
 --- !u!114 &4993783760134963938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4954,7 +4868,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Hola q tal
+          m_StringArgument: 'Salutations, that''s a nice space truck you got. '
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 74675502}
@@ -4993,14 +4907,14 @@ GameObject:
   - component: {fileID: 819894487000199030}
   - component: {fileID: 2571859194995780935}
   - component: {fileID: 4572519928970956026}
-  - component: {fileID: 8490030007556724988}
   - component: {fileID: 2680918766679606385}
-  - component: {fileID: 1605219061743883541}
-  - component: {fileID: 4867287754794131566}
   - component: {fileID: 8702716946024141231}
   - component: {fileID: 8702716946024141233}
   - component: {fileID: 8702716946024141232}
   - component: {fileID: 8702716946024141234}
+  - component: {fileID: 8702716946024141237}
+  - component: {fileID: 8702716946024141236}
+  - component: {fileID: 8702716946024141235}
   m_Layer: 9
   m_Name: ConversationEventInfo
   m_TagString: Untagged
@@ -5396,49 +5310,6 @@ MonoBehaviour:
   npcSpeaker: {fileID: 74675501}
   soClient: {fileID: 11400000, guid: e94245ee59abd2647862774f54849d8d, type: 2}
   customerSignal: {fileID: 1797884501}
---- !u!114 &8490030007556724988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5087465192007649731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8380120757223060422}
-        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
-        m_MethodName: Speak
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: meh
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 74675502}
-        m_TargetAssemblyTypeName: NPCExpressions, Assembly-CSharp
-        m_MethodName: SetExpression
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  NodeID: 11
-  TMPFont: {fileID: 0}
-  Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
-  Audio: {fileID: 0}
 --- !u!114 &8702716946024141230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5504,6 +5375,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 8380120757223060422}
+        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
+        m_MethodName: Speak
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Marvelous!
+          m_BoolArgument: 0
+        m_CallState: 2
   NodeID: 8
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
@@ -5532,7 +5415,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: no es lo que te pedi
+          m_StringArgument: I said Apple Pie, darling. You must have missheard me.
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 74675502}
@@ -5575,7 +5458,8 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: buenardo
+          m_StringArgument: Damn, that Apple Pie really was perfect. Alright, thanks
+            I'm full.
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 74675502}
@@ -5594,6 +5478,125 @@ MonoBehaviour:
   TMPFont: {fileID: 0}
   Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
   Audio: {fileID: 0}
+--- !u!114 &8702716946024141235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087465192007649731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8380120757223060422}
+        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
+        m_MethodName: TestPlate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 9
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 0}
+  Audio: {fileID: 0}
+--- !u!114 &8702716946024141236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087465192007649731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8380120757223060422}
+        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
+        m_MethodName: Speak
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Not the tastiest pie I've had if I'm being honest. Care
+            to try again?
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 74675502}
+        m_TargetAssemblyTypeName: NPCExpressions, Assembly-CSharp
+        m_MethodName: SetExpression
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 11
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
+  Audio: {fileID: 0}
+--- !u!114 &8702716946024141237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5087465192007649731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00abedce3cdbbba46bf2d86c9518c9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8380120757223060422}
+        m_TargetAssemblyTypeName: Characters.Customers.Customer, Assembly-CSharp
+        m_MethodName: Speak
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: It's fine I guess. Please get me another one, I'm still
+            insatiable.
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 74675502}
+        m_TargetAssemblyTypeName: NPCExpressions, Assembly-CSharp
+        m_MethodName: SetExpression
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  NodeID: 12
+  TMPFont: {fileID: 0}
+  Icon: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
+  Audio: {fileID: 0}
 --- !u!114 &8715050896072799749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5606,29 +5609,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83189876d4d389f43b7dd2e925aa112e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentIDCounter: 11
-  json: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":81,"yPos":358},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Orden
-    Pedida","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":333,"yPos":873},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Salir","parentUIDs":[0,3,6,10,11,12,7,9],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":0}],"NodeUID":12},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":798.5,"yPos":383},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"Entregado\n","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":282,"yPos":159},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"Que
-    se le ofrece","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":705.5,"yPos":191},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Orden
-    Lista","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":427,"yPos":38},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hola
-    q tal","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":82,"yPos":450},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Dale
-    te espero","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":222.5,"yPos":238},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"dame
-    plato de tal","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":802.5,"yPos":278},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"sigo
-    esperando tu plato de tal","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":395.5,"yPos":550},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"buenardo","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":815.5,"yPos":539},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"meh","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":1034.5,"yPos":533},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"ta
-    podrido loco","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":1253,"yPos":534},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"no
-    es lo que te pedi","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":608.5,"yPos":545},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"esta
-    piola mi bro","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Client
-    0","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+  CurrentIDCounter: 13
+  json: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":-192,"yPos":323},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+    out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":88,"yPos":650},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":526.5,"yPos":348},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"Apple
+    pie for you, sir!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":9,"yPos":124},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+    can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":372.5,"yPos":125},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+    up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":154,"yPos":3},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Salutations,
+    that''s a nice space truck you got. ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-192,"yPos":415},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Can''t
+    wait or that tasty apple pie!","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-50.5,"yPos":203},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Would
+    you mind getting me an Apple Pie?","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":529.5,"yPos":243},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"Marvelous!","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":808.5,"yPos":432},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"Damn,
+    that Apple Pie really was perfect. Alright, thanks I''m full.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":386.5,"yPos":431},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Not
+    the tastiest pie I''ve had if I''m being honest. Care to try again?","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":165,"yPos":432},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+    said Apple Pie, darling. You must have missheard me.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":598,"yPos":432},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"It''s
+    fine I guess. Please get me another one, I''m still insatiable.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
   saveVersion: 110
-  DefaultName: Client 0
+  DefaultName: Ozone
   DefaultSprite: {fileID: 21300000, guid: 75c6643c6d90b9b499e4c5e6539b02f9, type: 3}
   DefaultFont: {fileID: 0}
   NodeSerializedDataList:
@@ -5636,14 +5631,14 @@ MonoBehaviour:
   - {fileID: 4325936995681874967}
   - {fileID: 5126460509507269509}
   - {fileID: 1302743079072344687}
-  - {fileID: 8490030007556724988}
   - {fileID: 2680918766679606385}
-  - {fileID: 1605219061743883541}
-  - {fileID: 4867287754794131566}
   - {fileID: 8702716946024141231}
   - {fileID: 8702716946024141233}
   - {fileID: 8702716946024141232}
   - {fileID: 8702716946024141234}
+  - {fileID: 8702716946024141237}
+  - {fileID: 8702716946024141236}
+  - {fileID: 8702716946024141235}
   ContinueFont: {fileID: 0}
   EndConversationFont: {fileID: 0}
   Event:
@@ -5658,7 +5653,8 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: no es lo que te pedi
+          m_StringArgument: Damn, that Apple Pie really was perfect. Alright, thanks
+            I'm full.
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 74675502}
@@ -5668,7 +5664,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
