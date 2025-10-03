@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Items.Core;
 using UnityEngine;
 
 public class CheatEngine : MonoBehaviour
@@ -8,6 +9,7 @@ public class CheatEngine : MonoBehaviour
     [SerializeField] GameObject[] _platePrefabs;
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.F1))
         {
             AddPlate(0);
@@ -46,29 +48,20 @@ public class CheatEngine : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            AddIngredient(2);
+            
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            AddIngredient(3);
+            
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            AddIngredient(4);
-        }
+            
+        }*/
     }
 
-    private void AddIngredient(int i)
+    private void AddItem(SoItem item)
     {
-        GameObject ingredient = Instantiate(_ingredientPrefabs[i]);
-        ingredient.GetComponent<IngredientScript>().SetIngredientQuality(5);
-        InventoryManager._instance.Add(ingredient);
-    }
-
-    private void AddPlate(int i)
-    {
-        GameObject plate = Instantiate(_platePrefabs[i]);
-        plate.GetComponent<PlateScript>().GetIngredients();
-        InventoryManager._instance.Add(plate);
+        
     }
 }

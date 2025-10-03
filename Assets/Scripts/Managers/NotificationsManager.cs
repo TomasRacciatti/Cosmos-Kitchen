@@ -1,5 +1,5 @@
-using HUD;
 using Regulators;
+using UI;
 using UnityEngine;
 
 namespace Managers
@@ -19,7 +19,7 @@ namespace Managers
 
         public static void NewNotification(string text, Sprite sprite)
         {
-            GameObject notification = ObjectPool.SpawnObject(PrefabsManager.NotificationPrefabUI, Vector3.zero, Quaternion.identity);
+            GameObject notification = ObjectPool.SpawnObject(PrefabsManager.NotificationPrefabUI, Vector3.one, Quaternion.identity);
             notification.GetComponent<Notification>().SetNotification(text, sprite);
             notification.transform.SetParent(_instance.transform, false);
             notification.transform.localScale = Vector3.one;

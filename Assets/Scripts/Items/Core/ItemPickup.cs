@@ -4,6 +4,7 @@ using Items.Inventory;
 using Managers;
 using Regulators;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Items.Core
 {
@@ -16,6 +17,7 @@ namespace Items.Core
         [SerializeField] private MeshFilter meshFilter;
         [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private Transform interactionPoint;
+        [SerializeField] private AudioMixerGroup audioMixerGroup;
         
         public Transform InteractionPoint => interactionPoint ? interactionPoint : transform;
         
@@ -61,6 +63,7 @@ namespace Items.Core
             {
                 AudioSource temp = new GameObject("TempAudio").AddComponent<AudioSource>();
                 temp.spatialBlend = 0f; // 2D
+                temp.outputAudioMixerGroup = audioMixerGroup;
                 temp.PlayOneShot(PrefabsManager.ItemPickupSound);
                 Destroy(temp.gameObject, PrefabsManager.ItemPickupSound.length);
             }

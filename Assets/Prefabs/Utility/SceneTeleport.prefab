@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.95, z: 0}
-  m_LocalScale: {x: 3, y: 0.1, z: 3}
+  m_LocalScale: {x: 2, y: 0.1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2467499075706331012}
@@ -120,7 +120,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 2}
+  m_AnchoredPosition: {x: 0, y: 1.283}
   m_SizeDelta: {x: 5, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9148497466877799855
@@ -387,7 +387,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.5, y: 1.8, z: 2.5}
+  m_Size: {x: 1.5, y: 1.8, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8603047448474776517
 MonoBehaviour:
@@ -431,5 +431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e151a608d82e4704aa2ea204786b883a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activateCursor: 0
   sceneName: MainMenuScene
   textMesh: {fileID: 6984586447466080560}

@@ -45,7 +45,9 @@ namespace Characters.Player
 
                     ClearActiveInteractable();
                     activeInteractable = interactable;
+                    if (activeInteractable == null) return;
                     activeInteractable?.EnableInteract();
+                    InteractButton.Show();
                     return;
                 }
             }
@@ -57,6 +59,7 @@ namespace Characters.Player
         {
             if (activeInteractable == null) return;
             activeInteractable.DisableInteract();
+            InteractButton.Hide();
             activeInteractable = null;
         }
     }

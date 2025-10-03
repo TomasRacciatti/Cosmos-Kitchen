@@ -127,12 +127,14 @@ namespace Regulators
                 spawnableObject = pool.InactiveObjects.Dequeue();
                 spawnableObject.transform.position = position;
                 spawnableObject.transform.rotation = rotation;
-                spawnableObject.SetActive(active);
             }
             else
             {
                 spawnableObject = NewObject(prefab, position, rotation, false);
+                spawnableObject.SetActive(false);
             }
+
+            spawnableObject.SetActive(active);
             return spawnableObject;
         }
 

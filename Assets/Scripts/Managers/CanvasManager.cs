@@ -1,7 +1,5 @@
-using System;
 using Book;
 using Items.Inventory;
-using MiniGames;
 using UnityEngine;
 
 namespace Managers
@@ -12,10 +10,14 @@ namespace Managers
         
         [SerializeField] private InvManager invManager;
         [SerializeField] private BookHandler bookHandler;
-        [SerializeField] private GameObject pauseMenuUI;
-        [SerializeField] private MiniGamesUIManager miniGamesUI;
+        [SerializeField] private MenuManager pauseMenuUI;
+        
+        [Header("Deliever")]
+        [SerializeField] private InvSlotUI invSlotUI;
+        [SerializeField] private InvSystem invSystem;
         public InvManager InvManager => invManager;
-        public MiniGamesUIManager MiniGamesUI => miniGamesUI;
+        public InvSlotUI InvSlotUI => invSlotUI;
+        public InvSystem InvSystem => invSystem;
 
         private void Awake()
         {
@@ -33,6 +35,12 @@ namespace Managers
         {
             GameManager.RegisterCanvas(this);
         }
+
+        public bool TogglePauseMenu()
+        {
+            pauseMenuUI.ToggleMainMenu();
+            return pauseMenuUI.Open;
+        }
         
         public bool ToggleInventory()
         {
@@ -42,11 +50,6 @@ namespace Managers
         public bool ToggleBook()
         {
             return bookHandler.ToggleBook();
-        }
-        
-        public bool ToggleMenu()
-        {
-            return false; //logica
         }
     }
 }

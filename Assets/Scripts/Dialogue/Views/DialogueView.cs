@@ -1,5 +1,6 @@
 using System;
 using Characters.Player;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -82,6 +83,8 @@ namespace Dialogue.Views
             panel?.SetActive(true);
             plateReceiver?.SetActive(true);
             PlayerInputs.SetCursor(true);
+            // Bloquear input
+            GameManager.Player.SetMoveActive(false);
         }
 
         private void OnClosed()
@@ -91,6 +94,8 @@ namespace Dialogue.Views
             retryButton?.SetActive(false);
             plateReceiver?.SetActive(false);
             PlayerInputs.SetCursor(false);
+            // Restablecer input
+            GameManager.Player.SetMoveActive(true);
         }
 
         private void OnLineChanged(string line)

@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: RigNPC|NPC_Idle
+      name: NPC_Idle
       takeName: RigNPC|NPC_Idle
       internalID: 7698445746645445160
       firstFrame: 0
@@ -62,7 +62,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_Idle_Stretch (1)
+      name: NPC_Idle_Stretch
       takeName: RigNPC|NPC_Idle_Stretch
       internalID: 3934819668841411177
       firstFrame: 0
@@ -91,7 +91,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_Ordering
+      name: NPC_Ordering
       takeName: RigNPC|NPC_Ordering
       internalID: 2120559156444960814
       firstFrame: 0
@@ -120,7 +120,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_React-Happy
+      name: NPC_React-Happy
       takeName: RigNPC|NPC_React-Happy
       internalID: -5743659279805832116
       firstFrame: 0
@@ -149,7 +149,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_React-Unhappy
+      name: NPC_React-Unhappy
       takeName: RigNPC|NPC_React-Unhappy
       internalID: 8801091333540851825
       firstFrame: 0
@@ -178,18 +178,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_Sitting
+      name: NPC_Sitting
       takeName: RigNPC|NPC_Sitting
       internalID: -5837668071483723014
       firstFrame: 0
-      lastFrame: 0
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -207,7 +207,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_TPose
+      name: NPC_TPose
       takeName: RigNPC|NPC_TPose
       internalID: 5644142890499722788
       firstFrame: 0
@@ -236,7 +236,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: RigNPC|NPC_Walk
+      name: NPC_Walk
       takeName: RigNPC|NPC_Walk
       internalID: -4607730470454165021
       firstFrame: 0
@@ -247,7 +247,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

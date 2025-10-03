@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Characters.Player;
 using Interfaces;
 using Items.Inventory;
@@ -6,83 +7,106 @@ using Items.Tools;
 using Managers;
 using Regulators;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Stations
 {
-    public class Station : MonoBehaviour, IInteractable
+    public abstract class Station : MonoBehaviour, IInteractable
     {
         public Transform InteractionPoint => transform;
         
-        [SerializeField] private InvSystem invSystem;
+        [Header("VFX")]
+        [SerializeField] private AnimationClip openAnimation;
+        [SerializeField] private AnimationClip closeAnimation;
+        [Header("Canvas")]
         [SerializeField] private GameObject canvas;
-        [SerializeField] private SoTool soTool;
         
-        private GameObject canvasInstance;
+        [Header("Outline")]
+        [SerializeField] private Material outlineMat;
+        [SerializeField] private MeshRenderer[] outlineMeshes;
+        
+        protected GameObject CanvasInstance;
+        private Animator animator;
 
-        private void Awake()
+        protected virtual void Awake()
         {
-            if (!invSystem) invSystem = GetComponent<InvSystem>();
+            animator = GetComponent<Animator>();
+            
+            if (outlineMat)
+            {
+                outlineMat = new Material(outlineMat);
+                for (int i = 0; i < outlineMeshes.Length; i++)
+                {
+                    Renderer rend = outlineMeshes[i];
+                    if (!rend) continue;
+
+                    var mats = new List<Material>(rend.materials);
+                    mats.Add(outlineMat);
+                    
+                    rend.materials = mats.ToArray();
+                }
+                
+                outlineMat.SetFloat("_Intensity", 0);
+            }
         }
 
         public void Interact(GameObject interactableObject)
         {
-            canvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
-            InvView invView = canvasInstance.GetComponentInChildren<InvView>();
-            invView.SetInventory(invSystem);
-            GameManager.Player.SetInputActive(false);
-            GameManager.Canvas.InvManager.ForceInventory(true);
-            PlayerInputs.SetCursor(true);
-            Button button = canvasInstance.GetComponentInChildren<Button>();
-            print(button.gameObject.name);
-            button.onClick.AddListener(UseTool);
+            EnterStation();
         }
 
         private void Update()
         {
-            if (canvasInstance && Input.GetKeyDown(KeyCode.Escape))
+            if (CanvasInstance && Input.GetKeyDown(KeyCode.Escape))
             {
                 LeaveStation();
             }
         }
 
-        private void LeaveStation()
+        protected virtual void EnterStation()
         {
-            ObjectPool.ReturnObjectToPool(canvasInstance);
+            CanvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
+            GameManager.Player.SetInputActive(false);
+            GameManager.Canvas.InvManager.ForceInventory(true);
+            PlayerInputs.SetCursor(true);
+        }
+
+        protected virtual void LeaveStation()
+        {
+            ObjectPool.ReturnObjectToPool(CanvasInstance);
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.ForceInventory(false);
             PlayerInputs.SetCursor(false);
-            Button button = canvasInstance.GetComponentInChildren<Button>();
-            button.onClick.RemoveListener(UseTool);
-            canvasInstance = null;
-        }
-
-        public void UseTool()
-        {
-            for (int i = 0; i < invSystem.Items.Count; i++)
-            {
-                var item = invSystem.Items[i];
-                if (item.IsEmpty) continue;
-
-                foreach (var tool in item.SoItem.Tools)
-                {
-                    if (tool.tool != soTool) continue;
-                    item.SetItem(tool.item);
-                    invSystem.NotifySlotChanged(i);
-                    break;
-                }
-            }
+            CanvasInstance = null;
         }
 
         public void EnableInteract()
         {
+            if (outlineMat && outlineMeshes.Length > 0)
+            {
+                outlineMat.SetFloat("_Intensity", 1);
+            }
             
+            if (!animator) return;
+            if (!openAnimation) return;
+            
+            animator.Play(openAnimation.name, 0, 
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
 
         public void DisableInteract()
         {
             
+            if (outlineMat && outlineMeshes.Length > 0)
+            {
+                for (int i = 0; i < outlineMeshes.Length; i++)
+                    outlineMat.SetFloat("_Intensity", 0);
+            }
+            
+            if (!animator) return;
+            if (!closeAnimation) return;
+            animator.Play(closeAnimation.name, 0, 
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
     }
 }

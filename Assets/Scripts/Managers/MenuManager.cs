@@ -1,3 +1,5 @@
+using Characters.Player;
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -16,13 +18,11 @@ public class MenuManager : MonoBehaviour
     [SerializeField] AudioClip UICOpenSound;
     [SerializeField] AudioClip UICloseSound;
 
-
-
+    public bool Open => _isOpen;
+    
     private void Start()
     {
         _isOpen = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     public void ButtonSound()
@@ -53,9 +53,6 @@ public class MenuManager : MonoBehaviour
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
             _isOpen = false;
-            InputManager._instance.ResumeAll();
-            InputManager._instance.ResumeInput();
-            InputManager._instance.SwitchMouselock();
         }
         else
         {
@@ -67,10 +64,10 @@ public class MenuManager : MonoBehaviour
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
             _isOpen = true;
-            InputManager._instance.UnlockMouse();   //algo aca no anda en el main con el boton de exit
-            InputManager._instance.StopAll();
-            InputManager._instance.StopInput();
         }
+
+        GameManager.Player.Input.menuOpen = _isOpen;
+        GameManager.Player.Input.CheckCursor();
     }
 
     // Play

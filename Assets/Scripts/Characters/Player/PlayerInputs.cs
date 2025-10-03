@@ -2,6 +2,7 @@ using System;
 using Items.Core;
 using Managers;
 using Regulators;
+using UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,6 +11,8 @@ namespace Characters.Player
     public class PlayerInputs : MonoBehaviour
     {
         public bool active = true;
+        
+        public bool canMove = true;
         
         [Header("Character Input Values")]
         public Vector2 move;
@@ -42,11 +45,13 @@ namespace Characters.Player
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                CrosshairManager.ShowCrosshair(false);
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                CrosshairManager.ShowCrosshair(true);
             }
         }
 
@@ -54,24 +59,33 @@ namespace Characters.Player
         {
             SetCursor(inventoryOpen || menuOpen || bookOpen);
         }
+
+        public void SetCanMove(bool value)
+        {
+            canMove = value;
+            if (value) return;
+            move = Vector2.zero;
+            look = Vector2.zero;
+        }
         
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            move = active ? value.Get<Vector2>() : Vector2.zero;
+            move = !active || !canMove ? Vector2.zero : value.Get<Vector2>();
         }
 
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = ActiveAndNoHUD ? value.Get<Vector2>() : Vector2.zero;
+            look = ActiveAndNoHUD && canMove ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
         {
+            /*
             if (!active) return;
             jump = value.isPressed;
-            if (jump) _playerController.Jump();
+            if (jump) _playerController.Jump();*/
         }
 
         public void OnSprint(InputValue value)
@@ -105,7 +119,7 @@ namespace Characters.Player
         {
             if (!active || !value.isPressed) return;
             
-            
+            menuOpen = GameManager.Canvas.TogglePauseMenu();
             
             CheckCursor();
         }

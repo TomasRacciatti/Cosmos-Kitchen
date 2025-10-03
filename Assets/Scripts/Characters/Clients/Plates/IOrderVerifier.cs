@@ -16,9 +16,7 @@ namespace Characters.Clients.Plates
             if (requestedPlate != delivered.SoItem)
                 return OrderOutcome.Wrong;
 
-            return (delivered.TryGetStarRating(out var rating) && rating == StarRating.Gold)
-                ? OrderOutcome.Perfect
-                : OrderOutcome.Delivered;
+            return delivered.Rating == 3 ? OrderOutcome.Perfect : OrderOutcome.Delivered;
         }
     }
 }

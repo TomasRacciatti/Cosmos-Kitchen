@@ -462,13 +462,13 @@ GameObject:
   - component: {fileID: 1446330566177993425}
   - component: {fileID: 6616275251559722492}
   - component: {fileID: 6984543861324747578}
-  - component: {fileID: 6323280425407783674}
-  - component: {fileID: 629151500406145088}
+  - component: {fileID: 1916922447169902803}
   - component: {fileID: 5131389211997789397}
+  - component: {fileID: 629151500406145088}
   m_Layer: 0
   m_Name: Corn
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -528,7 +528,7 @@ MonoBehaviour:
   audioCue: {fileID: 11400000, guid: a62337e68ed6761459f2eb9a5d186e5d, type: 2}
   minPitch: 0.9
   maxPitch: 1.7
---- !u!114 &6323280425407783674
+--- !u!114 &1916922447169902803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -537,24 +537,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2259036044150466667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36616a7433d4b088c8952c68067b37d, type: 3}
+  m_Script: {fileID: 11500000, guid: d82636afd14c432faf351b36f7fbea91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   rewardedItem: {fileID: 11400000, guid: 58b7e959f70a9744cb3fa310d5c361c9, type: 2}
   rewardedAmount: 1
-  cooldownTime: 20
+  cooldownTime: 30
   dropTransform: {fileID: 5487162102716607467}
-  interactionPoint: {fileID: 0}
-  difficulty: 1
-  scaleDifficulty: 0.1
-  miniGameType: {fileID: 0}
-  enterSound: {fileID: 0}
-  leaveSound: {fileID: 0}
-  winSound: {fileID: 0}
-  loseSound: {fileID: 0}
-  correctSound: {fileID: 0}
-  wrongSound: {fileID: 0}
-  onCooldown:
+  interactionPoint: {fileID: 5487162102716607467}
+  minigame: {fileID: 0}
+  onStartCooldown:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1962047956210697184}
@@ -584,6 +576,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &5131389211997789397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2259036044150466667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e36302d8c1f5be44c884d4f6c8d02ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 5
+  bendAngle: 10
 --- !u!82 &629151500406145088
 AudioSource:
   m_ObjectHideFlags: 0
@@ -595,7 +601,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2651862625002983832, guid: 5ee51f32adea3fa4c966d529e3b2971f,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 445da2bac1aae014a97f22a8e76531e1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2f5d007b1acc25642af132fb9ee13f48, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -681,20 +687,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5131389211997789397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2259036044150466667}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e36302d8c1f5be44c884d4f6c8d02ccf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 5
-  bendAngle: 10
 --- !u!1 &3582945721586343390
 GameObject:
   m_ObjectHideFlags: 0

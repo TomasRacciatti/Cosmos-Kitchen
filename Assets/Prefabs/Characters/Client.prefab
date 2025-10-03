@@ -324,7 +324,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientData: {fileID: 0}
-  requestedPlate: {fileID: 0}
   animator: {fileID: 6261576995520089188}
   signal: {fileID: 2262415584467760747}
   questionSprite: {fileID: 21300000, guid: 38b0d5eb4249c2b4ea62f899c222c14f, type: 3}
@@ -557,7 +556,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1008444671111868203}
-  - component: {fileID: 3094838119695390349}
   m_Layer: 0
   m_Name: Signal
   m_TagString: Untagged
@@ -581,19 +579,6 @@ Transform:
   - {fileID: 5604666875746865160}
   m_Father: {fileID: 3139577488312221462}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3094838119695390349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2262415584467760747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d745dc5b7e6960a448e211cdc1742643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCamera: {fileID: 0}
 --- !u!1 &2283655032277215327
 GameObject:
   m_ObjectHideFlags: 0

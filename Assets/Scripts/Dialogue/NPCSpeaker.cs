@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class NPCSpeaker : MonoBehaviour
 {
-    [Header("Nombre y dialogos")]
-    public string npcName = "NPC";
-    public DialogLine[] lines;
-
     [Header("Ratio de blips")]
     [Range(0f, 1f)] public float ratio = 0.5f;
     public float gapSeconds = 0.08f;
