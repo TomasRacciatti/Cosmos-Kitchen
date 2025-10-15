@@ -119,6 +119,11 @@ namespace Characters.Customers
             iconMat.SetTexture("_BaseMap", iconTex[index]);
         }
 
+        public void SetCriticScore()
+        {
+            ConversationManager.Instance.SetInt("Score", GameManager.Player.score);
+        }
+
         public void TestPlate()
         {
             var itemTested = GameManager.Canvas.InvSystem.Items[0];
@@ -130,6 +135,7 @@ namespace Characters.Customers
                     customerSignal.SetSignal(-1);
                     state = CustomerState.Served;
                     PlatesOrdered.RemoveCustomer(this);
+                    GameManager.Player.score += !soClient.isCritic ? 1 : 10;
                 }
             }
             else

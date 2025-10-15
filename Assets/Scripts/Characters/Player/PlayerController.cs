@@ -82,6 +82,8 @@ namespace Characters.Player
         public InvSystem Inventory => _inventory;
         public PlayerInputs Input => _input;
 
+        public int score = 0;
+
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();

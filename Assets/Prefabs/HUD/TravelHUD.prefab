@@ -330,7 +330,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4273766695182154054}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NavigationPanelManager, Assembly-CSharp
         m_MethodName: Travel
         m_Mode: 1
@@ -809,7 +809,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4273766695182154054}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NavigationPanelManager, Assembly-CSharp
         m_MethodName: ShowClients
         m_Mode: 1
@@ -908,8 +908,6 @@ GameObject:
   m_Component:
   - component: {fileID: 658359775463694350}
   - component: {fileID: 5295240907651008544}
-  - component: {fileID: 5381347629669585251}
-  - component: {fileID: 4273766695182154054}
   m_Layer: 5
   m_Name: TravelHUD
   m_TagString: Untagged
@@ -945,92 +943,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1932810971629291245}
   m_CullTransparentMesh: 1
---- !u!114 &5381347629669585251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932810971629291245}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!114 &4273766695182154054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932810971629291245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d46d7042faa51c40a32ee03dd4d28b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetData: {fileID: 4591065642583499071}
-  _planetBlocked: {fileID: 71616456214281508}
-  _travelButton: {fileID: 341388798139317819}
-  _clientsCompleted: 0
-  _currentPlanet: Eorth
-  _ingredientPrefab: {fileID: 5169733437603855714, guid: 6ca6b005e8368894e8cd8384eca73195,
-    type: 3}
-  _clientPrefab: {fileID: 1426185997454833356, guid: df7e0a3f7a5d7424aa23462f72366d2b,
-    type: 3}
-  _prefabSpawnpoint: {fileID: 28418114719266720}
-  _planetInfoName: {fileID: 7539016790185404708}
-  _planetInfoDescription: {fileID: 4853444434521206954}
-  _planetInfoImage: {fileID: 3782895329688790587}
-  _progressBarText: {fileID: 5558420366035416027}
-  _progressBar: {fileID: 1896569501104081025}
-  _eorthIngredients:
-  - {fileID: 11400000, guid: 7f84c8d42c14926429b8470bc4a14f1c, type: 2}
-  - {fileID: 11400000, guid: d447f436e56e231449a7d011a283ccd9, type: 2}
-  - {fileID: 11400000, guid: 1ffc363bd5788ad47ad865a5c3966935, type: 2}
-  - {fileID: 11400000, guid: 8c04d9ccfa6d9184ca7e4cd64b1a5239, type: 2}
-  - {fileID: 11400000, guid: c03cfb7ce0e21724f8d8b422349fa0e4, type: 2}
-  _eorthClients: []
-  _desertIngredients: []
-  _isDesertUnlocked: 0
-  _desertClientUnlock: 3
-  _volcanoIngredients: []
-  _isVolcanoUnlocked: 0
-  _volcanoClientUnlock: 15
-  _frozenIngredients: []
-  _isFrozenUnlocked: 0
-  _frozenClientUnlock: 12
-  _oceanIngredients: []
-  _isOceanUnlocked: 0
-  _oceanClientUnlock: 6
-  _currentPrefabs: []
-  _clients: []
-  TravelSound: {fileID: 8300000, guid: fe4fc2ae3394a6b478e420f646508e33, type: 3}
-  SelectSound: {fileID: 8300000, guid: 8eae6f4fb29433348b988fc6fe3c0a9e, type: 3}
-  DeniedSound: {fileID: 8300000, guid: eaa10f92f4e78694cb822e068e884097, type: 3}
-  PlanetInfoSound: {fileID: 8300000, guid: eac4caa23a310164d8bc1833dd72173a, type: 3}
-  PlanetInfoDeniedSound: {fileID: 8300000, guid: eac4caa23a310164d8bc1833dd72173a,
-    type: 3}
-  ClientListSound: {fileID: 8300000, guid: 73fef43882e3ceb41aded5418b676d6a, type: 3}
-  IngredientListSound: {fileID: 8300000, guid: 25c982bb2f227194caf797db42badac7, type: 3}
 --- !u!1 &2056420455503686556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,7 +954,6 @@ GameObject:
   - component: {fileID: 3793381503742685616}
   - component: {fileID: 8554886003534422590}
   - component: {fileID: 321008258019410240}
-  - component: {fileID: 6453178813437226835}
   m_Layer: 5
   m_Name: Desert
   m_TagString: Untagged
@@ -1108,22 +1019,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6453178813437226835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2056420455503686556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74756a88e1b080449a90cf1792f94f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetPopUp: {fileID: 3753320209453354801}
-  _planetName: Desert
-  _planetDescription: Arid wasteland, hopefuly you can land somewhere near an Oasis!
-  _planetIcon: {fileID: 76719501, guid: 473fa286b653dab4f8e8d2c67c6248f8, type: 3}
 --- !u!1 &2366158907412291310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1105,6 @@ GameObject:
   - component: {fileID: 8247151079289790636}
   - component: {fileID: 7937140724073274331}
   - component: {fileID: 7066900208141003234}
-  - component: {fileID: 6628600010826313038}
   m_Layer: 5
   m_Name: Frozen
   m_TagString: Untagged
@@ -1231,7 +1125,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3166373611644203477}
-  - {fileID: 6421953785004720585}
   m_Father: {fileID: 1330375474865683217}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
@@ -1277,23 +1170,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6628600010826313038
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570146484667672559}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74756a88e1b080449a90cf1792f94f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetPopUp: {fileID: 2010152833763868968}
-  _planetName: Frozen
-  _planetDescription: Freezing cold once this place was known for having the most
-    beautiful gems.
-  _planetIcon: {fileID: 1360695259, guid: 473fa286b653dab4f8e8d2c67c6248f8, type: 3}
 --- !u!1 &2772938763620530800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2539,81 +2415,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &4900141496744342946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6421953785004720585}
-  - component: {fileID: 363085722293706860}
-  - component: {fileID: 5696492519930327330}
-  m_Layer: 5
-  m_Name: Moon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6421953785004720585
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4900141496744342946}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8247151079289790636}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 49.899994, y: 49.900032}
-  m_SizeDelta: {x: 20, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &363085722293706860
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4900141496744342946}
-  m_CullTransparentMesh: 1
---- !u!114 &5696492519930327330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4900141496744342946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bdd55efa2a38b00409e5a869213625a3, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4942784356840318958
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,7 +2785,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4273766695182154054}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: NavigationPanelManager, Assembly-CSharp
         m_MethodName: ShowIngredients
         m_Mode: 1
@@ -3292,7 +3093,6 @@ GameObject:
   - component: {fileID: 7234137168306395849}
   - component: {fileID: 632468535103758814}
   - component: {fileID: 6653493152045232532}
-  - component: {fileID: 3097826783069857997}
   m_Layer: 5
   m_Name: Volcan
   m_TagString: Untagged
@@ -3358,22 +3158,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3097826783069857997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7230577813495677548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74756a88e1b080449a90cf1792f94f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetPopUp: {fileID: 2606163033603999195}
-  _planetName: Volcano
-  _planetDescription: Completely covered in lava, this place is very hot.
-  _planetIcon: {fileID: 2132046391, guid: 473fa286b653dab4f8e8d2c67c6248f8, type: 3}
 --- !u!1 &7546784837732414946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3539,7 +3323,6 @@ GameObject:
   - component: {fileID: 5849650530639529358}
   - component: {fileID: 1059599878706304596}
   - component: {fileID: 7406525583538530084}
-  - component: {fileID: 8661024966445001754}
   m_Layer: 5
   m_Name: Ocean
   m_TagString: Untagged
@@ -3609,23 +3392,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8661024966445001754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7767291433738295730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74756a88e1b080449a90cf1792f94f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetPopUp: {fileID: 6646537944700423608}
-  _planetName: Ocean
-  _planetDescription: Covered in water, this gentle giant houses beautiful corals
-    in it's bottom.
-  _planetIcon: {fileID: -762836499, guid: 473fa286b653dab4f8e8d2c67c6248f8, type: 3}
 --- !u!1 &7788847330205433718
 GameObject:
   m_ObjectHideFlags: 0
@@ -3847,7 +3613,6 @@ GameObject:
   - component: {fileID: 3277335413147172029}
   - component: {fileID: 6142191843311865480}
   - component: {fileID: 2599457705043080489}
-  - component: {fileID: 595709173073985082}
   m_Layer: 5
   m_Name: Eorth
   m_TagString: Untagged
@@ -3913,22 +3678,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &595709173073985082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580087039469341620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74756a88e1b080449a90cf1792f94f37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _planetPopUp: {fileID: 6305273138698191223}
-  _planetName: Eorth
-  _planetDescription: Home planet of the Human race.
-  _planetIcon: {fileID: -2139119715, guid: 473fa286b653dab4f8e8d2c67c6248f8, type: 3}
 --- !u!1 &8971333559771727650
 GameObject:
   m_ObjectHideFlags: 0
@@ -4289,12 +4038,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a56e3266f69d774c874485825db6436, type: 3}
---- !u!1 &6305273138698191223 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4639696728038148562, guid: 2a56e3266f69d774c874485825db6436,
-    type: 3}
-  m_PrefabInstance: {fileID: 1721315229346465957}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7463753070182117770 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8104162433331181871, guid: 2a56e3266f69d774c874485825db6436,
@@ -4446,12 +4189,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a56e3266f69d774c874485825db6436, type: 3}
---- !u!1 &6646537944700423608 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4639696728038148562, guid: 2a56e3266f69d774c874485825db6436,
-    type: 3}
-  m_PrefabInstance: {fileID: 2044278659883697258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7793892947623329093 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8104162433331181871, guid: 2a56e3266f69d774c874485825db6436,
@@ -4609,12 +4346,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a56e3266f69d774c874485825db6436, type: 3}
---- !u!1 &2010152833763868968 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4639696728038148562, guid: 2a56e3266f69d774c874485825db6436,
-    type: 3}
-  m_PrefabInstance: {fileID: 6595236664631363834}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3166373611644203477 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8104162433331181871, guid: 2a56e3266f69d774c874485825db6436,
@@ -4788,12 +4519,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 7226431249311140873}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2606163033603999195 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4639696728038148562, guid: 2a56e3266f69d774c874485825db6436,
-    type: 3}
-  m_PrefabInstance: {fileID: 7226431249311140873}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8391889800491337443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4963,12 +4688,6 @@ PrefabInstance:
 --- !u!224 &288863162680721356 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8104162433331181871, guid: 2a56e3266f69d774c874485825db6436,
-    type: 3}
-  m_PrefabInstance: {fileID: 8391889800491337443}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3753320209453354801 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4639696728038148562, guid: 2a56e3266f69d774c874485825db6436,
     type: 3}
   m_PrefabInstance: {fileID: 8391889800491337443}
   m_PrefabAsset: {fileID: 0}

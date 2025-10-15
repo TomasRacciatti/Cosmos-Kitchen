@@ -19,7 +19,7 @@ namespace Stations
         [SerializeField] private AnimationClip openAnimation;
         [SerializeField] private AnimationClip closeAnimation;
         [Header("Canvas")]
-        [SerializeField] private GameObject canvas;
+        [SerializeField] protected GameObject canvas;
         
         [Header("Outline")]
         [SerializeField] private Material outlineMat;
