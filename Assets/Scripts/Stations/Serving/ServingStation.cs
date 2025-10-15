@@ -25,12 +25,14 @@ namespace Stations.Serving
                 servUIManager.inputView.SetInventory(inputInventory);
                 servUIManager.outputView.SetInventory(outputInventory);
             }
+            PlatesOrdered.Show();
         }
 
         protected override void LeaveStation()
         {
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.RemoveListener(TryCraftPlate);
+            PlatesOrdered.Hide();
             base.LeaveStation();
         }
 

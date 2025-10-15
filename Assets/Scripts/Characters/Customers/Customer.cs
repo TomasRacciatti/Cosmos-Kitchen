@@ -1,5 +1,6 @@
 using System;
 using Characters.Clients;
+using Characters.Clients.Plates;
 using Characters.Player;
 using Cinemachine;
 using DialogueEditor;
@@ -15,7 +16,7 @@ namespace Characters.Customers
         [SerializeField] private Transform playerTransform;
         [SerializeField] private CinemachineVirtualCamera cinemachineVirtualCamera;
         [SerializeField] private NPCSpeaker npcSpeaker;
-        [SerializeField] private ClientSO soClient;
+        [SerializeField] public ClientSO soClient;
         [SerializeField] private CustomerSignal customerSignal;
         private NPCConversation conversation;
         private CustomerState state = CustomerState.Waiting;
@@ -108,6 +109,7 @@ namespace Characters.Customers
         {
             state = CustomerState.Ordered;
             customerSignal.SetSignal(1);
+            PlatesOrdered.AddCustomer(this);
         }
         
         public void SetExpression(int index)
@@ -127,6 +129,7 @@ namespace Characters.Customers
                 {
                     customerSignal.SetSignal(-1);
                     state = CustomerState.Served;
+                    PlatesOrdered.RemoveCustomer(this);
                 }
             }
             else
