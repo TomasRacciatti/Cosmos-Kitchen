@@ -10,7 +10,7 @@ namespace Stations
     {
         protected override void EnterStation()
         {
-            if (GameManager.Player.score >= 10)
+            if (GameManager.Player.GetScore() >= 10)
             {
                 SceneManager.LoadScene("Desert");
             }

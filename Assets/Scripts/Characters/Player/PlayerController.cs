@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Characters.Customers;
 using Cinemachine;
 using Interfaces;
 using Items.Inventory;
@@ -82,7 +84,26 @@ namespace Characters.Player
         public InvSystem Inventory => _inventory;
         public PlayerInputs Input => _input;
 
-        public int score = 0;
+        private int _score = 0;
+
+        public List<Customer> critics = new();
+
+        public void AddScore(int score)
+        {
+            _score += score;
+            if (_score > 3)
+            {
+                foreach (var critic in critics)
+                {
+                    critic.SetCriticSignal();
+                }
+            }
+        }
+        
+        public int GetScore()
+        {
+            return _score;
+        }
 
         private void Awake()
         {

@@ -61,6 +61,16 @@ namespace Characters.Customers
         private void Start()
         {
             SetExpression(1);
+            Invoke(nameof(SetCritic),0.01f);
+        }
+
+        private void SetCritic()
+        {
+            if (soClient.isCritic)
+            {
+                GameManager.Player.critics.Add(this);
+                customerSignal.SetSignal(-1);
+            }
         }
 
         public void Interact(GameObject interactableObject)
@@ -82,6 +92,14 @@ namespace Characters.Customers
             GameManager.Player.SetThirdPersonCamera();
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
             GameManager.Canvas.InvManager.ForceInventory(false);
+        }
+
+        public void SetCriticSignal()
+        {
+            if (state == CustomerState.Waiting)
+            {
+                customerSignal.SetSignal(0);
+            }
         }
 
         public void EnableInteract()
@@ -121,7 +139,7 @@ namespace Characters.Customers
 
         public void SetCriticScore()
         {
-            ConversationManager.Instance.SetInt("Score", GameManager.Player.score);
+            ConversationManager.Instance.SetInt("Score", GameManager.Player.GetScore());
         }
 
         public void TestPlate()
@@ -135,7 +153,7 @@ namespace Characters.Customers
                     customerSignal.SetSignal(-1);
                     state = CustomerState.Served;
                     PlatesOrdered.RemoveCustomer(this);
-                    GameManager.Player.score += !soClient.isCritic ? 1 : 10;
+                    GameManager.Player.AddScore(!soClient.isCritic ? 1 : 10);
                 }
             }
             else
