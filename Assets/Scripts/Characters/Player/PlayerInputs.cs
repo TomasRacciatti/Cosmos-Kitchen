@@ -1,4 +1,5 @@
 using System;
+using Characters.Clients.Plates;
 using Items.Core;
 using Managers;
 using Regulators;
@@ -122,6 +123,14 @@ namespace Characters.Player
             menuOpen = GameManager.Canvas.TogglePauseMenu();
             
             CheckCursor();
+        }
+        
+        public void OnOrders(InputValue value)
+        {
+            if (value.isPressed)
+            {
+                PlatesOrdered.Toggle();
+            }
         }
 
         public void OnTest(InputValue value)

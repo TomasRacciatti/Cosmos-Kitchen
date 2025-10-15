@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Characters.Customers;
+using Managers;
 using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -37,6 +38,8 @@ namespace Characters.Clients.Plates
                 OrderUI orderUI = spawnedObject.GetComponent<OrderUI>();
                 orderUI.SetOrderUI(customer);
                 _instance.orders.Add(orderUI);
+                
+                NotificationsManager.NewNotification("New Order: " + customer.soClient.clientName, customer.soClient.clientIcon);
             }
         }
 
@@ -64,6 +67,11 @@ namespace Characters.Clients.Plates
         public static void Hide()
         {
             _instance.gameObject.SetActive(false);
+        }
+
+        public static void Toggle()
+        {
+            _instance.gameObject.SetActive(!_instance.gameObject.activeSelf);
         }
     }
 }

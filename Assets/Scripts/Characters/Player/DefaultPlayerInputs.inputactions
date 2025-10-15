@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Orders",
+                    "type": "Button",
+                    "id": "f8282905-e55a-4e5e-8e35-af7c741f910c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -329,84 +338,17 @@
                     "action": "BackUI",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "SkillCheck",
-            "id": "1b6aef9b-2def-490d-8cfb-5e00d2bfdb16",
-            "actions": [
-                {
-                    "name": "Confirm",
-                    "type": "Button",
-                    "id": "8b29d491-83b6-456e-ada3-f11ad6d823eb",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "a7250df4-6145-4050-90d1-43da9c3c48ca",
-                    "path": "<Keyboard>/space",
+                    "id": "da5456f4-6056-43cf-ba05-f3fdb09ed2f7",
+                    "path": "<Keyboard>/o",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Confirm",
+                    "action": "Orders",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "MilkMinigame",
-            "id": "ed3347a5-8124-4687-a050-6d9c18d99f7b",
-            "actions": [
-                {
-                    "name": "GameLoop",
-                    "type": "Value",
-                    "id": "6fcaef55-7a4d-45d5-8c05-15354520eb23",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                }
-            ],
-            "bindings": [
-                {
-                    "name": "1D Axis",
-                    "id": "6e3d4ab3-5c4c-4578-9c04-8b03beb33efe",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GameLoop",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "f98a14bb-23fa-4386-a23d-3c802dce5b30",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GameLoop",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "a6e790ea-3051-463b-b9de-9694f2b5ba15",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "GameLoop",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }
