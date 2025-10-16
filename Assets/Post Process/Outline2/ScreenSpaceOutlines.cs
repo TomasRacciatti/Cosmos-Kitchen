@@ -15,6 +15,12 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
         [Range(0.0f, 20.0f)]
         public float outlineScale = 1.0f;
         
+        [Header("Fade Settings")]
+        [Range(0.0f, 100.0f)]
+        public float fadeStartDistance = 20.0f;
+        [Range(0.0f, 100.0f)]
+        public float fadeEndDistance = 50.0f;
+        
         [Header("Depth Settings")]
         [Range(0.0f, 100.0f)]
         public float depthThreshold = 1.5f;
@@ -67,6 +73,15 @@ public class ScreenSpaceOutlines : ScriptableRendererFeature {
             screenSpaceOutlineMaterial = new Material(Shader.Find("Hidden/Outlines"));
             screenSpaceOutlineMaterial.SetColor("_OutlineColor", settings.outlineColor);
             screenSpaceOutlineMaterial.SetFloat("_OutlineScale", settings.outlineScale);
+            
+            screenSpaceOutlineMaterial.SetFloat("_SteepAngleMultiplier", settings.steepAngleMultiplier);
+    
+            //
+            screenSpaceOutlineMaterial.SetFloat("_FadeStartDistance", settings.fadeStartDistance);
+            screenSpaceOutlineMaterial.SetFloat("_FadeEndDistance", settings.fadeEndDistance);
+
+            filteringSettings = new FilteringSettings(RenderQueueRange.opaque, layerMask);
+            // puede q esta linea de problemas
 
             screenSpaceOutlineMaterial.SetFloat("_DepthThreshold", settings.depthThreshold);
             screenSpaceOutlineMaterial.SetFloat("_RobertsCrossMultiplier", settings.robertsCrossMultiplier);
