@@ -220,6 +220,8 @@ namespace Cooking.Tomi
 
             slot.item.Prep = prepState;
             _slots[slotIndex] = slot;
+            
+            Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
         
         private void HandleBurnt(int slotIndex)
@@ -241,6 +243,8 @@ namespace Cooking.Tomi
 
             slot.item.Prep = prepState;
             _slots[slotIndex] = slot;
+            
+            Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
         }
     }
 }
