@@ -22,7 +22,7 @@ namespace Items.Core
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
         public int Rating => rating;
-        public PreparationState Prep => prep;
+        public PreparationState Prep {get => prep; set => prep = value; }
         
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
