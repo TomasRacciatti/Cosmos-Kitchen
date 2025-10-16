@@ -1,4 +1,5 @@
 using System;
+using Cooking;
 using UnityEngine;
 
 namespace Items.Core
@@ -11,6 +12,8 @@ namespace Items.Core
         [SerializeField] private int amount;
         [SerializeField] private int rating;
         
+        [SerializeField] private PreparationState prep;
+        
         //Getters
         public SoItem SoItem => soItem;
         public int Amount => amount;
@@ -19,13 +22,15 @@ namespace Items.Core
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
         public int Rating => rating;
+        public PreparationState Prep => prep;
         
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
         {
             soItem = newItemAmount.SoItem;
             amount = newItemAmount.Amount;
-            rating    = newItemAmount.Rating;
+            rating = newItemAmount.Rating;
+            prep = newItemAmount.Prep;
         }
         
         public ItemAmount(SoItem newSoItem = null, int newAmount = 0, int newStarRating = 3)
