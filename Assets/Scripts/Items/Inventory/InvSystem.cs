@@ -311,7 +311,12 @@ namespace Items.Inventory
 
             // Asignar cantidades
             items[index].SetAmount(remainder);
-            items[emptyIndex] = new ItemAmount(item.SoItem, halfAmount);
+            
+            // Cambio para que no se stackeen los mismos items cocinados por distinto tiempo
+            //items[emptyIndex] = new ItemAmount(item.SoItem, halfAmount);
+            var clone = new ItemAmount(item); // Guarda el SoItem, Rating y el Prep
+            clone.SetAmount(halfAmount);
+            items[emptyIndex] = clone;
 
             NotifySlotChanged(index);
             NotifySlotChanged(emptyIndex);

@@ -13,12 +13,22 @@ MonoBehaviour:
   m_Name: Breaded Springroll
   m_EditorClassIdentifier: 
   itemName: Breaded Springroll
-  image: {fileID: 21300000, guid: 34bbdcc4f803f8d48a7011725d635c15, type: 3}
+  visualSet: {fileID: 11400000, guid: 20f585265ee3ce94a9c0511a2dd0879b, type: 2}
   description: "A breaded spring roll.\r"
   stack: 10
   mesh: {fileID: 0}
   materials: []
   tools: []
-  ingredientA: {fileID: 11400000, guid: 5c864c6fc77be7247adcb42b90ef3b50, type: 2}
-  ingredientB: {fileID: 11400000, guid: 7fd7f341c1200324fa6917086bf62b3d, type: 2}
-  ingredientC: {fileID: 11400000, guid: 75a99086cb9d0bf4eb820658479ac9a7, type: 2}
+  requirements:
+  - baseItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
+    requiredMethod: 5
+    targetDoneness: 0
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: f6dde2abff7f05f4caf10c51f15eff76, type: 2}
+    requiredMethod: 4
+    targetDoneness: 1
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: 58b7e959f70a9744cb3fa310d5c361c9, type: 2}
+    requiredMethod: 4
+    targetDoneness: 2
+    tolerance: 0

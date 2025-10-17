@@ -13,12 +13,22 @@ MonoBehaviour:
   m_Name: ApplePie
   m_EditorClassIdentifier: 
   itemName: Apple Pie
-  image: {fileID: 21300000, guid: 8b42104fb303c4f40bc7a636d579c674, type: 3}
+  visualSet: {fileID: 11400000, guid: e666606bea6a2d34595dc7be0044ce6c, type: 2}
   description: A pie made of apple.
   stack: 10
   mesh: {fileID: 0}
   materials: []
   tools: []
-  ingredientA: {fileID: 11400000, guid: 15a62417ee8b5ed48a051165531724a1, type: 2}
-  ingredientB: {fileID: 11400000, guid: 2c54a5718f72d83468cdc1876178313b, type: 2}
-  ingredientC: {fileID: 11400000, guid: 147c83c0767fd4142a5d0c66c61ec4ef, type: 2}
+  requirements:
+  - baseItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
+    requiredMethod: 4
+    targetDoneness: 3
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: 89727ab181f3a2649ac1c7d1bd19a586, type: 2}
+    requiredMethod: 4
+    targetDoneness: 1
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
+    requiredMethod: 5
+    targetDoneness: 0
+    tolerance: 0

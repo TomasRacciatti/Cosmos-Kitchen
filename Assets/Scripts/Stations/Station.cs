@@ -19,7 +19,7 @@ namespace Stations
         [SerializeField] private AnimationClip openAnimation;
         [SerializeField] private AnimationClip closeAnimation;
         [Header("Canvas")]
-        [SerializeField] private GameObject canvas;
+        [SerializeField] protected GameObject canvas;
         
         [Header("Outline")]
         [SerializeField] private Material outlineMat;
@@ -27,10 +27,15 @@ namespace Stations
         
         protected GameObject CanvasInstance;
         private Animator animator;
+        private string openClipName;
+        private string closeClipName;
 
         protected virtual void Awake()
         {
             animator = GetComponent<Animator>();
+            
+            openClipName = openAnimation  ? openAnimation.name : "";
+            closeClipName = closeAnimation   ? closeAnimation.name : "";
             
             if (outlineMat)
             {
@@ -88,9 +93,8 @@ namespace Stations
             }
             
             if (!animator) return;
-            if (!openAnimation) return;
-            
-            animator.Play(openAnimation.name, 0, 
+            if (openClipName == "") return;
+            animator.Play(openClipName, 0, 
                 1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
 
@@ -104,8 +108,8 @@ namespace Stations
             }
             
             if (!animator) return;
-            if (!closeAnimation) return;
-            animator.Play(closeAnimation.name, 0, 
+            if (closeClipName == "") return;
+            animator.Play(closeClipName, 0, 
                 1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
         }
     }

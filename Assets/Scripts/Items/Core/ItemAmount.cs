@@ -1,4 +1,5 @@
 using System;
+using Cooking;
 using UnityEngine;
 
 namespace Items.Core
@@ -11,6 +12,8 @@ namespace Items.Core
         [SerializeField] private int amount;
         [SerializeField] private int rating;
         
+        [SerializeField] private PreparationState prep;
+        
         //Getters
         public SoItem SoItem => soItem;
         public int Amount => amount;
@@ -19,13 +22,15 @@ namespace Items.Core
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
         public int Rating => rating;
+        public PreparationState Prep { get => prep; set => prep = value; }
         
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
         {
             soItem = newItemAmount.SoItem;
             amount = newItemAmount.Amount;
-            rating    = newItemAmount.Rating;
+            rating = newItemAmount.Rating;
+            prep = newItemAmount.Prep;
         }
         
         public ItemAmount(SoItem newSoItem = null, int newAmount = 0, int newStarRating = 3)
@@ -33,13 +38,17 @@ namespace Items.Core
             soItem = newSoItem;
             amount = newAmount;
             rating    = newStarRating;
+            
+            prep.method = CookingMethod.None;
+            prep.turnsCooked = 0f;
         }
         
         //Setters
         public int SetItem(ItemAmount itemAmount, bool clampToStack = true)
         {
             soItem = itemAmount.SoItem;
-            rating    = itemAmount.Rating;
+            rating = itemAmount.Rating;
+            prep = itemAmount.Prep;
             
             return SetAmount(itemAmount.Amount, clampToStack);
         }
@@ -47,6 +56,9 @@ namespace Items.Core
         public void SetItem(SoItem newItem)
         {
             soItem = newItem;
+            
+            prep.method = CookingMethod.None;
+            prep.turnsCooked = 0f;
         }
 
         // Rating - Tomi
@@ -86,6 +98,9 @@ namespace Items.Core
             soItem = null;
             amount = 0;
             rating = 0;
+            
+            prep.method = CookingMethod.None;
+            prep.turnsCooked = 0f;
         }
     }
 }
