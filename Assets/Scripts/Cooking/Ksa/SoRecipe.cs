@@ -5,9 +5,8 @@ using Items.Core;
 
 namespace Stations.Serving
 {
-    // Owner: Ksa (serving/recipes)
-    // Purpose: Optional data asset referenced by SoPlate to express per-ingredient method/doneness requirements.
-    // Notes: If you don’t want a new asset, you can instead add Requirement[] directly to SoPlate with the same shape.
+    // ESTE CODIGO SE PUEDE BORRAR PORQUE AHORA ESTA DENTRO DE SoPlate
+    
     [CreateAssetMenu(menuName = "ScriptableObject/Cooking/Recipe", fileName = "SoRecipe")]
     public class SoRecipe : ScriptableObject
     {
