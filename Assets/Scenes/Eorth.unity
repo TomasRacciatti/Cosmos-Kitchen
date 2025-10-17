@@ -505,7 +505,13 @@ MonoBehaviour:
   closeAnimation: {fileID: 0}
   canvas: {fileID: 5255830946825594412, guid: c01b218636d14204182c8e8911d04fe7, type: 3}
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
-  outlineMeshes: []
+  outlineMeshes:
+  - {fileID: 844685397}
+  - {fileID: 856183058}
+  - {fileID: 915989884}
+  - {fileID: 1996228695}
+  - {fileID: 1063765702}
+  - {fileID: 1798162192}
   invSystem: {fileID: 619772144}
   method: 4
   secondsPerTurn: 3
@@ -976,6 +982,18 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!23 &844685397 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4075224646462659696, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &856183058 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2314484368201051828, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &901633876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1044,6 +1062,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ffb24738a37c146909f88434d03673, type: 3}
+--- !u!23 &915989884 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7528415221785575268, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &995447319
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1310,6 +1334,12 @@ MonoBehaviour:
   secondsPerTurn: 2
   maxTurnsBeforeBurn: 4
   tickerProvider: {fileID: 0}
+--- !u!23 &1063765702 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7538991875937245810, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1109074504
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,6 +2325,12 @@ PrefabInstance:
       insertIndex: 3
       addedObject: {fileID: 619772145}
   m_SourcePrefab: {fileID: 100100000, guid: 5378811ac79a76f46b666682bb72a510, type: 3}
+--- !u!23 &1798162192 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5626073587422380558, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!82 &1824736399 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 9025827759177889896, guid: eaa6c134550112d438682a2077c07ce3,
@@ -2639,6 +2675,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c1d49f25689dd54bbafc2e0235c4a44, type: 3}
+--- !u!23 &1996228695 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6140186013703867184, guid: 5378811ac79a76f46b666682bb72a510,
+    type: 3}
+  m_PrefabInstance: {fileID: 1779519572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2019824445
 GameObject:
   m_ObjectHideFlags: 0
