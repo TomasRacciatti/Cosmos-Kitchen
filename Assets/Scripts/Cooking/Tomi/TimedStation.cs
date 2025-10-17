@@ -161,7 +161,7 @@ namespace Cooking.Tomi
             invSystem.Items[0].SetItem(item);
             invSystem.NotifySlotChanged(0);
 
-            Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
+            //Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
         
         private void HandleBurnt()
@@ -183,7 +183,7 @@ namespace Cooking.Tomi
              
              StopCooking();
             
-            Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+            //Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
         }
     }
 }
