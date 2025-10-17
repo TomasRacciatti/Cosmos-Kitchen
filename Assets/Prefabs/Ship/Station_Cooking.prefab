@@ -113,7 +113,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3562580766143058059}
-  - {fileID: 8825533069761827119}
   m_Father: {fileID: 3359043400169298514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &862559605523062893
@@ -226,11 +225,11 @@ Transform:
   m_GameObject: {fileID: 1989118181077182550}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014100313, y: 0.34260613, z: 0.08549619}
+  m_LocalPosition: {x: -0.0004405379, y: 0.018334448, z: -0.0002630055}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4244311826259292359}
+  m_Father: {fileID: 3562580766143058059}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &9076906957246008860
 MeshFilter:
@@ -438,6 +437,7 @@ GameObject:
   - component: {fileID: 4717228008224052287}
   - component: {fileID: 4554714599234581920}
   - component: {fileID: 1562529459002612542}
+  - component: {fileID: 8866490905278984219}
   m_Layer: 0
   m_Name: OvenPot
   m_TagString: Untagged
@@ -457,7 +457,8 @@ Transform:
   m_LocalPosition: {x: -0.013659775, y: 0.32427168, z: 0.08575952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8825533069761827119}
   m_Father: {fileID: 4244311826259292359}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6160530677509090989
@@ -548,7 +549,6 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
-  shouldOutline: 0
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
   outlineMeshes:
   - {fileID: 4085034360820517289}
@@ -568,6 +568,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+--- !u!95 &8866490905278984219
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5662318218792333589}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ee8749c570c078448e36985bb26f0cd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5687032997394254720
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +603,7 @@ GameObject:
   - component: {fileID: 859939595023642149}
   - component: {fileID: 3617775477415348064}
   - component: {fileID: 4916923003396223572}
+  - component: {fileID: 3591956224602655116}
   m_Layer: 0
   m_Name: OvenDoor
   m_TagString: Untagged
@@ -673,8 +695,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.033555865, y: 0.18840915, z: 0.33752137}
-  m_Center: {x: -0.012875915, y: 0.004699532, z: 0.000000022351742}
+  m_Size: {x: 0.09214777, y: 0.18840915, z: 0.33752137}
+  m_Center: {x: 0.016420012, y: 0.0046995343, z: 0.000000023841858}
 --- !u!114 &3617775477415348064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,7 +712,6 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
-  shouldOutline: 1
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
   outlineMeshes:
   - {fileID: 5889135266426103701}
@@ -714,6 +735,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+--- !u!95 &3591956224602655116
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5687032997394254720}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1873bfabc97f6bf49adb1d93370b7778, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8664288778422497800
 GameObject:
   m_ObjectHideFlags: 0
