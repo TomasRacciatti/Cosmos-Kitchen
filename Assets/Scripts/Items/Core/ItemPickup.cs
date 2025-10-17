@@ -56,7 +56,7 @@ namespace Items.Core
         {
             int amount = itemAmount.Amount;
             string itemName = itemAmount.SoItem.name;
-            Sprite image = itemAmount.SoItem.Image;
+            Sprite image = Cooking.ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
             if (!interactableObject.TryGetComponent(out InvSystem invSystem)) return;
             invSystem.AddItem(ref itemAmount);
             if (TestEmptyDestroy())

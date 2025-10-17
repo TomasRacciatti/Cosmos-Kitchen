@@ -1,7 +1,7 @@
 using Items.Core;
 using UnityEngine;
 
-// Owner: Ksa (UI/visuals)
+
 // Purpose: UI-facing contract for choosing the correct sprite based on an item’s runtime preparation state.
 // Notes: Implementations read (base SoItem + PreparationState) and return the best-fit sprite.
 namespace Cooking.Ksa

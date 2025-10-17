@@ -9,7 +9,7 @@ namespace Items.Core
     {
         [Header("Item")]
         [SerializeField] private string itemName;
-        [SerializeField] private Sprite image;
+        [SerializeField] private SoItemVisualSet  visualSet;
         [SerializeField, TextArea] private string description = "Item Description";
         [SerializeField, Min(1)] private int stack = 10;
         [Header("Item 3D")]
@@ -19,7 +19,8 @@ namespace Items.Core
         [SerializeField] private ItemTools[] tools;
         
         public string ItemName => itemName;
-        public Sprite Image => image;
+        public SoItemVisualSet VisualSet => visualSet;
+        //public Sprite Image => image;
         public string Description => description;
         public int Stack => stack;
         public Mesh Mesh => mesh;

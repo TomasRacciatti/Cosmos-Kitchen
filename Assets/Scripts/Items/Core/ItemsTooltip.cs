@@ -29,7 +29,7 @@ namespace Items.Core
             if (ItemsDropper.IsActive) return;
             _instance.itemNameText.text = itemAmount.SoItem.ItemName;
             _instance.itemDescriptionText.text = itemAmount.SoItem.Description;
-            _instance.itemIcon.sprite = itemAmount.SoItem.Image;
+            _instance.itemIcon.sprite = Cooking.ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
         }

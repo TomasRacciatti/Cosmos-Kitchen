@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Cooking;
 
 namespace Items.Inventory
 {
@@ -36,7 +37,11 @@ namespace Items.Inventory
         public void SetItem(ItemAmount newItemAmount)
         {
             itemAmount = newItemAmount;
-            image.sprite = itemAmount.SoItem.Image;
+            if (image)
+            {
+                image.enabled = true;
+                image.sprite = ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
+            }
             RefreshAmount();
         }
         

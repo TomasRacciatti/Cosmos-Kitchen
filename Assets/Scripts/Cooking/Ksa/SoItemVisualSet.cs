@@ -12,16 +12,39 @@ using UnityEngine;
 public class SoItemVisualSet : ScriptableObject
 { 
     [Header("Target Item")]
-    public SoItem item;
+    [SerializeField] private SoItem item;
+    [SerializeField] private Sprite defaultSprite;
     
     [Header("Variants by Method (index 0..4 = Raw..Burnt)")]
-    public List<MethodVariants> variants = new List<MethodVariants>();
+    [SerializeField] private MethodVariants[] variants;
+    
+    public SoItem Item => item;
+    public Sprite DefaultSprite => defaultSprite;
+    
+    [Serializable]
+    public class MethodVariants
+    {
+        public CookingMethod method;
+        [Tooltip("0 = Raw, 1 = Rare, 2 = Medium, 3 = WellDone, 4 = Burnt")]
+        public Sprite[] donenessSprites = new Sprite[5];
+    }
+
+    public bool TryGet(CookingMethod method, int donenessIndex, out Sprite sprite)
+    {
+        sprite = null;
+        if (variants == null) return false;
+
+        for (int i = 0; i < variants.Length; i++)
+        {
+            if (variants[i].method != method) continue;
+            var spriteArr = variants[i].donenessSprites;
+            if (spriteArr != null && donenessIndex >= 0 && donenessIndex < spriteArr.Length)
+            {
+                sprite = spriteArr[donenessIndex];
+                return sprite != null;
+            }
+        }
+        return false;
+    }
 }
 
-[Serializable]
-public class MethodVariants
-{
-    public CookingMethod method;
-    [Tooltip("0 = Raw, 1 = Rare, 2 = Medium, 3 = WellDone, 4 = Burnt")]
-    public Sprite[] donenessSprites = new Sprite[5];
-}
