@@ -1,47 +1,39 @@
 using Stations;
 using Cooking;
-using System;
 using Items.Core;
+using Items.Inventory;
 using UnityEngine;
-
-// Owner: Tomi (systems/stations)
-// Purpose: Concrete, data-driven world-time cooking station. Attach to in-world prefabs.
-// Notes: Configure via Inspector (method, timings, slots). Registers CookingSessions with ICookingTicker.
+using UnityEngine.UI;
 
 namespace Cooking.Tomi
 {
     public class TimedStation : Station
     {
+        
+        [SerializeField] private InvSystem invSystem;
+        
         [Header("Cooking Config")]
         [SerializeField] private CookingMethod method = CookingMethod.Boil;
         [SerializeField] private float secondsPerTurn = 7f;
         [SerializeField] private int maxTurnsBeforeBurn = 4;
-        [SerializeField] private int slotCount = 1;
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
         
-        private StationSlot[] _slots;
-        
         private ICookingTicker _ticker;
         
-        private System.Action<int> _boundaryHandler0;
-        private System.Action _burntHandler0;
+        private CookingSession _session;
         
         // Propiedades de acceso
         public CookingMethod Method => method;
         public float SecondsPerTurn => secondsPerTurn;
         public int MaxTurnsBeforeBurn => maxTurnsBeforeBurn;
-        public int SlotCount => slotCount;
 
         protected override void Awake()
         {
             base.Awake();
             
-            slotCount = Mathf.Max(1, slotCount);
-            _slots = new StationSlot[slotCount];
-            for (int i = 0; i < _slots.Length; i++) 
-                _slots[i] = new StationSlot();
+            if (!invSystem) invSystem = GetComponent<InvSystem>();
         }
 
         private void OnEnable()
@@ -65,184 +57,131 @@ namespace Cooking.Tomi
 
         private void OnDisable()
         {
-            var slot = _slots[0];
-            if (slot.session != null)
-            {
-                _ticker.Unregister(slot.session);
-                UnsubscribeSessionEvents(0, slot.session);
-                slot.session = null;
-            }
-            slot.occupied = false;
-            _slots[0] = slot;
+            StopCooking();
         }
 
-        public bool TryInsert(int slotIndex, ref ItemAmount item)
+        protected override void EnterStation()
         {
-            // MULTI-SLOT: si hacemos multi-slot aca agregariamos el slotIndex real.
-            slotIndex = 0;
-            
-            var slot = _slots[slotIndex];
-            if (slot.occupied) return false;
-            if (item.IsEmpty)  return false;
+            base.EnterStation();
+
+            var invView = CanvasInstance.GetComponentInChildren<InvView>();
+            if (invView) invView.SetInventory(invSystem);
+
+            var button = CanvasInstance.GetComponentInChildren<Button>();
+            if (button) button.onClick.AddListener(OnStationButtonPressed);
+        }
+        protected override void LeaveStation()
+        {
+            var button = CanvasInstance.GetComponentInChildren<Button>();
+            if (button) button.onClick.RemoveListener(OnStationButtonPressed);
+            base.LeaveStation();
+        }
+        
+        private void OnStationButtonPressed()
+        {
+            if (_session == null) StartCooking();
+            else StopCooking();
+        }
+
+        private void StartCooking()
+        {
+            if (_ticker == null || invSystem == null) return;
+
+            var item = invSystem.Item(0);
+            if (item.IsEmpty) return;
             
             var prepState = item.Prep;
             if (prepState.method != method)
             {
                 prepState.method = method;
                 prepState.turnsCooked = 0f;
+                item.Prep = prepState;
+                invSystem.Items[0].SetItem(item);
+                invSystem.NotifySlotChanged(0);
             }
-            item.Prep = prepState;
             
-            slot.item = item;
-            slot.occupied = true;
-
             float spt = Mathf.Max(0.01f, secondsPerTurn);
-            slot.session = new CookingSession
+            _session = new CookingSession
             {
                 method = method,
-                inventoryIndex = slotIndex,
+                inventoryIndex = 0,
                 secondsPerTurn = spt,
                 maxTurnsBeforeBurn = Mathf.Max(1, maxTurnsBeforeBurn),
                 isActive = true,
-                
-                accumulatedSeconds = prepState.turnsCooked * spt
+                accumulatedSeconds = item.Prep.turnsCooked * spt
             };
-
-            SubscribeSessionEvents(slotIndex, slot.session);
-            _ticker.Register(slot.session);
             
-            item.Clear();
-
-            _slots[slotIndex] = slot;
-            return true;
+            _session.OnDonenessCrossed += HandleBoundary;
+            _session.OnBurnt           += HandleBurnt;
+            _ticker.Register(_session);
         }
         
-        public bool TryRemove(int slotIndex, out ItemAmount item)
+        private void StopCooking()
         {
-            slotIndex = 0;
+            if (_session == null) return;
             
-            var slot = _slots[slotIndex];
-            item = default;
+            var s = _session;
+            _session = null;
 
-            if (!slot.occupied) return false;
+            if (_ticker != null) _ticker.Unregister(s);
+            s.OnDonenessCrossed -= HandleBoundary;
+            s.OnBurnt           -= HandleBurnt;
             
-            var prepState = slot.item.Prep;
-            
-            if (slot.session != null)
+            if (invSystem != null)
             {
-                _ticker.Unregister(slot.session);
-
-                if (slot.session.secondsPerTurn > 0f)
+                var item = invSystem.Item(0);
+                if (!item.IsEmpty && s.secondsPerTurn > 0f)
                 {
-                    float turns = slot.session.TurnsCooked;
-                    if (turns > prepState.turnsCooked)
-                        prepState.turnsCooked = turns;
+                    var ps = item.Prep;
+                    float turns = s.TurnsCooked;
+                    if (turns > ps.turnsCooked)
+                        ps.turnsCooked = turns;
+                    ps.method = method;
+                    item.Prep = ps;
+                    invSystem.Items[0].SetItem(item);
+                    invSystem.NotifySlotChanged(0);
                 }
-
-                UnsubscribeSessionEvents(slotIndex, slot.session);
-                slot.session = null;
-            }
-            
-            if (prepState.method != method)
-                prepState.method = method;
-            
-            slot.item.Prep = prepState;
-
-            // Devuelve el item
-            item = slot.item;
-
-            // Limpia el slot
-            slot.item = default;
-            slot.occupied = false;
-
-            _slots[slotIndex] = slot;
-            return true;
-        }
-        
-        public PreparationState PeekState(int slotIndex)
-        {
-            slotIndex = 0;
-
-            var slot = _slots[slotIndex];
-            if (!slot.occupied) return default;
-
-            var prepState = slot.item.Prep;
-            if (slot.session != null && slot.session.secondsPerTurn > 0f)
-            {
-                prepState.method = method;
-                prepState.turnsCooked = slot.session.TurnsCooked;
-            }
-            return prepState;
-        }
-
-        private void SubscribeSessionEvents(int slotIndex, CookingSession s)
-        {
-            if (slotIndex == 0)
-            {
-                _boundaryHandler0 = (boundary) => HandleBoundary(slotIndex, boundary);
-                _burntHandler0    = () => HandleBurnt(slotIndex);
-
-                s.OnDonenessCrossed += _boundaryHandler0;
-                s.OnBurnt           += _burntHandler0;
-            }
-            else
-            {
-                // MULTI-SLOT
             }
         }
 
-        private void UnsubscribeSessionEvents(int slotIndex, CookingSession s)
+        private void HandleBoundary(int boundaryIndex)
         {
-            if (s == null) return;
-
-            if (slotIndex == 0)
+            var item = invSystem.Item(0);
+            if (item.IsEmpty)
             {
-                if (_boundaryHandler0 != null) s.OnDonenessCrossed -= _boundaryHandler0;
-                if (_burntHandler0    != null) s.OnBurnt           -= _burntHandler0;
-
-                _boundaryHandler0 = null;
-                _burntHandler0    = null;
+                StopCooking();
+                return;
             }
-            else
-            {
-                // MULTI-SLOT
-            }
-        }
 
-        private void HandleBoundary(int slotIndex, int boundaryIndex)
-        {
-            var slot = _slots[slotIndex];
-            if (!slot.occupied) return;
+            var ps = item.Prep;
+            ps.method = method;
+            ps.turnsCooked = boundaryIndex;
+            item.Prep = ps;
 
-            var prepState = slot.item.Prep;
-            prepState.method = method;
-            prepState.turnsCooked = boundaryIndex;
+            invSystem.Items[0].SetItem(item);
+            invSystem.NotifySlotChanged(0);
 
-            slot.item.Prep = prepState;
-            _slots[slotIndex] = slot;
-            
             Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
         
-        private void HandleBurnt(int slotIndex)
+        private void HandleBurnt()
         {
-            var slot = _slots[slotIndex];
-            if (!slot.occupied) return;
-
-            var prepState = slot.item.Prep;
-            prepState.method = method;
-            prepState.turnsCooked = maxTurnsBeforeBurn + 1f;
-
-            // Si se quemo dejamos de tickear
-            if (slot.session != null)
+            var item = invSystem.Item(0);
+            if (item.IsEmpty)
             {
-                _ticker.Unregister(slot.session);
-                UnsubscribeSessionEvents(slotIndex, slot.session);
-                slot.session = null;
+                StopCooking();
+                return;
             }
 
-            slot.item.Prep = prepState;
-            _slots[slotIndex] = slot;
+             var prepState = item.Prep;
+             prepState.method = method;
+             prepState.turnsCooked = maxTurnsBeforeBurn + 1f;
+             item.Prep = prepState;
+            
+             invSystem.Items[0].SetItem(item);
+             invSystem.NotifySlotChanged(0);
+             
+             StopCooking();
             
             Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
         }
