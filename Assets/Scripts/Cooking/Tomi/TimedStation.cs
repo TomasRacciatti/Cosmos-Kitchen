@@ -53,10 +53,13 @@ namespace Cooking.Tomi
                 enabled = false;
                 return;
             }
+            
+            if (invSystem != null) invSystem.Subscribe(OnInventorySlotChanged);
         }
 
         private void OnDisable()
         {
+            if (invSystem != null) invSystem.Unsubscribe(OnInventorySlotChanged);
             StopCooking();
         }
 
@@ -144,6 +147,14 @@ namespace Cooking.Tomi
             }
         }
 
+        private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)
+        {
+            if (index != 0) return;
+            bool wasRunning = _session != null;
+            StopCooking();
+            if (wasRunning && !current.IsEmpty) StartCooking();
+        }
+
         private void HandleBoundary(int boundaryIndex)
         {
             var item = invSystem.Item(0);
@@ -161,7 +172,7 @@ namespace Cooking.Tomi
             invSystem.Items[0].SetItem(item);
             invSystem.NotifySlotChanged(0);
 
-            //Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
+            Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
         
         private void HandleBurnt()
@@ -183,7 +194,7 @@ namespace Cooking.Tomi
              
              StopCooking();
             
-            //Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+            Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
         }
     }
 }

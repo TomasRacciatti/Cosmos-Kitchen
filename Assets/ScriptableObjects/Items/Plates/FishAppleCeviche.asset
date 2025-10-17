@@ -19,6 +19,16 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   tools: []
-  ingredientA: {fileID: 11400000, guid: b6b95328132d9ac4b85eb7174b1db78d, type: 2}
-  ingredientB: {fileID: 11400000, guid: 9d627153d985bcf46bec65fd6cb0abee, type: 2}
-  ingredientC: {fileID: 11400000, guid: b9b5d33b8c67ecd4e919deb43db0be54, type: 2}
+  requirements:
+  - baseItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
+    requiredMethod: 4
+    targetDoneness: 1
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: f6dde2abff7f05f4caf10c51f15eff76, type: 2}
+    requiredMethod: 5
+    targetDoneness: 0
+    tolerance: 0
+  - baseItem: {fileID: 11400000, guid: 58b7e959f70a9744cb3fa310d5c361c9, type: 2}
+    requiredMethod: 3
+    targetDoneness: 1
+    tolerance: 0
