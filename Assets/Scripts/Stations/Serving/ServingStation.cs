@@ -4,6 +4,7 @@ using Characters.Clients.Plates;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +41,11 @@ namespace Stations.Serving
                 servUIManager.inputView.SetInventory(inputInventory);
                 servUIManager.outputView.SetInventory(outputInventory);
             }
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            invPlayer.otherInvVinc = inputInventory;
+            inputInventory.otherInvVinc = invPlayer;
+            outputInventory.otherInvVinc = invPlayer;
         }
 
         protected override void LeaveStation()
@@ -47,6 +53,10 @@ namespace Stations.Serving
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.RemoveListener(TryCraftPlate);
             base.LeaveStation();
+            
+            GameManager.Player.Inventory.otherInvVinc = null;
+            inputInventory.otherInvVinc = null;
+            outputInventory.otherInvVinc = null;
         }
 
         public void TryCraftPlate()

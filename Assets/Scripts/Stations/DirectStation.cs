@@ -1,5 +1,6 @@
 using Items.Inventory;
 using Items.Tools;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,11 @@ namespace Stations
             invView.SetInventory(invSystem);
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.AddListener(UseTool);
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+
+            invSystem.otherInvVinc = invPlayer;
+            invPlayer.otherInvVinc = invSystem;
         }
 
         protected override void LeaveStation()
@@ -31,6 +37,9 @@ namespace Stations
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.RemoveListener(UseTool);
             base.LeaveStation();
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            invSystem.otherInvVinc = null;
+            invPlayer.otherInvVinc = null;
         }
         
         public void UseTool()

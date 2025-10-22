@@ -86,7 +86,7 @@ namespace Items.Inventory
                     }
                     break;
                 case PointerEventData.InputButton.Right:
-                    print("abrir panel de opciones");
+                    _invSlotUI.InvView.InventorySystem.TransferToOtherInventory(SlotUI.InvSlot);
                     break;
                 case PointerEventData.InputButton.Middle:
                     _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);

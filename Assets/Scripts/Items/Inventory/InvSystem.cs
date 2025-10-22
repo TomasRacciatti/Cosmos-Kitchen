@@ -18,6 +18,8 @@ namespace Items.Inventory
         public int Slots => slots;
         public bool Infinite => slots == -1;
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
+
+        public InvSystem otherInvVinc;
         
         //Observers
         private event Action<int, ItemAmount> OnSlotChanged;
@@ -294,6 +296,22 @@ namespace Items.Inventory
             // Si no son stackeables, hacemos un swap
             targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
             SetItemByIndex(fromIndex, targetItem);
+        }
+        
+        public void TransferToOtherInventory(int fromIndex)
+        {
+            if (otherInvVinc == null) return;
+            if (!ValidIndex(fromIndex)) return;
+
+            ItemAmount fromItem = items[fromIndex];
+            if (fromItem.IsEmpty) return;
+            
+            var itemToTransfer = new ItemAmount(fromItem);
+            
+            otherInvVinc.AddItem(ref itemToTransfer);
+            
+            items[fromIndex].SetAmount(itemToTransfer.Amount);
+            NotifySlotChanged(fromIndex);
         }
         
         public bool SplitItemStack(int index)
