@@ -112,6 +112,7 @@ namespace MiniGames.Milking
 
         protected override void Correct()
         {
+            AudioManager.instance.PlaySFX(correctSound);
             float multiplier;
             
             if (_promptElapsed <= perfectWindow)

@@ -54,7 +54,7 @@ namespace MiniGames
         
         private void EnterMiniGame()
         {
-            GameObject spawnObject = ObjectPool.SpawnObject(minigame, transform.position, Quaternion.identity);
+            GameObject spawnObject = Instantiate(minigame, transform.position, Quaternion.identity);
             _currentMinigame = spawnObject.GetComponent<Minigame>();
             _currentMinigame.StartMinigame();
             _currentMinigame.OnWin += WinMiniGame;
@@ -68,7 +68,7 @@ namespace MiniGames
                 _currentMinigame.OnWin -= WinMiniGame;
                 _currentMinigame.OnLose -= LoseMiniGame;
                 _currentMinigame.ExitMinigame();
-                ObjectPool.ReturnObjectToPool(_currentMinigame.gameObject);
+                Destroy(_currentMinigame.gameObject);
                 _currentMinigame = null;
             }
             StartCooldown();
