@@ -304,7 +304,7 @@ namespace DialogueEditor
                     {
                         SetColorAlpha(DialogueText, 1);
 
-                        CreateUIOptions();
+                        //CreateUIOptions();
 
                         for (int i = 0; i < m_uiOptions.Count; i++)
                         {
@@ -540,14 +540,26 @@ namespace DialogueEditor
                 AudioPlayer.Play();
             }
 
+            //chatgpt que rico
             if (ScrollText)
             {
+                // Inicia scroll de texto
                 SetState(eState.ScrollingText);
+    
+                // Pero también crear las opciones de inmediato
+                CreateUIOptions();
+                for (int i = 0; i < m_uiOptions.Count; i++)
+                {
+                    m_uiOptions[i].SetImage(OptionImage, OptionImageSliced);
+                    m_uiOptions[i].SetAlpha(1);
+                    m_uiOptions[i].gameObject.SetActive(true);
+                }
             }
             else
             {
                 SetState(eState.TransitioningOptionsOn);
-            }            
+            }
+
         }
 
 
@@ -565,6 +577,12 @@ namespace DialogueEditor
         public void OptionSelected(OptionNode option)
         {
             m_selectedOption = option;
+            
+            for (int i = 0; i < m_uiOptions.Count; i++)
+            {
+                m_uiOptions[i].SetInteractable(false);
+            }
+            
             DoParamAction(option);
             if (option.Event != null)
                 option.Event.Invoke();
