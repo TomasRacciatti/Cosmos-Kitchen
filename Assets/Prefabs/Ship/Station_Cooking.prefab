@@ -548,14 +548,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
-  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  canvas: {fileID: 8100360072370276888, guid: dd10ed11261eac741849429a7f95f27e, type: 3}
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
   outlineMeshes:
   - {fileID: 4085034360820517289}
   invSystem: {fileID: 1562529459002612542}
   method: 1
   secondsPerTurn: 10
-  maxTurnsBeforeBurn: 4
   tickerProvider: {fileID: 0}
 --- !u!114 &1562529459002612542
 MonoBehaviour:
@@ -726,7 +725,6 @@ MonoBehaviour:
   invSystem: {fileID: 4916923003396223572}
   method: 3
   secondsPerTurn: 15
-  maxTurnsBeforeBurn: 4
   tickerProvider: {fileID: 0}
 --- !u!114 &4916923003396223572
 MonoBehaviour:
