@@ -5,8 +5,13 @@ namespace Stations
 {
     public class CookingProgressUI : MonoBehaviour
     {
+        [Header("Refs")]
         [SerializeField] private RectTransform bar;
         [SerializeField] private RectTransform slotIcon; 
+        
+        [Header("Offset (in pixels)")]
+        [SerializeField] private float leftPadding  = 0f;
+        [SerializeField] private float rightPadding = 0f;
 
         private TimedStation _station;
         
@@ -23,6 +28,8 @@ namespace Stations
                 _startLocal = new Vector2(-half, 0f);
                 _endLocal   = new Vector2(+half,  0f);
             }
+            
+            RecomputeEndpoints();
         }
 
         private void OnEnable()
@@ -53,9 +60,33 @@ namespace Stations
             slotIcon.anchoredPosition = Vector2.Lerp(_startLocal, _endLocal, norm);
         }
 
-        private void OnStartStopClicked()
+        private void OnRectTransformDimensionsChange()
         {
-            // Esto se maneja en TimedStation pero que exista aca nos asegura que no se suscriba dos veces
+            RecomputeEndpoints();
+        }
+
+        private void RecomputeEndpoints()
+        {
+            if (bar == null) return;
+
+            float half = bar.rect.width * 0.5f;
+            
+            float totalPad = leftPadding + rightPadding;
+            float usable = Mathf.Max(1f, bar.rect.width - totalPad);
+            
+            float startX = -half + leftPadding;
+            float endX =  half - rightPadding;
+            
+            if (endX <= startX)
+            {
+                float mid = 0f;
+                float halfUsable = usable * 0.5f;
+                startX = -halfUsable;
+                endX   =  halfUsable;
+            }
+            
+            _startLocal = new Vector2(startX, 0f);
+            _endLocal   = new Vector2(endX, 0f);
         }
 
         private void OnSessionStarted(Cooking.CookingSession s)
