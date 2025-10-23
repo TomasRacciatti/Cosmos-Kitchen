@@ -23,6 +23,23 @@ namespace Stations
         
         private CookingSession _session;
         
+        // UI
+        public event System.Action<CookingSession> OnSessionStarted;
+        public event System.Action OnSessionStopped;
+        
+        public bool  IsCooking => _session != null && _session.isActive;
+        public float AccumulatedSeconds => _session != null ? _session.accumulatedSeconds : 0f;
+
+        public float SavedTurnsCooked
+        {
+            get
+            {
+                if (invSystem == null) return 0f;
+                var item = invSystem.Item(0);
+                return item.IsEmpty ? 0f : item.Prep.turnsCooked;
+            }
+        }
+        
         // Propiedades de acceso
         public CookingMethod Method => method;
         public float SecondsPerTurn => secondsPerTurn;
@@ -71,11 +88,20 @@ namespace Stations
 
             var button = CanvasInstance.GetComponentInChildren<Button>();
             if (button) button.onClick.AddListener(OnStationButtonPressed);
+            
+            // UI
+            var progress = CanvasInstance.GetComponentInChildren<CookingProgressUI>(true);
+            if (progress) progress.station = this;
         }
         protected override void LeaveStation()
         {
             var button = CanvasInstance.GetComponentInChildren<Button>();
             if (button) button.onClick.RemoveListener(OnStationButtonPressed);
+            
+            // UI
+            var progress = CanvasInstance ? CanvasInstance.GetComponentInChildren<CookingProgressUI>(true) : null;
+            if (progress && ReferenceEquals(progress.station, this)) progress.station = null;
+            
             base.LeaveStation();
         }
         
@@ -116,6 +142,8 @@ namespace Stations
             _session.OnDonenessCrossed += HandleBoundary;
             _session.OnBurnt           += HandleBurnt;
             _ticker.Register(_session);
+            
+            OnSessionStarted?.Invoke(_session);
         }
         
         private void StopCooking()
@@ -144,6 +172,8 @@ namespace Stations
                     invSystem.NotifySlotChanged(0);
                 }
             }
+            
+            OnSessionStopped?.Invoke();
         }
 
         private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)
