@@ -1,10 +1,9 @@
 using System;
 
-// Owner: Tomi (systems/stations)
 // Purpose: Interface for the world-time cooking service that advances all active CookingSessions.
 // Notes: Stations register/unregister sessions here. UI and Serving should not depend on this directly.
 
-namespace Cooking.Tomi
+namespace Cooking
 {
     public interface ICookingTicker
     {

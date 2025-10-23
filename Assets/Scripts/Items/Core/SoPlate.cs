@@ -22,6 +22,7 @@ namespace Items.Core
         public CookingMethod requiredMethod;
 
         [Header("Doneness (soft requirement)")]
+        public bool useDoneness;
         public Doneness targetDoneness;
         [Tooltip("Tolerancia para evitar que cuente un error (0 = No hay tolerancia)")]
         public int tolerance;

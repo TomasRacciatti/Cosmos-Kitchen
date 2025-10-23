@@ -1,11 +1,10 @@
-using Stations;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Cooking.Tomi
+namespace Stations
 {
     public class TimedStation : Station
     {
@@ -15,7 +14,7 @@ namespace Cooking.Tomi
         [Header("Cooking Config")]
         [SerializeField] private CookingMethod method = CookingMethod.Boil;
         [SerializeField] private float secondsPerTurn = 7f;
-        [SerializeField] private int maxTurnsBeforeBurn = 4;
+        private readonly int maxTurnsBeforeBurn = 4;
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
@@ -23,6 +22,23 @@ namespace Cooking.Tomi
         private ICookingTicker _ticker;
         
         private CookingSession _session;
+        
+        // UI
+        public event System.Action<CookingSession> OnSessionStarted;
+        public event System.Action OnSessionStopped;
+        
+        public bool  IsCooking => _session != null && _session.isActive;
+        public float AccumulatedSeconds => _session != null ? _session.accumulatedSeconds : 0f;
+
+        public float SavedTurnsCooked
+        {
+            get
+            {
+                if (invSystem == null) return 0f;
+                var item = invSystem.Item(0);
+                return item.IsEmpty ? 0f : item.Prep.turnsCooked;
+            }
+        }
         
         // Propiedades de acceso
         public CookingMethod Method => method;
@@ -41,7 +57,7 @@ namespace Cooking.Tomi
             if (tickerProvider != null)
                 _ticker = tickerProvider as ICookingTicker;
 
-            if (_ticker == null) // Voy a ponerlo manualmente idealmente asi que no deberia entrar aca, pero por las dudas lo dejo
+            if (_ticker == null) // Si no entra de forma manual, se settea solo
             {
                 var found = FindFirstObjectByType<CookingTicker>();
                 if (found != null) _ticker = found as ICookingTicker;
@@ -72,11 +88,20 @@ namespace Cooking.Tomi
 
             var button = CanvasInstance.GetComponentInChildren<Button>();
             if (button) button.onClick.AddListener(OnStationButtonPressed);
+            
+            // UI
+            var progress = CanvasInstance.GetComponentInChildren<CookingProgressUI>(true);
+            if (progress) progress.station = this;
         }
         protected override void LeaveStation()
         {
             var button = CanvasInstance.GetComponentInChildren<Button>();
             if (button) button.onClick.RemoveListener(OnStationButtonPressed);
+            
+            // UI
+            var progress = CanvasInstance ? CanvasInstance.GetComponentInChildren<CookingProgressUI>(true) : null;
+            if (progress && ReferenceEquals(progress.station, this)) progress.station = null;
+            
             base.LeaveStation();
         }
         
@@ -117,6 +142,8 @@ namespace Cooking.Tomi
             _session.OnDonenessCrossed += HandleBoundary;
             _session.OnBurnt           += HandleBurnt;
             _ticker.Register(_session);
+            
+            OnSessionStarted?.Invoke(_session);
         }
         
         private void StopCooking()
@@ -145,6 +172,8 @@ namespace Cooking.Tomi
                     invSystem.NotifySlotChanged(0);
                 }
             }
+            
+            OnSessionStopped?.Invoke();
         }
 
         private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)

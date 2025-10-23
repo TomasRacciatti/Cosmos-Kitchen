@@ -1,10 +1,9 @@
 using UnityEngine;
 
-// Owner: Tomi (systems/stations)
 // Purpose: ScriptableObject with per-method timing defaults so designers can tune without code.
 // Notes: Stations/ticker can read these defaults; concrete items may override later if needed.
 
-namespace Cooking.Tomi
+namespace Cooking
 {
     [CreateAssetMenu(menuName = "ScriptableObject/Cooking/Balance", fileName = "CookingBalance")]
     public class CookingBalance : ScriptableObject

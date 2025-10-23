@@ -2,7 +2,7 @@ using System;
 using Items.Core;
 using Cooking;
 
-namespace Cooking.Tomi
+namespace Stations
 {
     [Serializable]
     public class StationSlot

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Cooking.Tomi
+namespace Cooking
 {
     public class CookingTicker : MonoBehaviour, ICookingTicker
     {
