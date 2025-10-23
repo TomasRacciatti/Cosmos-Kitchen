@@ -900,6 +900,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4475694153719729664, guid: 31ffb24738a37c146909f88434d03673,
+        type: 3}
+      propertyPath: secondsPerTick
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 6756894774376595781, guid: 31ffb24738a37c146909f88434d03673,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1380,6 +1385,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1328004322}
+    - target: {fileID: 6802029219942258257, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7708145948253003050, guid: eaa6c134550112d438682a2077c07ce3,
         type: 3}
       propertyPath: m_Mesh
