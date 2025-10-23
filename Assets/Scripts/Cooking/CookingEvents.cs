@@ -1,9 +1,8 @@
 using System;
 
-// Owner: Tomi (systems/stations)
 // Purpose: Global event signatures so UX (toasts/SFX) can subscribe without coupling to station internals.
 // Notes: The ticker/stations will raise these when thresholds are crossed.
-namespace Cooking.Tomi
+namespace Cooking
 {
     public static class CookingEvents
     {

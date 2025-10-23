@@ -1,11 +1,10 @@
 using UnityEngine;
 using System;
 
-// Owner: Tomi (systems/stations)
 // Purpose: Lightweight model + events describing one active station slot being cooked.
 // Notes: Ticker mutates this (accumulatedSeconds). Station listens for events to drive UX (toasts/SFX).
 
-namespace Cooking.Tomi
+namespace Cooking
 {
     [Serializable]
     public class CookingSession

@@ -1,11 +1,10 @@
-using Stations;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Cooking.Tomi
+namespace Stations
 {
     public class TimedStation : Station
     {
