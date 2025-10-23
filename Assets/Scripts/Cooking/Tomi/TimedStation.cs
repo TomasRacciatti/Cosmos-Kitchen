@@ -15,7 +15,7 @@ namespace Cooking.Tomi
         [Header("Cooking Config")]
         [SerializeField] private CookingMethod method = CookingMethod.Boil;
         [SerializeField] private float secondsPerTurn = 7f;
-        [SerializeField] private int maxTurnsBeforeBurn = 4;
+        private readonly int maxTurnsBeforeBurn = 4;
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
@@ -41,7 +41,7 @@ namespace Cooking.Tomi
             if (tickerProvider != null)
                 _ticker = tickerProvider as ICookingTicker;
 
-            if (_ticker == null) // Voy a ponerlo manualmente idealmente asi que no deberia entrar aca, pero por las dudas lo dejo
+            if (_ticker == null) // Si no entra de forma manual, se settea solo
             {
                 var found = FindFirstObjectByType<CookingTicker>();
                 if (found != null) _ticker = found as ICookingTicker;
