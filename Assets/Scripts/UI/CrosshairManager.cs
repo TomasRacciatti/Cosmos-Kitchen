@@ -32,6 +32,7 @@ namespace UI
         public static void StartAnimate()
         {
             if (_instance == null) return;
+            if (!_instance.gameObject.activeInHierarchy) return;
             if (_instance.isAnimating) return;
             _instance.isAnimating = true;
             _instance.StartCoroutine(_instance.Animate());
