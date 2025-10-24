@@ -557,6 +557,7 @@ MonoBehaviour:
   thirdPersonCamera: {fileID: 2641274836487050433}
   actualCamera: {fileID: 2641274836487050433}
   lockForwardFacing: 0
+  critics: []
 --- !u!114 &6539916698303342183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,6 +593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 18
   items: []
+  otherInvVinc: {fileID: 0}
 --- !u!114 &1445804373821102550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -722,9 +724,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactableLayers:
     serializedVersion: 2
-    m_Bits: 1665
-  cameraRadius: 10
-  ownerRadius: 5
+    m_Bits: 50817
+  cameraRadius: 8
+  ownerRadius: 4
 --- !u!1 &3653221121405014626
 GameObject:
   m_ObjectHideFlags: 0

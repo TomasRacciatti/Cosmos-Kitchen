@@ -2,10 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Characters.Customers;
 using Managers;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.TextCore.Text;
 
 namespace Characters.Clients.Plates
 {
