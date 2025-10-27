@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Cooking;
 using UnityEngine;
 
@@ -14,6 +15,9 @@ namespace Items.Core
         
         [SerializeField] private PreparationState prep;
         
+        [SerializeField, HideInInspector] private List<StepRecord> processHistory = new List<StepRecord>();
+        public IReadOnlyList<StepRecord> ProcessHistory => processHistory;
+        
         //Getters
         public SoItem SoItem => soItem;
         public int Amount => amount;
@@ -24,6 +28,12 @@ namespace Items.Core
         public int Rating => rating;
         public PreparationState Prep { get => prep; set => prep = value; }
         
+        // Helper
+        public void AddProcessStep(CookingMethod method, int turns)
+        {
+            processHistory.Add(new StepRecord { method = method, turns = turns });
+        }
+        
         //Constructors
         public ItemAmount(ItemAmount newItemAmount)
         {
@@ -31,6 +41,7 @@ namespace Items.Core
             amount = newItemAmount.Amount;
             rating = newItemAmount.Rating;
             prep = newItemAmount.Prep;
+            processHistory = new List<StepRecord>(newItemAmount.processHistory);
         }
         
         public ItemAmount(SoItem newSoItem = null, int newAmount = 0, int newStarRating = 3)
@@ -41,6 +52,8 @@ namespace Items.Core
             
             prep.method = CookingMethod.None;
             prep.turnsCooked = 0f;
+            
+            processHistory = new List<StepRecord>();
         }
         
         //Setters
@@ -49,6 +62,14 @@ namespace Items.Core
             soItem = itemAmount.SoItem;
             rating = itemAmount.Rating;
             prep = itemAmount.Prep;
+            
+            if (processHistory == null) 
+                processHistory = new List<StepRecord>();
+            else 
+                processHistory.Clear();
+            
+            if (itemAmount.ProcessHistory != null)
+                processHistory.AddRange(itemAmount.ProcessHistory);
             
             return SetAmount(itemAmount.Amount, clampToStack);
         }
@@ -101,6 +122,8 @@ namespace Items.Core
             
             prep.method = CookingMethod.None;
             prep.turnsCooked = 0f;
+            
+            processHistory.Clear();
         }
     }
 }

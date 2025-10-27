@@ -14,7 +14,7 @@ namespace Stations
         [Header("Cooking Config")]
         [SerializeField] private CookingMethod method = CookingMethod.Boil;
         [SerializeField] private float secondsPerTurn = 7f;
-        private readonly int maxTurnsBeforeBurn = 4;
+        private readonly int maxTurnsBeforeBurn = 3;
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
@@ -22,6 +22,7 @@ namespace Stations
         private ICookingTicker _ticker;
         
         private CookingSession _session;
+        private bool _recordedThisSession = false;
         
         // UI
         public event System.Action<CookingSession> OnSessionStarted;
@@ -118,6 +119,12 @@ namespace Stations
             var item = invSystem.Item(0);
             if (item.IsEmpty) return;
             
+            if (item.Prep.Doneness == Doneness.Burnt)
+            {
+                // No permitimos cocinar ingredientes arruinados
+                return;
+            }
+            
             var prepState = item.Prep;
             if (prepState.method != method)
             {
@@ -138,6 +145,8 @@ namespace Stations
                 isActive = true,
                 accumulatedSeconds = item.Prep.turnsCooked * spt
             };
+            
+            _recordedThisSession = false;
             
             _session.OnDonenessCrossed += HandleBoundary;
             _session.OnBurnt           += HandleBurnt;
@@ -162,12 +171,20 @@ namespace Stations
                 var item = invSystem.Item(0);
                 if (!item.IsEmpty && s.secondsPerTurn > 0f)
                 {
-                    var ps = item.Prep;
-                    float turns = s.TurnsCooked;
-                    if (turns > ps.turnsCooked)
-                        ps.turnsCooked = turns;
-                    ps.method = method;
-                    item.Prep = ps;
+                    var prepState = item.Prep;
+                    int finishedTurns = Mathf.Clamp(Mathf.FloorToInt(s.TurnsCooked), 0 ,3);
+                    if (s.TurnsCooked > prepState.turnsCooked)
+                        prepState.turnsCooked = s.TurnsCooked;
+                    
+                    prepState.method = method;
+                    item.Prep = prepState;
+                    
+                    if (!_recordedThisSession)
+                    {
+                        item.AddProcessStep(method, finishedTurns);
+                        _recordedThisSession = true;
+                    }
+                    
                     invSystem.Items[0].SetItem(item);
                     invSystem.NotifySlotChanged(0);
                 }
@@ -217,6 +234,12 @@ namespace Stations
              prepState.method = method;
              prepState.turnsCooked = maxTurnsBeforeBurn + 1f;
              item.Prep = prepState;
+             
+             if (!_recordedThisSession)
+             {
+                 item.AddProcessStep(method, 4);
+                 _recordedThisSession = true;
+             }
             
              invSystem.Items[0].SetItem(item);
              invSystem.NotifySlotChanged(0);
