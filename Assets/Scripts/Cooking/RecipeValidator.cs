@@ -16,73 +16,59 @@ namespace Cooking
             _lastMatch.Clear();
             failReason = null;
 
-            var reqs = plate.Requirements;
-            if (reqs == null || reqs.Length == 0 || reqs.Any(r => r.baseItem == null))
-            {
-                failReason = "Plate has invalid requirements.";
-                return false;
-            }
-            
-            var used = new HashSet<int>();
+            var proc = plate.IngredientsProcess;
+            bool useProcess = proc != null && proc.Length == 3 && proc.Any(p => p != null && p.steps != null && p.steps.Count > 0);
 
-            for (int r = 0; r < reqs.Length; r++)
+            if (useProcess)
             {
-                var req = reqs[r];
-                int bestIdx = -1;
-                int bestDistance = int.MaxValue;
-                
-                bool methodHasDoneness = CookingUtil.SupportsDoneness(req.requiredMethod);
-                bool checkDoneness = req.useDoneness && methodHasDoneness;
+                var used = new HashSet<int>();
 
-                for (int i = 0; i < inputs.Count; i++)
+                for (int r = 0; r < proc.Length; r++)
                 {
-                    if (used.Contains(i)) continue;
-
-                    var it = inputs[i];
-                    if (it.IsEmpty || it.SoItem != req.baseItem) continue;
-
-                    var prep = it.Prep;
-
-                    if (req.requiredMethod == CookingMethod.None) // Crudo
-                        if (prep.method != CookingMethod.None) continue;
-                    else
-                        if (prep.method != req.requiredMethod) continue;
-
-                    // Los quemados fallan el plato
-                    if (prep.Doneness == Doneness.Burnt && checkDoneness)
+                    var need = proc[r];
+                    if (need == null || need.baseItem == null)
                     {
-                        failReason = $"Burnt {req.baseItem.ItemName} cannot be used for this plate.";
+                        failReason = "Plate has invalid process requirements.";
                         _lastMatch.Clear();
                         return false;
                     }
 
-                    int dist = 0;
-                    if (checkDoneness)
-                        dist = Math.Abs((int)prep.Doneness - (int)req.targetDoneness);
-                    
-                    if (dist < bestDistance)
+                    int pick = -1;
+                    for (int i = 0; i < inputs.Count; i++)
                     {
-                        bestDistance = dist;
-                        bestIdx = i;
-                        if (bestDistance == 0 && checkDoneness) break;
+                        if (used.Contains(i)) continue;
+                        var it = inputs[i];
+                        if (it.IsEmpty || it.SoItem != need.baseItem) continue;
+                        
+                        if (it.Prep.Doneness == Doneness.Burnt)
+                        {
+                            failReason = $"{need.baseItem.ItemName} is burnt and cannot be used.";
+                            _lastMatch.Clear();
+                            return false;
+                        }
+
+                        pick = i;
+                        break;
                     }
-                }
-                
-                if (bestIdx < 0)
-                {
-                    string methodText = req.requiredMethod == CookingMethod.None
-                        ? "raw"
-                        : req.requiredMethod.ToString();
-                    failReason = $"Missing required ingredient: {req.baseItem.ItemName} ({methodText}).";
-                    _lastMatch.Clear();
-                    return false;
+
+                    if (pick < 0)
+                    {
+                        failReason = $"Missing required ingredient: {need.baseItem.ItemName}.";
+                        _lastMatch.Clear();
+                        return false;
+                    }
+
+                    used.Add(pick);
+                    _lastMatch.Add(pick);
                 }
 
-                used.Add(bestIdx);
-                _lastMatch.Add(bestIdx);
+                return true;
             }
-
-            return true;
+            
+            failReason = "Plate has no process steps configured (ingredientsProcess is empty).";
+            Debug.LogError(failReason);
+            _lastMatch.Clear();
+            return false;
         }
 
         public int EvaluateDonenessMistakes(SoPlate plate, IReadOnlyList<ItemAmount> inputs)
@@ -94,27 +80,25 @@ namespace Cooking
                     return int.MaxValue;
             }
 
-            int mistakes = 0;
-            var reqs = plate.Requirements;
-
-            for (int r = 0; r < reqs.Length; r++)
+            var proc = plate.IngredientsProcess;
+            bool useProcess = proc != null && proc.Length == 3 && proc.Any(p => p != null && p.steps != null && p.steps.Count > 0);
+            if (useProcess)
             {
-                var req = reqs[r];
-                
-                bool methodHasDoneness = CookingUtil.SupportsDoneness(req.requiredMethod);
-                bool checkDoneness = req.useDoneness && methodHasDoneness;
-                if (!checkDoneness) continue;
-                
-                int idx = _lastMatch[r];
-                var item = inputs[idx];
-                
-                int actual = (int)item.Prep.Doneness;
-                int target = (int)req.targetDoneness;
-                int delta = Math.Abs(actual - target) - req.tolerance;
-                if (delta > 0) mistakes += delta;
-            }
+                int total = 0;
+                for (int r = 0; r < proc.Length; r++)
+                {
+                    var need = proc[r];
+                    var idx = _lastMatch[r];
+                    var it = inputs[idx];
+                    
+                    IReadOnlyList<StepRecord> actual = it.ProcessHistory;
 
-            return mistakes;
+                    total += ProcessAlignment.ComputeCost(need.steps, actual, need.enforceOrder);
+                }
+                return total;
+            }
+            
+            return 0;
         }
 
         public int ComputeOutputRating(SoPlate plate, int baseRating, int mistakes)
