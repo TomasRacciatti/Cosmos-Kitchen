@@ -105,7 +105,7 @@ namespace Stations.Serving
             var inputItems = _inputSnapshot.Select(t => t.item).ToList();
             
             int mistakes = _validator.EvaluateDonenessMistakes(plate, inputItems);
-            int rating   = _validator.ComputeOutputRating(plate, baseRating: 5, mistakes: mistakes);
+            int rating   = _validator.ComputeOutputRating(plate, mistakes: mistakes);
             
             var usesPerSlot = new Dictionary<int, int>();
             foreach (var matchedIdx in _matchedInputIndices)

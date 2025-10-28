@@ -24,5 +24,5 @@ public interface IRecipeValidator
     /// <summary>
     /// Calcula el rating en base a la cantidad de errores.
     /// </summary>
-    int ComputeOutputRating(SoPlate plate, int baseRating, int mistakes);
+    int ComputeOutputRating(SoPlate plate, int mistakes);
 }

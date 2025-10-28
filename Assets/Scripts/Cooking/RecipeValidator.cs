@@ -101,11 +101,21 @@ namespace Cooking
             return 0;
         }
 
-        public int ComputeOutputRating(SoPlate plate, int baseRating, int mistakes)
+        public int ComputeOutputRating(SoPlate plate, int mistakes)
         {
-            int final = baseRating - mistakes;
-            if (final < 1) final = 1;
-            if (final > 3) final = 3;
+            int final;
+
+            if (mistakes == 0)
+                final = 3;
+            else if (mistakes <= 1)
+                final = 2;
+            else if (mistakes <= 4)
+                final = 1;
+            else
+            {
+                // esto deberia devolver un plato default que sea basura
+                final = 0;
+            }
             return final;
         }
     }
