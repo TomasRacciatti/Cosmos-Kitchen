@@ -8,6 +8,8 @@ namespace Cooking
 {
     public class RecipeValidator : MonoBehaviour, IRecipeValidator
     {
+        [SerializeField] private int silverThreshold = 3;
+        [SerializeField] private int bronzeThreshold = 6;
         public IReadOnlyList<int> LastMatchedIndices => _lastMatch;
         private readonly List<int> _lastMatch = new List<int>(3);
         
@@ -107,9 +109,9 @@ namespace Cooking
 
             if (mistakes == 0)
                 final = 3;
-            else if (mistakes <= 1)
+            else if (mistakes <= silverThreshold)
                 final = 2;
-            else if (mistakes <= 4)
+            else if (mistakes <= bronzeThreshold)
                 final = 1;
             else
             {

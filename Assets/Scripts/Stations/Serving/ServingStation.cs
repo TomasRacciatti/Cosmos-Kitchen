@@ -26,7 +26,7 @@ namespace Stations.Serving
         protected override void Awake()
         {
             base.Awake();
-            _validator = new RecipeValidator();
+            _validator = GetComponent<RecipeValidator>();
         }
 
         protected override void EnterStation()
@@ -86,6 +86,8 @@ namespace Stations.Serving
             string reason;
             if (!_validator.ValidateIdentity(plate, inputItems, out reason))
             {
+                _pendingPlate = null;
+                _matchedInputIndices.Clear();
                 return false;
             }
             
@@ -106,6 +108,15 @@ namespace Stations.Serving
             
             int mistakes = _validator.EvaluateDonenessMistakes(plate, inputItems);
             int rating   = _validator.ComputeOutputRating(plate, mistakes: mistakes);
+
+            if (rating <= 0)
+            {
+                // Aca le deberiamos craftear el plate basura
+                _pendingPlate = null;
+                _matchedInputIndices.Clear();
+                _inputSnapshot.Clear();
+                return;
+            }
             
             var usesPerSlot = new Dictionary<int, int>();
             foreach (var matchedIdx in _matchedInputIndices)

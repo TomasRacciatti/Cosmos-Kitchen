@@ -6,6 +6,10 @@ namespace Cooking
 {
     public static class ProcessAlignment
     {
+        // Costos de los errores
+        private const int MethodCost   = 2;
+        private const int DonenessCost = 1;
+        
         public static int ComputeCost(IReadOnlyList<ProcessStepReq> requiredSteps, 
                                       IReadOnlyList<StepRecord> actualSteps, bool enforceOrder)
         {
@@ -50,7 +54,7 @@ namespace Cooking
         private static int MatchCost(in ProcessStepReq req, in StepRecord a)
         {
             if (req.method != a.method)
-                return req.methodCost;
+                return MethodCost;
             
             bool checkDoneness = req.useDoneness && CookingUtil.SupportsDoneness(req.method);
             if (!checkDoneness) return 0;
@@ -58,7 +62,7 @@ namespace Cooking
             var actualDoneness = CookingUtil.ToDonenessFromTurns(a.turns);
             if (actualDoneness == Doneness.Burnt)
             {
-                return 3 * req.donenessCost;
+                return 3 * DonenessCost;
             }
             
             int actual = (int)actualDoneness;
@@ -66,12 +70,12 @@ namespace Cooking
             int delta  = Math.Abs(actual - target) - req.tolerance;
             if (delta <= 0) return 0;
 
-            return delta * req.donenessCost;
+            return delta * DonenessCost;
         }
         
         private static int MissingCost(in ProcessStepReq req)
         {
-            return req.methodCost;
+            return MethodCost;
         }
 
         private static int ExtraCost(in StepRecord a)

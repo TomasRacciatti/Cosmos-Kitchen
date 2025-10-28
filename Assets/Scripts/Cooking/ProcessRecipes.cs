@@ -26,9 +26,5 @@ namespace Cooking
         public bool useDoneness = false;
         public Doneness targetDoneness = Doneness.Medium;
         public int tolerance = 0;
-
-        [Header("Mistake cost")]
-        public int methodCost = 2;
-        public int donenessCost = 1;
     }
 }
