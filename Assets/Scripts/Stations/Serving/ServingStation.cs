@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters.Clients.Plates;
@@ -63,12 +64,37 @@ namespace Stations.Serving
         {
             if (!outputInventory.Items[0].IsEmpty) return;
             
+            _inputSnapshot.Clear();
+            for (int i = 0; i < inputInventory.Items.Count; i++)
+            {
+                var it = inputInventory.Items[i];
+                if (!it.IsEmpty) _inputSnapshot.Add((i, it));
+            }
+            if (_inputSnapshot.Count == 0) return;
+
+            SoPlate bestPlate = null;
+            List<int> bestIndices = null;
+            int bestMistakes = int.MaxValue;
+
             foreach (var plate in availablePlates)
             {
-                if (!CanCraftPlate(plate)) continue;
-                CraftPlate(plate);
-                return;
+                var scored = ScorePlateCandidate(plate, _inputSnapshot);
+                if (!scored.ok) continue;
+
+                if (scored.mistakes < bestMistakes)
+                {
+                    bestMistakes = scored.mistakes;
+                    bestPlate = plate;
+                    bestIndices = scored.matchedIndices;
+                }
             }
+
+            if (bestPlate == null) return;
+            
+            _pendingPlate = bestPlate;
+            _matchedInputIndices = bestIndices;
+
+            CraftPlate(bestPlate);
         }
 
         private bool CanCraftPlate(SoPlate plate)
@@ -160,6 +186,22 @@ namespace Stations.Serving
             _pendingPlate = null;
             _matchedInputIndices.Clear();
             _inputSnapshot.Clear();
+        }
+
+        // Esta es la nueva forma de escribir tuplas
+        // Usamos esta funcion para que el validator pueda interpretar que plato quiere hacer en base al mas proximo
+        private (bool ok, int mistakes, List<int> matchedIndices) ScorePlateCandidate(SoPlate plate,
+            List<(int slotIndex, ItemAmount item)> snapshot)
+        {
+            var inputs = snapshot.Select(t => t.item).ToList();
+
+            if (!_validator.ValidateIdentity(plate, inputs, out _))
+                return (false, int.MaxValue, null);
+            
+            var matched = new List<int>(_validator.LastMatchedIndices);
+            
+            int mistakes = _validator.EvaluateDonenessMistakes(plate, inputs);
+            return (true, mistakes, matched);
         }
     }
 }

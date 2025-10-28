@@ -10,15 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a86437afe9b3534c8d89ac395f6297d, type: 3}
-  m_Name: DefaultPlate
+  m_Name: GarbagePlate
   m_EditorClassIdentifier: 
-  itemName: Default Plate
-  image: {fileID: 21300000, guid: 0e0c602a20f9cba40a7d7d0e8d16bfcb, type: 3}
-  description: "A random sample of ingredients.\r"
+  itemName: Garbage Plate
+  visualSet: {fileID: 0}
+  description: "Not your best work...\r"
   stack: 10
   mesh: {fileID: 0}
   materials: []
   tools: []
-  ingredientA: {fileID: 0}
-  ingredientB: {fileID: 0}
-  ingredientC: {fileID: 0}
+  ingredientProcess:
+  - baseItem: {fileID: 0}
+    steps: []
+    enforceOrder: 1
+  - baseItem: {fileID: 0}
+    steps: []
+    enforceOrder: 1
+  - baseItem: {fileID: 0}
+    steps: []
+    enforceOrder: 1
