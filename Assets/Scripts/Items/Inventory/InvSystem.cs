@@ -21,10 +21,14 @@ namespace Items.Inventory
 
         public InvSystem otherInvVinc;
         
+        public Func<Items.Core.ItemAmount, bool> CanAcceptItem;
+        
         //Observers
         private event Action<int, ItemAmount> OnSlotChanged;
         public void Subscribe(Action<int, ItemAmount> listener) => OnSlotChanged += listener;
         public void Unsubscribe(Action<int, ItemAmount> listener) => OnSlotChanged -= listener;
+        
+        private bool Accepts(ItemAmount it) => CanAcceptItem == null || CanAcceptItem(it);
 
         private void Awake()
         {
@@ -45,6 +49,10 @@ namespace Items.Inventory
         public void AddItem(ref ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return;
+            
+            if (CanAcceptItem != null && !CanAcceptItem(itemAmount))
+                return;
+            
             AddStackSlot(ref itemAmount);
             if (itemAmount.IsEmpty) return;
             AddEmptySlot(ref itemAmount);
@@ -136,6 +144,8 @@ namespace Items.Inventory
                 return;
             }
 
+            if (!Accepts(itemAmount)) return;
+            
             items[index] = itemAmount;
             NotifySlotChanged(index);
         }
@@ -272,6 +282,8 @@ namespace Items.Inventory
 
             ItemAmount fromItem = items[fromIndex];
             if (fromItem.IsEmpty) return;
+            
+            if (!targetInventory.Accepts(fromItem)) return;
 
             ItemAmount targetItem = targetInventory.Item(targetIndex);
             

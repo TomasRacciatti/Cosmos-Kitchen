@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Items.Inventory;
 using Items.Tools;
 using Managers;
@@ -57,6 +58,11 @@ namespace Stations
                     break;
                 }
             }
+        }
+        
+        protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
+        {
+            if (invSystem != null) yield return invSystem;
         }
     }
 }

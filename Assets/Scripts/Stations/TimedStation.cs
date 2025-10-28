@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
@@ -262,6 +263,11 @@ namespace Stations
              StopCooking();
             
             Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+        }
+        
+        protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
+        {
+            if (invSystem != null) yield return invSystem;
         }
     }
 }
