@@ -68,7 +68,7 @@ namespace Cooking
             }
             
             failReason = "Plate has no process steps configured (ingredientsProcess is empty).";
-            Debug.LogError(failReason);
+            Debug.LogWarning(failReason);
             _lastMatch.Clear();
             return false;
         }
