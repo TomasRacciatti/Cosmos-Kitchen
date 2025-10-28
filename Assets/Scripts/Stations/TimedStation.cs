@@ -202,6 +202,19 @@ namespace Stations
             if (index != 0) return;
             bool wasRunning = _session != null;
             StopCooking();
+            
+            if (!wasRunning && !current.IsEmpty)
+            {
+                var prepState = current.Prep;
+                if (prepState.method != method)
+                {
+                    prepState.method = method;
+                    prepState.turnsCooked = 0f;
+                    current.Prep = prepState;
+                    invSystem.NotifySlotChanged(0);
+                }
+            }
+            
             if (wasRunning && !current.IsEmpty) StartCooking();
         }
 
