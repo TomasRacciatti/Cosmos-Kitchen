@@ -131,11 +131,17 @@ namespace Stations
                 prepState.method = method;
                 prepState.turnsCooked = 0f;
                 item.Prep = prepState;
-                invSystem.Items[0].SetItem(item);
                 invSystem.NotifySlotChanged(0);
             }
             
             float spt = Mathf.Max(0.01f, secondsPerTurn);
+            
+            if (_session != null)
+            {
+                _session.OnDonenessCrossed -= HandleBoundary;
+                _session.OnBurnt -= HandleBurnt;
+            }
+            
             _session = new CookingSession
             {
                 method = method,
@@ -184,8 +190,6 @@ namespace Stations
                         item.AddProcessStep(method, finishedTurns);
                         _recordedThisSession = true;
                     }
-                    
-                    invSystem.Items[0].SetItem(item);
                     invSystem.NotifySlotChanged(0);
                 }
             }
@@ -214,8 +218,7 @@ namespace Stations
             ps.method = method;
             ps.turnsCooked = boundaryIndex;
             item.Prep = ps;
-
-            invSystem.Items[0].SetItem(item);
+            
             invSystem.NotifySlotChanged(0);
 
             Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
@@ -240,8 +243,7 @@ namespace Stations
                  item.AddProcessStep(method, 4);
                  _recordedThisSession = true;
              }
-            
-             invSystem.Items[0].SetItem(item);
+             
              invSystem.NotifySlotChanged(0);
              
              StopCooking();

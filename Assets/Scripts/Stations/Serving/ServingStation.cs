@@ -103,6 +103,16 @@ namespace Stations.Serving
             {
                 if (!CanCraftPlate(plate)) return;
             }
+            
+            // ------------ Debugeando ------------
+            // for (int ingredient = 0; ingredient < _matchedInputIndices.Count; ingredient++)
+            // {
+            //     var idx = _matchedInputIndices[ingredient];
+            //     var it  = _inputSnapshot[idx].item;
+            //     var hist = string.Join(", ", it.ProcessHistory.Select(s => $"{s.method}:{s.turns}"));
+            //     Debug.Log($"[Serving] Input{ingredient} {it.SoItem.ItemName} history=[{hist}]  prep=({it.Prep.method},{it.Prep.turnsCooked:0.##})");
+            // }
+            // -------------------------------------
 
             var inputItems = _inputSnapshot.Select(t => t.item).ToList();
             
@@ -112,6 +122,7 @@ namespace Stations.Serving
             if (rating <= 0)
             {
                 // Aca le deberiamos craftear el plate basura
+                Debug.Log($"Plato basura. Muchos Errores");
                 _pendingPlate = null;
                 _matchedInputIndices.Clear();
                 _inputSnapshot.Clear();

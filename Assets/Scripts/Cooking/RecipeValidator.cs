@@ -32,6 +32,7 @@ namespace Cooking
                     {
                         failReason = "Plate has invalid process requirements.";
                         _lastMatch.Clear();
+                        //Debug.LogWarning(failReason);
                         return false;
                     }
 
@@ -46,6 +47,7 @@ namespace Cooking
                         {
                             failReason = $"{need.baseItem.ItemName} is burnt and cannot be used.";
                             _lastMatch.Clear();
+                            //Debug.LogWarning(failReason);
                             return false;
                         }
 
@@ -57,6 +59,7 @@ namespace Cooking
                     {
                         failReason = $"Missing required ingredient: {need.baseItem.ItemName}.";
                         _lastMatch.Clear();
+                        //Debug.LogWarning(failReason);
                         return false;
                     }
 
@@ -68,7 +71,7 @@ namespace Cooking
             }
             
             failReason = "Plate has no process steps configured (ingredientsProcess is empty).";
-            Debug.LogWarning(failReason);
+            //Debug.LogWarning(failReason);
             _lastMatch.Clear();
             return false;
         }

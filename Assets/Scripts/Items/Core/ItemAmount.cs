@@ -31,6 +31,17 @@ namespace Items.Core
         // Helper
         public void AddProcessStep(CookingMethod method, int turns)
         {
+            // guardrail para evitar doble conteo
+            if (processHistory.Count > 0)
+            {
+                var last = processHistory[^1];
+                if (last.method == method)
+                {
+                    processHistory[^1] = new StepRecord { method = method, turns = turns };
+                    return;
+                }
+            }
+            
             processHistory.Add(new StepRecord { method = method, turns = turns });
         }
         
