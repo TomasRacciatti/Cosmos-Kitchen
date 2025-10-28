@@ -35,18 +35,18 @@ MonoBehaviour:
     steps:
     - method: 1
       useDoneness: 1
-      targetDoneness: 1
+      targetDoneness: 3
       tolerance: 0
     - method: 4
       useDoneness: 1
-      targetDoneness: 3
+      targetDoneness: 1
       tolerance: 0
     enforceOrder: 1
   - baseItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
     steps:
     - method: 5
       useDoneness: 0
-      targetDoneness: 0
+      targetDoneness: 1
       tolerance: 0
     - method: 3
       useDoneness: 1

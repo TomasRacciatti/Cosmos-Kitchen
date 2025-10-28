@@ -20,12 +20,32 @@ MonoBehaviour:
   materials: []
   tools: []
   ingredientProcess:
-  - baseItem: {fileID: 0}
-    steps: []
+  - baseItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
+    steps:
+    - method: 4
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
+    - method: 2
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
     enforceOrder: 1
-  - baseItem: {fileID: 0}
-    steps: []
+  - baseItem: {fileID: 11400000, guid: 89727ab181f3a2649ac1c7d1bd19a586, type: 2}
+    steps:
+    - method: 4
+      useDoneness: 1
+      targetDoneness: 2
+      tolerance: 0
     enforceOrder: 1
-  - baseItem: {fileID: 0}
-    steps: []
+  - baseItem: {fileID: 11400000, guid: f6dde2abff7f05f4caf10c51f15eff76, type: 2}
+    steps:
+    - method: 3
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
+    - method: 2
+      useDoneness: 1
+      targetDoneness: 1
+      tolerance: 0
     enforceOrder: 1
