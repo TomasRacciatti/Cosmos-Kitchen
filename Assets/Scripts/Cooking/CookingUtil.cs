@@ -20,5 +20,12 @@ namespace Cooking
                     return false;
             }
         }
+        
+        public static Doneness ToDonenessFromTurns(int turns)
+        {
+            if (turns >= 4) return Doneness.Burnt;
+            if (turns <= 0) return Doneness.Raw;
+            return (Doneness)turns;
+        }
     }
 }

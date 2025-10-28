@@ -25,22 +25,25 @@ public class SoItemVisualSet : ScriptableObject
     public class MethodVariants
     {
         public CookingMethod method;
-        [Tooltip("0 = Raw, 1 = Rare, 2 = Medium, 3 = WellDone, 4 = Burnt")]
-        public Sprite[] donenessSprites = new Sprite[5];
+        [Tooltip("0 = Rare, 1 = Medium, 2 = WellDone, 3 = Burnt")]
+        public Sprite[] donenessSprites = new Sprite[4];
     }
 
     public bool TryGet(CookingMethod method, int donenessIndex, out Sprite sprite)
     {
         sprite = null;
         if (variants == null) return false;
+        
+        if (donenessIndex <= 0) return false;
 
         for (int i = 0; i < variants.Length; i++)
         {
             if (variants[i].method != method) continue;
             var spriteArr = variants[i].donenessSprites;
-            if (spriteArr != null && donenessIndex >= 0 && donenessIndex < spriteArr.Length)
+            int idx = donenessIndex - 1;
+            if (spriteArr != null && idx >= 0 && idx < spriteArr.Length)
             {
-                sprite = spriteArr[donenessIndex];
+                sprite = spriteArr[idx];
                 return sprite != null;
             }
         }

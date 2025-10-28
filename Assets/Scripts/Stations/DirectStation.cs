@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Cooking;
 using Items.Inventory;
 using Items.Tools;
 using Managers;
@@ -11,6 +13,8 @@ namespace Stations
         [Header("Direct Station")]
         [SerializeField] private InvSystem invSystem;
         [SerializeField] private SoTool soTool;
+        
+        [SerializeField] private CookingMethod method;
 
         protected override void Awake()
         {
@@ -21,10 +25,12 @@ namespace Stations
         protected override void EnterStation()
         {
             base.EnterStation();
+            
             InvView invView = CanvasInstance.GetComponentInChildren<InvView>();
             invView.SetInventory(invSystem);
+            
             Button button = CanvasInstance.GetComponentInChildren<Button>();
-            button.onClick.AddListener(UseTool);
+            button.onClick.AddListener(ApplyDirectProcess);
             
             InvSystem invPlayer = GameManager.Player.Inventory;
 
@@ -35,28 +41,53 @@ namespace Stations
         protected override void LeaveStation()
         {
             Button button = CanvasInstance.GetComponentInChildren<Button>();
-            button.onClick.RemoveListener(UseTool);
+            button.onClick.RemoveListener(ApplyDirectProcess);
+            
             base.LeaveStation();
+            
             InvSystem invPlayer = GameManager.Player.Inventory;
             invSystem.otherInvVinc = null;
             invPlayer.otherInvVinc = null;
         }
         
-        public void UseTool()
+        private  void ApplyDirectProcess()
         {
             for (int i = 0; i < invSystem.Items.Count; i++)
             {
                 var item = invSystem.Items[i];
                 if (item.IsEmpty) continue;
+                
+                if (item.Prep.Doneness == Cooking.Doneness.Burnt) continue;
 
-                foreach (var tool in item.SoItem.Tools)
+                bool toolAllowed = false;
+                var tools = item.SoItem.Tools;
+                if (tools != null)
                 {
-                    if (tool.tool != soTool) continue;
-                    item.SetItem(tool.item);
-                    invSystem.NotifySlotChanged(i);
-                    break;
+                    for (int t = 0; t < tools.Length; t++)
+                    {
+                        if (tools[t].tool == soTool) { toolAllowed = true; break; }
+                    }
                 }
+                if (!toolAllowed) continue;
+                
+                item.AddProcessStep(method, 1);
+                
+                var prep = item.Prep;
+                prep.method = method;
+                prep.turnsCooked = 1; // Para los visuales nomas
+                item.Prep = prep;
+                invSystem.NotifySlotChanged(i);
+                
+                prep.method = CookingMethod.None;
+                prep.turnsCooked = 0f;
+                item.Prep = prep;
+                invSystem.NotifySlotChanged(i);
             }
+        }
+        
+        protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
+        {
+            if (invSystem != null) yield return invSystem;
         }
     }
 }

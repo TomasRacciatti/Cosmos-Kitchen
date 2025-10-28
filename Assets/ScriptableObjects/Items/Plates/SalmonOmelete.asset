@@ -12,26 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a86437afe9b3534c8d89ac395f6297d, type: 3}
   m_Name: SalmonOmelete
   m_EditorClassIdentifier: 
-  itemName: Salmon Omelete
+  itemName: Salmon Omelet
   visualSet: {fileID: 11400000, guid: fda8696c8cbddc244a3eabceb37df783, type: 2}
-  description: An Omelette made of Salmon.
+  description: An Omelet made of Salmon.
   stack: 10
   mesh: {fileID: 0}
   materials: []
   tools: []
-  requirements:
+  ingredientProcess:
   - baseItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
-    requiredMethod: 5
-    useDoneness: 0
-    targetDoneness: 0
-    tolerance: 0
+    steps:
+    - method: 4
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
+    - method: 2
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
+    enforceOrder: 1
   - baseItem: {fileID: 11400000, guid: 89727ab181f3a2649ac1c7d1bd19a586, type: 2}
-    requiredMethod: 4
-    useDoneness: 1
-    targetDoneness: 1
-    tolerance: 0
+    steps:
+    - method: 4
+      useDoneness: 1
+      targetDoneness: 2
+      tolerance: 0
+    enforceOrder: 1
   - baseItem: {fileID: 11400000, guid: f6dde2abff7f05f4caf10c51f15eff76, type: 2}
-    requiredMethod: 3
-    useDoneness: 1
-    targetDoneness: 2
-    tolerance: 0
+    steps:
+    - method: 3
+      useDoneness: 1
+      targetDoneness: 3
+      tolerance: 0
+    - method: 2
+      useDoneness: 1
+      targetDoneness: 1
+      tolerance: 0
+    enforceOrder: 1

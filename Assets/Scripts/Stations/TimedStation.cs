@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
@@ -14,7 +15,7 @@ namespace Stations
         [Header("Cooking Config")]
         [SerializeField] private CookingMethod method = CookingMethod.Boil;
         [SerializeField] private float secondsPerTurn = 7f;
-        private readonly int maxTurnsBeforeBurn = 4;
+        private readonly int maxTurnsBeforeBurn = 3;
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
@@ -22,6 +23,7 @@ namespace Stations
         private ICookingTicker _ticker;
         
         private CookingSession _session;
+        private bool _recordedThisSession = false;
         
         // UI
         public event System.Action<CookingSession> OnSessionStarted;
@@ -118,17 +120,29 @@ namespace Stations
             var item = invSystem.Item(0);
             if (item.IsEmpty) return;
             
+            if (item.Prep.Doneness == Doneness.Burnt)
+            {
+                // No permitimos cocinar ingredientes arruinados
+                return;
+            }
+            
             var prepState = item.Prep;
             if (prepState.method != method)
             {
                 prepState.method = method;
                 prepState.turnsCooked = 0f;
                 item.Prep = prepState;
-                invSystem.Items[0].SetItem(item);
                 invSystem.NotifySlotChanged(0);
             }
             
             float spt = Mathf.Max(0.01f, secondsPerTurn);
+            
+            if (_session != null)
+            {
+                _session.OnDonenessCrossed -= HandleBoundary;
+                _session.OnBurnt -= HandleBurnt;
+            }
+            
             _session = new CookingSession
             {
                 method = method,
@@ -138,6 +152,8 @@ namespace Stations
                 isActive = true,
                 accumulatedSeconds = item.Prep.turnsCooked * spt
             };
+            
+            _recordedThisSession = false;
             
             _session.OnDonenessCrossed += HandleBoundary;
             _session.OnBurnt           += HandleBurnt;
@@ -162,13 +178,19 @@ namespace Stations
                 var item = invSystem.Item(0);
                 if (!item.IsEmpty && s.secondsPerTurn > 0f)
                 {
-                    var ps = item.Prep;
-                    float turns = s.TurnsCooked;
-                    if (turns > ps.turnsCooked)
-                        ps.turnsCooked = turns;
-                    ps.method = method;
-                    item.Prep = ps;
-                    invSystem.Items[0].SetItem(item);
+                    var prepState = item.Prep;
+                    int finishedTurns = Mathf.Clamp(Mathf.FloorToInt(s.TurnsCooked), 0 ,3);
+                    if (s.TurnsCooked > prepState.turnsCooked)
+                        prepState.turnsCooked = s.TurnsCooked;
+                    
+                    prepState.method = method;
+                    item.Prep = prepState;
+                    
+                    if (!_recordedThisSession)
+                    {
+                        item.AddProcessStep(method, finishedTurns);
+                        _recordedThisSession = true;
+                    }
                     invSystem.NotifySlotChanged(0);
                 }
             }
@@ -181,6 +203,19 @@ namespace Stations
             if (index != 0) return;
             bool wasRunning = _session != null;
             StopCooking();
+            
+            if (!wasRunning && !current.IsEmpty)
+            {
+                var prepState = current.Prep;
+                if (prepState.method != method)
+                {
+                    prepState.method = method;
+                    prepState.turnsCooked = 0f;
+                    current.Prep = prepState;
+                    invSystem.NotifySlotChanged(0);
+                }
+            }
+            
             if (wasRunning && !current.IsEmpty) StartCooking();
         }
 
@@ -197,8 +232,7 @@ namespace Stations
             ps.method = method;
             ps.turnsCooked = boundaryIndex;
             item.Prep = ps;
-
-            invSystem.Items[0].SetItem(item);
+            
             invSystem.NotifySlotChanged(0);
 
             Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
@@ -217,13 +251,23 @@ namespace Stations
              prepState.method = method;
              prepState.turnsCooked = maxTurnsBeforeBurn + 1f;
              item.Prep = prepState;
-            
-             invSystem.Items[0].SetItem(item);
+             
+             if (!_recordedThisSession)
+             {
+                 item.AddProcessStep(method, 4);
+                 _recordedThisSession = true;
+             }
+             
              invSystem.NotifySlotChanged(0);
              
              StopCooking();
             
             Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+        }
+        
+        protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
+        {
+            if (invSystem != null) yield return invSystem;
         }
     }
 }
