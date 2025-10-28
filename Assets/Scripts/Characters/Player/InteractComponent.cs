@@ -1,5 +1,6 @@
 using Interfaces;
 using Managers;
+using UI;
 using UnityEngine;
 
 namespace Characters.Player
@@ -48,11 +49,13 @@ namespace Characters.Player
                     if (activeInteractable == null) return;
                     activeInteractable?.EnableInteract();
                     InteractButton.Show();
+                    CrosshairManager.StartAnimate();
                     return;
                 }
             }
 
             ClearActiveInteractable();
+            CrosshairManager.StopAnimate();
         }
 
         private void ClearActiveInteractable()

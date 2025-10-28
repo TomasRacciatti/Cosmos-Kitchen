@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Cooking;
 
 namespace Items.Inventory
 {
@@ -36,11 +35,12 @@ namespace Items.Inventory
         
         public void SetItem(ItemAmount newItemAmount)
         {
+            Sprite previousSprite = image.sprite;
             itemAmount = newItemAmount;
             if (image)
             {
                 image.enabled = true;
-                image.sprite = ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
+                image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, previousSprite);
             }
             RefreshAmount();
         }
@@ -86,7 +86,7 @@ namespace Items.Inventory
                     }
                     break;
                 case PointerEventData.InputButton.Right:
-                    print("abrir panel de opciones");
+                    _invSlotUI.InvView.InventorySystem.TransferToOtherInventory(SlotUI.InvSlot);
                     break;
                 case PointerEventData.InputButton.Middle:
                     _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);

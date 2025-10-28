@@ -8,6 +8,8 @@ namespace Cooking
 {
     public class RecipeValidator : MonoBehaviour, IRecipeValidator
     {
+        [SerializeField] private int silverThreshold = 3;
+        [SerializeField] private int bronzeThreshold = 6;
         public IReadOnlyList<int> LastMatchedIndices => _lastMatch;
         private readonly List<int> _lastMatch = new List<int>(3);
         
@@ -16,101 +18,109 @@ namespace Cooking
             _lastMatch.Clear();
             failReason = null;
 
-            var reqs = plate.Requirements;
-            if (reqs == null || reqs.Length == 0 || reqs.Any(r => r.baseItem == null))
-            {
-                failReason = "Plate has invalid requirements.";
-                return false;
-            }
-            
-            var used = new HashSet<int>();
+            var proc = plate.IngredientsProcess;
+            bool useProcess = proc != null && proc.Length == 3 && proc.Any(p => p != null && p.steps != null && p.steps.Count > 0);
 
-            for (int r = 0; r < reqs.Length; r++)
+            if (useProcess)
             {
-                var req = reqs[r];
-                int bestIdx = -1;
-                int bestDistance = int.MaxValue;
+                var used = new HashSet<int>();
 
-                for (int i = 0; i < inputs.Count; i++)
+                for (int r = 0; r < proc.Length; r++)
                 {
-                    if (used.Contains(i)) continue;
-
-                    var it = inputs[i];
-                    if (it.IsEmpty || it.SoItem != req.baseItem) continue;
-
-                    var prep = it.Prep;
-
-                    if (req.requiredMethod == CookingMethod.None) // Crudo
-                        if (prep.method != CookingMethod.None) continue;
-                    else
-                        if (prep.method != req.requiredMethod) continue;
-
-                    // Los quemados fallan el plato
-                    if (prep.Doneness == Doneness.Burnt)
+                    var need = proc[r];
+                    if (need == null || need.baseItem == null)
                     {
-                        failReason = $"Burnt {req.baseItem.ItemName} cannot be used for this plate.";
+                        failReason = "Plate has invalid process requirements.";
                         _lastMatch.Clear();
+                        //Debug.LogWarning(failReason);
                         return false;
                     }
-                    
-                    int dist = Math.Abs((int)prep.Doneness - (int)req.targetDoneness);
-                    if (dist < bestDistance)
+
+                    int pick = -1;
+                    for (int i = 0; i < inputs.Count; i++)
                     {
-                        bestDistance = dist;
-                        bestIdx = i;
-                        if (bestDistance == 0) break;
+                        if (used.Contains(i)) continue;
+                        var it = inputs[i];
+                        if (it.IsEmpty || it.SoItem != need.baseItem) continue;
+                        
+                        if (it.Prep.Doneness == Doneness.Burnt)
+                        {
+                            failReason = $"{need.baseItem.ItemName} is burnt and cannot be used.";
+                            _lastMatch.Clear();
+                            //Debug.LogWarning(failReason);
+                            return false;
+                        }
+
+                        pick = i;
+                        break;
                     }
-                }
-                
-                if (bestIdx < 0)
-                {
-                    string methodText = req.requiredMethod == CookingMethod.None
-                        ? "raw"
-                        : req.requiredMethod.ToString();
-                    failReason = $"Missing required ingredient: {req.baseItem.ItemName} ({methodText}).";
-                    _lastMatch.Clear();
-                    return false;
+
+                    if (pick < 0)
+                    {
+                        failReason = $"Missing required ingredient: {need.baseItem.ItemName}.";
+                        _lastMatch.Clear();
+                        //Debug.LogWarning(failReason);
+                        return false;
+                    }
+
+                    used.Add(pick);
+                    _lastMatch.Add(pick);
                 }
 
-                used.Add(bestIdx);
-                _lastMatch.Add(bestIdx);
+                return true;
             }
-
-            return true;
+            
+            failReason = "Plate has no process steps configured (ingredientsProcess is empty).";
+            //Debug.LogWarning(failReason);
+            _lastMatch.Clear();
+            return false;
         }
 
         public int EvaluateDonenessMistakes(SoPlate plate, IReadOnlyList<ItemAmount> inputs)
         {
             if (_lastMatch.Count == 0)
             {
-                string _; // ignore reason
+                string _;
                 if (!ValidateIdentity(plate, inputs, out _))
                     return int.MaxValue;
             }
 
-            int mistakes = 0;
-            var reqs = plate.Requirements;
-
-            for (int r = 0; r < reqs.Length; r++)
+            var proc = plate.IngredientsProcess;
+            bool useProcess = proc != null && proc.Length == 3 && proc.Any(p => p != null && p.steps != null && p.steps.Count > 0);
+            if (useProcess)
             {
-                int idx = _lastMatch[r];
-                var req = reqs[r];
-                var it = inputs[idx];
-                
-                int actual = (int)it.Prep.Doneness;
-                int target = (int)req.targetDoneness;
-                int delta = Math.Abs(actual - target) - req.tolerance;
-                if (delta > 0) mistakes += delta;
-            }
+                int total = 0;
+                for (int r = 0; r < proc.Length; r++)
+                {
+                    var need = proc[r];
+                    var idx = _lastMatch[r];
+                    var it = inputs[idx];
+                    
+                    IReadOnlyList<StepRecord> actual = it.ProcessHistory;
 
-            return mistakes;
+                    total += ProcessAlignment.ComputeCost(need.steps, actual, need.enforceOrder);
+                }
+                return total;
+            }
+            
+            return 0;
         }
 
-        public int ComputeOutputRating(SoPlate plate, int baseRating, int mistakes)
+        public int ComputeOutputRating(SoPlate plate, int mistakes)
         {
-            int final = baseRating - mistakes;
-            if (final < 1) final = 1;
-            if (final > 3) final = 3;
+            int final;
+
+            if (mistakes == 0)
+                final = 3;
+            else if (mistakes <= silverThreshold)
+                final = 2;
+            else if (mistakes <= bronzeThreshold)
+                final = 1;
+            else
+            {
+                // esto deberia devolver un plato default que sea basura
+                final = 0;
+            }
             return final;
         }
     }

@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 6160530677509090989}
   - component: {fileID: 4085034360820517289}
   - component: {fileID: 4717228008224052287}
-  - component: {fileID: 4554714599234581920}
+  - component: {fileID: 6682538134500797431}
   - component: {fileID: 1562529459002612542}
   - component: {fileID: 8866490905278984219}
   m_Layer: 0
@@ -534,7 +534,7 @@ CapsuleCollider:
   m_Height: 0.06931895
   m_Direction: 1
   m_Center: {x: 0, y: -0.030543447, z: 0}
---- !u!114 &4554714599234581920
+--- !u!114 &6682538134500797431
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -543,17 +543,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 5662318218792333589}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3448236531ef35d4bb18c84c2bbd4c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
-  canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
+  canvas: {fileID: 8100360072370276888, guid: dd10ed11261eac741849429a7f95f27e, type: 3}
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
   outlineMeshes:
   - {fileID: 4085034360820517289}
   invSystem: {fileID: 1562529459002612542}
-  soTool: {fileID: 11400000, guid: 6bd9fb92e69585643999de7050adf164, type: 2}
+  method: 1
+  secondsPerTurn: 10
+  tickerProvider: {fileID: 0}
 --- !u!114 &1562529459002612542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -568,6 +570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+  otherInvVinc: {fileID: 0}
 --- !u!95 &8866490905278984219
 Animator:
   serializedVersion: 5
@@ -601,7 +604,7 @@ GameObject:
   - component: {fileID: 4416311149200416479}
   - component: {fileID: 4084502754067260346}
   - component: {fileID: 859939595023642149}
-  - component: {fileID: 3617775477415348064}
+  - component: {fileID: 7352102197328002712}
   - component: {fileID: 4916923003396223572}
   - component: {fileID: 3591956224602655116}
   m_Layer: 0
@@ -697,7 +700,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.09214777, y: 0.18840915, z: 0.33752137}
   m_Center: {x: 0.016420012, y: 0.0046995343, z: 0.000000023841858}
---- !u!114 &3617775477415348064
+--- !u!114 &7352102197328002712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -706,7 +709,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5687032997394254720}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3448236531ef35d4bb18c84c2bbd4c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openAnimation: {fileID: 0}
@@ -720,7 +723,9 @@ MonoBehaviour:
   - {fileID: 2228262827840487158}
   - {fileID: 7194186002352369427}
   invSystem: {fileID: 4916923003396223572}
-  soTool: {fileID: 11400000, guid: 15e1c145f1114774ea858a147c1e57cd, type: 2}
+  method: 3
+  secondsPerTurn: 15
+  tickerProvider: {fileID: 0}
 --- !u!114 &4916923003396223572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -735,6 +740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+  otherInvVinc: {fileID: 0}
 --- !u!95 &3591956224602655116
 Animator:
   serializedVersion: 5

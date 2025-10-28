@@ -542,7 +542,7 @@ GameObject:
   - component: {fileID: 7352082102046419027}
   - component: {fileID: 3923079919028205487}
   - component: {fileID: 9189925114151550852}
-  - component: {fileID: 720564677411894500}
+  - component: {fileID: 5987112371981161682}
   - component: {fileID: 7716148591898019948}
   - component: {fileID: 1758652281875940276}
   m_Layer: 0
@@ -618,7 +618,7 @@ CapsuleCollider:
   m_Height: 0.16460954
   m_Direction: 1
   m_Center: {x: 0.0010100603, y: 0.12738529, z: 0}
---- !u!114 &720564677411894500
+--- !u!114 &5987112371981161682
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -627,12 +627,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7875677633416770281}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c467bf4d23fe4bb3900ef5dd30722be9, type: 3}
+  m_Script: {fileID: 11500000, guid: 3448236531ef35d4bb18c84c2bbd4c15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   openAnimation: {fileID: 7400000, guid: aacd614333ad6364f9c7b42c35ae600e, type: 2}
   closeAnimation: {fileID: 7400000, guid: 734aad6772f6db44b99f29ccfdf024c4, type: 2}
-  canvas: {fileID: 5255830946825594412, guid: c01b218636d14204182c8e8911d04fe7, type: 3}
+  canvas: {fileID: 8100360072370276888, guid: 75ff54f6f5dcc6949af43ece952e5d18, type: 3}
   outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
   outlineMeshes:
   - {fileID: 4075224646462659696}
@@ -641,9 +641,10 @@ MonoBehaviour:
   - {fileID: 6140186013703867184}
   - {fileID: 7538991875937245810}
   - {fileID: 5626073587422380558}
-  - {fileID: 7781881180036600858}
   invSystem: {fileID: 7716148591898019948}
-  soTool: {fileID: 11400000, guid: 30e391f38020a15468e077dc260ca81f, type: 2}
+  method: 4
+  secondsPerTurn: 7.5
+  tickerProvider: {fileID: 0}
 --- !u!114 &7716148591898019948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -658,6 +659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+  otherInvVinc: {fileID: 0}
 --- !u!95 &1758652281875940276
 Animator:
   serializedVersion: 5

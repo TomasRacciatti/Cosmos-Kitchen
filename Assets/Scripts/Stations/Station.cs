@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Characters.Player;
 using Interfaces;
 using Items.Inventory;
+using Cooking;
+using Items.Core;
 using Items.Tools;
 using Managers;
 using Regulators;
@@ -67,6 +69,14 @@ namespace Stations
                 LeaveStation();
             }
         }
+        
+        protected virtual IEnumerable<InvSystem> GetInventoriesForAcceptance() { yield break; }
+        
+        protected virtual bool CanAcceptAtThisStation(ItemAmount it)
+        {
+            if (it == null || it.IsEmpty) return false;
+            return it.Prep.Doneness != Doneness.Burnt;
+        }
 
         protected virtual void EnterStation()
         {
@@ -74,10 +84,16 @@ namespace Stations
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.ForceInventory(true);
             PlayerInputs.SetCursor(true);
+            
+            foreach (var inv in GetInventoriesForAcceptance())
+                if (inv != null) inv.CanAcceptItem = CanAcceptAtThisStation;
         }
 
         protected virtual void LeaveStation()
         {
+            foreach (var inv in GetInventoriesForAcceptance())
+                            if (inv != null) inv.CanAcceptItem = null;
+            
             ObjectPool.ReturnObjectToPool(CanvasInstance);
             GameManager.Player.SetInputActive(true);
             GameManager.Canvas.InvManager.ForceInventory(false);

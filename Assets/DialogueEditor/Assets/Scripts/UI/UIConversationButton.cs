@@ -39,6 +39,8 @@ namespace DialogueEditor
         private Vector3 BigSize { get { return Vector3.one * 1.2f; } }
 
 
+        private bool m_interactable = true;
+        
         //--------------------------------------
         // MonoBehaviour
         //--------------------------------------
@@ -210,6 +212,8 @@ namespace DialogueEditor
 
         private void DoClickBehaviour()
         {
+            if (!m_interactable) return;
+            
             switch (m_buttonType)
             {
                 case eButtonType.Speech:
@@ -236,6 +240,21 @@ namespace DialogueEditor
         private static float EaseOutQuart(float normalized)
         {
             return (1 - Mathf.Pow(1 - normalized, 4));
+        }
+        
+        //custom
+        
+        public void SetInteractable(bool state)
+        {
+            m_interactable = state;
+
+            // Opcional: visualmente mostrarlo desactivado
+            OptionBackgroundImage.raycastTarget = state;
+            TextMesh.raycastTarget = state; // si querés que ignore raycast también
+            Color c = OptionBackgroundImage.color;
+            c.a = state ? 1f : 0.5f; // ejemplo: semi-transparente si desactivado
+            OptionBackgroundImage.color = c;
+            TextMesh.color = new Color(TextMesh.color.r, TextMesh.color.g, TextMesh.color.b, c.a);
         }
     }
 }

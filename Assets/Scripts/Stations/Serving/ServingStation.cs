@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Characters.Clients.Plates;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,7 +27,7 @@ namespace Stations.Serving
         protected override void Awake()
         {
             base.Awake();
-            _validator = new RecipeValidator();
+            _validator = GetComponent<RecipeValidator>();
         }
 
         protected override void EnterStation()
@@ -40,6 +42,11 @@ namespace Stations.Serving
                 servUIManager.inputView.SetInventory(inputInventory);
                 servUIManager.outputView.SetInventory(outputInventory);
             }
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            invPlayer.otherInvVinc = inputInventory;
+            inputInventory.otherInvVinc = invPlayer;
+            outputInventory.otherInvVinc = invPlayer;
         }
 
         protected override void LeaveStation()
@@ -47,18 +54,47 @@ namespace Stations.Serving
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.RemoveListener(TryCraftPlate);
             base.LeaveStation();
+            
+            GameManager.Player.Inventory.otherInvVinc = null;
+            inputInventory.otherInvVinc = null;
+            outputInventory.otherInvVinc = null;
         }
 
         public void TryCraftPlate()
         {
             if (!outputInventory.Items[0].IsEmpty) return;
             
+            _inputSnapshot.Clear();
+            for (int i = 0; i < inputInventory.Items.Count; i++)
+            {
+                var it = inputInventory.Items[i];
+                if (!it.IsEmpty) _inputSnapshot.Add((i, it));
+            }
+            if (_inputSnapshot.Count == 0) return;
+
+            SoPlate bestPlate = null;
+            List<int> bestIndices = null;
+            int bestMistakes = int.MaxValue;
+
             foreach (var plate in availablePlates)
             {
-                if (!CanCraftPlate(plate)) continue;
-                CraftPlate(plate);
-                return;
+                var scored = ScorePlateCandidate(plate, _inputSnapshot);
+                if (!scored.ok) continue;
+
+                if (scored.mistakes < bestMistakes)
+                {
+                    bestMistakes = scored.mistakes;
+                    bestPlate = plate;
+                    bestIndices = scored.matchedIndices;
+                }
             }
+
+            if (bestPlate == null) return;
+            
+            _pendingPlate = bestPlate;
+            _matchedInputIndices = bestIndices;
+
+            CraftPlate(bestPlate);
         }
 
         private bool CanCraftPlate(SoPlate plate)
@@ -76,6 +112,8 @@ namespace Stations.Serving
             string reason;
             if (!_validator.ValidateIdentity(plate, inputItems, out reason))
             {
+                _pendingPlate = null;
+                _matchedInputIndices.Clear();
                 return false;
             }
             
@@ -91,11 +129,31 @@ namespace Stations.Serving
             {
                 if (!CanCraftPlate(plate)) return;
             }
+            
+            // ------------ Debugeando ------------
+            // for (int ingredient = 0; ingredient < _matchedInputIndices.Count; ingredient++)
+            // {
+            //     var idx = _matchedInputIndices[ingredient];
+            //     var it  = _inputSnapshot[idx].item;
+            //     var hist = string.Join(", ", it.ProcessHistory.Select(s => $"{s.method}:{s.turns}"));
+            //     Debug.Log($"[Serving] Input{ingredient} {it.SoItem.ItemName} history=[{hist}]  prep=({it.Prep.method},{it.Prep.turnsCooked:0.##})");
+            // }
+            // -------------------------------------
 
             var inputItems = _inputSnapshot.Select(t => t.item).ToList();
             
             int mistakes = _validator.EvaluateDonenessMistakes(plate, inputItems);
-            int rating   = _validator.ComputeOutputRating(plate, baseRating: 5, mistakes: mistakes);
+            int rating   = _validator.ComputeOutputRating(plate, mistakes: mistakes);
+
+            if (rating <= 0)
+            {
+                // Aca le deberiamos craftear el plate basura
+                Debug.Log($"Plato basura. Muchos Errores");
+                _pendingPlate = null;
+                _matchedInputIndices.Clear();
+                _inputSnapshot.Clear();
+                return;
+            }
             
             var usesPerSlot = new Dictionary<int, int>();
             foreach (var matchedIdx in _matchedInputIndices)
@@ -128,6 +186,22 @@ namespace Stations.Serving
             _pendingPlate = null;
             _matchedInputIndices.Clear();
             _inputSnapshot.Clear();
+        }
+
+        // Esta es la nueva forma de escribir tuplas
+        // Usamos esta funcion para que el validator pueda interpretar que plato quiere hacer en base al mas proximo
+        private (bool ok, int mistakes, List<int> matchedIndices) ScorePlateCandidate(SoPlate plate,
+            List<(int slotIndex, ItemAmount item)> snapshot)
+        {
+            var inputs = snapshot.Select(t => t.item).ToList();
+
+            if (!_validator.ValidateIdentity(plate, inputs, out _))
+                return (false, int.MaxValue, null);
+            
+            var matched = new List<int>(_validator.LastMatchedIndices);
+            
+            int mistakes = _validator.EvaluateDonenessMistakes(plate, inputs);
+            return (true, mistakes, matched);
         }
     }
 }

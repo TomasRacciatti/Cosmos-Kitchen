@@ -18,11 +18,17 @@ namespace Items.Inventory
         public int Slots => slots;
         public bool Infinite => slots == -1;
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
+
+        public InvSystem otherInvVinc;
+        
+        public Func<Items.Core.ItemAmount, bool> CanAcceptItem;
         
         //Observers
         private event Action<int, ItemAmount> OnSlotChanged;
         public void Subscribe(Action<int, ItemAmount> listener) => OnSlotChanged += listener;
         public void Unsubscribe(Action<int, ItemAmount> listener) => OnSlotChanged -= listener;
+        
+        private bool Accepts(ItemAmount it) => CanAcceptItem == null || CanAcceptItem(it);
 
         private void Awake()
         {
@@ -43,6 +49,10 @@ namespace Items.Inventory
         public void AddItem(ref ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return;
+            
+            if (CanAcceptItem != null && !CanAcceptItem(itemAmount))
+                return;
+            
             AddStackSlot(ref itemAmount);
             if (itemAmount.IsEmpty) return;
             AddEmptySlot(ref itemAmount);
@@ -134,6 +144,8 @@ namespace Items.Inventory
                 return;
             }
 
+            if (!Accepts(itemAmount)) return;
+            
             items[index] = itemAmount;
             NotifySlotChanged(index);
         }
@@ -270,6 +282,8 @@ namespace Items.Inventory
 
             ItemAmount fromItem = items[fromIndex];
             if (fromItem.IsEmpty) return;
+            
+            if (!targetInventory.Accepts(fromItem)) return;
 
             ItemAmount targetItem = targetInventory.Item(targetIndex);
             
@@ -294,6 +308,22 @@ namespace Items.Inventory
             // Si no son stackeables, hacemos un swap
             targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
             SetItemByIndex(fromIndex, targetItem);
+        }
+        
+        public void TransferToOtherInventory(int fromIndex)
+        {
+            if (otherInvVinc == null) return;
+            if (!ValidIndex(fromIndex)) return;
+
+            ItemAmount fromItem = items[fromIndex];
+            if (fromItem.IsEmpty) return;
+            
+            var itemToTransfer = new ItemAmount(fromItem);
+            
+            otherInvVinc.AddItem(ref itemToTransfer);
+            
+            items[fromIndex].SetAmount(itemToTransfer.Amount);
+            NotifySlotChanged(fromIndex);
         }
         
         public bool SplitItemStack(int index)
