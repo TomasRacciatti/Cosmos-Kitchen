@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1075670467602534413}
   - component: {fileID: 3297451539853712041}
+  - component: {fileID: 1904952182225666306}
   - component: {fileID: 1396161150654730482}
   - component: {fileID: 7148455328680995362}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: TriggerCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,8 +54,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.042518, y: 1.2206353, z: 1.798535}
-  m_Center: {x: -0.032709647, y: 0.5856628, z: 0.32946214}
+  m_Size: {x: 1.7675866, y: 1.2206353, z: 1.1380419}
+  m_Center: {x: 0.090458296, y: 0.5856628, z: 0.020748997}
+--- !u!65 &1904952182225666306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2741544797817250889}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 7479
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.67954093, y: 0.91744244, z: 0.7748585}
+  m_Center: {x: -0.44411322, y: 0.43406636, z: 0.8413004}
 --- !u!114 &1396161150654730482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,7 +142,7 @@ GameObject:
   - component: {fileID: 7728378493007997174}
   - component: {fileID: 5742387123440277669}
   - component: {fileID: 7024283794576672036}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +260,7 @@ GameObject:
   - component: {fileID: 876911288949809837}
   - component: {fileID: 105952262115214096}
   - component: {fileID: 3831304726236408859}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -394,7 +416,7 @@ GameObject:
   - component: {fileID: 1188378689750904977}
   - component: {fileID: 5434658457567613167}
   - component: {fileID: 5305657267308097841}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Spot Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +535,7 @@ GameObject:
   - component: {fileID: 3879620631676194963}
   - component: {fileID: 7072263586711505090}
   - component: {fileID: 8608170814998190410}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5734,57 +5756,57 @@ PrefabInstance:
     - target: {fileID: -7553191561731878968, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7444977363571153291, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6680958426575713588, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -6252636257145331198, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5440786124819576436, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -3774961898125206437, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -2538617742372443098, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1061633470064435241, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -475566618283104856, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -456941815881715960, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 775869454208863075, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
@@ -5800,12 +5822,12 @@ PrefabInstance:
     - target: {fileID: 1392540170478417860, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5223689520221307896, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
@@ -5815,12 +5837,12 @@ PrefabInstance:
     - target: {fileID: 7597782617249295389, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7802759407608235397, guid: 5f4d93358f6b9b449a948032581edc9e,
         type: 3}
       propertyPath: m_Layer
-      value: 14
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
