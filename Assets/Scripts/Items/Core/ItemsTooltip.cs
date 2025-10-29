@@ -29,7 +29,7 @@ namespace Items.Core
         {
             if (ItemsDropper.IsActive) return;
             _instance.itemNameText.text = itemAmount.SoItem.ItemName;
-            _instance.itemDescriptionText.text = itemAmount.SoItem.Description;
+            _instance.itemDescriptionText.text = itemAmount.GetProcessHistoryText();
             _instance.itemIcon.sprite = Items.ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
