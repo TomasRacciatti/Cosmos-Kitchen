@@ -12,6 +12,9 @@ Shader "Custom/Outline Fill" {
 
     _OutlineColor("Outline Color", Color) = (1, 1, 1, 1)
     _OutlineWidth("Outline Width", Range(0, 10)) = 2
+    
+    _FadeStartDistance("Fade Start Distance", Float) = 10   //new
+    _FadeEndDistance("Fade End Distance", Float) = 20       //new
   }
 
   SubShader {
@@ -27,7 +30,7 @@ Shader "Custom/Outline Fill" {
       ZTest [_ZTest]
       ZWrite Off
       Blend SrcAlpha OneMinusSrcAlpha
-      ColorMask RGB
+      ColorMask RGBA //new
 
       Stencil {
         Ref 1
@@ -50,11 +53,17 @@ Shader "Custom/Outline Fill" {
       struct v2f {
         float4 position : SV_POSITION;
         fixed4 color : COLOR;
+
+        float viewDepth : TEXCOORD0;  //new
+        
         UNITY_VERTEX_OUTPUT_STEREO
       };
 
       uniform fixed4 _OutlineColor;
       uniform float _OutlineWidth;
+
+      uniform float _FadeStartDistance; //new
+      uniform float _FadeEndDistance;   //new
 
       v2f vert(appdata input) {
         v2f output;
@@ -69,11 +78,23 @@ Shader "Custom/Outline Fill" {
         output.position = UnityViewToClipPos(viewPosition + viewNormal * -viewPosition.z * _OutlineWidth / 1000.0);
         output.color = _OutlineColor;
 
+        output.viewDepth = -viewPosition.z; //new
+
         return output;
       }
 
       fixed4 frag(v2f input) : SV_Target {
-        return input.color;
+
+        //new
+        float distance = input.viewDepth;
+        float fadeRange = _FadeEndDistance - _FadeStartDistance;
+        float fadeFactor = saturate((_FadeEndDistance - distance) / fadeRange); // 1.0 at start, 0.0 at end
+
+        fixed4 finalColor = input.color;
+        finalColor.a *= fadeFactor;
+        //new
+        
+        return finalColor; //new
       }
       ENDCG
     }

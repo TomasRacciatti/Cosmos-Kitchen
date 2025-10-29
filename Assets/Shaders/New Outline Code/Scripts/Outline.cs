@@ -57,10 +57,20 @@ public class Outline : MonoBehaviour {
   private Mode outlineMode;
 
   [SerializeField]
-  private Color outlineColor = Color.white;
+  private Color outlineColor = Color.black;
 
   [SerializeField, Range(0f, 10f)]
-  private float outlineWidth = 2f;
+  private float outlineWidth = 6f;
+  
+  //new
+  [Header("Distance Fade")]
+
+  [SerializeField]
+  private float fadeStartDistance = 15f;
+
+  [SerializeField]
+  private float fadeEndDistance = 20f;
+  //new
 
   [Header("Optional")]
 
@@ -273,7 +283,12 @@ public class Outline : MonoBehaviour {
 
     // Apply properties according to mode
     outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
-
+    
+    //new
+    outlineFillMaterial.SetFloat("_FadeStartDistance", fadeStartDistance);
+    outlineFillMaterial.SetFloat("_FadeEndDistance", fadeEndDistance);
+    //new
+    
     switch (outlineMode) {
       case Mode.OutlineAll:
         outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
