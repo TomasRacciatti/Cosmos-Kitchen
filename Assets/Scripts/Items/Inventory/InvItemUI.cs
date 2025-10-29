@@ -12,6 +12,7 @@ namespace Items.Inventory
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI amountText;
         [SerializeField] private ItemAmount itemAmount;
+        [SerializeField] private Image starIcon;
         
         //Getters
         public ItemAmount ItemAmount => itemAmount;
@@ -43,6 +44,7 @@ namespace Items.Inventory
                 image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, previousSprite);
             }
             RefreshAmount();
+            starIcon.sprite = newItemAmount.GetRatingSprite;
         }
         
         private void RefreshAmount()

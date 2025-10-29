@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cooking;
 using Items.Core;
 using Items.Inventory;
+using Managers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,6 @@ namespace Stations
 {
     public class TimedStation : Station
     {
-        
         [SerializeField] private InvSystem invSystem;
         
         [Header("Cooking Config")]
@@ -94,6 +94,11 @@ namespace Stations
             // UI
             var progress = CanvasInstance.GetComponentInChildren<CookingProgressUI>(true);
             if (progress) progress.station = this;
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+
+            invSystem.otherInvVinc = invPlayer;
+            invPlayer.otherInvVinc = invSystem;
         }
         protected override void LeaveStation()
         {
@@ -105,6 +110,10 @@ namespace Stations
             if (progress && ReferenceEquals(progress.station, this)) progress.station = null;
             
             base.LeaveStation();
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            invSystem.otherInvVinc = null;
+            invPlayer.otherInvVinc = null;
         }
         
         private void OnStationButtonPressed()

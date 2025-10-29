@@ -26,7 +26,8 @@ namespace Managers
         [SerializeField] private AudioClip itemPickupSound;
         [SerializeField] private AudioClip itemThrowSound;
         
-
+        [Header("Notifications")]
+        [SerializeField] private Sprite[] itemStars;
 
         //Properties
         public static GameObject Player => _instance.player;
@@ -41,6 +42,8 @@ namespace Managers
         public static Sprite NotificationLoseUI => _instance.notificationLoseUI;
         public static AudioClip ItemPickupSound => _instance.itemPickupSound;
         public static AudioClip ItemThrowSound => _instance.itemThrowSound;
+
+        public static Sprite[] ItemStars => _instance.itemStars;
         
         private void Awake()
         {

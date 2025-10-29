@@ -12,9 +12,10 @@ namespace Items.Core
         [SerializeField] private TMP_Text itemNameText;
         [SerializeField] private TMP_Text itemDescriptionText;
         [SerializeField] private Image itemIcon;
+        [SerializeField] private Image starIcon;
         
-        public RectTransform _rectTransform;
-        public Canvas _canvas;
+        private RectTransform _rectTransform;
+        private Canvas _canvas;
         
         private void Awake()
         {
@@ -32,6 +33,7 @@ namespace Items.Core
             _instance.itemIcon.sprite = Items.ItemSpriteResolver.Resolve(itemAmount.SoItem, itemAmount.Prep);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
+            _instance.starIcon.sprite = itemAmount.GetRatingSprite;
         }
 
         public static void Hide()
