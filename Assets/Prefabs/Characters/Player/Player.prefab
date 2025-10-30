@@ -97,7 +97,6 @@ Transform:
   - {fileID: 3138055237133593497}
   - {fileID: 2121337495140794649}
   - {fileID: 430210153081681367}
-  - {fileID: 4404779499670075725}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1385530732444820143
@@ -456,6 +455,7 @@ Transform:
   - {fileID: 3352479326031914024}
   - {fileID: 1047416126569275256}
   - {fileID: 6280956364400065042}
+  - {fileID: 4404779499670075725}
   m_Father: {fileID: 3692604517208257073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7727504889636999291
@@ -1341,7 +1341,7 @@ Transform:
   m_GameObject: {fileID: 6580661204044910940}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999998, y: 1.5, z: -2.5}
+  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1674,7 +1674,7 @@ Transform:
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999998, y: 1.5, z: -2.5}
+  m_LocalPosition: {x: 19.559238, y: -1.0361519, z: -28.112114}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2210,7 +2210,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 3692604517208257073}
+    m_TransformParent: {fileID: 3138055237133593497}
     m_Modifications:
     - target: {fileID: 1476686912192600422, guid: 4d23c03f6a4b0754984094f42db03d77,
         type: 3}
@@ -2225,7 +2225,7 @@ PrefabInstance:
     - target: {fileID: 1476686912192600422, guid: 4d23c03f6a4b0754984094f42db03d77,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.107
+      value: -0.106999874
       objectReference: {fileID: 0}
     - target: {fileID: 1476686912192600422, guid: 4d23c03f6a4b0754984094f42db03d77,
         type: 3}
@@ -2245,7 +2245,7 @@ PrefabInstance:
     - target: {fileID: 1476686912192600422, guid: 4d23c03f6a4b0754984094f42db03d77,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1476686912192600422, guid: 4d23c03f6a4b0754984094f42db03d77,
         type: 3}
@@ -2266,11 +2266,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Walking Particle System
-      objectReference: {fileID: 0}
-    - target: {fileID: 5868022800990062499, guid: 4d23c03f6a4b0754984094f42db03d77,
-        type: 3}
-      propertyPath: lengthInSec
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
