@@ -19,6 +19,7 @@ namespace Characters.Clients
 
         [FormerlySerializedAs("requestedPlate")] [Header("Order / Recipe")]
         public SoPlate requestedSoPlate;
+        public string clue = "";
 
         // Helper que devuelve el string empty si no hay lineas de dialogo.
         public string GetLine(DialogueCategory category) =>
