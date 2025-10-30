@@ -24,8 +24,9 @@ namespace Stations
         [SerializeField] protected GameObject canvas;
         
         [Header("Outline")]
-        [SerializeField] private Material outlineMat;
-        [SerializeField] private MeshRenderer[] outlineMeshes;
+        // Remove: [SerializeField] private Material outlineMat;
+        // Remove: [SerializeField] private MeshRenderer[] outlineMeshes;
+        private Outline _outlineComponent; // new
         
         protected GameObject CanvasInstance;
         private Animator animator;
@@ -39,6 +40,11 @@ namespace Stations
             openClipName = openAnimation  ? openAnimation.name : "";
             closeClipName = closeAnimation   ? closeAnimation.name : "";
             
+            // New: Get the Outline component
+            _outlineComponent = GetComponent<Outline>(); // new
+            
+            // REMOVE ALL OUTLINE MAT/MESH INITIALIZATION CODE:
+            /*
             if (outlineMat)
             {
                 outlineMat = new Material(outlineMat);
@@ -55,6 +61,10 @@ namespace Stations
                 
                 outlineMat.SetFloat("_Intensity", 0);
             }
+            */
+            
+            // New: Ensure the outline is disabled initially (handled by OnDisable in Outline.cs)
+            if (_outlineComponent != null) _outlineComponent.enabled = false; // new
         }
 
         public void Interact(GameObject interactableObject)
@@ -103,10 +113,17 @@ namespace Stations
 
         public void EnableInteract()
         {
+            // New: Enable the Outline component
+            if (_outlineComponent != null) // new
+            {                              // new
+                _outlineComponent.enabled = true; // new
+            }                              // new
+            /* Removed manual shader setting:
             if (outlineMat && outlineMeshes.Length > 0)
             {
                 outlineMat.SetFloat("_Intensity", 1);
             }
+            */
             
             if (!animator) return;
             if (openClipName == "") return;
@@ -116,12 +133,19 @@ namespace Stations
 
         public void DisableInteract()
         {
-            
+            // New: Disable the Outline component
+            if (_outlineComponent != null) // new
+            {                              // new
+                _outlineComponent.enabled = false; // new
+            }                              // new
+
+            /* Removed manual shader setting:
             if (outlineMat && outlineMeshes.Length > 0)
             {
                 for (int i = 0; i < outlineMeshes.Length; i++)
                     outlineMat.SetFloat("_Intensity", 0);
             }
+            */
             
             if (!animator) return;
             if (closeClipName == "") return;
