@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 500385221413097218}
   - component: {fileID: 5515609843156361684}
   - component: {fileID: 7591998264351013965}
+  - component: {fileID: 6094342653435621195}
   m_Layer: 0
   m_Name: OvenPot
   m_TagString: Untagged
@@ -251,7 +252,7 @@ MonoBehaviour:
     type: 3}
   canvas: {fileID: 8100360072370276888, guid: dd10ed11261eac741849429a7f95f27e, type: 3}
   invSystem: {fileID: 5515609843156361684}
-  method: 1
+  method: 0
   secondsPerTurn: 10
   tickerProvider: {fileID: 0}
 --- !u!114 &5515609843156361684
@@ -290,6 +291,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6094342653435621195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808522339585162322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &1828979826914887367
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,6 +325,7 @@ GameObject:
   - component: {fileID: 4191278179152389620}
   - component: {fileID: 8706463144608162913}
   - component: {fileID: 5200446276829266225}
+  - component: {fileID: 5322742940624611770}
   m_Layer: 0
   m_Name: OvenDoor
   m_TagString: Untagged
@@ -417,7 +439,7 @@ MonoBehaviour:
     type: 3}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   invSystem: {fileID: 5082217134486093973}
-  method: 3
+  method: 0
   secondsPerTurn: 15
   tickerProvider: {fileID: 0}
 --- !u!95 &8706463144608162913
@@ -462,6 +484,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.00033555878, y: 0.0033752117, z: 0.0018840905}
   m_Center: {x: -0.0015233641, y: 0.00001724841, z: 0.001215235}
+--- !u!114 &5322742940624611770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828979826914887367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2726481525373026536
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +958,7 @@ GameObject:
   - component: {fileID: 2225350707624306226}
   - component: {fileID: 1313861596090879714}
   - component: {fileID: 8899304987775567840}
+  - component: {fileID: 9145323843580194148}
   m_Layer: 0
   m_Name: OvenPan
   m_TagString: Untagged
@@ -1035,7 +1078,7 @@ MonoBehaviour:
     type: 3}
   canvas: {fileID: 8100360072370276888, guid: 7208bf0afbe3894458798baace6a0d01, type: 3}
   invSystem: {fileID: 1313861596090879714}
-  method: 2
+  method: 0
   secondsPerTurn: 10
   tickerProvider: {fileID: 0}
 --- !u!114 &1313861596090879714
@@ -1074,6 +1117,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9145323843580194148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6122183954013876801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6235779129808965447
 GameObject:
   m_ObjectHideFlags: 0
