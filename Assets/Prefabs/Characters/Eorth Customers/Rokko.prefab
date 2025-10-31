@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7641282516497825057}
+  - component: {fileID: 7211605732480342431}
   m_Layer: 9
   m_Name: Exclamation
   m_TagString: Untagged
@@ -33,6 +34,26 @@ Transform:
   - {fileID: 8196635687434875125}
   m_Father: {fileID: 7672730311273988956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7211605732480342431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135338781948551251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &218888156547985760
 GameObject:
   m_ObjectHideFlags: 0
@@ -1389,6 +1410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8210640989645604845}
+  - component: {fileID: 1401390020667699764}
   m_Layer: 9
   m_Name: Interrogative
   m_TagString: Untagged
@@ -1413,6 +1435,26 @@ Transform:
   - {fileID: 2496433765297201317}
   m_Father: {fileID: 7672730311273988956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1401390020667699764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8289789662487496566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8320791182574253349
 GameObject:
   m_ObjectHideFlags: 0
@@ -2098,6 +2140,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8531012450131041787}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5505058272037796759, guid: 0e715efeb63975d4a9c5f881058cd545,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9095897521810865723}
     - targetCorrespondingSourceObject: {fileID: 5841012258777053489, guid: 0e715efeb63975d4a9c5f881058cd545,
         type: 3}
       insertIndex: -1
@@ -2135,6 +2181,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7042006137948486227}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3305604817755914692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5505058272037796759, guid: 0e715efeb63975d4a9c5f881058cd545,
+    type: 3}
+  m_PrefabInstance: {fileID: 7042006137948486227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9095897521810865723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305604817755914692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3509793907100713826 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5841012258777053489, guid: 0e715efeb63975d4a9c5f881058cd545,
@@ -2154,7 +2226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
@@ -2186,7 +2258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
@@ -2218,7 +2290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
@@ -2244,7 +2316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
@@ -2276,7 +2348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
@@ -2302,7 +2374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   outlineMode: 1
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineColor: {r: 0, g: 0, b: 0, a: 1}
   outlineWidth: 6
   fadeStartDistance: 15
   fadeEndDistance: 20
