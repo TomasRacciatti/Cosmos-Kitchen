@@ -1,5 +1,6 @@
 using Audio;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Characters.Player
 {
@@ -9,7 +10,7 @@ namespace Characters.Player
         [SerializeField] private AudioCue footstepCue;
         [SerializeField] private AudioCue landingCue;
         
-        private Animator _animator;
+        [SerializeField] private Animator animator;
         private AudioSource _audioSource;
         
         // animation IDs
@@ -22,7 +23,6 @@ namespace Characters.Player
         
         private void Awake()
         {
-            _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
         }
 
@@ -43,18 +43,18 @@ namespace Characters.Player
         
         public void SetSpeed(float speed)
         {
-            _animator.SetFloat(_animIDSpeed, speed);
+            animator.SetFloat(_animIDSpeed, speed);
         }
         
         public void SetVerticalSpeed(float up)
         {
-            _animator.SetFloat(_animIDSpeedUp, up);
+            animator.SetFloat(_animIDSpeedUp, up);
         }
         
         public void Jumped()
         {
             SetGrounded(false);
-            _animator.SetTrigger(_animIDJumped);
+            animator.SetTrigger(_animIDJumped);
             //sounds
         }
 
@@ -62,20 +62,20 @@ namespace Characters.Player
         {
             SetGrounded(true);
             SetFalling(false);
-            _animator.SetTrigger(_animIDLanded);
+            animator.SetTrigger(_animIDLanded);
             //AudioSource.PlayClipAtPoint(landingCue.GetRandomClip(), transform.position);
         }
 
         public void SetGrounded(bool value)
         {
             if (value) SetFalling(false);
-            _animator.SetBool(_animIDGrounded, value);
+            animator.SetBool(_animIDGrounded, value);
         }
     
         public void SetFalling(bool value)
         {
             if (value) SetGrounded(false);
-            _animator.SetBool(_animIDFalling, value);
+            animator.SetBool(_animIDFalling, value);
         }
 
         public void Footstep()
