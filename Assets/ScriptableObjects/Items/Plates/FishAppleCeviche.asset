@@ -19,10 +19,11 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   tools: []
+  prerequisites: []
   ingredientProcess:
   - baseItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
     steps:
-    - method: 1
+    - method: 3
       useDoneness: 1
       targetDoneness: 2
       tolerance: 0

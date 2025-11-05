@@ -19,6 +19,7 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   tools: []
+  prerequisites: []
   ingredientProcess:
   - baseItem: {fileID: 11400000, guid: 1e7733491d85ce540ac573e6ab2a8840, type: 2}
     steps:
@@ -36,16 +37,16 @@ MonoBehaviour:
     enforceOrder: 1
   - baseItem: {fileID: 11400000, guid: 6e266dee75fccfe46ba280a26d71a16e, type: 2}
     steps:
-    - method: 1
-      useDoneness: 1
-      targetDoneness: 2
-      tolerance: 0
     - method: 5
       useDoneness: 0
-      targetDoneness: 2
+      targetDoneness: 1
       tolerance: 0
     - method: 4
       useDoneness: 1
       targetDoneness: 3
+      tolerance: 0
+    - method: 1
+      useDoneness: 1
+      targetDoneness: 2
       tolerance: 0
     enforceOrder: 1
