@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Cooking
 {
     [Serializable]
-    public class ProcessingPrerequisite : MonoBehaviour
+    public class ProcessingPrerequisite
     {
         [Tooltip("Cooking method that requires prerequisite")]
         public CookingMethod methodToPerform;

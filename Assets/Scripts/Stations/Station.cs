@@ -82,16 +82,6 @@ namespace Stations
         
         protected virtual IEnumerable<InvSystem> GetInventoriesForAcceptance() { yield break; }
         
-        protected abstract CookingMethod GetStationMethod();
-
-        protected virtual bool CanAcceptItem(ItemAmount item)
-        {
-            if (item == null || item.IsEmpty) return false;
-            if (item.Prep.Doneness == Doneness.Burnt) return false;
-            
-            return ProcessingPrerequisiteChecker.CanProcess(item, GetStationMethod(), out _);
-        }
-        
         protected virtual bool CanAcceptAtThisStation(ItemAmount it)
         {
             if (it == null || it.IsEmpty) return false;

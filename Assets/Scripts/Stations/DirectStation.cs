@@ -97,9 +97,11 @@ namespace Stations
             if (invSystem != null) yield return invSystem;
         }
         
-        protected override CookingMethod GetStationMethod()
+        protected override bool CanAcceptAtThisStation(Items.Core.ItemAmount item)
         {
-            return method;
+            if (!base.CanAcceptAtThisStation(item)) return false;
+
+            return ProcessingPrerequisiteChecker.CanProcess(item, method, out _);
         }
     }
 }
