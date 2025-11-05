@@ -24,3 +24,8 @@ MonoBehaviour:
     item: {fileID: 11400000, guid: 15a62417ee8b5ed48a051165531724a1, type: 2}
   - tool: {fileID: 11400000, guid: 6bd9fb92e69585643999de7050adf164, type: 2}
     item: {fileID: 11400000, guid: db09c202d71d8da49b9d7acbc052a0c1, type: 2}
+  prerequisites:
+  - methodToPerform: 3
+    prerequisiteMethod: 4
+  - methodToPerform: 5
+    prerequisiteMethod: 1
