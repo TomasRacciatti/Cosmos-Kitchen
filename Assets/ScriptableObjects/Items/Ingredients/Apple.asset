@@ -26,4 +26,8 @@ MonoBehaviour:
     item: {fileID: 11400000, guid: 147c83c0767fd4142a5d0c66c61ec4ef, type: 2}
   - tool: {fileID: 11400000, guid: 15e1c145f1114774ea858a147c1e57cd, type: 2}
     item: {fileID: 11400000, guid: febc0811377033b4884a4b1191ba18f1, type: 2}
-  prerequisites: []
+  prerequisites:
+  - methodToPerform: 2
+    prerequisiteMethod: 3
+  - methodToPerform: 1
+    prerequisiteMethod: 4
