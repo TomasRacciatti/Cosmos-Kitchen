@@ -70,6 +70,13 @@ namespace Stations
                 }
                 if (!toolAllowed) continue;
                 
+                // Validacion de prereq
+                if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
+                {
+                    Debug.Log($"Cannot process {item.SoItem.ItemName}: {failureReason}");
+                    return;
+                }
+                
                 item.AddProcessStep(method, 1);
                 
                 var prep = item.Prep;
@@ -88,6 +95,11 @@ namespace Stations
         protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
         {
             if (invSystem != null) yield return invSystem;
+        }
+        
+        protected override CookingMethod GetStationMethod()
+        {
+            return method;
         }
     }
 }

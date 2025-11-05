@@ -135,6 +135,13 @@ namespace Stations
                 return;
             }
             
+            // Validacion de prereq
+            if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
+            {
+                Debug.Log($"Cannot process {item.SoItem.ItemName}: {failureReason}");
+                return;
+            }
+            
             var prepState = item.Prep;
             if (prepState.method != method)
             {
@@ -271,12 +278,17 @@ namespace Stations
              
              StopCooking();
             
-            Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+            //Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
         }
         
         protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()
         {
             if (invSystem != null) yield return invSystem;
+        }
+        
+        protected override CookingMethod GetStationMethod()
+        {
+            return method;
         }
     }
 }
