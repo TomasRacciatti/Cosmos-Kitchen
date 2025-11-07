@@ -513,7 +513,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3359043400169298514}
-  - component: {fileID: 218325857707377360}
   m_Layer: 0
   m_Name: Station_Cooking
   m_TagString: Untagged
@@ -542,27 +541,6 @@ Transform:
   - {fileID: 3110985603494676692}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &218325857707377360
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2726481525373026536}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.27841645, y: 0.25934744, z: 0.35411146}
-  m_Center: {x: 0.0028707504, y: 0.12735415, z: 0.00000023841858}
 --- !u!1 &3436261539517349711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,8 +1437,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0028655033, y: 0.0035411129, z: 0.003}
-  m_Center: {x: 0, y: 0, z: 0.0015}
+  m_Size: {x: 0.0028655082, y: 0.003541119, z: 0.002576845}
+  m_Center: {x: 0, y: 1.4210855e-17, z: 0.0012884202}
 --- !u!1 &7658018577425825794
 GameObject:
   m_ObjectHideFlags: 0

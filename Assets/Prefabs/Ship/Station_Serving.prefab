@@ -345,7 +345,9 @@ GameObject:
   - component: {fileID: 3037060479386321553}
   - component: {fileID: 8580008978891117965}
   - component: {fileID: 3963713514241308069}
+  - component: {fileID: 4418498174306311758}
   - component: {fileID: 6400331270110382913}
+  - component: {fileID: 6131277979366690488}
   m_Layer: 0
   m_Name: Station_Serving
   m_TagString: Untagged
@@ -409,13 +411,6 @@ MonoBehaviour:
   openAnimation: {fileID: 7400000, guid: cd126f100e2bc294b8ce19876f3ad2e8, type: 2}
   closeAnimation: {fileID: 7400000, guid: 504ff2375faa47140bee32e1be573dfd, type: 2}
   canvas: {fileID: 8100360072370276888, guid: 1f22e3aa2d8699d459c8851eff51a391, type: 3}
-  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
-  outlineMeshes:
-  - {fileID: 8308898822523377594}
-  - {fileID: 8941824151429267808}
-  - {fileID: 2158266498398180687}
-  - {fileID: 4000701406984174979}
-  - {fileID: 7064272142496532852}
   availablePlates:
   - {fileID: 11400000, guid: f0fc828470056f84f9a14ae58d1b25b0, type: 2}
   - {fileID: 11400000, guid: bf0b22318469cb94c9ba198283c19d51, type: 2}
@@ -440,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 3
   items: []
+  otherInvVinc: {fileID: 0}
 --- !u!114 &3963713514241308069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,6 +450,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: 1
   items: []
+  otherInvVinc: {fileID: 0}
+--- !u!114 &4418498174306311758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708716606196621440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d20d0bb2533bde408480612651fc1a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  silverThreshold: 3
+  bronzeThreshold: 6
 --- !u!95 &6400331270110382913
 Animator:
   serializedVersion: 5
@@ -475,6 +486,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6131277979366690488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5708716606196621440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8109577354729326340
 GameObject:
   m_ObjectHideFlags: 0

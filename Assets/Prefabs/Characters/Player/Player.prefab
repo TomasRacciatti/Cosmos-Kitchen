@@ -207,6 +207,7 @@ MonoBehaviour:
   footstepCue: {fileID: 0}
   landingCue: {fileID: 0}
   animator: {fileID: 7718037942949098831}
+  stepsParticles: {fileID: 4742089092310725076}
 --- !u!114 &4798918916221814678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1417,6 +1418,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a545f1cfe28995f4a831147dd25c8a31, type: 3}
+--- !u!198 &4742089092310725076 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 492444806532494454, guid: a545f1cfe28995f4a831147dd25c8a31,
+    type: 3}
+  m_PrefabInstance: {fileID: 5123630825274181026}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7140489430631343818 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2594872012111602536, guid: a545f1cfe28995f4a831147dd25c8a31,
