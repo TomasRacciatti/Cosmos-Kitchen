@@ -26,18 +26,14 @@ namespace Characters.Clients.Plates
 
         public static void AddCustomer(Customer customer)
         {
-            if (_instance.customersOrders.ContainsKey(customer))
-                return;
-
-            // Instancia la UI del pedido
+            if (_instance.customersOrders.ContainsKey(customer)) return;
+            
             GameObject spawnedObject = Instantiate(_instance.orderUIPrefab, _instance.transform);
             OrderUI orderUI = spawnedObject.GetComponent<OrderUI>();
             orderUI.SetOrderUI(customer, false);
-
-            // Asocia el cliente con su UI
+            
             _instance.customersOrders.Add(customer, orderUI);
-
-            // Notificación
+            
             NotificationsManager.NewNotification(
                 "New Order: " + customer.soClient.clientName,
                 customer.soClient.clientIcon
@@ -54,12 +50,9 @@ namespace Characters.Clients.Plates
 
         public static void RemoveCustomer(Customer customer)
         {
-            if (!_instance.customersOrders.TryGetValue(customer, out OrderUI orderUI))
-                return;
-
-            // Destruye la UI asociada y remueve del diccionario
-            if (orderUI != null)
-                Destroy(orderUI.gameObject);
+            if (!_instance.customersOrders.TryGetValue(customer, out OrderUI orderUI)) return;
+            
+            if (orderUI != null) Destroy(orderUI.gameObject);
 
             _instance.customersOrders.Remove(customer);
         }
