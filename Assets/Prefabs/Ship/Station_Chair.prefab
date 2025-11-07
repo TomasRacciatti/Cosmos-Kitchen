@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1636141203860971353}
   - component: {fileID: 230325876778669481}
   - component: {fileID: 2839403820209570385}
+  - component: {fileID: 1620135117879099498}
   m_Layer: 0
   m_Name: Station_Chair
   m_TagString: Untagged
@@ -50,10 +51,6 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 3236461935804914878, guid: f72c709b762a62d418c5dcac68811ca2, type: 3}
-  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
-  outlineMeshes:
-  - {fileID: 6328617600488784993}
-  - {fileID: 4245792112376060274}
 --- !u!65 &2839403820209570385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75,6 +72,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.33223653, y: 0.5478352, z: 0.30542603}
   m_Center: {x: 0.019050956, y: 0.24952058, z: -0.011625672}
+--- !u!114 &1620135117879099498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161566661083334115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &7269730004766936532
 GameObject:
   m_ObjectHideFlags: 0

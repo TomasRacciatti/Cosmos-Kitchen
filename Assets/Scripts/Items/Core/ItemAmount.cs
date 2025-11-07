@@ -1,6 +1,8 @@
 using System;
+using System.Text;
 using System.Collections.Generic;
 using Cooking;
+using Managers;
 using UnityEngine;
 
 namespace Items.Core
@@ -26,7 +28,20 @@ namespace Items.Core
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
         public int Rating => rating;
+        public Sprite GetRatingSprite => !IsEmpty ? PrefabsManager.ItemStars[rating] : null;
         public PreparationState Prep { get => prep; set => prep = value; }
+        
+        public string GetProcessHistoryText()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (var step in processHistory)
+            {
+                sb.AppendLine($"{step.method} - Turns: {step.turns}");
+            }
+
+            return sb.ToString();
+        }
         
         // Helper
         public void AddProcessStep(CookingMethod method, int turns)

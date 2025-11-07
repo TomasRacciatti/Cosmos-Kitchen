@@ -6,6 +6,7 @@ using Cinemachine;
 using DialogueEditor;
 using Interfaces;
 using Items.Core;
+using Items.Inventory;
 using Managers;
 using UnityEngine;
 
@@ -121,6 +122,11 @@ namespace Characters.Customers
         {
             GameManager.Canvas.InvManager.ForceInventory(true);
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(true);
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            InvSystem invPlayer2 = GameManager.Canvas.InvSlotUI.InvView.InventorySystem;
+            invPlayer.otherInvVinc = invPlayer2;
+            invPlayer2.otherInvVinc = invPlayer;
         }
 
         public void SetRequested()
@@ -155,15 +161,25 @@ namespace Characters.Customers
                     PlatesOrdered.RemoveCustomer(this);
                     GameManager.Player.AddScore(!soClient.isCritic ? 1 : 10);
                 }
+                else
+                {
+                    PlatesOrdered.UpdateCustomerOrder(this);
+                }
             }
             else
             {
                 ConversationManager.Instance.SetInt("Quality", -1);
+                PlatesOrdered.UpdateCustomerOrder(this);
                 customerSignal.SetSignal(1);
             }
             GameManager.Canvas.InvSystem.ClearSlot(0);
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
             GameManager.Canvas.InvManager.ForceInventory(false);
+            
+            InvSystem invPlayer = GameManager.Player.Inventory;
+            InvSystem invPlayer2 = GameManager.Canvas.InvSlotUI.InvView.InventorySystem;
+            invPlayer.otherInvVinc = null;
+            invPlayer2.otherInvVinc = null;
         }
 
         public Transform InteractionPoint => transform;

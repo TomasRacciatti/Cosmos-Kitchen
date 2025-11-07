@@ -83,10 +83,9 @@ namespace Characters.Player
 
         public void OnJump(InputValue value)
         {
-            /*
             if (!active) return;
             jump = value.isPressed;
-            if (jump) _playerController.Jump();*/
+            if (jump) _playerController.Jump();
         }
 
         public void OnSprint(InputValue value)

@@ -1,5 +1,6 @@
 using System;
 using Characters.Player;
+using Items.Core;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -34,6 +35,10 @@ namespace Items.Inventory
             animator.speed = 1;
             animator.Play(inventoryOpen ? "OpenInventory" : "CloseInventory", 0, 
                 1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+            if (!inventoryOpen)
+            {
+                ItemsTooltip.Hide();
+            }
             return inventoryOpen;
         }
     }

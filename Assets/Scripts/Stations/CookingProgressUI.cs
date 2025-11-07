@@ -9,9 +9,12 @@ namespace Stations
         [SerializeField] private RectTransform bar;
         [SerializeField] private RectTransform slotIcon; 
         
-        [Header("Offset (in pixels)")]
+        [Header("Progresion parameters")]
         [SerializeField] private float leftPadding  = 0f;
         [SerializeField] private float rightPadding = 0f;
+        [SerializeField] private float startYPos  = 0f;
+        [SerializeField] private float endYPos  = 0f;
+        [SerializeField] private float endScale = 1f;
 
         private TimedStation _station;
         
@@ -58,6 +61,9 @@ namespace Stations
             float norm = maxSeconds <= 0f ? 0f : tSeconds / maxSeconds;
             
             slotIcon.anchoredPosition = Vector2.Lerp(_startLocal, _endLocal, norm);
+            
+            float currentScale = Mathf.Lerp(1f, endScale, norm);
+            slotIcon.localScale = Vector3.one * currentScale;
         }
 
         private void OnRectTransformDimensionsChange()
@@ -85,8 +91,8 @@ namespace Stations
                 endX   =  halfUsable;
             }
             
-            _startLocal = new Vector2(startX, 0f);
-            _endLocal   = new Vector2(endX, 0f);
+            _startLocal = new Vector2(startX, startYPos);
+            _endLocal   = new Vector2(endX, endYPos);
         }
 
         private void OnSessionStarted(Cooking.CookingSession s)

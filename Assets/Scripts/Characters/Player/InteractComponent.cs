@@ -30,32 +30,57 @@ namespace Characters.Player
             if (mainCamera == null) return;
             
             Ray ray = mainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            IInteractable newInteractable = null; //new
 
             if (Physics.Raycast(ray, out var hit, cameraRadius, interactableLayers))
             {
                 if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
                 {
                     float distance = Vector3.Distance(transform.position, hit.collider.transform.position);
-                    if (distance > ownerRadius)
-                    {
-                        ClearActiveInteractable();
-                        return;
-                    }
+                    if (distance <= ownerRadius) //new
+                    {                            //new
+                        newInteractable = interactable; //new
+                    }                            //new
 
-                    if (activeInteractable == interactable) return;
-
-                    ClearActiveInteractable();
-                    activeInteractable = interactable;
-                    if (activeInteractable == null) return;
-                    activeInteractable?.EnableInteract();
-                    InteractButton.Show();
-                    CrosshairManager.StartAnimate();
-                    return;
+                    //old code removed:
+                    //if (distance > ownerRadius)
+                    //{
+                    //    ClearActiveInteractable();
+                    //    return;
+                    //}
+                    //if (activeInteractable == interactable) return;
+                    //ClearActiveInteractable();
+                    //activeInteractable = interactable;
+                    //if (activeInteractable == null) return;
+                    //activeInteractable?.EnableInteract();
+                    //InteractButton.Show();
+                    //CrosshairManager.StartAnimate();
+                    //return;
                 }
             }
 
-            ClearActiveInteractable();
-            CrosshairManager.StopAnimate();
+            //new
+            if (newInteractable != activeInteractable)
+            {
+                ClearActiveInteractable();
+
+                if (newInteractable != null)
+                {
+                    activeInteractable = newInteractable;
+                    activeInteractable.EnableInteract();
+                    InteractButton.Show();
+                    CrosshairManager.StartAnimate();
+                }
+                else
+                {
+                    CrosshairManager.StopAnimate();
+                }
+            }
+            //new
+            
+            //old code removed:
+            //ClearActiveInteractable();
+            //CrosshairManager.StopAnimate();
         }
 
         private void ClearActiveInteractable()

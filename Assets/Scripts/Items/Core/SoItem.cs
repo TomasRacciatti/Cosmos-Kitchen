@@ -1,6 +1,7 @@
 using System;
 using Items.Tools;
 using UnityEngine;
+using Cooking;
 
 namespace Items.Core
 {
@@ -18,6 +19,9 @@ namespace Items.Core
         [Header("Item Crafts")]
         [SerializeField] private ItemTools[] tools;
         
+        [Header("Processing Prerequisites")]
+        [SerializeField] private ProcessingPrerequisite[] prerequisites;
+        
         public string ItemName => itemName;
         public SoItemVisualSet VisualSet => visualSet;
         //public Sprite Image => image;
@@ -26,6 +30,7 @@ namespace Items.Core
         public Mesh Mesh => mesh;
         public Material[] Materials => materials;
         public ItemTools[] Tools => tools;
+        public ProcessingPrerequisite[] Prerequisites => prerequisites;
     }
 
     [Serializable]
