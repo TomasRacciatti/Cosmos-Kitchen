@@ -17,11 +17,11 @@ namespace Characters.Clients
         [Header("Dialogue")]
         public ClientDialogueProfileSO dialogueProfile;
 
-        [FormerlySerializedAs("requestedPlate")] [Header("Order / Recipe")]
+        [Header("Order / Recipe")]
         public SoPlate requestedSoPlate;
-        public string clue = "";
-
-        // Helper que devuelve el string empty si no hay lineas de dialogo.
+        public string clue1 = "Something with";
+        public string clue2 = "";
+        
         public string GetLine(DialogueCategory category) =>
             dialogueProfile?.PickRandom(category) ?? string.Empty;
     }

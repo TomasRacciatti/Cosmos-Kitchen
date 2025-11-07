@@ -12,11 +12,11 @@ namespace Characters.Clients.Plates
 
         private Customer _customer;
 
-        public void SetOrderUI(Customer customer)
+        public void SetOrderUI(Customer customer, bool retry)
         {
             _customer = customer;
             image.sprite = customer.soClient.clientIcon;
-            text.text = customer.soClient.requestedSoPlate.ItemName;
+            text.text = retry ? customer.soClient.clue2 : customer.soClient.clue1;
         }
 
         public bool IsCustomer(Customer customer)
