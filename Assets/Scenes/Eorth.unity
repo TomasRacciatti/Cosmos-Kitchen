@@ -875,6 +875,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31ffb24738a37c146909f88434d03673, type: 3}
+--- !u!114 &1099549724 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 221288885180450447, guid: eaa6c134550112d438682a2077c07ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406093667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc7a101b9b419cac49444af7b497fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1141499394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,6 +973,18 @@ AudioSource:
     type: 3}
   m_PrefabInstance: {fileID: 1406093667}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1298176725 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3505517599443164330, guid: eaa6c134550112d438682a2077c07ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406093667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc7a101b9b419cac49444af7b497fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1328004322
 Mesh:
   m_ObjectHideFlags: 0
@@ -1134,10 +1158,138 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44352790766682820, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: json
+      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":-190,"yPos":225},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":90,"yPos":552},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":528.5,"yPos":250},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"Your
+        order, ma''am!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":11,"yPos":26},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":374.5,"yPos":27},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false},{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Score","IntValue":0}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false},{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Score","CheckType":2,"RequiredValue":3}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false},{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Score","CheckType":2,"RequiredValue":3}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":156,"yPos":-95},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hi....","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-190,"yPos":317},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Surprise
+        me.","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-48.5,"yPos":105},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Bring
+        me... something fried and with fish.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":530.5,"yPos":145},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"Let''s
+        see what you''ve come up with.","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":810.5,"yPos":333},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"
+        ...That was good... very good actually... here, I''ll tell my supervisors
+        you''re good enough to obtain a visa for the Dessert planet.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":388.5,"yPos":333},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"...Try
+        again....","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":167,"yPos":334},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Distasteful...
+        the plate should be fried, but you shouldn''t fry the fish.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":600,"yPos":333},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"Closer..
+        but not good enough","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Creta","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 44352790766682820, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 44352790766682820, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 44352790766682820, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Distasteful... the plate should be fried, but you shouldn't fry the
+        fish.
+      objectReference: {fileID: 0}
     - target: {fileID: 457019155109218768, guid: eaa6c134550112d438682a2077c07ce3,
         type: 3}
       propertyPath: m_Name
       value: MapEarth
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: json
+      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":16,"yPos":221},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":296,"yPos":548},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":734.5,"yPos":246},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"For
+        you, sir!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":217,"yPos":22},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":580.5,"yPos":23},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":362,"yPos":-99},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hey.
+        I want to fish some Salmon but my sister over here is such a nuissance. Something
+        about the delicate balance of nature or whatever. I don''t care! I''m hungry!!","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":16,"yPos":313},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        don''t know if she told you something about me but don''t believe her, she
+        always got me into trouble with mom and dad.","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":157.5,"yPos":101},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        would like a fried salmon fillet, just like those my ma used to make!","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":737.5,"yPos":141},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"My
+        Ma used to make the best salmon, let''s see how this fares up.","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":1016.5,"yPos":330},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"HAHA
+        YES! I knew it, just like Ma''s, Salmon''s the best!!","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":593.5,"yPos":330},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Huh
+        I thought Salmon tasted better... Wouldn''t you mind trying again?","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":371,"yPos":330},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Hmmm
+        no I don''t want to eat that. Looks good but I want cooked Salmon!!","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":806,"yPos":329},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"You
+        are getting there, but my Ma used to make much better salmon.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Rokko","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1298176725}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1298176725}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Speak
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetExpression
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Hmmm no I don't want to eat that. Fried salmon, and try roasting the
+        corn before chopping it.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1095378840448015092, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3796271485687191346, guid: eaa6c134550112d438682a2077c07ce3,
         type: 3}
@@ -1189,21 +1341,278 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: json
+      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":-58.5,"yPos":273},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":221.5,"yPos":600},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":660,"yPos":298},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"For
+        you, sir!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":142.5,"yPos":74},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":506,"yPos":75},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":287.5,"yPos":-47},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Salutations,
+        that''s a nice space truck you got. ","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-58.5,"yPos":365},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Can''t
+        wait or that tasty apple pie!","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":83,"yPos":153},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Would
+        you mind getting me something with Roasted Apple?","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":663,"yPos":193},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"Marvelous!","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":942,"yPos":382},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"Damn,
+        that Apple Pie really was perfect. Alright, thanks I''m full.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":520,"yPos":381},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Not
+        the tastiest pie I''ve had if I''m being honest. Care to try again?","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":297.5,"yPos":382},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        said Apple Pie, darling. You must have missheard me.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":731.5,"yPos":382},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"It''s
+        fine I guess. Please get me another one, I''m still insatiable.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Ozone","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1099549724}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1099549724}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Speak
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetExpression
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Not really what I had in mind, i was thinking more in like a pie or
+        something.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089257411656282700, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6180700204586871642, guid: eaa6c134550112d438682a2077c07ce3,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1328004322}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1406093668}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShowSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Speak
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: Worms are cool!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6207762677886716301, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7708145948253003050, guid: eaa6c134550112d438682a2077c07ce3,
         type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 686629928}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: json
+      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":80,"yPos":234},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":360,"yPos":561},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":798.5,"yPos":259},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"For
+        you, miss!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":281,"yPos":35},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":644.5,"yPos":36},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":426,"yPos":-86},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hey~
+        Feel free to take whatever you need from my farm. BUT! I want a plate in
+        return.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":80,"yPos":326},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Oh
+        my, I can hardly wait!","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":253.5,"yPos":123},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Make
+        me a Salmon Omelette please.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":801.5,"yPos":154},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        can taste it already!","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":1080.5,"yPos":343},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"Now
+        that''s a perfect Salmon Omelette if I''ve ever seen one!! Thank you~","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":658.5,"yPos":341},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Thank
+        you so much... but... you could improve","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":434,"yPos":342},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Are
+        you sure this is a salmon omelet?","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":871,"yPos":342},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"Yummy,
+        I''m sure it can get better with more practise though..","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2130104510}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2130104510}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Speak
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetExpression
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: Characters.Customers.Customer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: I need a high protein lunch. Something with blended egg probably.
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8703430329888462614, guid: eaa6c134550112d438682a2077c07ce3,
+        type: 3}
+      propertyPath: Event.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eaa6c134550112d438682a2077c07ce3, type: 3}
+--- !u!114 &1406093668 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5844790635953735090, guid: eaa6c134550112d438682a2077c07ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406093667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc7a101b9b419cac49444af7b497fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1407173478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1909,6 +2318,18 @@ Transform:
   - {fileID: 209506341}
   m_Father: {fileID: 240303081}
   m_LocalEulerAnglesHint: {x: 1, y: 0, z: 359}
+--- !u!114 &2130104510 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8880050240992722532, guid: eaa6c134550112d438682a2077c07ce3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406093667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84dc7a101b9b419cac49444af7b497fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
