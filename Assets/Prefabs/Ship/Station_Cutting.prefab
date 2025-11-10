@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 7850406719928991713}
   - component: {fileID: 7442208471371980074}
   - component: {fileID: 5191392791748315358}
+  - component: {fileID: 1070032207116339927}
   m_Layer: 0
   m_Name: Station_Cutting
   m_TagString: Untagged
@@ -136,12 +137,6 @@ MonoBehaviour:
   openAnimation: {fileID: 0}
   closeAnimation: {fileID: 0}
   canvas: {fileID: 5255830946825594412, guid: f6fcf095a9c573a44a073c8b565628c3, type: 3}
-  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
-  outlineMeshes:
-  - {fileID: 1310823092596496724}
-  - {fileID: 5684504120107303811}
-  - {fileID: 8610471595493598754}
-  - {fileID: 1379447149580322743}
   invSystem: {fileID: 7442208471371980074}
   soTool: {fileID: 11400000, guid: a3d5cf9c88ef1cc41a87c35d3c7735cd, type: 2}
   method: 5
@@ -181,6 +176,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.35184866, y: 0.08732402, z: 0.15117967}
   m_Center: {x: -0.0805248, y: 0.041338027, z: -0.015589821}
+--- !u!114 &1070032207116339927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4830500325722087557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6570253210506932997
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ namespace Characters.Player
         [SerializeField] private AudioCue landingCue;
         
         [SerializeField] private Animator animator;
+        [SerializeField] private ParticleSystem stepsParticles;
         private AudioSource _audioSource;
         
         // animation IDs
@@ -44,6 +45,16 @@ namespace Characters.Player
         public void SetSpeed(float speed)
         {
             animator.SetFloat(_animIDSpeed, speed);
+            if (speed > 2)
+            {
+                var emission = stepsParticles.emission;
+                emission.enabled = true;
+            }
+            else
+            {
+                var emission = stepsParticles.emission;
+                emission.enabled = false;
+            }
         }
         
         public void SetVerticalSpeed(float up)

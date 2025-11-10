@@ -545,6 +545,7 @@ GameObject:
   - component: {fileID: 5987112371981161682}
   - component: {fileID: 7716148591898019948}
   - component: {fileID: 1758652281875940276}
+  - component: {fileID: 7714255294118454611}
   m_Layer: 0
   m_Name: Station_Blending
   m_TagString: Untagged
@@ -633,14 +634,6 @@ MonoBehaviour:
   openAnimation: {fileID: 7400000, guid: aacd614333ad6364f9c7b42c35ae600e, type: 2}
   closeAnimation: {fileID: 7400000, guid: 734aad6772f6db44b99f29ccfdf024c4, type: 2}
   canvas: {fileID: 8100360072370276888, guid: 75ff54f6f5dcc6949af43ece952e5d18, type: 3}
-  outlineMat: {fileID: 2100000, guid: 59c19aaa83fdbdf45b6fc328c75f0824, type: 2}
-  outlineMeshes:
-  - {fileID: 4075224646462659696}
-  - {fileID: 2314484368201051828}
-  - {fileID: 7528415221785575268}
-  - {fileID: 6140186013703867184}
-  - {fileID: 7538991875937245810}
-  - {fileID: 5626073587422380558}
   invSystem: {fileID: 7716148591898019948}
   method: 4
   secondsPerTurn: 7.5
@@ -681,6 +674,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7714255294118454611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7875677633416770281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &8205183510495063155
 GameObject:
   m_ObjectHideFlags: 0
