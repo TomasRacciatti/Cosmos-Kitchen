@@ -19,7 +19,7 @@ namespace Items.Inventory
         public bool Infinite => slots == -1;
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
 
-        public InvSystem otherInvVinc;
+        [HideInInspector] public InvSystem otherInvVinc;
         
         public Func<Items.Core.ItemAmount, bool> CanAcceptItem;
         

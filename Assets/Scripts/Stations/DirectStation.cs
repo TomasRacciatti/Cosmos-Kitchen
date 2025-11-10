@@ -12,7 +12,7 @@ namespace Stations
     {
         [Header("Direct Station")]
         [SerializeField] private InvSystem invSystem;
-        [SerializeField] private SoTool soTool;
+        //[SerializeField] private SoTool soTool;
         
         [SerializeField] private CookingMethod method;
 
@@ -59,16 +59,16 @@ namespace Stations
                 
                 if (item.Prep.Doneness == Cooking.Doneness.Burnt) continue;
 
-                bool toolAllowed = false;
-                var tools = item.SoItem.Tools;
-                if (tools != null)
-                {
-                    for (int t = 0; t < tools.Length; t++)
-                    {
-                        if (tools[t].tool == soTool) { toolAllowed = true; break; }
-                    }
-                }
-                if (!toolAllowed) continue;
+                // bool toolAllowed = false;
+                // var tools = item.SoItem.Tools;
+                // if (tools != null)
+                // {
+                //     for (int t = 0; t < tools.Length; t++)
+                //     {
+                //         if (tools[t].tool == soTool) { toolAllowed = true; break; }
+                //     }
+                // }
+                // if (!toolAllowed) continue;
                 
                 // Validacion de prereq
                 if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
