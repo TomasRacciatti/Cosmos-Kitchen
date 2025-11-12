@@ -41,7 +41,7 @@ namespace Items.Inventory
             if (image)
             {
                 image.enabled = true;
-                image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, previousSprite);
+                image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, null);
             }
             RefreshAmount();
             starIcon.sprite = newItemAmount.GetRatingSprite;

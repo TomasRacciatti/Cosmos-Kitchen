@@ -25,6 +25,29 @@ namespace Items.Core
                 return false;
 
             // Vamos por los items y revisamos los Preps
+            
+            // Chequeo con los direct processes
+            var firstHistory = first.ProcessHistory; // El primero es nuestra ancla para ver si el resto apilan con el
+            int firstHistoryCount = (firstHistory != null) ? firstHistory.Count : 0;
+            
+            foreach (var it in itemAmounts)
+            {
+                var restHistory = it.ProcessHistory;
+                int restHistoryCount = (restHistory != null) ? restHistory.Count : 0;
+                
+                if (firstHistoryCount != restHistoryCount) return false;
+
+                if (firstHistoryCount > 0)
+                {
+                    for (int i = 0; i < firstHistoryCount; i++)
+                    {
+                        if (firstHistory[i].method != restHistory[i].method) return false;
+                        if (firstHistory[i].turns != restHistory[i].turns) return false;
+                    }
+                }
+            }
+            
+            // Chequeo con timed processes
             var prepStateFirst = first.Prep; // El primero es nuestra ancla para ver si el resto apilan con el
             foreach (var it in itemAmounts)
             {
