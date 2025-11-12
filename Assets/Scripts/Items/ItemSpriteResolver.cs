@@ -37,7 +37,6 @@ namespace Items
             
             if (prep.method == CookingMethod.None || prep.Doneness == Doneness.Raw)
             {
-                if (currentSprite != null) return currentSprite;
                 
                 var hist = itemAmount.ProcessHistory;
                 if (hist != null && hist.Count > 0)
@@ -50,6 +49,10 @@ namespace Items
                             return fromHistory;
                     }
                 }
+                
+                if (currentSprite != null && (hist == null || hist.Count == 0)) 
+                    return currentSprite;
+                
                 return (set != null) ? set.DefaultSprite : null;
             }
             
