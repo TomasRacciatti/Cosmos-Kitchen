@@ -46,8 +46,18 @@ namespace Characters.Player
         {
             animator.SetFloat(_animIDSpeed, speed);
             var emission = stepsParticles.emission;
-            emission.enabled = speed > 4;
-            emission.rateOverTime = speed * 5f;
+            //new
+            //tasa base de emision
+            float baseRate = 2.0f; 
+    
+            //si la velocidad es mayor a x(correr) aplica el multiplicador
+            float rateMultiplier = (speed >= 5.0f) ? 5.0f : 1.0f;
+    
+            float finalRate = speed * baseRate * rateMultiplier;
+            
+            emission.enabled = speed > 0.1f;
+            emission.rateOverTime = finalRate;
+            //new
         }
         
         public void SetVerticalSpeed(float up)

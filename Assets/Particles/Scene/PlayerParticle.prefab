@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8563694348352913331}
   - component: {fileID: 358242440862406199}
   m_Layer: 0
-  m_Name: Player Particle
+  m_Name: PlayerParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,7 +871,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 25
+      scalar: 10
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2144,23 +2144,23 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: -0.8
+          time: 0.012722645
+          value: 0.47333333
+          inSlope: 0.54583335
+          outSlope: 0.54583335
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0
+          outWeight: 0.12371133
         - serializedVersion: 3
           time: 1
-          value: 0.2
-          inSlope: -0.8
-          outSlope: 0
+          value: 1
+          inSlope: 0.5822219
+          outSlope: 0.5822219
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.33333334
-          outWeight: 0.33333334
+          inWeight: 0.1391753
+          outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
@@ -2188,7 +2188,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    m_Range: {x: 0, y: 1}
+    m_Range: {x: 0, y: 5}
   ForceModule:
     enabled: 0
     x:
@@ -2350,7 +2350,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    inWorldSpace: 0
+    inWorldSpace: 1
     randomizePerFrame: 0
   ExternalForcesModule:
     serializedVersion: 2
@@ -3389,7 +3389,7 @@ ParticleSystem:
     range: {x: 0, y: 1}
     separateAxes: 0
   RotationBySpeedModule:
-    enabled: 1
+    enabled: 0
     x:
       serializedVersion: 2
       minMaxState: 3
