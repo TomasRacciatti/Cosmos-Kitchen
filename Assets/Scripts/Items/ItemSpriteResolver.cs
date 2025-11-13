@@ -59,9 +59,9 @@ namespace Items
             {
                 CookingMethod previousMethod = CookingMethod.None;
                 var hist = itemAmount.ProcessHistory;
-                if (hist != null && hist.Count > 0)
+                if (hist != null && hist.Count > 1)
                 {
-                    previousMethod = hist[hist.Count - 1].method;
+                    previousMethod = hist[hist.Count - 2].method;
                 }
                 
                 if (set.TryGet(prep.method, (int)prep.Doneness, previousMethod, out var variant))
