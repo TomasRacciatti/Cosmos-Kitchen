@@ -10,6 +10,7 @@ namespace Items.Inventory
     {
         //Variables
         [SerializeField, Min(-1)] private int slots = 10;
+        [SerializeField] private bool allowStacking = true;
         [SerializeField] private List<ItemAmount> items = new();
 
         //Getters
@@ -211,6 +212,7 @@ namespace Items.Inventory
         //Privates
         private void AddStackSlot(ref ItemAmount itemAmount)
         {
+            if (!allowStacking) return;
             if (itemAmount.SoItem.Stack <= 1) return;
 
             for (int i = 0; i < items.Count; i++)
@@ -295,7 +297,7 @@ namespace Items.Inventory
                 return;
             }
             
-            if (ItemsUtility.Stackable(fromItem, targetItem)) //si son stackeables
+            if (targetInventory.allowStacking && ItemsUtility.Stackable(fromItem, targetItem)) //si son stackeables
             {
                 int remaining = targetInventory.items[targetIndex].AddAmount(fromItem.Amount);
                 targetInventory.NotifySlotChanged(targetIndex);

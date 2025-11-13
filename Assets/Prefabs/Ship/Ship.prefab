@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 1
+  allowStacking: 0
   items: []
   otherInvVinc: {fileID: 0}
 --- !u!114 &76095345029603957
@@ -401,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 1
+  allowStacking: 0
   items: []
   otherInvVinc: {fileID: 0}
 --- !u!114 &2093124916955971293
@@ -534,6 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 1
+  allowStacking: 0
   items: []
   otherInvVinc: {fileID: 0}
 --- !u!114 &857440651549086300
@@ -776,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 1
+  allowStacking: 0
   items: []
   otherInvVinc: {fileID: 0}
 --- !u!114 &822146598194385138
@@ -1382,6 +1386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slots: 1
+  allowStacking: 0
   items: []
   otherInvVinc: {fileID: 0}
 --- !u!114 &2315160043941567123
@@ -7004,6 +7009,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Station_Serving
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580008978891117965, guid: 44938e8fc706de7409cc7494b7212feb,
+        type: 3}
+      propertyPath: allowStacking
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
