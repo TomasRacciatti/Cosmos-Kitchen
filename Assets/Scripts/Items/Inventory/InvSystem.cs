@@ -353,6 +353,28 @@ namespace Items.Inventory
 
             return true;
         }
+
+        public bool SplitOneItem(int index)
+        {
+            if (index < 0 || index >= Items.Count) return false;
+            
+            var item = Items[index];
+            if (item.IsEmpty || item.Amount <= 1) return false;
+            
+            int emptyIndex = GetFirstEmptySlotIndex();
+            if (emptyIndex == -1) return false;
+            
+            items[index].SetAmount(item.Amount - 1);
+            
+            var clone  = new ItemAmount(item);
+            clone.SetAmount(1);
+            items[emptyIndex] = clone;
+            
+            NotifySlotChanged(index);
+            NotifySlotChanged(emptyIndex);
+            
+            return true;
+        }
         
         private int GetFirstEmptySlotIndex()
         {
