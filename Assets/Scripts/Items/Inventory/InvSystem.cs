@@ -319,11 +319,19 @@ namespace Items.Inventory
             if (fromItem.IsEmpty) return;
             
             var itemToTransfer = new ItemAmount(fromItem);
+            itemToTransfer.SetAmount(1);
             
             otherInvVinc.AddItem(ref itemToTransfer);
             
-            items[fromIndex].SetAmount(itemToTransfer.Amount);
-            NotifySlotChanged(fromIndex);
+            int transferred = 1 - itemToTransfer.Amount;
+
+            if (transferred > 0)
+            {
+                int newAmount = fromItem.Amount - transferred;
+                
+                items[fromIndex].SetAmount(newAmount);
+                NotifySlotChanged(fromIndex);
+            }
         }
         
         public bool SplitItemStack(int index)
