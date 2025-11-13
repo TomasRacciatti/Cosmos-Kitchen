@@ -1,53 +1,83 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cooking;
 using Items.Core;
 using UnityEngine;
 
-// Owner: Ksa (UI/visuals)
 // Purpose: Asset that holds per-method, per-doneness sprite variants for a given SoItem.
 // Notes: Keeping this separate from SoItem reduces merge conflicts; SoItem keeps its default sprite.
-[CreateAssetMenu(menuName = "ScriptableObject/Items/Item Visual Set", fileName = "SoItemVisualSet")]
-public class SoItemVisualSet : ScriptableObject
-{ 
-    [Header("Target Item")]
-    [SerializeField] private SoItem item;
-    [SerializeField] private Sprite defaultSprite;
+namespace Cooking
+{
+    [CreateAssetMenu(menuName = "ScriptableObject/Items/Item Visual Set", fileName = "SoItemVisualSet")]
+    public class SoItemVisualSet : ScriptableObject
+    { 
+        [Header("Target Item")]
+        [SerializeField] private SoItem item;
+        [SerializeField] private Sprite defaultSprite;
     
-    [Header("Variants by Method (index 0..4 = Raw..Burnt)")]
-    [SerializeField] private MethodVariants[] variants;
+        [Header("Variants by Method (index 0..4 = Raw..Burnt)")]
+        [SerializeField] private MethodVariants[] variants;
     
-    public SoItem Item => item;
-    public Sprite DefaultSprite => defaultSprite;
+        public SoItem Item => item;
+        public Sprite DefaultSprite => defaultSprite;
     
-    [Serializable]
-    public class MethodVariants
-    {
-        public CookingMethod method;
-        [Tooltip("0 = Rare, 1 = Medium, 2 = WellDone, 3 = Burnt")]
-        public Sprite[] donenessSprites = new Sprite[4];
-    }
-
-    public bool TryGet(CookingMethod method, int donenessIndex, out Sprite sprite)
-    {
-        sprite = null;
-        if (variants == null) return false;
-        
-        if (donenessIndex <= 0) return false;
-
-        for (int i = 0; i < variants.Length; i++)
+        [Serializable]
+        public class MethodVariants
         {
-            if (variants[i].method != method) continue;
-            var spriteArr = variants[i].donenessSprites;
-            int idx = donenessIndex - 1;
-            if (spriteArr != null && idx >= 0 && idx < spriteArr.Length)
-            {
-                sprite = spriteArr[idx];
-                return sprite != null;
-            }
+            public CookingMethod currentMethod;
+            public bool usesPreviousMethod = false;
+            public CookingMethod previousMethod;
+            [Tooltip("0 = Rare, 1 = Medium, 2 = WellDone, 3 = Burnt")]
+            public Sprite[] donenessSprites = new Sprite[4];
         }
-        return false;
+
+        public bool TryGet(CookingMethod method, int donenessIndex, out Sprite sprite)
+        {
+            return TryGet(method, donenessIndex, CookingMethod.None, out sprite); 
+        }
+
+        public bool TryGet(CookingMethod currentMethod, int donenessIndex, CookingMethod previousMethod, out Sprite sprite)
+        {
+            sprite = null;
+            if (variants == null) return false;
+        
+            if (donenessIndex <= 0) return false;
+        
+            int idx = donenessIndex - 1;
+            if (idx < 0 || idx >= 4) return false;
+
+            if (previousMethod != CookingMethod.None)
+            {
+                for (int i = 0; i < variants.Length; i++)
+                {
+                    var variant = variants[i];
+                    if (variant.currentMethod != currentMethod) continue;
+                    if (!variant.usesPreviousMethod) continue;
+                    if (variant.previousMethod != previousMethod) continue;
+                
+                    var spriteArray = variant.donenessSprites;
+                    if (spriteArray != null && idx < spriteArray.Length)
+                    {
+                        sprite = spriteArray[idx];
+                        if (sprite != null) return true;
+                    }
+                }
+            }
+
+            for (int i = 0; i < variants.Length; i++)
+            {
+                var variant = variants[i];
+                if (variant.currentMethod != currentMethod) continue;
+                if (variant.usesPreviousMethod) continue;
+            
+                var spriteArray = variant.donenessSprites;
+                if (spriteArray != null && idx < spriteArray.Length)
+                {
+                    sprite = spriteArray[idx];
+                    if (sprite != null) return true;
+                }
+            }
+        
+            return false;
+        }
     }
 }
 
