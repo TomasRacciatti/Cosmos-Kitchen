@@ -11,6 +11,7 @@ namespace Items.Inventory
         //Variables
         [SerializeField, Min(-1)] private int slots = 10;
         [SerializeField] private bool allowStacking = true;
+       
         [SerializeField] private List<ItemAmount> items = new();
 
         //Getters

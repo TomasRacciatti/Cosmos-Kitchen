@@ -26,7 +26,7 @@ namespace Stations
         private Outline _outlineComponent; // new
         
         protected GameObject CanvasInstance;
-        [SerializeField] private Animator animator;
+        [SerializeField] protected Animator animator;
         //private string openClipName;
         //private string closeClipName;
 

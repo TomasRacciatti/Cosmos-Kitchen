@@ -4,6 +4,8 @@ using Items.Core;
 using Items.Inventory;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Stations
@@ -31,6 +33,10 @@ namespace Stations
         
         public bool  IsCooking => _session != null && _session.isActive;
         public float AccumulatedSeconds => _session != null ? _session.accumulatedSeconds : 0f;
+        
+        //ksa effects
+        [SerializeField] private UnityEvent onSessionStartedUnity;
+        [SerializeField] private UnityEvent onSessionStopUnity;
 
         public float SavedTurnsCooked
         {
@@ -176,6 +182,8 @@ namespace Stations
             _ticker.Register(_session);
             
             OnSessionStarted?.Invoke(_session);
+            onSessionStartedUnity.Invoke();
+            animator.SetTrigger("StartCook");
         }
         
         private void StopCooking()
@@ -212,6 +220,8 @@ namespace Stations
             }
             
             OnSessionStopped?.Invoke();
+            onSessionStopUnity.Invoke();
+            animator.SetTrigger("StopCook");
         }
 
         private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)

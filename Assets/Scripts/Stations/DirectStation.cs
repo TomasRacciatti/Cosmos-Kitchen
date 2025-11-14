@@ -4,6 +4,7 @@ using Items.Inventory;
 using Items.Tools;
 using Managers;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Stations
@@ -15,6 +16,7 @@ namespace Stations
         //[SerializeField] private SoTool soTool;
         
         [SerializeField] private CookingMethod method;
+        [SerializeField] private UnityEvent onCooked;
 
         protected override void Awake()
         {
@@ -52,6 +54,8 @@ namespace Stations
         
         private  void ApplyDirectProcess()
         {
+            animator.SetTrigger("StartCook");
+            onCooked.Invoke();
             for (int i = 0; i < invSystem.Items.Count; i++)
             {
                 var item = invSystem.Items[i];
