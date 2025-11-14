@@ -17,9 +17,6 @@ namespace Stations
     {
         public Transform InteractionPoint => transform;
         
-        [Header("VFX")]
-        [SerializeField] private AnimationClip openAnimation;
-        [SerializeField] private AnimationClip closeAnimation;
         [Header("Canvas")]
         [SerializeField] protected GameObject canvas;
         
@@ -29,16 +26,16 @@ namespace Stations
         private Outline _outlineComponent; // new
         
         protected GameObject CanvasInstance;
-        private Animator animator;
-        private string openClipName;
-        private string closeClipName;
+        [SerializeField] protected Animator animator;
+        //private string openClipName;
+        //private string closeClipName;
 
         protected virtual void Awake()
         {
-            animator = GetComponent<Animator>();
+            //animator = GetComponent<Animator>();
             
-            openClipName = openAnimation  ? openAnimation.name : "";
-            closeClipName = closeAnimation   ? closeAnimation.name : "";
+            //openClipName = openAnimation  ? openAnimation.name : "";
+            //closeClipName = closeAnimation   ? closeAnimation.name : "";
             
             // New: Get the Outline component
             _outlineComponent = GetComponent<Outline>(); // new
@@ -124,11 +121,13 @@ namespace Stations
                 outlineMat.SetFloat("_Intensity", 1);
             }
             */
-            
+            /*
             if (!animator) return;
             if (openClipName == "") return;
             animator.Play(openClipName, 0, 
-                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));*/
+            
+            animator.SetBool("IsOver", true);
         }
 
         public void DisableInteract()
@@ -146,11 +145,12 @@ namespace Stations
                     outlineMat.SetFloat("_Intensity", 0);
             }
             */
-            
+            /*
             if (!animator) return;
             if (closeClipName == "") return;
             animator.Play(closeClipName, 0, 
-                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));
+                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));*/
+            animator.SetBool("IsOver", false);
         }
     }
 }

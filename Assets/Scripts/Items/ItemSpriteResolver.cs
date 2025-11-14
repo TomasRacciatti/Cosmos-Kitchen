@@ -31,14 +31,12 @@ namespace Items
         {
             if (itemAmount == null || itemAmount.SoItem == null) return null;
 
-            var so   = itemAmount.SoItem;
+            var so = itemAmount.SoItem;
             var prep = itemAmount.Prep;
-            var set  = so.VisualSet;
+            var set = so.VisualSet;
             
             if (prep.method == CookingMethod.None || prep.Doneness == Doneness.Raw)
             {
-                if (currentSprite != null) return currentSprite;
-                
                 var hist = itemAmount.ProcessHistory;
                 if (hist != null && hist.Count > 0)
                 {
@@ -50,12 +48,23 @@ namespace Items
                             return fromHistory;
                     }
                 }
+                
+                if (currentSprite != null && (hist == null || hist.Count == 0)) 
+                    return currentSprite;
+                
                 return (set != null) ? set.DefaultSprite : null;
             }
             
             if (set != null)
             {
-                if (set.TryGet(prep.method, (int)prep.Doneness, out var variant))
+                CookingMethod previousMethod = CookingMethod.None;
+                var hist = itemAmount.ProcessHistory;
+                if (hist != null && hist.Count > 1)
+                {
+                    previousMethod = hist[hist.Count - 2].method;
+                }
+                
+                if (set.TryGet(prep.method, (int)prep.Doneness, previousMethod, out var variant))
                     return variant;
 
                 if (currentSprite != null) return currentSprite;

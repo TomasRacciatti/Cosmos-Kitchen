@@ -10,6 +10,8 @@ namespace Items.Inventory
     {
         //Variables
         [SerializeField, Min(-1)] private int slots = 10;
+        [SerializeField] private bool allowStacking = true;
+       
         [SerializeField] private List<ItemAmount> items = new();
 
         //Getters
@@ -19,7 +21,7 @@ namespace Items.Inventory
         public bool Infinite => slots == -1;
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
 
-        public InvSystem otherInvVinc;
+        [HideInInspector] public InvSystem otherInvVinc;
         
         public Func<Items.Core.ItemAmount, bool> CanAcceptItem;
         
@@ -211,6 +213,7 @@ namespace Items.Inventory
         //Privates
         private void AddStackSlot(ref ItemAmount itemAmount)
         {
+            if (!allowStacking) return;
             if (itemAmount.SoItem.Stack <= 1) return;
 
             for (int i = 0; i < items.Count; i++)
@@ -295,7 +298,7 @@ namespace Items.Inventory
                 return;
             }
             
-            if (ItemsUtility.Stackable(fromItem, targetItem)) //si son stackeables
+            if (targetInventory.allowStacking && ItemsUtility.Stackable(fromItem, targetItem)) //si son stackeables
             {
                 int remaining = targetInventory.items[targetIndex].AddAmount(fromItem.Amount);
                 targetInventory.NotifySlotChanged(targetIndex);
@@ -319,11 +322,19 @@ namespace Items.Inventory
             if (fromItem.IsEmpty) return;
             
             var itemToTransfer = new ItemAmount(fromItem);
+            itemToTransfer.SetAmount(1);
             
             otherInvVinc.AddItem(ref itemToTransfer);
             
-            items[fromIndex].SetAmount(itemToTransfer.Amount);
-            NotifySlotChanged(fromIndex);
+            int transferred = 1 - itemToTransfer.Amount;
+
+            if (transferred > 0)
+            {
+                int newAmount = fromItem.Amount - transferred;
+                
+                items[fromIndex].SetAmount(newAmount);
+                NotifySlotChanged(fromIndex);
+            }
         }
         
         public bool SplitItemStack(int index)
@@ -351,6 +362,28 @@ namespace Items.Inventory
             NotifySlotChanged(index);
             NotifySlotChanged(emptyIndex);
 
+            return true;
+        }
+
+        public bool SplitOneItem(int index)
+        {
+            if (index < 0 || index >= Items.Count) return false;
+            
+            var item = Items[index];
+            if (item.IsEmpty || item.Amount <= 1) return false;
+            
+            int emptyIndex = GetFirstEmptySlotIndex();
+            if (emptyIndex == -1) return false;
+            
+            items[index].SetAmount(item.Amount - 1);
+            
+            var clone  = new ItemAmount(item);
+            clone.SetAmount(1);
+            items[emptyIndex] = clone;
+            
+            NotifySlotChanged(index);
+            NotifySlotChanged(emptyIndex);
+            
             return true;
         }
         

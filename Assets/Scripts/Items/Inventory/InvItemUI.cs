@@ -41,7 +41,7 @@ namespace Items.Inventory
             if (image)
             {
                 image.enabled = true;
-                image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, previousSprite);
+                image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, null);
             }
             RefreshAmount();
             starIcon.sprite = newItemAmount.GetRatingSprite;
@@ -84,14 +84,15 @@ namespace Items.Inventory
                 case PointerEventData.InputButton.Left:
                     if (Input.GetKey(KeyCode.LeftControl))
                     {
-                        print("pasar mesa");
+                        _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
+                    }
+                    else if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        _invSlotUI.InvView.InventorySystem.SplitOneItem(SlotUI.InvSlot);
                     }
                     break;
                 case PointerEventData.InputButton.Right:
                     _invSlotUI.InvView.InventorySystem.TransferToOtherInventory(SlotUI.InvSlot);
-                    break;
-                case PointerEventData.InputButton.Middle:
-                    _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
                     break;
             }
         }
