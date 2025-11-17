@@ -118,7 +118,10 @@ public class AudioManager : MonoBehaviour
     private void HandleMusicResume()
     {
         if (_musicStack.Count == 0)
+        {
+            Debug.LogWarning("No previous music to resume.");
             return;
+        }
 
         AudioClip previousClip = _musicStack.Pop();
         PlayMusic(previousClip);
