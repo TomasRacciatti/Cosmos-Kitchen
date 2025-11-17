@@ -28,5 +28,10 @@ namespace Audio.Music
             int randomIndex = Random.Range(0, minigameMusic.Length);
             return minigameMusic[randomIndex];
         }
+        
+        public AudioClip[] GetAllMinigameMusic()
+        {
+            return minigameMusic;
+        }
     }
 }

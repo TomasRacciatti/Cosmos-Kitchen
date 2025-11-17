@@ -40,6 +40,8 @@ public class AudioManager : MonoBehaviour
 
         _byName = new Dictionary<string, Sound>(StringComparer.Ordinal);
         foreach (var s in sounds) _byName[s.name] = s;
+        
+        PreloadMusicClips();
 
         applier.ApplyAll(store.Master, store.Music, store.Sfx);
         
@@ -63,7 +65,6 @@ public class AudioManager : MonoBehaviour
         yield return null;
         
         applier.ApplyAll(store.Master, store.Music, store.Sfx);
-        
     }
 
     public void SetAmbiance(AudioClip background)
@@ -194,5 +195,24 @@ public class AudioManager : MonoBehaviour
         
         musicSource.volume = startVolume;
         _currentMusicTransition = null;
+    }
+
+    private void PreloadMusicClips()
+    {
+        if (musicBank == null)
+            return;
+
+        if (musicBank.EorthMusic != null) musicBank.EorthMusic.LoadAudioData();
+        if (musicBank.KitchenMusic != null) musicBank.KitchenMusic.LoadAudioData();
+        if (musicBank.PauseMusic != null) musicBank.PauseMusic.LoadAudioData();
+
+        var minigameMusic = musicBank.GetAllMinigameMusic();
+        if (minigameMusic != null)
+        {
+            foreach (var clip in minigameMusic)
+            {
+                if (clip != null) clip.LoadAudioData();
+            }
+        }
     }
 }
