@@ -41,7 +41,7 @@ public class MenuManager : MonoBehaviour
         _isOpen = true;
     }
 
-    public void ToggleMainMenu()
+    public void TogglePause()
     {
         if (_isOpen)
         {
@@ -52,6 +52,7 @@ public class MenuManager : MonoBehaviour
             mainMenuPanel.SetActive(false);
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
+            GameManager.Resume();
             _isOpen = false;
         }
         else
@@ -63,6 +64,7 @@ public class MenuManager : MonoBehaviour
             mainMenuPanel.SetActive(true);
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
+            GameManager.Pause();
             _isOpen = true;
         }
 
@@ -116,7 +118,7 @@ public class MenuManager : MonoBehaviour
         AudioManager.instance.StopAllSFX();
         AudioManager.instance.PlaySFX(UIClickSound);
         
-        ToggleMainMenu(); //algo aca no anda
+        TogglePause(); //algo aca no anda
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
