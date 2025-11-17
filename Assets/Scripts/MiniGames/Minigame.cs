@@ -40,6 +40,7 @@ namespace MiniGames
         public virtual void StartMinigame()
         {
             AudioManager.instance.PlaySFX(startSound);
+            MusicEvents.RequestMusicChange(MusicEvents.MusicType.Minigame);
             CurrentLives = totalLives;
             CurrentActions = 0;
             SetProgress();
@@ -48,7 +49,7 @@ namespace MiniGames
         
         public virtual void ExitMinigame()
         {
-            
+            MusicEvents.RequestMusicResume();
         }
         
         protected void EvaluateAction()
