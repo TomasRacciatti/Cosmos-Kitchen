@@ -118,8 +118,14 @@ namespace Characters.Player
         public void OnBackUI(InputValue value)
         {
             if (!active || !value.isPressed) return;
-            
+
+            bool wasPaused = menuOpen;
             menuOpen = GameManager.Canvas.TogglePauseMenu();
+
+            if (menuOpen && !wasPaused)
+                GameManager.Pause();
+            else if (!menuOpen && wasPaused)
+                GameManager.Resume();
             
             CheckCursor();
         }
