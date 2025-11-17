@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Audio.Music
 {
     [CreateAssetMenu(fileName = "MusicBank", menuName = "ScriptableObject/Audio/MusicBank")]
-    public class MusicBank : ScriptableObject
+    public class SoMusicBank : ScriptableObject
     {
         [Header("Planet/Level Music")]
         [SerializeField] private AudioClip eorthMusic;
