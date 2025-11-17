@@ -24,6 +24,7 @@ public class AudioManager : MonoBehaviour
     
     private Stack<AudioClip> _musicStack = new Stack<AudioClip>();
     private Coroutine _currentMusicTransition;
+    private float _targetMusicVolume = 1f;
 
     public AudioSource SFXSource => _sfxSource;
     
@@ -46,6 +47,11 @@ public class AudioManager : MonoBehaviour
         applier.ApplyAll(store.Master, store.Music, store.Sfx);
         
         StartCoroutine(DelayedApplySavedVolumes());
+    }
+
+    private void Start()
+    {
+        _targetMusicVolume = musicSource.volume;
     }
 
     private void OnEnable()
@@ -172,13 +178,13 @@ public class AudioManager : MonoBehaviour
     private IEnumerator CrossFadeMusic(AudioClip newClip)
     {
         float timer = 0f;
-        float startVolume = musicSource.volume;
+        float currentVolume = musicSource.volume;
 
         // fade out actual
         while (timer < musicFadeDuration)
         {
             timer += Time.deltaTime;
-            musicSource.volume = Mathf.Lerp(startVolume, 0, timer / musicFadeDuration);
+            musicSource.volume = Mathf.Lerp(currentVolume, 0, timer / musicFadeDuration);
             yield return null;
         }
         
@@ -191,11 +197,11 @@ public class AudioManager : MonoBehaviour
         while (timer < musicFadeDuration)
         {
             timer += Time.deltaTime;
-            musicSource.volume = Mathf.Lerp(0, startVolume, timer / musicFadeDuration);
+            musicSource.volume = Mathf.Lerp(0, _targetMusicVolume, timer / musicFadeDuration);
             yield return null;
         }
         
-        musicSource.volume = startVolume;
+        musicSource.volume = _targetMusicVolume;
         _currentMusicTransition = null;
     }
 
