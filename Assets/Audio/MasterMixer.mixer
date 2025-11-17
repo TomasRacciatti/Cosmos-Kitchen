@@ -43,6 +43,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: -8795437765728072765}
+  - {fileID: 2491917550492819913}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
@@ -90,6 +91,14 @@ AudioMixerController:
     name: MusicVolume
   - guid: 9fef738034d6c4048b4116d23f738da7
     name: SFXVolume
+  - guid: 9e661216790b8db4a8ca21c59c650860
+    name: SFXInsideVolume
+  - guid: 5827a0f86a0588a4fb8a3f19ac7ed4fe
+    name: SFXInsideLowpass
+  - guid: 87a1c0b49c4cbb54196dc0249bc47871
+    name: SFXOutsideVolume
+  - guid: 3ab879eb222d7344288546e1d955d3b0
+    name: SFXOutsideLowpass
   m_AudioMixerGroupViews:
   - guids:
     - dfe011da0e19ad84fbe28e10a60c5e30
@@ -179,6 +188,22 @@ AudioMixerGroupController:
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &2491917550492819913
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 98e59fb0bf764af41874ce21862a1604
+  m_EffectName: Lowpass Simple
+  m_MixLevel: a0ac28b42b78b5548a0f6d24e76f1473
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 3ab879eb222d7344288546e1d955d3b0
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!244 &2885437122479155986
 AudioMixerEffectController:
   m_ObjectHideFlags: 3
@@ -193,13 +218,31 @@ AudioMixerEffectController:
   m_SendTarget: {fileID: 0}
   m_EnableWetMix: 0
   m_Bypass: 0
+--- !u!244 &7017374664052979661
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 63729206077552c4f9215eb96b038e72
+  m_EffectName: Lowpass
+  m_MixLevel: 80672d15f059e4848bd4f621572b4c70
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 5f7c3454a8938bf45a3ca84b51fafdb0
+  - m_ParameterName: Resonance
+    m_GUID: 46145f2cc9b7203499d9542005cb6e4d
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!243 &8455900833658462556
 AudioMixerGroupController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SFX-Kitchen
+  m_Name: SFX-Inside
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 59e42ba149a64c647b89d07e226a6016
   m_Children: []
@@ -208,7 +251,24 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 1158156880971783611}
+  - {fileID: 8587937299200106241}
   m_UserColorIndex: 0
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0
+--- !u!244 &8587937299200106241
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: 1fabbac8cb51c464982d0e64940659c9
+  m_EffectName: Lowpass Simple
+  m_MixLevel: 9afff890f8102f54f8a058ab9b2e5ca4
+  m_Parameters:
+  - m_ParameterName: Cutoff freq
+    m_GUID: 5827a0f86a0588a4fb8a3f19ac7ed4fe
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
