@@ -15,7 +15,7 @@ namespace Audio.Music
         
         public AudioClip EorthMusic => eorthMusic;
         public AudioClip KitchenMusic => kitchenMusic;
-        public AudioClip PauseMusic => kitchenMusic;
+        public AudioClip PauseMusic => pauseMusic;
 
         public AudioClip GetRandomMiniGameMusic()
         {
