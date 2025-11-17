@@ -108,7 +108,7 @@ public class AudioManager : MonoBehaviour
         AudioClip newClip = GetMusicClip(musicType);
         if (newClip == null) return;
         
-        if (musicSource.clip != null)
+        if (musicSource.clip != null && musicSource.clip != newClip)
             _musicStack.Push(musicSource.clip);
 
         bool instant = (musicType == MusicEvents.MusicType.Pause);
@@ -118,10 +118,7 @@ public class AudioManager : MonoBehaviour
     private void HandleMusicResume()
     {
         if (_musicStack.Count == 0)
-        {
-            Debug.LogWarning("No previous music to resume.");
             return;
-        }
 
         AudioClip previousClip = _musicStack.Pop();
         PlayMusic(previousClip);
@@ -148,7 +145,7 @@ public class AudioManager : MonoBehaviour
     private void PlayMusic(AudioClip clip, bool instant = false)
     {
         if (clip == musicSource.clip && musicSource.isPlaying)
-            return;
+            return; 
         
         if (_currentMusicTransition != null)
         {
