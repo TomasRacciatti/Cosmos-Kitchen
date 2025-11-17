@@ -106,7 +106,7 @@ public class AudioManager : MonoBehaviour
     private void HandleMusicChange(MusicEvents.MusicType musicType)
     {
         AudioClip newClip = GetMusicClip(musicType);
-        if (newClip != null) return;
+        if (newClip == null) return;
         
         if (musicSource.clip != null)
             _musicStack.Push(musicSource.clip);
