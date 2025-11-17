@@ -5,17 +5,17 @@ namespace Audio.Music
     [CreateAssetMenu(fileName = "MusicBank", menuName = "ScriptableObject/Audio/MusicBank")]
     public class MusicBank : ScriptableObject
     {
-        [Header("Level Music")]
+        [Header("Planet/Level Music")]
         [SerializeField] private AudioClip eorthMusic;
 
-        [Header("Minigame Music")]
+        [Header("General Music")]
         [SerializeField] private AudioClip[] minigameMusic;
-
-        [Header("Location Music")]
         [SerializeField] private AudioClip kitchenMusic;
+        [SerializeField] private AudioClip pauseMusic;
         
         public AudioClip EorthMusic => eorthMusic;
         public AudioClip KitchenMusic => kitchenMusic;
+        public AudioClip PauseMusic => kitchenMusic;
 
         public AudioClip GetRandomMiniGameMusic()
         {
