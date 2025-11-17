@@ -47,7 +47,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 867847753410753137}
   - component: {fileID: 3962114144729963578}
+  - component: {fileID: 8666409150863440971}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -354,6 +355,30 @@ MonoBehaviour:
   musicSource: {fileID: 8919190577565043690}
   store: {fileID: 11400000, guid: f82f9831baa44154b90e284de0184594, type: 2}
   applier: {fileID: 11400000, guid: 94cc1ffdcdb74434aac881684a6353e8, type: 2}
+  musicBank: {fileID: 11400000, guid: 7e306eaa28017164daa12d8616e31932, type: 2}
+  musicFadeDuration: 2
+--- !u!114 &8666409150863440971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313095675629536148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7c368da8bc935344a2697f2b90bccc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 5ee51f32adea3fa4c966d529e3b2971f, type: 2}
+  outsideNormalVolume: 0
+  outsideMuffledVolume: -10
+  outsideNormalLowpass: 22000
+  outsideMuffledLowpass: 800
+  insideNormalVolume: 0
+  insideMuffledVolume: -10
+  insideNormalLowpass: 22000
+  insideMuffledLowpass: 800
+  transitionDuration: 0.5
 --- !u!1 &6469419896288831213
 GameObject:
   m_ObjectHideFlags: 0

@@ -25,12 +25,14 @@ namespace Managers
 
         public static void Pause()
         {
+            MusicEvents.RequestMusicChange(MusicEvents.MusicType.Pause);
             Time.timeScale = 0f;
         }
         
         public static void Resume()
         {
             Time.timeScale = 1f;
+            MusicEvents.RequestMusicResume();
         }
     }
 }

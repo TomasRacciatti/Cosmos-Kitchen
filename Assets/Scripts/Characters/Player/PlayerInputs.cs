@@ -120,7 +120,6 @@ namespace Characters.Player
             if (!active || !value.isPressed) return;
             
             menuOpen = GameManager.Canvas.TogglePauseMenu();
-            
             CheckCursor();
         }
         

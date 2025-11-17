@@ -425,7 +425,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 208574666074339823}
-  - {fileID: 7730188199101791285}
   m_Father: {fileID: 464231922290731655}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5397224864084330055
@@ -696,8 +695,9 @@ GameObject:
   - component: {fileID: 1904952182225666306}
   - component: {fileID: 1396161150654730482}
   - component: {fileID: 7148455328680995362}
+  - component: {fileID: 404549596411423442}
   m_Layer: 0
-  m_Name: TriggerCamera
+  m_Name: TriggerKitchenEnter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -787,12 +787,36 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 404549596411423442}
+        m_TargetAssemblyTypeName: Audio.Music.KitchenMusicTrigger, Assembly-CSharp
+        m_MethodName: OnEnterKitchen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onExit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7148455328680995362}
         m_TargetAssemblyTypeName: Characters.Player.CameraModifier, Assembly-CSharp
         m_MethodName: ThirdPersonCamera
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 404549596411423442}
+        m_TargetAssemblyTypeName: Audio.Music.KitchenMusicTrigger, Assembly-CSharp
+        m_MethodName: OnExitKitchen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -812,6 +836,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6020b3490cc93424d9c5878dd5acf35b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &404549596411423442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2741544797817250889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e196186e844ac540a9278474204fe2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3216913693978084405
@@ -1231,6 +1267,7 @@ Transform:
   - {fileID: 1558201522137227718}
   - {fileID: 7812739293518941475}
   - {fileID: 5423658020049627950}
+  - {fileID: 7730188199101791285}
   - {fileID: 1423657297660382738}
   - {fileID: 2180995196079190933}
   - {fileID: 6809464032626406899}
@@ -8228,7 +8265,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1423657297660382738}
+    m_TransformParent: {fileID: 464231922290731655}
     m_Modifications:
     - target: {fileID: 2264149007294923367, guid: ab9c55a8f7562ba4683d96bebe314e98,
         type: 3}
@@ -8238,17 +8275,17 @@ PrefabInstance:
     - target: {fileID: 2594872012111602536, guid: ab9c55a8f7562ba4683d96bebe314e98,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.012800604
+      value: 0.118499756
       objectReference: {fileID: 0}
     - target: {fileID: 2594872012111602536, guid: ab9c55a8f7562ba4683d96bebe314e98,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.054999948
+      value: 0.529
       objectReference: {fileID: 0}
     - target: {fileID: 2594872012111602536, guid: ab9c55a8f7562ba4683d96bebe314e98,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.028099835
+      value: -0.78740007
       objectReference: {fileID: 0}
     - target: {fileID: 2594872012111602536, guid: ab9c55a8f7562ba4683d96bebe314e98,
         type: 3}

@@ -38,7 +38,7 @@ namespace Managers
 
         public bool TogglePauseMenu()
         {
-            pauseMenuUI.ToggleMainMenu();
+            pauseMenuUI.TogglePause();
             return pauseMenuUI.Open;
         }
         
