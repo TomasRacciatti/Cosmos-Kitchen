@@ -31,8 +31,8 @@ namespace Managers
         
         public static void Resume()
         {
-            MusicEvents.RequestMusicResume();
             Time.timeScale = 1f;
+            MusicEvents.RequestMusicResume();
         }
     }
 }

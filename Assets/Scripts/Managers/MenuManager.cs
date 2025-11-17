@@ -45,6 +45,8 @@ public class MenuManager : MonoBehaviour
     {
         if (_isOpen)
         {
+            GameManager.Resume();
+            
             AudioManager.instance.StopAllSFX();
             AudioManager.instance.PlaySFX(UICloseSound);
 
@@ -52,7 +54,6 @@ public class MenuManager : MonoBehaviour
             mainMenuPanel.SetActive(false);
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
-            GameManager.Resume();
             _isOpen = false;
         }
         else
@@ -64,8 +65,9 @@ public class MenuManager : MonoBehaviour
             mainMenuPanel.SetActive(true);
             settingsPanel.SetActive(false);
             controlsPanel.SetActive(false);
-            GameManager.Pause();
             _isOpen = true;
+            
+            GameManager.Pause();
         }
 
         GameManager.Player.Input.menuOpen = _isOpen;
