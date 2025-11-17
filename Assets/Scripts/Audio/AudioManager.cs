@@ -110,8 +110,9 @@ public class AudioManager : MonoBehaviour
         
         if (musicSource.clip != null)
             _musicStack.Push(musicSource.clip);
-        
-        PlayMusic(newClip);
+
+        bool instant = (musicType == MusicEvents.MusicType.Pause);
+        PlayMusic(newClip, instant);
     }
 
     private void HandleMusicResume()
@@ -144,7 +145,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void PlayMusic(AudioClip clip)
+    private void PlayMusic(AudioClip clip, bool instant = false)
     {
         if (clip == musicSource.clip && musicSource.isPlaying)
             return;
@@ -153,8 +154,16 @@ public class AudioManager : MonoBehaviour
         {
             StopCoroutine(_currentMusicTransition);
         }
-        
-        _currentMusicTransition = StartCoroutine(CrossFadeMusic(clip));
+
+        if (instant)
+        {
+            musicSource.clip = clip;
+            musicSource.Play();
+        }
+        else
+        {
+            _currentMusicTransition = StartCoroutine(CrossFadeMusic(clip));
+        }
     }
 
     private IEnumerator CrossFadeMusic(AudioClip newClip)
