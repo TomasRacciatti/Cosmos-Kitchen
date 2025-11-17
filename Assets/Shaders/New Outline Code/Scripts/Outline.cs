@@ -219,6 +219,9 @@ public class Outline : MonoBehaviour {
       if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh)) {
         continue;
       }
+      
+      if (!skinnedMeshRenderer.sharedMesh.isReadable)
+        continue;
 
       // Clear UV3
       skinnedMeshRenderer.sharedMesh.uv4 = new Vector2[skinnedMeshRenderer.sharedMesh.vertexCount];
@@ -228,8 +231,11 @@ public class Outline : MonoBehaviour {
     }
   }
 
-  List<Vector3> SmoothNormals(Mesh mesh) {
-
+  List<Vector3> SmoothNormals(Mesh mesh) 
+  {
+    if (!mesh.isReadable) 
+      return new List<Vector3>();
+    
     // Group vertices by location
     var groups = mesh.vertices.Select((vertex, index) => new KeyValuePair<Vector3, int>(vertex, index)).GroupBy(pair => pair.Key);
 
