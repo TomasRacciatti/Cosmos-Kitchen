@@ -11,16 +11,19 @@ public class ControlsManager : MonoBehaviour
     private void Start()
     {
         // Actualizar los textos
-        movementControlsText.text = "WASD - Movimiento\n" +
-                                    "Mouse - Cámara\n" +
-                                    "ScrollWheel - Nivel de Cámara";
+        movementControlsText.text = "WASD - Movement\n" +
+                                    "Mouse - Camera";
+                                /*+ "ScrollWheel - Nivel de Cámara";*/
                                     
-        actionControlsText.text = "Click Izquierdo - Abrir Mesas de Trabajo\n" +
-                                  "E - Interactuar/Salir";
+        actionControlsText.text = "E - Interact / Exit\n" + 
+                                  "Shift + L-Click - Split One Item\n" +
+                                  "Ctrl + L-Click - Split Half\n" +
+                                  "Right Click - Send Item to Slot";
                                  
-        menuControlsText.text = "ESC - Pausa/Menú\n" +
-                                "B - Libro de cocina\n" +
-                                "Tab - Abrir Inventario";
+        menuControlsText.text = "Tab - Open Inventory\n" +
+                                "B - Cookbook\n" +
+                                "O - Order List\n" +
+                                "ESC - Pause Menu" ;
     }
 
     public void BackToMainMenu()
