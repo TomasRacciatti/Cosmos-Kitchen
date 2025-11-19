@@ -290,11 +290,31 @@ namespace Items.Inventory
 
             ItemAmount targetItem = targetInventory.Item(targetIndex);
             
-            if (targetItem.IsEmpty) //si esta vacio
+            if (targetItem.IsEmpty)
             {
-                targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
-                ClearSlot(fromIndex);
-                NotifySlotChanged(fromIndex);
+                if (!targetInventory.allowStacking && fromItem.Amount > 1)
+                {
+                    var clone = new ItemAmount(fromItem);
+                    clone.SetAmount(1);
+                    targetInventory.SetItemByIndex(targetIndex, clone);
+
+                    int newAmount = fromItem.Amount - 1;
+                    if (newAmount < 0)
+                    {
+                        ClearSlot(fromIndex);
+                    }
+                    else
+                    {
+                        items[fromIndex].SetAmount(newAmount);
+                        NotifySlotChanged(fromIndex);
+                    }
+                }
+                else
+                {
+                    targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
+                    ClearSlot(fromIndex);
+                    NotifySlotChanged(fromIndex);
+                }
                 return;
             }
             
@@ -309,6 +329,9 @@ namespace Items.Inventory
             }
 
             // Si no son stackeables, hacemos un swap
+            if (!targetInventory.allowStacking)
+                return; // No queremos hacer el swap si no permite stacking
+            
             targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
             SetItemByIndex(fromIndex, targetItem);
         }
