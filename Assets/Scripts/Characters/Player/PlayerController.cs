@@ -362,10 +362,7 @@ namespace Characters.Player
 
         public void SetPositionAndRotationWithCamera(Vector3 position, Quaternion rotation)
         {
-            _characterController.enabled = false;
-            transform.position = position;
-            transform.rotation = rotation;
-            _characterController.enabled = true;
+            SetPositionAndRotation(position, rotation);
             
             float yaw = rotation.eulerAngles.y;
             _targetRotation = yaw;
