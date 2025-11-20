@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Cooking;
 using Items.Inventory;
@@ -5,6 +6,7 @@ using Items.Tools;
 using Managers;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Stations
@@ -13,10 +15,13 @@ namespace Stations
     {
         [Header("Direct Station")]
         [SerializeField] private InvSystem invSystem;
-        //[SerializeField] private SoTool soTool;
         
         [SerializeField] private CookingMethod method;
         [SerializeField] private UnityEvent onCooked;
+        [SerializeField] private float processDelay = 2f;
+        
+        private Image slotOverlay;
+        private GameObject buttonOverlay;
 
         protected override void Awake()
         {
@@ -33,6 +38,13 @@ namespace Stations
             
             Button button = CanvasInstance.GetComponentInChildren<Button>();
             button.onClick.AddListener(ApplyDirectProcess);
+            
+            // Esto es medio fragil porque depende de que el nombre sea tal cual (y no se repita)
+            slotOverlay = CanvasInstance.transform.Find("SlotOverlay").GetComponent<Image>();
+            buttonOverlay= CanvasInstance.transform.Find("ButtonOverlay").gameObject;
+            
+            slotOverlay.gameObject.SetActive(false);
+            buttonOverlay.SetActive(false);
             
             InvSystem invPlayer = GameManager.Player.Inventory;
 
@@ -54,6 +66,33 @@ namespace Stations
         
         private  void ApplyDirectProcess()
         {
+            StartCoroutine(ProcessWithDelay());
+        }
+
+        private IEnumerator ProcessWithDelay()
+        {
+            slotOverlay.gameObject.SetActive(true);
+            buttonOverlay.SetActive(true);
+
+            ProcessIngredient();
+            
+            slotOverlay.fillAmount = 1f;
+            
+            float elapsedTime = 0f;
+
+            while (elapsedTime < processDelay)
+            {
+                elapsedTime += Time.deltaTime;
+                slotOverlay.fillAmount = (processDelay - elapsedTime) / processDelay;
+                yield return null;
+            }
+            
+            slotOverlay.gameObject.SetActive(false);
+            buttonOverlay.SetActive(false);
+        }
+
+        private void ProcessIngredient()
+        {
             animator.SetTrigger("StartCook");
             onCooked.Invoke();
             for (int i = 0; i < invSystem.Items.Count; i++)
@@ -62,17 +101,6 @@ namespace Stations
                 if (item.IsEmpty) continue;
                 
                 if (item.Prep.Doneness == Cooking.Doneness.Burnt) continue;
-
-                // bool toolAllowed = false;
-                // var tools = item.SoItem.Tools;
-                // if (tools != null)
-                // {
-                //     for (int t = 0; t < tools.Length; t++)
-                //     {
-                //         if (tools[t].tool == soTool) { toolAllowed = true; break; }
-                //     }
-                // }
-                // if (!toolAllowed) continue;
                 
                 // Validacion de prereq
                 if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
