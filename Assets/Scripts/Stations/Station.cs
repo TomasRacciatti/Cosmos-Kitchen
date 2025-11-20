@@ -125,7 +125,7 @@ namespace Stations
         private IEnumerator TeleportPlayerAfterDelay()
         {
             yield return new WaitForSeconds(1.5f);
-            GameManager.Player.transform.position = teleportPosition.position;
+            GameManager.Player.SetPositionAndRotationWithCamera(teleportPosition.position, teleportPosition.rotation);
         }
     }
 }

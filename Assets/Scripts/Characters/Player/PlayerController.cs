@@ -5,6 +5,7 @@ using Cinemachine;
 using Interfaces;
 using Items.Inventory;
 using Managers;
+using Unity.Mathematics;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -357,6 +358,22 @@ namespace Characters.Player
             gameObject.transform.position = position;
             gameObject.transform.rotation = rotation;
             _characterController.enabled = true;
+        }
+
+        public void SetPositionAndRotationWithCamera(Vector3 position, Quaternion rotation)
+        {
+            _characterController.enabled = false;
+            transform.position = position;
+            transform.rotation = rotation;
+            _characterController.enabled = true;
+            
+            float yaw = rotation.eulerAngles.y;
+            _targetRotation = yaw;
+            _cinemachineTargetYaw = yaw;
+            
+            cinemachineCameraTarget1.transform.rotation = quaternion.Euler(
+                _cinemachineTargetPitch + cameraAngleOverride, _cinemachineTargetYaw, 0.0f);
+            cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }
         
         public Vector3 GetThrowPosition => transform.position + 1f * transform.forward + transform.up;
