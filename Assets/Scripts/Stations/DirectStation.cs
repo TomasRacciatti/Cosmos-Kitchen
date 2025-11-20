@@ -76,7 +76,8 @@ namespace Stations
             slotOverlay.gameObject.SetActive(true);
             buttonOverlay.SetActive(true);
 
-            InvItemUI itemUI = invView.GetComponentInChildren<InvItemUI>();
+            Transform firstSlot = invView.transform.GetChild(0);
+            InvItemUI itemUI = firstSlot.GetChild(0).GetComponentInChildren<InvItemUI>();
             itemUI.enabled = false;
             
             ProcessIngredient();
@@ -111,7 +112,7 @@ namespace Stations
                 // Validacion de prereq
                 if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
                 {
-                    Debug.Log($"Cannot process {item.SoItem.ItemName}: {failureReason}");
+                    //Debug.Log($"Cannot process {item.SoItem.ItemName}: {failureReason}");
                     return;
                 }
                 
