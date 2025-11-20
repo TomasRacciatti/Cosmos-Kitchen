@@ -23,6 +23,8 @@ namespace Stations
         private Image slotOverlay;
         private GameObject buttonOverlay;
 
+        private InvView invView;
+
         protected override void Awake()
         {
             base.Awake();
@@ -33,7 +35,7 @@ namespace Stations
         {
             base.EnterStation();
             
-            InvView invView = CanvasInstance.GetComponentInChildren<InvView>();
+            invView = CanvasInstance.GetComponentInChildren<InvView>();
             invView.SetInventory(invSystem);
             
             Button button = CanvasInstance.GetComponentInChildren<Button>();
@@ -74,6 +76,9 @@ namespace Stations
             slotOverlay.gameObject.SetActive(true);
             buttonOverlay.SetActive(true);
 
+            InvItemUI itemUI = invView.GetComponentInChildren<InvItemUI>();
+            itemUI.enabled = false;
+            
             ProcessIngredient();
             
             slotOverlay.fillAmount = 1f;
@@ -87,6 +92,7 @@ namespace Stations
                 yield return null;
             }
             
+            itemUI.enabled = true;
             slotOverlay.gameObject.SetActive(false);
             buttonOverlay.SetActive(false);
         }
