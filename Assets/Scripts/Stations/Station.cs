@@ -1,15 +1,16 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Characters.Player;
+using Cinemachine;
 using Interfaces;
 using Items.Inventory;
 using Cooking;
 using Items.Core;
-using Items.Tools;
 using Managers;
 using Regulators;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Serialization;
 
 namespace Stations
 {
@@ -19,49 +20,25 @@ namespace Stations
         
         [Header("Canvas")]
         [SerializeField] protected GameObject canvas;
+
+        [Header("Camera settings")] 
+        [SerializeField] protected CinemachineVirtualCamera stationCamera;
+        [SerializeField] protected Transform teleportPosition;
         
-        [Header("Outline")]
-        // Remove: [SerializeField] private Material outlineMat;
-        // Remove: [SerializeField] private MeshRenderer[] outlineMeshes;
-        private Outline _outlineComponent; // new
+        [SerializeField] protected Animator animator;
         
         protected GameObject CanvasInstance;
-        [SerializeField] protected Animator animator;
-        //private string openClipName;
-        //private string closeClipName;
+        private Outline _outlineComponent;
+        
+        private CinemachineVirtualCamera _activePlayerCamera;
+        private int _originalCameraPriority;
+        private const int STATION_CAMERA_PRIORITY = 10;
 
         protected virtual void Awake()
         {
-            //animator = GetComponent<Animator>();
+            _outlineComponent = GetComponent<Outline>();
             
-            //openClipName = openAnimation  ? openAnimation.name : "";
-            //closeClipName = closeAnimation   ? closeAnimation.name : "";
-            
-            // New: Get the Outline component
-            _outlineComponent = GetComponent<Outline>(); // new
-            
-            // REMOVE ALL OUTLINE MAT/MESH INITIALIZATION CODE:
-            /*
-            if (outlineMat)
-            {
-                outlineMat = new Material(outlineMat);
-                for (int i = 0; i < outlineMeshes.Length; i++)
-                {
-                    Renderer rend = outlineMeshes[i];
-                    if (!rend) continue;
-
-                    var mats = new List<Material>(rend.materials);
-                    mats.Add(outlineMat);
-                    
-                    rend.materials = mats.ToArray();
-                }
-                
-                outlineMat.SetFloat("_Intensity", 0);
-            }
-            */
-            
-            // New: Ensure the outline is disabled initially (handled by OnDisable in Outline.cs)
-            if (_outlineComponent != null) _outlineComponent.enabled = false; // new
+            if (_outlineComponent != null) _outlineComponent.enabled = false;
         }
 
         public void Interact(GameObject interactableObject)
@@ -87,6 +64,20 @@ namespace Stations
 
         protected virtual void EnterStation()
         {
+            if (stationCamera == null || teleportPosition == null)
+            {
+                Debug.LogWarning($"Station {gameObject.name} is missing stationCamera or playerPosition reference!");
+                return;
+            }
+            
+            _activePlayerCamera = GameManager.Player.ActualCamera;
+            _originalCameraPriority = _activePlayerCamera.Priority;
+            
+            stationCamera.Priority = STATION_CAMERA_PRIORITY;
+            _activePlayerCamera.Priority = 0;
+
+            StartCoroutine(TeleportPlayerAfterDelay());
+            
             CanvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
             GameManager.Player.SetInputActive(false);
             GameManager.Canvas.InvManager.ForceInventory(true);
@@ -100,6 +91,9 @@ namespace Stations
         {
             foreach (var inv in GetInventoriesForAcceptance())
                             if (inv != null) inv.CanAcceptItem = null;
+
+            stationCamera.Priority = 0;
+            _activePlayerCamera.Priority = _originalCameraPriority;
             
             ObjectPool.ReturnObjectToPool(CanvasInstance);
             GameManager.Player.SetInputActive(true);
@@ -110,47 +104,28 @@ namespace Stations
 
         public void EnableInteract()
         {
-            // New: Enable the Outline component
-            if (_outlineComponent != null) // new
-            {                              // new
-                _outlineComponent.enabled = true; // new
-            }                              // new
-            /* Removed manual shader setting:
-            if (outlineMat && outlineMeshes.Length > 0)
+            if (_outlineComponent != null) 
             {
-                outlineMat.SetFloat("_Intensity", 1);
+                _outlineComponent.enabled = true;
             }
-            */
-            /*
-            if (!animator) return;
-            if (openClipName == "") return;
-            animator.Play(openClipName, 0, 
-                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));*/
             
             animator.SetBool("IsOver", true);
         }
 
         public void DisableInteract()
         {
-            // New: Disable the Outline component
-            if (_outlineComponent != null) // new
-            {                              // new
-                _outlineComponent.enabled = false; // new
-            }                              // new
-
-            /* Removed manual shader setting:
-            if (outlineMat && outlineMeshes.Length > 0)
+            if (_outlineComponent != null)
             {
-                for (int i = 0; i < outlineMeshes.Length; i++)
-                    outlineMat.SetFloat("_Intensity", 0);
+                _outlineComponent.enabled = false;
             }
-            */
-            /*
-            if (!animator) return;
-            if (closeClipName == "") return;
-            animator.Play(closeClipName, 0, 
-                1 - Mathf.Clamp01(animator.GetCurrentAnimatorStateInfo(0).normalizedTime));*/
+            
             animator.SetBool("IsOver", false);
+        }
+
+        private IEnumerator TeleportPlayerAfterDelay()
+        {
+            yield return new WaitForSeconds(1.5f);
+            GameManager.Player.transform.position = teleportPosition.position;
         }
     }
 }
