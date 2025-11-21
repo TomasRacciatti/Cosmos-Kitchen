@@ -83,7 +83,7 @@ namespace Stations
 
         private void OnDisable()
         {
-            if (invSystem != null) invSystem.Unsubscribe(OnInventorySlotChanged);
+            if (invSystem != null) invSystem.Unsubscribe(OnInventorySlotChanged); //aca da un error si es en editor cuando lo sacas
             StopCooking();
         }
 
