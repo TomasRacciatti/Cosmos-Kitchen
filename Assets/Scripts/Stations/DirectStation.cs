@@ -68,6 +68,9 @@ namespace Stations
         
         private  void ApplyDirectProcess()
         {
+            if (invSystem.Items.Count == 0 || invSystem.Items[0].IsEmpty)
+                return;
+            
             StartCoroutine(ProcessWithDelay());
         }
 
@@ -76,7 +79,10 @@ namespace Stations
             slotOverlay.gameObject.SetActive(true);
             buttonOverlay.SetActive(true);
 
-            InvItemUI itemUI = invView.GetComponentInChildren<InvItemUI>(); // Me gustaria cambiar esto por algo mas optimo
+            // Me gustaria cambiar esto por algo mas optimo
+            Transform firstSlot = invView.transform.GetChild(0);
+            InvItemUI itemUI = firstSlot.GetChild(0).GetComponentInChildren<InvItemUI>();
+            itemUI.enabled = false;
             
             ProcessIngredient();
             
