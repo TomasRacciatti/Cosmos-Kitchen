@@ -592,8 +592,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.39999962, y: 1.5, z: -2.5}
+  m_LocalRotation: {x: -0.0000015050143, y: -0.8660259, z: 0.49999917, w: 0.0000026067678}
+  m_LocalPosition: {x: 5.365904, y: 1.700025, z: -5.0492153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -632,7 +632,7 @@ Camera:
     height: 1
   near clip plane: 0.2
   far clip plane: 500
-  field of view: 60
+  field of view: 70
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -1394,6 +1394,11 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: db2ec4c8e1973364ca390d2748482fe7, type: 2}
+    - target: {fileID: 6230054858334522591, guid: 3c440dd546111df419b046c66a324bb8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7830408302114382310, guid: 3c440dd546111df419b046c66a324bb8,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
