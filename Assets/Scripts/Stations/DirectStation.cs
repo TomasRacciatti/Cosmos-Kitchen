@@ -76,9 +76,7 @@ namespace Stations
             slotOverlay.gameObject.SetActive(true);
             buttonOverlay.SetActive(true);
 
-            Transform firstSlot = invView.transform.GetChild(0);
-            InvItemUI itemUI = firstSlot.GetChild(0).GetComponentInChildren<InvItemUI>();
-            itemUI.enabled = false;
+            InvItemUI itemUI = invView.GetComponentInChildren<InvItemUI>(); // Me gustaria cambiar esto por algo mas optimo
             
             ProcessIngredient();
             
