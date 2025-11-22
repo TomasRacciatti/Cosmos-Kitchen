@@ -23,16 +23,12 @@ namespace Stations
 
         [Header("Camera settings")] 
         [SerializeField] protected CinemachineVirtualCamera stationCamera;
-        [SerializeField] protected Transform teleportPosition;
+        //[SerializeField] protected Transform teleportPosition;
         
         [SerializeField] protected Animator animator;
         
         protected GameObject CanvasInstance;
         private Outline _outlineComponent;
-        
-        private CinemachineVirtualCamera _activePlayerCamera;
-        private int _originalCameraPriority;
-        private const int STATION_CAMERA_PRIORITY = 10;
 
         protected virtual void Awake()
         {
@@ -64,19 +60,16 @@ namespace Stations
 
         protected virtual void EnterStation()
         {
-            if (stationCamera == null || teleportPosition == null)
+            if (stationCamera == null)
             {
                 Debug.LogWarning($"Station {gameObject.name} is missing stationCamera or playerPosition reference!");
                 return;
             }
             
-            _activePlayerCamera = GameManager.Player.ActualCamera;
-            _originalCameraPriority = _activePlayerCamera.Priority;
-            
-            stationCamera.Priority = STATION_CAMERA_PRIORITY;
-            _activePlayerCamera.Priority = 0;
+            GameManager.Player.SetCamera(stationCamera);
 
-            StartCoroutine(TeleportPlayerAfterDelay());
+            // El teleport este rompia las camaras porque probablemente triggereaba un exit de la cocina sin que nos demos cuenta
+            //StartCoroutine(TeleportPlayerAfterDelay());
             
             CanvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
             GameManager.Player.SetInputActive(false);
@@ -91,9 +84,8 @@ namespace Stations
         {
             foreach (var inv in GetInventoriesForAcceptance())
                             if (inv != null) inv.CanAcceptItem = null;
-
-            stationCamera.Priority = 0;
-            _activePlayerCamera.Priority = _originalCameraPriority;
+            
+            GameManager.Player.SetFirstPersonCamera();
             
             ObjectPool.ReturnObjectToPool(CanvasInstance);
             GameManager.Player.SetInputActive(true);
@@ -122,10 +114,10 @@ namespace Stations
             animator.SetBool("IsOver", false);
         }
 
-        private IEnumerator TeleportPlayerAfterDelay()
-        {
-            yield return new WaitForSeconds(1.5f);
-            GameManager.Player.SetPositionAndRotationWithCamera(teleportPosition.position, teleportPosition.rotation);
-        }
+        // private IEnumerator TeleportPlayerAfterDelay()
+        // {
+        //     yield return new WaitForSeconds(1.5f);
+        //     GameManager.Player.SetPositionAndRotationWithCamera(teleportPosition.position, teleportPosition.rotation);
+        // }
     }
 }

@@ -5,7 +5,6 @@ using Cinemachine;
 using Interfaces;
 using Items.Inventory;
 using Managers;
-using Unity.Mathematics;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -368,7 +367,7 @@ namespace Characters.Player
             _targetRotation = yaw;
             _cinemachineTargetYaw = yaw;
             
-            cinemachineCameraTarget1.transform.rotation = quaternion.Euler(
+            cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(
                 _cinemachineTargetPitch + cameraAngleOverride, _cinemachineTargetYaw, 0.0f);
             cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }
