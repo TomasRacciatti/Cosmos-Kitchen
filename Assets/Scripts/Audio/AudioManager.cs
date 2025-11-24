@@ -25,6 +25,7 @@ public class AudioManager : MonoBehaviour
     private Stack<AudioClip> _musicStack = new Stack<AudioClip>();
     private Coroutine _currentMusicTransition;
     private float _targetMusicVolume = 1f;
+    private AudioClip _targetMusicClip;
 
     public AudioSource SFXSource => _sfxSource;
     
@@ -115,9 +116,11 @@ public class AudioManager : MonoBehaviour
         AudioClip newClip = GetMusicClip(musicType);
         if (newClip == null) return;
         
-        if (musicSource.clip != null && musicSource.clip != newClip)
+        AudioClip currentlyPlaying = _targetMusicClip != null ? _targetMusicClip : musicSource.clip;
+    
+        if (currentlyPlaying != null && currentlyPlaying != newClip && musicSource.isPlaying)
         {
-            _musicStack.Push(musicSource.clip);
+            _musicStack.Push(currentlyPlaying);
         }
 
         bool instant = (musicType == MusicEvents.MusicType.Pause);
@@ -156,9 +159,11 @@ public class AudioManager : MonoBehaviour
 
     private void PlayMusic(AudioClip clip, bool instant = false)
     {
-        if (clip == musicSource.clip && musicSource.isPlaying)
+        if (clip == _targetMusicClip && musicSource.isPlaying)
             return; 
         
+        _targetMusicClip = clip;
+    
         if (_currentMusicTransition != null)
         {
             StopCoroutine(_currentMusicTransition);
@@ -179,20 +184,20 @@ public class AudioManager : MonoBehaviour
     {
         float timer = 0f;
         float currentVolume = musicSource.volume;
-
-        // fade out actual
+    
+        // Fade out
         while (timer < musicFadeDuration)
         {
             timer += Time.deltaTime;
             musicSource.volume = Mathf.Lerp(currentVolume, 0, timer / musicFadeDuration);
             yield return null;
         }
-        
-        // switch de musica
+    
+        // Switch de clip
         musicSource.clip = newClip;
         musicSource.Play();
-        
-        // fade in al nuevo
+    
+        // Fade in
         timer = 0f;
         while (timer < musicFadeDuration)
         {
@@ -200,7 +205,7 @@ public class AudioManager : MonoBehaviour
             musicSource.volume = Mathf.Lerp(0, _targetMusicVolume, timer / musicFadeDuration);
             yield return null;
         }
-        
+    
         musicSource.volume = _targetMusicVolume;
         _currentMusicTransition = null;
     }
