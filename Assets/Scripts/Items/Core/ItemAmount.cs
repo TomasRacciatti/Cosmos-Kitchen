@@ -37,7 +37,10 @@ namespace Items.Core
 
             foreach (var step in processHistory)
             {
-                sb.AppendLine($"{step.method} - Turns: {step.turns}");
+                if (step.turns < 1)
+                    sb.AppendLine($"{step.method}");
+                else
+                    sb.AppendLine($"{step.method} - Turns: {step.turns}");
             }
 
             return sb.ToString();

@@ -120,11 +120,11 @@ namespace Stations
                     return;
                 }
                 
-                item.AddProcessStep(method, 1);
+                item.AddProcessStep(method, 0);
                 
                 var prep = item.Prep;
                 prep.method = method;
-                prep.turnsCooked = 1; // Para los visuales nomas
+                prep.turnsCooked = 0; // Para los visuales nomas
                 item.Prep = prep;
                 invSystem.NotifySlotChanged(i);
                 
