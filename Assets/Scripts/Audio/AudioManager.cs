@@ -132,6 +132,7 @@ public class AudioManager : MonoBehaviour
         if (_musicStack.Count == 0)
         {
             //Debug.LogWarning("No previous music to resume.");
+            MusicEvents.RequestMusicChange(MusicEvents.MusicType.Eorth);
             return;
         }
         
