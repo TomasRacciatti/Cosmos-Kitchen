@@ -33,7 +33,10 @@ namespace Items.Core
             _instance.itemIcon.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, null);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
-            _instance.starIcon.sprite = itemAmount.GetRatingSprite;
+
+            bool isPlate = itemAmount.SoItem is SoPlate;
+            _instance.starIcon.sprite = isPlate ? itemAmount.GetRatingSprite : null;
+            _instance.starIcon.enabled = isPlate && itemAmount.GetRatingSprite != null;
         }
 
         public static void Hide()
