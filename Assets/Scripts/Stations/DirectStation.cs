@@ -106,6 +106,13 @@ namespace Stations
         {
             animator.SetTrigger("StartCook");
             onCooked.Invoke();
+
+            if (processingClip != null && audioSource != null)
+            {
+                // Aca podriamos incluir variables como un delay del start y demas. Por ahora que quede asi
+                audioSource.PlayOneShot(processingClip);
+            }
+            
             for (int i = 0; i < invSystem.Items.Count; i++)
             {
                 var item = invSystem.Items[i];

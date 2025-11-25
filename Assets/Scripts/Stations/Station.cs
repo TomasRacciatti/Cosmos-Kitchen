@@ -23,8 +23,12 @@ namespace Stations
 
         [Header("Camera settings")] 
         [SerializeField] protected CinemachineVirtualCamera stationCamera;
-        //[SerializeField] protected Transform teleportPosition;
         
+        [Header ("Audio Settings")]
+        [SerializeField, Tooltip("Se puede dejar vacio y se settea en awake")] protected AudioSource audioSource;
+        [SerializeField] protected AudioClip processingClip;
+        
+        [Header("Animation")]
         [SerializeField] protected Animator animator;
         
         protected GameObject CanvasInstance;
@@ -35,6 +39,9 @@ namespace Stations
             _outlineComponent = GetComponent<Outline>();
             
             if (_outlineComponent != null) _outlineComponent.enabled = false;
+            
+            if (audioSource == null) 
+                audioSource = GetComponent<AudioSource>();
         }
 
         public void Interact(GameObject interactableObject)
