@@ -13,6 +13,7 @@ namespace Characters.Player
         [SerializeField] private Animator animator;
         [SerializeField] private ParticleSystem stepsParticles;
         private AudioSource _audioSource;
+        private PlayerController _playerController;
         
         // animation IDs
         private int _animIDSpeed;
@@ -25,6 +26,7 @@ namespace Characters.Player
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
+            _playerController = GetComponent<PlayerController>();
         }
 
         private void Start()
@@ -45,7 +47,15 @@ namespace Characters.Player
         public void SetSpeed(float speed)
         {
             animator.SetFloat(_animIDSpeed, speed);
+
             var emission = stepsParticles.emission;
+            
+            if (!_playerController.Grounded)
+            {
+                emission.enabled = false;
+                return;
+            }
+            
             //new
             //tasa base de emision
             float baseRate = 2.0f; 
