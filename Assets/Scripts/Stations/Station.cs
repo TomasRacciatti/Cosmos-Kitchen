@@ -27,6 +27,8 @@ namespace Stations
         [Header ("Audio Settings")]
         [SerializeField, Tooltip("Se puede dejar vacio y se settea en awake")] protected AudioSource audioSource;
         [SerializeField] protected AudioClip processingClip;
+        [SerializeField] protected AudioClip enableClip;
+        [SerializeField] protected AudioClip disableClip;
         
         [Header("Animation")]
         [SerializeField] protected Animator animator;
@@ -109,6 +111,11 @@ namespace Stations
             }
             
             animator.SetBool("IsOver", true);
+            
+            if (enableClip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(enableClip);
+            }
         }
 
         public void DisableInteract()
@@ -119,12 +126,11 @@ namespace Stations
             }
             
             animator.SetBool("IsOver", false);
+            
+            if (enableClip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(disableClip);
+            }
         }
-
-        // private IEnumerator TeleportPlayerAfterDelay()
-        // {
-        //     yield return new WaitForSeconds(1.5f);
-        //     GameManager.Player.SetPositionAndRotationWithCamera(teleportPosition.position, teleportPosition.rotation);
-        // }
     }
 }
