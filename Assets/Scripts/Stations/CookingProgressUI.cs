@@ -85,7 +85,6 @@ namespace Stations
             
             if (endX <= startX)
             {
-                float mid = 0f;
                 float halfUsable = usable * 0.5f;
                 startX = -halfUsable;
                 endX   =  halfUsable;

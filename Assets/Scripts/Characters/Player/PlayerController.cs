@@ -44,7 +44,7 @@ namespace Characters.Player
         [SerializeField] private float cameraAngleOverride;
         [SerializeField] private bool lockCameraPosition;
 
-        [SerializeField] private float cameraRadius = 10f;
+        //[SerializeField] private float cameraRadius = 10f;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;

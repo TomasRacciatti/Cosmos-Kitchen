@@ -25,7 +25,7 @@ namespace Characters.Clients
         // State
         private bool hasSpoken;
         private bool deliveryComplete;
-        private bool perfectDelivery;
+        //private bool perfectDelivery;
 
         // ===== IClient (for Dialogue) =====
         public string Name  => clientData != null ? clientData.clientName : string.Empty;
@@ -51,15 +51,15 @@ namespace Characters.Clients
 
         private void OnDisable()
         {
-            if (dialogue != null && dialogue.IsOpen && dialogue.CurrentClient == this)
-                dialogue.Close();
+            /*if (dialogue != null && dialogue.IsOpen && dialogue.CurrentClient == this)
+                dialogue.Close();*/
         }
         
         public void Interact(GameObject interactor)
         {
             if (dialogue == null) return;
             
-            if (dialogue.IsOpen && dialogue.CurrentClient == this)
+            if (dialogue.IsOpen && (ClientController)dialogue.CurrentClient == this)
             {
                 dialogue.Close();
             }
@@ -105,7 +105,7 @@ namespace Characters.Clients
             {
                 case OrderOutcome.Wrong:
                     deliveryComplete = false;
-                    perfectDelivery  = false;
+                    //perfectDelivery  = false;
                     dialogue.SetLine(clientData.GetLine(DialogueCategory.Wrong));
                     dialogue.EnableDelivery(true);
                     dialogue.EnableRetry(false);
@@ -116,7 +116,7 @@ namespace Characters.Clients
 
                 case OrderOutcome.Delivered:
                     deliveryComplete = true;
-                    perfectDelivery  = false;
+                    //perfectDelivery  = false;
                     dialogue.SetLine(clientData.GetLine(DialogueCategory.Delivered));
                     dialogue.EnableDelivery(false);
                     dialogue.EnableRetry(true);
@@ -127,7 +127,7 @@ namespace Characters.Clients
 
                 case OrderOutcome.Perfect:
                     deliveryComplete = true;
-                    perfectDelivery  = true;
+                    //perfectDelivery  = true;
                     dialogue.SetLine(clientData.GetLine(DialogueCategory.Perfect));
                     dialogue.EnableDelivery(false);
                     dialogue.EnableRetry(false);
@@ -141,9 +141,9 @@ namespace Characters.Clients
         public void Retry()
         {
             deliveryComplete = false;
-            perfectDelivery  = false;
+            //perfectDelivery  = false;
 
-            if (!dialogue.IsOpen || dialogue.CurrentClient != this)
+            if (!dialogue.IsOpen || (ClientController)dialogue.CurrentClient != this)
                 dialogue.StartConversation(this);
 
             dialogue.SetLine(clientData.GetLine(DialogueCategory.Asking));
