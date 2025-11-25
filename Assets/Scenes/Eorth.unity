@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 763807360}
-  m_IndirectSpecularColor: {r: 0.21370713, g: 0.29861474, b: 0.775198, a: 1}
+  m_IndirectSpecularColor: {r: 0.21372566, g: 0.29863608, b: 0.77521276, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -864,6 +864,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Timeline
+      objectReference: {fileID: 0}
+    - target: {fileID: 7100194766886865636, guid: 7c1d49f25689dd54bbafc2e0235c4a44,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
