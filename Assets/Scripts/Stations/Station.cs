@@ -23,8 +23,14 @@ namespace Stations
 
         [Header("Camera settings")] 
         [SerializeField] protected CinemachineVirtualCamera stationCamera;
-        //[SerializeField] protected Transform teleportPosition;
         
+        [Header ("Audio Settings")]
+        [SerializeField, Tooltip("Se puede dejar vacio y se settea en awake")] protected AudioSource audioSource;
+        [SerializeField] protected AudioClip processingClip;
+        [SerializeField] protected AudioClip enableClip;
+        [SerializeField] protected AudioClip disableClip;
+        
+        [Header("Animation")]
         [SerializeField] protected Animator animator;
         
         protected GameObject CanvasInstance;
@@ -35,6 +41,9 @@ namespace Stations
             _outlineComponent = GetComponent<Outline>();
             
             if (_outlineComponent != null) _outlineComponent.enabled = false;
+            
+            if (audioSource == null) 
+                audioSource = GetComponent<AudioSource>();
         }
 
         public void Interact(GameObject interactableObject)
@@ -102,6 +111,11 @@ namespace Stations
             }
             
             animator.SetBool("IsOver", true);
+            
+            if (enableClip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(enableClip);
+            }
         }
 
         public void DisableInteract()
@@ -112,12 +126,11 @@ namespace Stations
             }
             
             animator.SetBool("IsOver", false);
+            
+            if (enableClip != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(disableClip);
+            }
         }
-
-        // private IEnumerator TeleportPlayerAfterDelay()
-        // {
-        //     yield return new WaitForSeconds(1.5f);
-        //     GameManager.Player.SetPositionAndRotationWithCamera(teleportPosition.position, teleportPosition.rotation);
-        // }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Cooking;
 using Items.Core;
@@ -21,6 +22,10 @@ namespace Stations
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
+
+        // [Header("Timed Station Audio Settings")] 
+        // [SerializeField] private bool instantSFX = true;
+        // [SerializeField] private float audioFadeDuration = 1f;
         
         private ICookingTicker _ticker;
         
@@ -184,6 +189,14 @@ namespace Stations
             OnSessionStarted?.Invoke(_session);
             onSessionStartedUnity.Invoke();
             animator.SetTrigger("StartCook");
+
+            if (processingClip != null && audioSource != null)
+            {
+                
+                audioSource.clip = processingClip;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
         
         private void StopCooking()
@@ -222,6 +235,11 @@ namespace Stations
             OnSessionStopped?.Invoke();
             onSessionStopUnity.Invoke();
             animator.SetTrigger("StopCook");
+
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
 
         private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)
