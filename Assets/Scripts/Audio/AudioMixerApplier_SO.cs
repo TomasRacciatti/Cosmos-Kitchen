@@ -10,6 +10,9 @@ public class AudioMixerApplier_SO : ScriptableObject, IAudioVolumeApplier
     [SerializeField] private string masterParam = "MasterVolume";
     [SerializeField] private string musicParam  = "MusicVolume";
     [SerializeField] private string sfxParam    = "SFXVolume";
+    
+    [SerializeField] private string sfxOutsideParam = "SFXOutsideVolume";
+    [SerializeField] private string sfxInsideParam = "SFXInsideVolume";
 
     public void ApplyMaster(float linear01) => SetDecibels(masterParam, linear01);
     public void ApplyMusic(float linear01) => SetDecibels(musicParam, linear01);
@@ -20,6 +23,18 @@ public class AudioMixerApplier_SO : ScriptableObject, IAudioVolumeApplier
         ApplyMaster(master);
         ApplyMusic(music);
         ApplySfx(sfx);
+    }
+    
+    public void MuteWorldSFX()
+    {
+        mixer.SetFloat(sfxOutsideParam, -80f);
+        mixer.SetFloat(sfxInsideParam, -80f);
+    }
+    
+    public void UnmuteWorldSFX()
+    {
+        mixer.SetFloat(sfxOutsideParam, 0f);
+        mixer.SetFloat(sfxInsideParam, 0f);
     }
     
     private void SetDecibels(string exposedParam, float linear01)

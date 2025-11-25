@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
     private AudioClip _targetMusicClip;
 
     public AudioSource SFXSource => _sfxSource;
+    public AudioMixerApplier_SO MixerApplier => applier;
     
     
     void Awake()
