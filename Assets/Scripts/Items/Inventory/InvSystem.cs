@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Items.Core;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items.Inventory
 {
@@ -13,6 +14,8 @@ namespace Items.Inventory
         [SerializeField] private bool allowStacking = true;
        
         [SerializeField] private List<ItemAmount> items = new();
+
+        [SerializeField] public bool canGrab;
 
         //Getters
         public ItemAmount Item(int index) => items[index];

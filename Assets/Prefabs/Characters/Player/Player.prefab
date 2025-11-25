@@ -240,7 +240,6 @@ MonoBehaviour:
   bottomClamp: -70
   cameraAngleOverride: 0
   lockCameraPosition: 0
-  cameraRadius: 10
   mainCamera: {fileID: 6982369444525410813}
   firstPersonCamera: {fileID: 663221032224734603}
   thirdPersonCamera: {fileID: 2641274836487050433}
@@ -268,6 +267,7 @@ MonoBehaviour:
   inventoryOpen: 0
   bookOpen: 0
   menuOpen: 0
+  inCinematic: 0
 --- !u!114 &3795158615934497444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +283,7 @@ MonoBehaviour:
   slots: 18
   allowStacking: 1
   items: []
+  canGrab: 1
   otherInvVinc: {fileID: 0}
 --- !u!114 &1445804373821102550
 MonoBehaviour:
