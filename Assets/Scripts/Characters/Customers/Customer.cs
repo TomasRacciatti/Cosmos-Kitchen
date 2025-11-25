@@ -41,6 +41,8 @@ namespace Characters.Customers
         [SerializeField] private SkinnedMeshRenderer mouthMesh;
         [SerializeField] private MeshRenderer iconMesh;
         
+        private Animator animator;
+        
         private enum CustomerState
         {
             Waiting,
@@ -50,6 +52,7 @@ namespace Characters.Customers
         
         private void Awake()
         {
+            animator = GetComponent<Animator>();
             conversation = GetComponent<NPCConversation>();
             eyeMat = new Material(eyeMat);
             eyeMesh.material = eyeMat;
@@ -134,6 +137,7 @@ namespace Characters.Customers
             state = CustomerState.Ordered;
             customerSignal.SetSignal(1);
             PlatesOrdered.AddCustomer(this);
+            animator.SetTrigger("Order");
         }
         
         public void SetExpression(int index)
@@ -160,10 +164,12 @@ namespace Characters.Customers
                     state = CustomerState.Served;
                     PlatesOrdered.RemoveCustomer(this);
                     GameManager.Player.AddScore(!soClient.isCritic ? 1 : 10);
+                    animator.SetBool("IsCorrect", true);
                 }
                 else
                 {
                     PlatesOrdered.UpdateCustomerOrder(this);
+                    animator.SetBool("IsCorrect", false);
                 }
             }
             else
@@ -171,10 +177,12 @@ namespace Characters.Customers
                 ConversationManager.Instance.SetInt("Quality", -1);
                 PlatesOrdered.UpdateCustomerOrder(this);
                 customerSignal.SetSignal(1);
+                animator.SetBool("IsCorrect", false);
             }
             GameManager.Canvas.InvSystem.ClearSlot(0);
             GameManager.Canvas.InvSlotUI.gameObject.SetActive(false);
             GameManager.Canvas.InvManager.ForceInventory(false);
+            animator.SetTrigger("React");
             
             InvSystem invPlayer = GameManager.Player.Inventory;
             InvSystem invPlayer2 = GameManager.Canvas.InvSlotUI.InvView.InventorySystem;
