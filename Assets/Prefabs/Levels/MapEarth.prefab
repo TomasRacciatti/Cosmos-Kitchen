@@ -42060,6 +42060,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5755322688466761536}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5757504347246611229
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1222431220691933549}
+    m_Modifications:
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 21.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0062179565
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.37166327
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.9283676
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -136.364
+      objectReference: {fileID: 0}
+    - target: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4432751500263766157, guid: af380dc20a3a7054d92277bbef8474d2,
+        type: 3}
+      propertyPath: m_Name
+      value: Ozone
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af380dc20a3a7054d92277bbef8474d2, type: 3}
+--- !u!4 &8479289805051983760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4200379145539042445, guid: af380dc20a3a7054d92277bbef8474d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 5757504347246611229}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5758597540887661651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47396,19 +47470,19 @@ PrefabInstance:
     - target: {fileID: 2544708284343320721, guid: d4b2e4ed76aa2bd4c8f3e15a19517ee3,
         type: 3}
       propertyPath: json
-      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":-57.5,"yPos":204},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
-        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":222.5,"yPos":531},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":661,"yPos":229},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"For
-        you, miss!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":143.5,"yPos":5},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
-        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":507,"yPos":6},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
-        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":288.5,"yPos":-116},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hey~
+      value: '{"Options":[{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":3}],"EditorInfo":{"isRoot":false,"xPos":-267,"yPos":328},"ID":1,"ParamActions":[],"TMPFontGUID":null,"Text":"Be
+        out in a minute!","parentUIDs":[6],"SpeechUID":-1},{"Connections":[],"EditorInfo":{"isRoot":false,"xPos":13,"yPos":655},"ID":2,"ParamActions":[],"TMPFontGUID":null,"Text":"Exit","parentUIDs":[0,3,6,10,11,7,12],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":3}],"NodeUID":10},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":1}],"NodeUID":11},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":-1}],"NodeUID":7},{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[{"__type":"EditableIntCondition:#DialogueEditor","ParameterName":"Quality","CheckType":0,"RequiredValue":2}],"NodeUID":12}],"EditorInfo":{"isRoot":false,"xPos":451.5,"yPos":353},"ID":9,"ParamActions":[],"TMPFontGUID":null,"Text":"For
+        you, miss!","parentUIDs":[8],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":6}],"EditorInfo":{"isRoot":false,"xPos":-66,"yPos":129},"ID":4,"ParamActions":[],"TMPFontGUID":null,"Text":"What
+        can I get you?","parentUIDs":[0],"SpeechUID":-1},{"Connections":[{"__type":"EditableSpeechConnection:#DialogueEditor","Conditions":[],"NodeUID":8}],"EditorInfo":{"isRoot":false,"xPos":297.5,"yPos":130},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"Order
+        up!","parentUIDs":[0],"SpeechUID":-1}],"Parameters":[{"__type":"EditableIntParameter:#DialogueEditor","ParameterName":"Quality","IntValue":0},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Requested","BoolValue":false},{"__type":"EditableBoolParameter:#DialogueEditor","ParameterName":"Served","BoolValue":false}],"SpeechNodes":[{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":4},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Requested","CheckType":0,"RequiredValue":true},{"__type":"EditableBoolCondition:#DialogueEditor","ParameterName":"Served","CheckType":0,"RequiredValue":false}],"NodeUID":6},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":true,"xPos":79,"yPos":8},"ID":0,"ParamActions":[],"TMPFontGUID":null,"Text":"Hey~
         Feel free to take whatever you need from my farm. BUT! I want a plate in
-        return.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-57.5,"yPos":296},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Oh
-        my, I can hardly wait!","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":84,"yPos":84},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"I
-        would like a high protein lunch using blended eggs.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":664,"yPos":124},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"I
-        can taste it already!","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":943,"yPos":313},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"Now
-        that''s a perfect Salmon Omelette if I''ve ever seen one!! Thank you~","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":521,"yPos":311},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Thank
-        you so much... but... you could improve","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":296.5,"yPos":312},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Not
-        what I wanted. Something with egg, milk and fish might do the trick.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":733.5,"yPos":312},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"Yummy,
+        return.","parentUIDs":[],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-267,"yPos":420},"ID":3,"ParamActions":[],"TMPFontGUID":null,"Text":"Oh
+        my, I can hardly wait!","parentUIDs":[1],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":1},{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":-125.5,"yPos":208},"ID":6,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        would like a high protein lunch using blended eggs.","parentUIDs":[4],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":9}],"EditorInfo":{"isRoot":false,"xPos":454.5,"yPos":248},"ID":8,"ParamActions":[],"TMPFontGUID":null,"Text":"I
+        can taste it already!","parentUIDs":[6],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":733.5,"yPos":437},"ID":10,"ParamActions":[],"TMPFontGUID":null,"Text":"Now
+        that''s a perfect Salmon Omelette if I''ve ever seen one!! Thank you~","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":311.5,"yPos":435},"ID":11,"ParamActions":[],"TMPFontGUID":null,"Text":"Thank
+        you so much... but... you could improve","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":87,"yPos":436},"ID":7,"ParamActions":[],"TMPFontGUID":null,"Text":"Not
+        what I wanted. Something with egg, milk and fish might do the trick.","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0},{"Connections":[{"__type":"EditableOptionConnection:#DialogueEditor","Conditions":[],"NodeUID":2}],"EditorInfo":{"isRoot":false,"xPos":524,"yPos":436},"ID":12,"ParamActions":[],"TMPFontGUID":null,"Text":"Yummy,
         I''m sure it can get better with more practise though..","parentUIDs":[9],"AdvanceDialogueAutomatically":false,"AudioGUID":null,"AutoAdvanceShouldDisplayOption":false,"IconGUID":null,"Name":"Murmu","OptionUIDs":null,"SpeechUID":0,"TimeUntilAdvance":0,"Volume":0}]}'
       objectReference: {fileID: 0}
     - target: {fileID: 2544708284343320721, guid: d4b2e4ed76aa2bd4c8f3e15a19517ee3,
@@ -55089,80 +55163,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1301578688193978964, guid: c9c36d585a00523418d6cadbe7a273e3,
     type: 3}
   m_PrefabInstance: {fileID: 7792221389132359594}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &7823519723569868682
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1222431220691933549}
-    m_Modifications:
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 21.14
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0062179565
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -14.76
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.37166327
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.9283676
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -136.364
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2229341253937339418, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-        type: 3}
-      propertyPath: m_Name
-      value: Ozone
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 71bd78b4ab2fdb846981405e05a25cc3, type: 3}
---- !u!4 &8479289805051983760 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1819107473413511194, guid: 71bd78b4ab2fdb846981405e05a25cc3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7823519723569868682}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7824701088818192169
 PrefabInstance:
