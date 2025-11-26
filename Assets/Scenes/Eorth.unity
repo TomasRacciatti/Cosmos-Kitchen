@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 763807360}
-  m_IndirectSpecularColor: {r: 0.21370713, g: 0.29861474, b: 0.775198, a: 1}
+  m_IndirectSpecularColor: {r: 0.21372566, g: 0.29863608, b: 0.77521276, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -659,6 +659,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6469562
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1762457
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8189112
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.999139
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.03263588
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.02548614
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370596192553099602, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.0025865217
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982369444525410813, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6982369444525410813, guid: 3f67c4dd0f90e6c42976085590e1fa19,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
