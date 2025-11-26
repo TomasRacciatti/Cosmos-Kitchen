@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Craft
+  m_text: Prepare
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5e26a0b5d383df148ae6e8e76ed89690, type: 2}
   m_sharedMaterial: {fileID: -6158627831073542306, guid: 5e26a0b5d383df148ae6e8e76ed89690,
@@ -93,8 +93,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -247,7 +247,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 6, y: -161}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 200, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5645284887758898354
 CanvasRenderer:
@@ -786,12 +786,12 @@ PrefabInstance:
     - target: {fileID: 4165130497042253058, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4165130497042253058, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4165130497042253058, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
@@ -836,7 +836,7 @@ PrefabInstance:
     - target: {fileID: 4165130497042253058, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -264
+      value: -323
       objectReference: {fileID: 0}
     - target: {fileID: 4165130497042253058, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
@@ -856,7 +856,7 @@ PrefabInstance:
     - target: {fileID: 4260937506889647640, guid: 244972f56b475c0488b233b9c266548f,
         type: 3}
       propertyPath: m_Name
-      value: SlotUI (3)
+      value: ResultSlot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
