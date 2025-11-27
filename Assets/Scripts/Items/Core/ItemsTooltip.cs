@@ -16,6 +16,7 @@ namespace Items.Core
         
         private RectTransform _rectTransform;
         private Canvas _canvas;
+        private ItemAmount _itemAmount;
         
         private void Awake()
         {
@@ -28,15 +29,27 @@ namespace Items.Core
         public static void Show(ItemAmount itemAmount)
         {
             if (ItemsDropper.IsActive) return;
-            _instance.itemNameText.text = itemAmount.SoItem.ItemName;
-            _instance.itemDescriptionText.text = itemAmount.GetProcessHistoryText();
-            _instance.itemIcon.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, null);
+            _instance._itemAmount = itemAmount;
+            Updated();
+        }
+
+        public static void Updated()
+        {
+            if (_instance._itemAmount.IsEmpty)
+            {
+                Hide();
+                return;
+            }
+            
+            _instance.itemNameText.text = _instance._itemAmount.SoItem.ItemName;
+            _instance.itemDescriptionText.text = _instance._itemAmount.GetProcessHistoryText();
+            _instance.itemIcon.sprite = ItemSpriteResolver.Resolve(_instance._itemAmount, null);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
 
-            bool isPlate = itemAmount.SoItem is SoPlate;
-            _instance.starIcon.sprite = isPlate ? itemAmount.GetRatingSprite : null;
-            _instance.starIcon.enabled = isPlate && itemAmount.GetRatingSprite != null;
+            bool isPlate = _instance._itemAmount.SoItem is SoPlate;
+            _instance.starIcon.sprite = isPlate ? _instance._itemAmount.GetRatingSprite : null;
+            _instance.starIcon.enabled = isPlate && _instance._itemAmount.GetRatingSprite != null;
         }
 
         public static void Hide()

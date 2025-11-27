@@ -160,6 +160,7 @@ namespace Stations
                 prepState.turnsCooked = 0f;
                 item.Prep = prepState;
                 invSystem.NotifySlotChanged(0);
+                ItemsTooltip.Updated();
             }
             
             float spt = Mathf.Max(0.01f, secondsPerTurn);
@@ -229,6 +230,7 @@ namespace Stations
                         _recordedThisSession = true;
                     }
                     invSystem.NotifySlotChanged(0);
+                    ItemsTooltip.Updated();
                 }
             }
             
@@ -257,6 +259,7 @@ namespace Stations
                     prepState.turnsCooked = 0f;
                     current.Prep = prepState;
                     invSystem.NotifySlotChanged(0);
+                    ItemsTooltip.Updated();
                 }
             }
             
@@ -278,6 +281,7 @@ namespace Stations
             item.Prep = ps;
             
             invSystem.NotifySlotChanged(0);
+            ItemsTooltip.Updated();
 
             Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
@@ -303,6 +307,7 @@ namespace Stations
              }
              
              invSystem.NotifySlotChanged(0);
+             ItemsTooltip.Updated();
              
              StopCooking();
             
