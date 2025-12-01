@@ -16,10 +16,9 @@ namespace Items.Core
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent<InvSystem>(out InvSystem invSystem))
-            {
-                itemPickup.Interact(invSystem.gameObject);
-            }
+            if (!other.TryGetComponent(out InvSystem invSystem)) return;
+            if (!invSystem.canGrab) return;
+            itemPickup.Interact(invSystem.gameObject);
         }
     }
 }

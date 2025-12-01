@@ -17,7 +17,7 @@ namespace MiniGames
         [SerializeField] private float tideForce = 300;
         [SerializeField] private AnimationCurve tideCurve = AnimationCurve.Linear(0, 0.2f, 1, 1f);
         [SerializeField] private AnimationCurve intervalCurve = AnimationCurve.Linear(0, 1, 1, 0.2f);
-        [SerializeField] private float tideInfluence = 0.5f;
+        //[SerializeField] private float tideInfluence = 0.5f;
         
         private Vector2 currentForceDirection;
         private RectTransform hudRect;

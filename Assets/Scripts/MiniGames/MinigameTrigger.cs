@@ -11,7 +11,6 @@ namespace MiniGames
     {
         [Header("RewardedItem")]
         [SerializeField] private SoItem rewardedItem;
-        [SerializeField] private int rewardedAmount = 1;
         
         [Header("Refs")]
         [SerializeField] private float cooldownTime = 30f;
@@ -99,16 +98,10 @@ namespace MiniGames
             onFinishCooldown?.Invoke();
         }
 
-        protected void RewardPlayer(int quality)
+        protected void RewardPlayer(int rewardAmount)
         {
-            if (rewardedItem == null)
-            {
-                Debug.LogWarning("No se asignó rewardedItem en el inspector!");
-                return;
-            }
-
             GameObject item = ObjectPool.SpawnObject(PrefabsManager.ItemPrefabPickup, DropTransform.position, DropTransform.rotation, false);
-            item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardedAmount));
+            item.GetComponent<ItemPickup>().SetItemAmount(new ItemAmount(rewardedItem, rewardAmount));
             item.SetActive(true);
         }
     }

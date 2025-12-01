@@ -191,6 +191,9 @@ public class Outline : MonoBehaviour {
 
     // Retrieve or generate smooth normals
     foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+      
+      if (meshFilter == null || meshFilter.sharedMesh == null) //fix ksa, no se como funca esto
+        continue;
 
       // Skip if smooth normals have already been adopted
       if (!registeredMeshes.Add(meshFilter.sharedMesh)) {

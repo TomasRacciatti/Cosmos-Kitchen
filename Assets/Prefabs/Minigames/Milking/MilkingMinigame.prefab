@@ -1184,11 +1184,11 @@ MonoBehaviour:
   totalActions: 10
   difficulty: 1
   scaleDifficulty: 0.1
-  startSound: {fileID: 8300000, guid: a27ddaadab914154d9b6eadd78e47da0, type: 3}
-  correctSound: {fileID: 8300000, guid: 8a5712c1a076d614096c74e8a79b0f37, type: 3}
-  wrongSound: {fileID: 8300000, guid: 462d28a39aba4b345927bd7b0637cce0, type: 3}
+  startSound: {fileID: 8300000, guid: 511d4cfb13a2eb6438e3e1044d13c64e, type: 3}
+  correctSound: {fileID: 8300000, guid: 243f158c2ce772a40a9b2b9eb1820136, type: 3}
+  wrongSound: {fileID: 8300000, guid: 0dc2f57a46fd6d44192ca54ed2046a5f, type: 3}
   winSound: {fileID: 8300000, guid: e1788812c19bb8e42997023aca2e17f2, type: 3}
-  loseSound: {fileID: 8300000, guid: 731f97b4abfefa44fac21b7edbab6ac9, type: 3}
+  loseSound: {fileID: 8300000, guid: 2ad0a3d3a344242408432c9570f94281, type: 3}
   progressBar: {fileID: 3511618002737597502}
   lifeBar: {fileID: 1373543125026711391}
   totalTime: 25
@@ -1201,7 +1201,7 @@ MonoBehaviour:
   keyD: {fileID: 2900413692263146031}
   minGapBetweenPrompts: 0.01
   maxGapBetweenPrompts: 0.7
-  perfectWindow: 0.3
+  perfectWindow: 0.35
   goodWindow: 0.7
   missHold: 0.05
   fadeOutSeconds: 0.15
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   perfectMultiplier: 2
   resistance: 1
   baseLoss: 0.2
-  decayPerSecond: 0.05
+  decayPerSecond: 0.03
   colorDefault: {r: 1, g: 1, b: 1, a: 1}
   colorMiss: {r: 1, g: 0, b: 0, a: 1}
   colorOk: {r: 1, g: 0.843, b: 0, a: 1}

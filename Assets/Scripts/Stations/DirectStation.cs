@@ -68,6 +68,9 @@ namespace Stations
         
         private  void ApplyDirectProcess()
         {
+            if (invSystem.Items.Count == 0 || invSystem.Items[0].IsEmpty)
+                return;
+            
             StartCoroutine(ProcessWithDelay());
         }
 
@@ -76,6 +79,7 @@ namespace Stations
             slotOverlay.gameObject.SetActive(true);
             buttonOverlay.SetActive(true);
 
+            // Me gustaria cambiar esto por algo mas optimo
             Transform firstSlot = invView.transform.GetChild(0);
             InvItemUI itemUI = firstSlot.GetChild(0).GetComponentInChildren<InvItemUI>();
             itemUI.enabled = false;
@@ -102,6 +106,13 @@ namespace Stations
         {
             animator.SetTrigger("StartCook");
             onCooked.Invoke();
+
+            if (processingClip != null && audioSource != null)
+            {
+                // Aca podriamos incluir variables como un delay del start y demas. Por ahora que quede asi
+                audioSource.PlayOneShot(processingClip);
+            }
+            
             for (int i = 0; i < invSystem.Items.Count; i++)
             {
                 var item = invSystem.Items[i];
@@ -116,11 +127,11 @@ namespace Stations
                     return;
                 }
                 
-                item.AddProcessStep(method, 1);
+                item.AddProcessStep(method, 0);
                 
                 var prep = item.Prep;
                 prep.method = method;
-                prep.turnsCooked = 1; // Para los visuales nomas
+                prep.turnsCooked = 0; // Para los visuales nomas
                 item.Prep = prep;
                 invSystem.NotifySlotChanged(i);
                 

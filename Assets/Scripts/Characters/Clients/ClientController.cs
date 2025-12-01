@@ -25,7 +25,7 @@ namespace Characters.Clients
         // State
         private bool hasSpoken;
         private bool deliveryComplete;
-        private bool perfectDelivery;
+        //private bool perfectDelivery;
 
         // ===== IClient (for Dialogue) =====
         public string Name  => clientData != null ? clientData.clientName : string.Empty;
@@ -51,15 +51,15 @@ namespace Characters.Clients
 
         private void OnDisable()
         {
-            if (dialogue != null && dialogue.IsOpen && dialogue.CurrentClient == this)
-                dialogue.Close();
+            /*if (dialogue != null && dialogue.IsOpen && dialogue.CurrentClient == this)
+                dialogue.Close();*/
         }
         
         public void Interact(GameObject interactor)
         {
             if (dialogue == null) return;
             
-            if (dialogue.IsOpen && dialogue.CurrentClient == this)
+            if (dialogue.IsOpen && (ClientController)dialogue.CurrentClient == this)
             {
                 dialogue.Close();
             }
@@ -75,7 +75,6 @@ namespace Characters.Clients
             
             if (deliveryComplete)
             {
-                dialogue.SetLine(clientData.GetLine(DialogueCategory.Repeating));
                 dialogue.EnableDelivery(false);
                 dialogue.EnableRetry(true);
                 dialogue.TogglePlateReceiver(false);
@@ -87,8 +86,7 @@ namespace Characters.Clients
                 SetSignalQuestion();
                 hasSpoken = true;
             }
-
-            dialogue.SetLine(clientData.GetLine(DialogueCategory.Asking));
+            
             dialogue.EnableRetry(false);
             dialogue.EnableDelivery(true);
             dialogue.TogglePlateReceiver(true);
@@ -105,35 +103,26 @@ namespace Characters.Clients
             {
                 case OrderOutcome.Wrong:
                     deliveryComplete = false;
-                    perfectDelivery  = false;
-                    dialogue.SetLine(clientData.GetLine(DialogueCategory.Wrong));
                     dialogue.EnableDelivery(true);
                     dialogue.EnableRetry(false);
                     dialogue.TogglePlateReceiver(true);
                     SetSignalQuestion();
-                    // animacion
                     break;
 
                 case OrderOutcome.Delivered:
                     deliveryComplete = true;
-                    perfectDelivery  = false;
-                    dialogue.SetLine(clientData.GetLine(DialogueCategory.Delivered));
                     dialogue.EnableDelivery(false);
                     dialogue.EnableRetry(true);
                     dialogue.TogglePlateReceiver(false);
                     if (signal) signal.SetActive(false);
-                    // animacion
                     break;
 
                 case OrderOutcome.Perfect:
                     deliveryComplete = true;
-                    perfectDelivery  = true;
-                    dialogue.SetLine(clientData.GetLine(DialogueCategory.Perfect));
                     dialogue.EnableDelivery(false);
                     dialogue.EnableRetry(false);
                     dialogue.TogglePlateReceiver(false);
                     if (signal) signal.SetActive(false);
-                    // animacion
                     break;
             }
         }
@@ -141,12 +130,10 @@ namespace Characters.Clients
         public void Retry()
         {
             deliveryComplete = false;
-            perfectDelivery  = false;
 
-            if (!dialogue.IsOpen || dialogue.CurrentClient != this)
+            if (!dialogue.IsOpen || (ClientController)dialogue.CurrentClient != this)
                 dialogue.StartConversation(this);
-
-            dialogue.SetLine(clientData.GetLine(DialogueCategory.Asking));
+            
             dialogue.EnableRetry(false);
             dialogue.EnableDelivery(true);
             dialogue.TogglePlateReceiver(true);

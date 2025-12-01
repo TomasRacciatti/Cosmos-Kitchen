@@ -27,12 +27,22 @@ namespace Managers
         {
             MusicEvents.RequestMusicChange(MusicEvents.MusicType.Pause);
             Time.timeScale = 0f;
+            
+            if (AudioManager.instance != null && AudioManager.instance.MixerApplier != null)
+            {
+                AudioManager.instance.MixerApplier.MuteWorldSFX();
+            }
         }
         
         public static void Resume()
         {
             Time.timeScale = 1f;
             MusicEvents.RequestMusicResume();
+            
+            if (AudioManager.instance != null && AudioManager.instance.MixerApplier != null)
+            {
+                AudioManager.instance.MixerApplier.UnmuteWorldSFX();
+            }
         }
     }
 }

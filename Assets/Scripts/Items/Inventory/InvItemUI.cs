@@ -44,7 +44,10 @@ namespace Items.Inventory
                 image.sprite = Items.ItemSpriteResolver.Resolve(itemAmount, null);
             }
             RefreshAmount();
-            starIcon.sprite = newItemAmount.GetRatingSprite;
+
+            bool isPlate = newItemAmount.SoItem is SoPlate;
+            starIcon.sprite = isPlate ? newItemAmount.GetRatingSprite : null;
+            starIcon.enabled = isPlate && newItemAmount.GetRatingSprite != null;
         }
         
         private void RefreshAmount()
@@ -85,14 +88,17 @@ namespace Items.Inventory
                     if (Input.GetKey(KeyCode.LeftControl))
                     {
                         _invSlotUI.InvView.InventorySystem.SplitItemStack(SlotUI.InvSlot);
+                        ItemsTooltip.Updated();
                     }
                     else if (Input.GetKey(KeyCode.LeftShift))
                     {
                         _invSlotUI.InvView.InventorySystem.SplitOneItem(SlotUI.InvSlot);
+                        ItemsTooltip.Updated();
                     }
                     break;
                 case PointerEventData.InputButton.Right:
                     _invSlotUI.InvView.InventorySystem.TransferToOtherInventory(SlotUI.InvSlot);
+                    ItemsTooltip.Updated();
                     break;
             }
         }

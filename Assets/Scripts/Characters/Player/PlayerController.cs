@@ -5,7 +5,6 @@ using Cinemachine;
 using Interfaces;
 using Items.Inventory;
 using Managers;
-using Unity.Mathematics;
 using UnityEngine;
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -32,6 +31,7 @@ namespace Characters.Player
 
         [Header("Player Grounded")]
         [SerializeField] private bool grounded = true;
+        public bool Grounded => grounded;
         [SerializeField] private LayerMask groundLayers;
         [SerializeField] private float groundedOffset = 0.1f;
 
@@ -44,7 +44,7 @@ namespace Characters.Player
         [SerializeField] private float cameraAngleOverride;
         [SerializeField] private bool lockCameraPosition;
 
-        [SerializeField] private float cameraRadius = 10f;
+        //[SerializeField] private float cameraRadius = 10f;
         [SerializeField] private Camera mainCamera;
         [SerializeField] private CinemachineVirtualCamera firstPersonCamera;
         [SerializeField] private CinemachineVirtualCamera thirdPersonCamera;
@@ -368,7 +368,7 @@ namespace Characters.Player
             _targetRotation = yaw;
             _cinemachineTargetYaw = yaw;
             
-            cinemachineCameraTarget1.transform.rotation = quaternion.Euler(
+            cinemachineCameraTarget1.transform.rotation = Quaternion.Euler(
                 _cinemachineTargetPitch + cameraAngleOverride, _cinemachineTargetYaw, 0.0f);
             cinemachineCameraTarget2.transform.rotation = cinemachineCameraTarget1.transform.rotation;
         }

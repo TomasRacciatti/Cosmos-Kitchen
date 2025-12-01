@@ -8,7 +8,7 @@ namespace MiniGames
         public override void Interact(GameObject interactableObject)
         {
             if (!Cooldown.IsReady) return;
-            RewardPlayer(3);
+            RewardPlayer(1);
             StartCooldown();
         }
 

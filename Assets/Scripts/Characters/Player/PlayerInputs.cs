@@ -23,6 +23,7 @@ namespace Characters.Player
         public bool inventoryOpen = false;
         public bool bookOpen = false;
         public bool menuOpen = false;
+        public bool inCinematic = false;
         
         private PlayerController _playerController;
         private InteractComponent _interactComponent;
@@ -72,18 +73,18 @@ namespace Characters.Player
 #if ENABLE_INPUT_SYSTEM
         public void OnMove(InputValue value)
         {
-            move = !active || !canMove ? Vector2.zero : value.Get<Vector2>();
+            move = !active || !canMove || inCinematic ? Vector2.zero : value.Get<Vector2>();
         }
 
         public void OnLook(InputValue value)
         {
             //cambiar la condicion del operador ternario
-            look = ActiveAndNoHUD && canMove ? value.Get<Vector2>() : Vector2.zero;
+            look = ActiveAndNoHUD && canMove && !inCinematic ? value.Get<Vector2>() : Vector2.zero;
         }
 
         public void OnJump(InputValue value)
         {
-            if (!active) return;
+            if (!active || inCinematic) return;
             jump = value.isPressed;
             if (jump) _playerController.Jump();
         }

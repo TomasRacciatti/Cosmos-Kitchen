@@ -183,6 +183,9 @@ namespace Stations.Serving
 
             Debug.Log($"¡Se preparó el plato {plate.name}! (mistakes={mistakes}, rating={rating})");
             
+            if (processingClip != null && audioSource != null)
+                audioSource.PlayOneShot(processingClip);
+            
             _pendingPlate = null;
             _matchedInputIndices.Clear();
             _inputSnapshot.Clear();

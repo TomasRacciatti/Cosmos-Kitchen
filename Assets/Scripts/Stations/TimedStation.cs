@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Cooking;
 using Items.Core;
@@ -21,6 +22,10 @@ namespace Stations
 
         [Header("World-Time Ticker (provide a component implementing ICookingTicker)")]
         [SerializeField] private MonoBehaviour tickerProvider;
+
+        // [Header("Timed Station Audio Settings")] 
+        // [SerializeField] private bool instantSFX = true;
+        // [SerializeField] private float audioFadeDuration = 1f;
         
         private ICookingTicker _ticker;
         
@@ -83,7 +88,7 @@ namespace Stations
 
         private void OnDisable()
         {
-            if (invSystem != null) invSystem.Unsubscribe(OnInventorySlotChanged);
+            if (invSystem != null) invSystem.Unsubscribe(OnInventorySlotChanged); //aca da un error si es en editor cuando lo sacas
             StopCooking();
         }
 
@@ -155,6 +160,7 @@ namespace Stations
                 prepState.turnsCooked = 0f;
                 item.Prep = prepState;
                 invSystem.NotifySlotChanged(0);
+                ItemsTooltip.Updated();
             }
             
             float spt = Mathf.Max(0.01f, secondsPerTurn);
@@ -184,6 +190,14 @@ namespace Stations
             OnSessionStarted?.Invoke(_session);
             onSessionStartedUnity.Invoke();
             animator.SetTrigger("StartCook");
+
+            if (processingClip != null && audioSource != null)
+            {
+                
+                audioSource.clip = processingClip;
+                audioSource.loop = true;
+                audioSource.Play();
+            }
         }
         
         private void StopCooking()
@@ -216,12 +230,18 @@ namespace Stations
                         _recordedThisSession = true;
                     }
                     invSystem.NotifySlotChanged(0);
+                    ItemsTooltip.Updated();
                 }
             }
             
             OnSessionStopped?.Invoke();
             onSessionStopUnity.Invoke();
             animator.SetTrigger("StopCook");
+
+            if (audioSource != null && audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
         }
 
         private void OnInventorySlotChanged(int index, Items.Core.ItemAmount current)
@@ -239,6 +259,7 @@ namespace Stations
                     prepState.turnsCooked = 0f;
                     current.Prep = prepState;
                     invSystem.NotifySlotChanged(0);
+                    ItemsTooltip.Updated();
                 }
             }
             
@@ -260,6 +281,7 @@ namespace Stations
             item.Prep = ps;
             
             invSystem.NotifySlotChanged(0);
+            ItemsTooltip.Updated();
 
             Debug.Log($"[{name}] Turn crossed: {boundaryIndex}  (Method={method})"); // BORRAR despues
         }
@@ -285,6 +307,7 @@ namespace Stations
              }
              
              invSystem.NotifySlotChanged(0);
+             ItemsTooltip.Updated();
              
              StopCooking();
             

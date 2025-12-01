@@ -14,15 +14,9 @@ namespace Characters.Clients
         public Sprite clientIcon;
         public bool isCritic;
 
-        [Header("Dialogue")]
-        public ClientDialogueProfileSO dialogueProfile;
-
         [Header("Order / Recipe")]
         public SoPlate requestedSoPlate;
         public string clue1 = "Something with";
         public string clue2 = "";
-        
-        public string GetLine(DialogueCategory category) =>
-            dialogueProfile?.PickRandom(category) ?? string.Empty;
     }
 }
