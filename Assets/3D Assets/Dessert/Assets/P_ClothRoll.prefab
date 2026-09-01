@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7196583138505188323
+--- !u!1 &8758097737791743922
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,101 +8,101 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4598457878224214960}
+  - component: {fileID: 8843384613863043611}
   m_Layer: 0
-  m_Name: FenceRopeLink
+  m_Name: P_ClothRoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4598457878224214960
+--- !u!4 &8843384613863043611
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7196583138505188323}
+  m_GameObject: {fileID: 8758097737791743922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1854152971841757307}
+  - {fileID: 7365297799509592812}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2175800679361251216
+--- !u!1001 &7042629459765177607
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4598457878224214960}
+    m_TransformParent: {fileID: 8843384613863043611}
     m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: ffab23460182a9240acf654f6db8da66,
+    - target: {fileID: 919132149155446097, guid: 7f61dce75d3a99044897350456544b70,
         type: 3}
       propertyPath: m_Name
-      value: FenceRopeLink
+      value: ClothRoll
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ffab23460182a9240acf654f6db8da66, type: 3}
---- !u!4 &1854152971841757307 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 7f61dce75d3a99044897350456544b70, type: 3}
+--- !u!4 &7365297799509592812 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ffab23460182a9240acf654f6db8da66,
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f61dce75d3a99044897350456544b70,
     type: 3}
-  m_PrefabInstance: {fileID: 2175800679361251216}
+  m_PrefabInstance: {fileID: 7042629459765177607}
   m_PrefabAsset: {fileID: 0}
