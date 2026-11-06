@@ -4,7 +4,6 @@ using UnityEngine;
 namespace UI.Components
 {
     [RequireComponent(typeof(RectTransform))]
-    [RequireComponent(typeof(CanvasGroup))]
     public class ScreenSpaceFollower : MonoBehaviour
     {
         [Tooltip("World object to follow. If empty, the registered player is used.")]
@@ -17,7 +16,6 @@ namespace UI.Components
         private RectTransform _rect;
         private RectTransform _parent;
         private Canvas _canvas;
-        private CanvasGroup _group;
         private Camera _camera;
 
         private void Awake()
@@ -25,11 +23,8 @@ namespace UI.Components
             _rect = (RectTransform)transform;
             _parent = (RectTransform)_rect.parent;
             _canvas = GetComponentInParent<Canvas>().rootCanvas;
-            _group = GetComponent<CanvasGroup>();
         }
-
-        // Positioned right before the UI is drawn: by then the camera (Cinemachine, in LateUpdate) has
-        // already moved this frame, so the element doesn't lag a frame behind the character.
+        
         private void OnEnable()
         {
             Canvas.willRenderCanvases += UpdatePosition;
@@ -42,16 +37,10 @@ namespace UI.Components
 
         private void UpdatePosition()
         {
-            if (!TryResolveReferences())
-            {
-                _group.alpha = 0f;
-                return;
-            }
-
+            if (!TryResolveReferences()) return;
+            
             Vector3 screenPoint = _camera.WorldToScreenPoint(target.position + worldOffset);
-            bool inFrontOfCamera = screenPoint.z > 0f;
-            _group.alpha = inFrontOfCamera ? 1f : 0f;
-            if (!inFrontOfCamera) return;
+            if (screenPoint.z <= 0f) return;
 
             Camera uiCamera = _canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : _canvas.worldCamera;
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, screenPoint, uiCamera, out Vector2 local))

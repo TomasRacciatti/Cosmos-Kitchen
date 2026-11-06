@@ -22,8 +22,12 @@ MonoBehaviour:
   maxInclination: 55
   maxDeclination: 45
   climbStartMaxInclination: 30
-  climbMoveDrain: 15
-  climbIdleDrain: 3
+  maxStamina: 100
+  staminaRegenRate: 25
+  staminaRegenDelay: 0.5
+  staminaRecoverFraction: 1
+  climbMoveDrain: 10
+  climbIdleDrain: 1
   inclineDrainMultiplier: 0.5
   declineDrainMultiplier: 2
   wallGap: 0.01

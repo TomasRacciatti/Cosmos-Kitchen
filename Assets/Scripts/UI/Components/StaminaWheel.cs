@@ -12,6 +12,12 @@ namespace UI.Components
         [SerializeField] private Image fillImage;
         [Tooltip("Optional. If empty, the registered player's stamina is used (for the HUD canvas).")]
         [SerializeField] private ClimbStamina stamina;
+        [Tooltip("Faded in and out. If empty, the nearest CanvasGroup on this object or a parent is used.")]
+        [SerializeField] private CanvasGroup canvasGroup;
+        [Tooltip("Time to fade in when climbing starts (s).")]
+        [Min(0f)] [SerializeField] private float fadeInTime = 0.15f;
+        [Tooltip("Time to fade out once stamina is full again (s).")]
+        [Min(0f)] [SerializeField] private float fadeOutTime = 0.6f;
         [Tooltip("Wheel color by stamina left (left = empty, right = full).")]
         [SerializeField] private Gradient colorByFill = new Gradient
         {
@@ -31,6 +37,8 @@ namespace UI.Components
         {
             fillImage.type = Image.Type.Filled;
             fillImage.fillMethod = Image.FillMethod.Radial360;
+            if (canvasGroup == null) canvasGroup = GetComponentInParent<CanvasGroup>();
+            canvasGroup.alpha = 0f;
         }
 
         private void OnDisable()
@@ -44,6 +52,13 @@ namespace UI.Components
         private void Update()
         {
             if (_source == null) TryBind();
+            if (_source == null) return;
+
+            // Shown while climbing, and until stamina has refilled afterwards.
+            bool show = _source.IsInUse || _source.Current < _source.Max;
+            float fadeTime = show ? fadeInTime : fadeOutTime;
+            float step = fadeTime > 0f ? Time.deltaTime / fadeTime : 1f;
+            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, show ? 1f : 0f, step);
         }
 
         private void TryBind()

@@ -16,6 +16,7 @@ namespace Characters.Player.Climbing
         public float Current { get; private set; }
         public float Max => _settings.MaxStamina;
         public bool IsExhausted { get; private set; }
+        public bool IsInUse => _climbing.IsClimbing;
         public bool AllowsClimbing => !IsExhausted;
 
         public event Action Depleted;
@@ -30,8 +31,8 @@ namespace Characters.Player.Climbing
 
         private void Update()
         {
-            if (_climbing.IsClimbing) Consume(GetDrainPerSecond() * Time.deltaTime);
-            else Regenerate(Time.deltaTime);
+            if (!_climbing.IsClimbing) Regenerate(Time.deltaTime);
+            else if (!_climbing.IsInClimbStart) Consume(GetDrainPerSecond() * Time.deltaTime);
         }
 
         public void Consume(float amount)
