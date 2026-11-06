@@ -45,6 +45,17 @@ namespace Characters.Player.Climbing
         [Tooltip("Drain multiplier on an overhang at Max Declination (blends from 1 on a vertical wall). Above 1 = costlier.")]
         [Min(0f)] [SerializeField] private float declineDrainMultiplier = 2f;
 
+        [Header("Sliding (out of stamina on a ramp)")]
+        [Tooltip("Running out of stamina on a ramp leaning back more than this (degrees from vertical) slides " +
+                 "the player down it. On steeper walls and overhangs they jump off instead.")]
+        [Range(0f, 89f)] [SerializeField] private float slideMinInclination = 10f;
+        [Tooltip("Top speed while being dragged down the ramp (m/s).")]
+        [Min(0f)] [SerializeField] private float slideSpeed = 3f;
+        [Tooltip("How fast the slide reaches top speed (m/s²).")]
+        [Min(0f)] [SerializeField] private float slideAcceleration = 6f;
+        [Tooltip("Sideways speed while sliding (m/s). Up/down input is ignored.")]
+        [Min(0f)] [SerializeField] private float slideSideSpeed = 1f;
+
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
         [SerializeField] private float wallGap = 0.01f;
@@ -83,6 +94,10 @@ namespace Characters.Player.Climbing
         public float ClimbIdleDrain => climbIdleDrain;
         public float InclineDrainMultiplier => inclineDrainMultiplier;
         public float DeclineDrainMultiplier => declineDrainMultiplier;
+        public float SlideMinInclination => slideMinInclination;
+        public float SlideSpeed => slideSpeed;
+        public float SlideAcceleration => slideAcceleration;
+        public float SlideSideSpeed => slideSideSpeed;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

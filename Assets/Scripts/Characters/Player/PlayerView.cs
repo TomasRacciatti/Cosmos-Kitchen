@@ -12,9 +12,13 @@ namespace Characters.Player
         [SerializeField] private float climbMoveDampTime = 0.1f;
         [Tooltip("Name of the Climb Start state in the Animator (Base Layer). Climb input is held while it plays.")]
         [SerializeField] private string climbStartStateName = "Player_ClimbStart";
+        [Tooltip("Dust particles per second while sliding down a ramp (uses the footstep particles).")]
+        [Min(0f)] [SerializeField] private float slideDustRate = 20f;
 
         private const int BaseLayer = 0;
         private int _climbStartStateHash;
+        private bool _slideEffectActive;
+        private Vector3 _stepsParticlesLocalPosition;
 
         [SerializeField] private AudioCue damagedCue;
         [SerializeField] private AudioCue footstepCue;
@@ -160,6 +164,32 @@ namespace Characters.Player
         {
             animator.SetFloat(AnimIDClimbX, move.x, climbMoveDampTime, Time.deltaTime);
             animator.SetFloat(AnimIDClimbY, move.y, climbMoveDampTime, Time.deltaTime);
+        }
+
+        // Reuses the footstep dust. It's moved to the contact point on the ramp, because the feet pivot
+        // ends up inside the ramp while the body lies along it.
+        public void SetSlideEffect(bool active, Vector3 surfacePoint)
+        {
+            var emission = stepsParticles.emission;
+            Transform particles = stepsParticles.transform;
+
+            if (active)
+            {
+                if (!_slideEffectActive)
+                {
+                    _slideEffectActive = true;
+                    _stepsParticlesLocalPosition = particles.localPosition;
+                    emission.rateOverTime = slideDustRate;
+                    emission.enabled = true;
+                }
+                particles.position = surfacePoint;
+                return;
+            }
+
+            if (!_slideEffectActive) return;
+            _slideEffectActive = false;
+            particles.localPosition = _stepsParticlesLocalPosition;
+            emission.enabled = false;
         }
     }
 }

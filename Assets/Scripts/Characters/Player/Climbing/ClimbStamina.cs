@@ -8,11 +8,10 @@ namespace Characters.Player.Climbing
     public class ClimbStamina : MonoBehaviour, IStamina, IClimbGate
     {
         private const float MovingThreshold = 0.0001f;
-        private const float StraightWallTolerance = 5f; // degrees of lean-back still treated as a straight wall
 
         private PlayerClimbing _climbing;
         private ClimbSettings _settings;
-        private float _lastConsumeTime = float.NegativeInfinity;
+        private float _lastUseTime = float.NegativeInfinity;
 
         public float Current { get; private set; }
         public float Max => _settings.MaxStamina;
@@ -32,16 +31,25 @@ namespace Characters.Player.Climbing
             Current = _settings.MaxStamina;
         }
 
+        // No regeneration while on a surface at all (including Climb Start and sliding); the regen delay
+        // counts from letting go.
         private void Update()
         {
-            if (!_climbing.IsClimbing) Regenerate(Time.deltaTime);
-            else if (!_climbing.IsInClimbStart) Consume(GetDrainPerSecond() * Time.deltaTime);
+            if (!_climbing.IsClimbing)
+            {
+                Regenerate(Time.deltaTime);
+                return;
+            }
+
+            _lastUseTime = Time.time;
+            if (_climbing.IsInClimbStart || _climbing.IsSliding) return;
+            Consume(GetDrainPerSecond() * Time.deltaTime);
         }
 
         public void Consume(float amount)
         {
             if (amount <= 0f) return;
-            _lastConsumeTime = Time.time;
+            _lastUseTime = Time.time;
             if (Current <= 0f) return;
 
             SetCurrent(Current - amount);
@@ -51,16 +59,14 @@ namespace Characters.Player.Climbing
             Depleted?.Invoke();
             if (!_climbing.IsClimbing) return;
 
-            // Straight walls and overhangs throw the player off with the jump-off push. Ramps just let go
-            // (to be replaced by sliding down the ramp).
-            if (_climbing.SurfaceTilt > -StraightWallTolerance) _climbing.JumpOff();
-            else _climbing.StopClimbing();
+            if (_climbing.SurfaceTilt < -_settings.SlideMinInclination) _climbing.StartSliding();
+            else _climbing.JumpOff();
         }
 
         private void Regenerate(float dt)
         {
             if (Current >= Max) return;
-            if (Time.time - _lastConsumeTime < _settings.StaminaRegenDelay) return;
+            if (Time.time - _lastUseTime < _settings.StaminaRegenDelay) return;
 
             SetCurrent(Current + _settings.StaminaRegenRate * dt);
             if (IsExhausted && Current >= GrabFloor) IsExhausted = false;

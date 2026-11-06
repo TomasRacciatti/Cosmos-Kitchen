@@ -19,17 +19,21 @@ MonoBehaviour:
   wallCheckDistance: 1.5
   edgeCheckOffset: 0.1
   crossProbeOffset: 0.3
-  maxInclination: 55
+  maxInclination: 60
   maxDeclination: 45
   climbStartMaxInclination: 30
   maxStamina: 100
   staminaRegenRate: 25
   staminaRegenDelay: 0.5
-  staminaRecoverFraction: 1
+  minStaminaToGrab: 0.15
   climbMoveDrain: 10
   climbIdleDrain: 2
   inclineDrainMultiplier: 0.5
   declineDrainMultiplier: 2
+  slideMinInclination: 10
+  slideSpeed: 3
+  slideAcceleration: 6
+  slideSideSpeed: 1
   wallGap: 0.01
   snapSharpness: 10
   rotationSharpness: 10

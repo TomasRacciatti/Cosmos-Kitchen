@@ -48,12 +48,16 @@ namespace Characters.Player.Climbing
         // because the CharacterController capsule can't tilt.
         private Quaternion _climbRotation = Quaternion.identity;
         private float _standingHeight;
+        private float _slideSpeed;
 
         private Vector3 _contactNormal;
         private int _contactFrame = -1;
 
         public bool IsClimbing { get; private set; }
         public bool IsInClimbStart => _climbStartPending;
+
+        // Out of stamina on a ramp: still on the surface, but dragged down it.
+        public bool IsSliding { get; private set; }
         public Vector3 WallNormal => _lastWallNormal;
         public Quaternion ClimbRotation => _climbRotation;
         public Vector3 ClimbForward => _climbRotation * Vector3.forward;
@@ -112,6 +116,7 @@ namespace Characters.Player.Climbing
             if (_climbStartPending) UpdateClimbStart();
 
             Vector2 input = _climbStartPending ? Vector2.zero : SquareToCircle(_input.move);
+            if (IsSliding) input.y = 0f;
             float dt = Time.deltaTime;
 
             Vector3 origin = transform.TransformPoint(_controller.center);
@@ -142,7 +147,14 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            if (input.y < -InputDeadZone && IsFeetOnGround(origin))
+            if ((input.y < -InputDeadZone || IsSliding) && IsFeetOnGround(origin))
+            {
+                StopClimbing();
+                return;
+            }
+
+            // Slid onto a surface too steep to keep sliding on: fall off.
+            if (IsSliding && GetSurfaceTilt(hit.normal) > -settings.SlideMinInclination)
             {
                 StopClimbing();
                 return;
@@ -172,11 +184,25 @@ namespace Characters.Player.Climbing
                 input.y = 0f;
             }
 
-            Vector3 velocity = (right * input.x + up * input.y) * settings.ClimbSpeed;
+            if (IsSliding)
+            {
+                // The ramp ends below us (a ledge): fall off it.
+                if (!CanMoveToward(origin, -up, forward))
+                {
+                    StopClimbing();
+                    return;
+                }
+                _slideSpeed = Mathf.MoveTowards(_slideSpeed, settings.SlideSpeed, settings.SlideAcceleration * dt);
+            }
+
+            float sideSpeed = IsSliding ? settings.SlideSideSpeed : settings.ClimbSpeed;
+            Vector3 velocity = right * (input.x * sideSpeed) + up * (input.y * settings.ClimbSpeed - _slideSpeed);
             _controller.Move(snap + velocity * dt);
 
             ClimbInput = input;
-            if (_view != null) _view.SetClimbMove(input);
+            if (_view == null) return;
+            _view.SetClimbMove(IsSliding ? Vector2.zero : input);
+            if (IsSliding) _view.SetSlideEffect(true, hit.point);
         }
 
         // Catches climbable surfaces the forward ray can't see, like a ramp under our feet.
@@ -270,7 +296,7 @@ namespace Characters.Player.Climbing
         {
             if (IsClimbing)
             {
-                JumpOff();
+                if (!IsSliding) JumpOff();
                 return;
             }
 
@@ -389,6 +415,13 @@ namespace Characters.Player.Climbing
             if (_view != null) _view.ClimbStarted(fromGround);
         }
 
+        public void StartSliding()
+        {
+            if (!IsClimbing || IsSliding) return;
+            IsSliding = true;
+            _slideSpeed = 0f;
+        }
+
         public void StopClimbing() => StopClimbing(true);
 
         private void StopClimbing(bool clearSurface)
@@ -398,6 +431,9 @@ namespace Characters.Player.Climbing
             _climbStartPending = false;
             SurfaceTilt = 0f;
             ClimbInput = Vector2.zero;
+            if (IsSliding && _view != null) _view.SetSlideEffect(false, Vector3.zero);
+            IsSliding = false;
+            _slideSpeed = 0f;
             RestoreStandingCapsule(clearSurface);
             ClimbEnded?.Invoke();
             if (_view != null) _view.ClimbEnded();

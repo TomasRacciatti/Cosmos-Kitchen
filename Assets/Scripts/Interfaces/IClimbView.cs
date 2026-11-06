@@ -11,5 +11,7 @@ namespace Interfaces
         bool IsPlayingClimbStart { get; }
         
         void SetClimbMove(Vector2 move);
+
+        void SetSlideEffect(bool active, Vector3 surfacePoint);
     }
 }
