@@ -58,9 +58,9 @@ namespace Characters.Player.Climbing
             bool active = _climbing.IsClimbing && !_climbing.IsInClimbStart;
             _weight = Mathf.MoveTowards(_weight, active ? 1f : 0f, blendSpeed * dt);
             if (_weight <= 0f) return;
-
-            Vector3 wallNormal = _climbing.WallNormal;
-            Vector3 intoWall = -wallNormal;
+            
+            Vector3 intoWall = transform.forward;
+            Vector3 awayFromWall = -intoWall;
             LayerMask climbable = _climbing.Settings.ClimbableLayers;
 
             for (int i = 0; i < _limbs.Length; i++)
@@ -71,7 +71,7 @@ namespace Characters.Player.Climbing
                 Vector3 animated = limb.end.position;
                 bool onWall = Physics.Raycast(animated - intoWall * castBack, intoWall, out RaycastHit hit,
                     castBack + castReach, climbable, QueryTriggerInteraction.Ignore);
-                if (onWall) limb.Target = hit.point + wallNormal * surfaceOffset;
+                if (onWall) limb.Target = hit.point + awayFromWall * surfaceOffset;
 
                 // A limb past the wall's edge fades back to its animated pose instead of popping.
                 limb.Weight = Mathf.MoveTowards(limb.Weight, onWall ? 1f : 0f, blendSpeed * dt);
@@ -80,7 +80,7 @@ namespace Characters.Player.Climbing
 
                 // Elbows and knees point away from the wall if the limb is fully straight.
                 TwoBoneIKSolver.Solve(limb.upper, limb.lower, limb.end,
-                    Vector3.Lerp(animated, limb.Target, weight), wallNormal);
+                    Vector3.Lerp(animated, limb.Target, weight), awayFromWall);
             }
         }
 
