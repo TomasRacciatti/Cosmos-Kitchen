@@ -29,6 +29,8 @@ namespace Characters.Player
         private InteractComponent _interactComponent;
 
         public bool ActiveAndNoHUD => active && !inventoryOpen && !bookOpen && !menuOpen;
+        
+        public event Action JumpPressed;
 
         private void Awake()
         {
@@ -86,7 +88,9 @@ namespace Characters.Player
         {
             if (!active || inCinematic) return;
             jump = value.isPressed;
-            if (jump) _playerController.Jump();
+            if (!jump) return;
+            _playerController.Jump();
+            JumpPressed?.Invoke();
         }
 
         public void OnSprint(InputValue value)

@@ -16,7 +16,7 @@ namespace Characters.Player
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInputs))]
     [RequireComponent(typeof(PlayerView))]
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IPlayerMotor
     {
         [Header("Player")] public float moveSpeed = 3.0f;
         public float sprintSpeed = 4.5f;
@@ -69,6 +69,7 @@ namespace Characters.Player
         private float _targetRotation;
         private float _rotationVelocity;
         private float _verticalVelocity;
+        private Vector3 _launchVelocity; // horizontal push from Launch(), kept until we land
         private const float TerminalVelocity = 50.0f;
 
         // timeout deltatime
@@ -135,6 +136,7 @@ namespace Characters.Player
         private void OnClimbStarted()
         {
             _verticalVelocity = 0f;
+            _launchVelocity = Vector3.zero;
             _speed = 0f;
             _animationBlend = 0f;
             _playerView.SetSpeed(0f);
@@ -214,7 +216,9 @@ namespace Characters.Player
         {
             float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-            float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
+            // Exclude the launch push, otherwise it gets fed back into _speed every frame and keeps growing.
+            float currentHorizontalSpeed =
+                (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
             float speedOffset = 0.1f;
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
@@ -263,7 +267,7 @@ namespace Characters.Player
 
             // move the player
             _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+                             (_launchVelocity + new Vector3(0.0f, _verticalVelocity, 0.0f)) * Time.deltaTime);
 
             _playerView.SetSpeed(_animationBlend);
         }
@@ -279,6 +283,7 @@ namespace Characters.Player
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -1f;
+                    _launchVelocity = Vector3.zero; // landed
                 }
 
                 if (_jumpTimeoutDelta >= 0.0f)
@@ -315,6 +320,14 @@ namespace Characters.Player
                 _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 _playerView.Jumped();
             }
+        }
+
+        public void Launch(Vector3 velocity)
+        {
+            _verticalVelocity = velocity.y;
+            _launchVelocity = new Vector3(velocity.x, 0f, velocity.z);
+            _jumpTimeoutDelta = jumpTimeout;
+            _playerView.Jumped();
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

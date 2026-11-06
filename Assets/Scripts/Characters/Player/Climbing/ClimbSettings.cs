@@ -29,7 +29,21 @@ namespace Characters.Player.Climbing
         [Tooltip("How fast the player turns to face the wall.")]
         [SerializeField] private float rotationSharpness = 10f;
 
+        [Header("Transitions")]
+        [Tooltip("How far ahead of the capsule center a wall can be to grab it, when walking or jumping (m).")]
+        [SerializeField] private float grabDistance = 0.45f;
+        [Tooltip("How long the player must keep walking into a wall before it's grabbed automatically (s).")]
+        [SerializeField] private float autoGrabDelay = 0.1f;
+        [Tooltip("Velocity when jumping off a wall: x = away from the wall, y = up (m/s). Tutorial: (2, 5).")]
+        [SerializeField] private Vector2 jumpOffVelocity = new Vector2(2f, 5f);
+        [Tooltip("After jumping off a wall, how long before a wall can be grabbed again (s).")]
+        [SerializeField] private float regrabCooldown = 0.3f;
+
         public float ClimbSpeed => climbSpeed;
+        public float GrabDistance => grabDistance;
+        public float AutoGrabDelay => autoGrabDelay;
+        public Vector2 JumpOffVelocity => jumpOffVelocity;
+        public float RegrabCooldown => regrabCooldown;
         public LayerMask ClimbableLayers => climbableLayers;
         public float WallCheckDistance => wallCheckDistance;
         public float EdgeCheckOffset => edgeCheckOffset;

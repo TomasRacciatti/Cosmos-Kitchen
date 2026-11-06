@@ -1,0 +1,15 @@
+using UnityEngine;
+
+namespace Interfaces
+{
+    /// <summary>
+    /// The player's regular (walking/falling) movement, as seen by other movement modes such as climbing.
+    /// </summary>
+    public interface IPlayerMotor
+    {
+        bool Grounded { get; }
+
+        /// <summary>Starts an airborne launch with the given velocity (e.g. jumping off a wall).</summary>
+        void Launch(Vector3 velocity);
+    }
+}

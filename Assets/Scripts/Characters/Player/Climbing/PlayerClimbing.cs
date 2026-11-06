@@ -1,4 +1,5 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Characters.Player.Climbing
@@ -19,6 +20,7 @@ namespace Characters.Player.Climbing
         private const float InputDeadZone = 0.01f;
         private const float ConvexTolerance = 0.05f; // small bumps (< 5 cm) still count as the same surface
         private const float SameSurfaceDot = 0.99f;  // normals within ~8° count as the same surface
+        private const float MinGrabFacingDot = 0.7f; // must face the wall within ~45° to grab it
 
         // Corners of the cross-pattern probe, in (right, up) units of CrossProbeOffset.
         private static readonly Vector2[] ProbeCorners =
@@ -28,6 +30,12 @@ namespace Characters.Player.Climbing
 
         private CharacterController _controller;
         private PlayerInputs _input;
+        private IPlayerMotor _motor;
+        private Transform _cameraTransform;
+
+        private float _wallPushTimer;   // how long we've been walking into a grabbable wall
+        private Vector3 _lastWallNormal; // used for the jump-off direction
+        private float _regrabAllowedTime; // no grabbing before this time (set when jumping off)
 
         public bool IsClimbing { get; private set; }
 
@@ -38,11 +46,26 @@ namespace Characters.Player.Climbing
         {
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<PlayerInputs>();
+            _motor = GetComponent<IPlayerMotor>();
+        }
+
+        private void OnEnable()
+        {
+            _input.JumpPressed += OnJumpPressed;
+        }
+
+        private void OnDisable()
+        {
+            _input.JumpPressed -= OnJumpPressed;
         }
 
         private void Update()
         {
-            if (!IsClimbing) return;
+            if (!IsClimbing)
+            {
+                UpdateAutoGrab(Time.deltaTime);
+                return;
+            }
 
             Vector2 input = SquareToCircle(_input.move);
             float dt = Time.deltaTime;
@@ -68,6 +91,15 @@ namespace Characters.Player.Climbing
                 DrawDebugRay(origin, checkDirection, Color.magenta);
             }
             DrawDebugRay(origin, transform.forward * hit.distance, Color.green);
+
+            // Surface got flat enough to walk on (e.g. a ramp at the top) → walk.
+            // Climbing down onto the ground → walk (tutorial: ground raycast switches to WALKING).
+            if (!IsClimbableAngle(hit.normal) || (input.y < -InputDeadZone && _motor.Grounded))
+            {
+                StopClimbing();
+                return;
+            }
+            _lastWallNormal = hit.normal;
 
             // Wall-aligned axes: forward into the wall, up along its surface.
             Quaternion wallRotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
@@ -144,6 +176,74 @@ namespace Characters.Player.Climbing
             return foundInsideCorner;
         }
 
+        // Walking (or jumping) into a climbable wall for a moment grabs it.
+        private void UpdateAutoGrab(float dt)
+        {
+            bool pushingIntoWall = Time.time >= _regrabAllowedTime &&
+                                   _input.move.sqrMagnitude > InputDeadZone * InputDeadZone &&
+                                   HasGrabbableWallAhead(out Vector3 wallNormal) &&
+                                   Vector3.Dot(GetCameraRelativeMoveDirection(), -wallNormal) >= MinGrabFacingDot;
+            if (!pushingIntoWall)
+            {
+                _wallPushTimer = 0f;
+                return;
+            }
+
+            _wallPushTimer += dt;
+            if (_wallPushTimer >= settings.AutoGrabDelay) StartClimbing();
+        }
+
+        private void OnJumpPressed()
+        {
+            if (IsClimbing)
+            {
+                JumpOff();
+                return;
+            }
+
+            // Tutorial: jump while falling next to a wall grabs it (instant, no push delay needed).
+            if (!_motor.Grounded && Time.time >= _regrabAllowedTime && HasGrabbableWallAhead(out _)) StartClimbing();
+        }
+
+        // Same convention as walking: input is relative to the camera's yaw.
+        private Vector3 GetCameraRelativeMoveDirection()
+        {
+            if (_cameraTransform == null) _cameraTransform = Camera.main.transform; // cached on first use
+            Vector3 move = new Vector3(_input.move.x, 0f, _input.move.y).normalized;
+            return Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f) * move;
+        }
+
+        private void JumpOff()
+        {
+            StopClimbing();
+            _regrabAllowedTime = Time.time + settings.RegrabCooldown;
+            Vector3 away = Vector3.ProjectOnPlane(_lastWallNormal, Vector3.up).normalized;
+            Vector2 jumpOff = settings.JumpOffVelocity;
+            _motor.Launch(away * jumpOff.x + Vector3.up * jumpOff.y);
+        }
+
+        // A climbable wall close in front, that we're roughly facing.
+        private bool HasGrabbableWallAhead(out Vector3 wallNormal)
+        {
+            wallNormal = Vector3.zero;
+            Vector3 origin = transform.TransformPoint(_controller.center);
+            if (!Physics.Raycast(origin, transform.forward, out RaycastHit hit, settings.GrabDistance,
+                    settings.ClimbableLayers, QueryTriggerInteraction.Ignore))
+            {
+                return false;
+            }
+
+            wallNormal = hit.normal;
+            return IsClimbableAngle(hit.normal) && Vector3.Dot(transform.forward, -hit.normal) >= MinGrabFacingDot;
+        }
+
+        // Steeper than what the CharacterController can walk on, but not a ceiling.
+        private bool IsClimbableAngle(Vector3 normal)
+        {
+            float angle = Vector3.Angle(normal, Vector3.up);
+            return angle > _controller.slopeLimit && angle < 180f - _controller.slopeLimit;
+        }
+
         // True if the wall still continues a little ahead in the move direction.
         private bool HasWallAhead(Vector3 origin, Vector3 moveDirection, Vector3 wallForward)
         {
@@ -161,6 +261,7 @@ namespace Characters.Player.Climbing
         {
             if (IsClimbing) return;
             IsClimbing = true;
+            _wallPushTimer = 0f;
             ClimbStarted?.Invoke();
         }
 
