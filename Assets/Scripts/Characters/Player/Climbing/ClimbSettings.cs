@@ -34,8 +34,8 @@ namespace Characters.Player.Climbing
         [Min(0f)] [SerializeField] private float staminaRegenRate = 25f;
         [Tooltip("Time after letting go before stamina starts regenerating (s).")]
         [Min(0f)] [SerializeField] private float staminaRegenDelay = 0.5f;
-        [Tooltip("After running out, walls can't be grabbed until stamina refills to this fraction of the max (1 = full, like BOTW).")]
-        [Range(0f, 1f)] [SerializeField] private float staminaRecoverFraction = 1f;
+        [Tooltip("Walls can only be grabbed with at least this fraction of max stamina (0.15 = 15%).")]
+        [Range(0f, 1f)] [SerializeField] private float minStaminaToGrab = 0.15f;
         [Tooltip("Stamina spent per second while climbing (moving) on a vertical wall.")]
         [Min(0f)] [SerializeField] private float climbMoveDrain = 15f;
         [Tooltip("Stamina spent per second while hanging still on a vertical wall.")]
@@ -78,7 +78,7 @@ namespace Characters.Player.Climbing
         public float MaxStamina => maxStamina;
         public float StaminaRegenRate => staminaRegenRate;
         public float StaminaRegenDelay => staminaRegenDelay;
-        public float StaminaRecoverFraction => staminaRecoverFraction;
+        public float MinStaminaToGrab => minStaminaToGrab;
         public float ClimbMoveDrain => climbMoveDrain;
         public float ClimbIdleDrain => climbIdleDrain;
         public float InclineDrainMultiplier => inclineDrainMultiplier;

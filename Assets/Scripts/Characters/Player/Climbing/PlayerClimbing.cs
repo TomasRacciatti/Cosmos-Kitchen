@@ -287,8 +287,9 @@ namespace Characters.Player.Climbing
             return Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f) * move;
         }
 
-        private void JumpOff()
+        public void JumpOff()
         {
+            if (!IsClimbing) return;
             StopClimbing();
             _regrabAllowedTime = Time.time + settings.RegrabCooldown;
             Vector3 away = -FlatInto(_lastWallNormal);

@@ -8,6 +8,7 @@ namespace Characters.Player.Climbing
     public class ClimbStamina : MonoBehaviour, IStamina, IClimbGate
     {
         private const float MovingThreshold = 0.0001f;
+        private const float StraightWallTolerance = 5f; // degrees of lean-back still treated as a straight wall
 
         private PlayerClimbing _climbing;
         private ClimbSettings _settings;
@@ -17,7 +18,9 @@ namespace Characters.Player.Climbing
         public float Max => _settings.MaxStamina;
         public bool IsExhausted { get; private set; }
         public bool IsInUse => _climbing.IsClimbing;
-        public bool AllowsClimbing => !IsExhausted;
+        public bool AllowsClimbing => Current >= GrabFloor;
+
+        private float GrabFloor => Max * _settings.MinStaminaToGrab;
 
         public event Action Depleted;
         public event Action<float, float> Changed;
@@ -44,10 +47,14 @@ namespace Characters.Player.Climbing
             SetCurrent(Current - amount);
             if (Current > 0f) return;
 
-            // Out of stamina: let go of the wall (like BOTW) and stay exhausted until it recovers.
             IsExhausted = true;
             Depleted?.Invoke();
-            if (_climbing.IsClimbing) _climbing.StopClimbing();
+            if (!_climbing.IsClimbing) return;
+
+            // Straight walls and overhangs throw the player off with the jump-off push. Ramps just let go
+            // (to be replaced by sliding down the ramp).
+            if (_climbing.SurfaceTilt > -StraightWallTolerance) _climbing.JumpOff();
+            else _climbing.StopClimbing();
         }
 
         private void Regenerate(float dt)
@@ -56,7 +63,7 @@ namespace Characters.Player.Climbing
             if (Time.time - _lastConsumeTime < _settings.StaminaRegenDelay) return;
 
             SetCurrent(Current + _settings.StaminaRegenRate * dt);
-            if (IsExhausted && Current >= Max * _settings.StaminaRecoverFraction) IsExhausted = false;
+            if (IsExhausted && Current >= GrabFloor) IsExhausted = false;
         }
 
         private float GetDrainPerSecond()
