@@ -21,6 +21,7 @@ namespace Characters.Player.Climbing
         private const float ConvexTolerance = 0.05f;
         private const float SameSurfaceDot = 0.99f; 
         private const float MinGrabFacingDot = 0.7f;
+        private const float ClimbStartEnterTimeout = 0.25f;
 
         // Corners of the cross-pattern probe, in (right, up) units of CrossProbeOffset.
         private static readonly Vector2[] ProbeCorners =
@@ -31,13 +32,15 @@ namespace Characters.Player.Climbing
         private CharacterController _controller;
         private PlayerInputs _input;
         private IPlayerMotor _motor;
-        private IClimbView _view; // optional
+        private IClimbView _view; 
         private Transform _cameraTransform;
 
         private float _wallPushTimer;
         private Vector3 _lastWallNormal;
         private float _regrabAllowedTime;
-        private float _climbStartEndTime; // climb input is ignored until this time (Climb Start animation)
+        private bool _climbStartPending;
+        private bool _climbStartSeen;
+        private float _climbStartTime;
 
         public bool IsClimbing { get; private set; }
 
@@ -70,7 +73,9 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            Vector2 input = Time.time < _climbStartEndTime ? Vector2.zero : SquareToCircle(_input.move);
+            if (_climbStartPending) UpdateClimbStart();
+
+            Vector2 input = _climbStartPending ? Vector2.zero : SquareToCircle(_input.move);
             float dt = Time.deltaTime;
             
             Vector3 origin = transform.TransformPoint(_controller.center);
@@ -172,6 +177,23 @@ namespace Characters.Player.Climbing
             return foundInsideCorner;
         }
         
+        // Releases climb input once the Climb Start animation is over (its exit-time transition has begun).
+        private void UpdateClimbStart()
+        {
+            if (_view.IsPlayingClimbStart)
+            {
+                _climbStartSeen = true;
+                return;
+            }
+
+            // The Animator enters the state one frame after the grab. If it never does
+            // (e.g. state renamed), don't leave the player stuck.
+            if (_climbStartSeen || Time.time - _climbStartTime > ClimbStartEnterTimeout)
+            {
+                _climbStartPending = false;
+            }
+        }
+
         private void UpdateAutoGrab(float dt)
         {
             bool pushingIntoWall = Time.time >= _regrabAllowedTime &&
@@ -253,7 +275,9 @@ namespace Characters.Player.Climbing
             if (IsClimbing) return;
             IsClimbing = true;
             _wallPushTimer = 0f;
-            _climbStartEndTime = fromGround ? Time.time + settings.ClimbStartDuration : 0f;
+            _climbStartPending = fromGround && _view != null;
+            _climbStartSeen = false;
+            _climbStartTime = Time.time;
             ClimbStarted?.Invoke();
             if (_view != null) _view.ClimbStarted(fromGround);
         }
@@ -262,6 +286,7 @@ namespace Characters.Player.Climbing
         {
             if (!IsClimbing) return;
             IsClimbing = false;
+            _climbStartPending = false;
             ClimbEnded?.Invoke();
             if (_view != null) _view.ClimbEnded();
         }

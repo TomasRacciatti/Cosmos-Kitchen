@@ -10,6 +10,11 @@ namespace Characters.Player
         [Header("Climbing")]
         [Tooltip("Smoothing time for the climb blend tree parameters (s).")]
         [SerializeField] private float climbMoveDampTime = 0.1f;
+        [Tooltip("Name of the Climb Start state in the Animator (Base Layer). Climb input is held while it plays.")]
+        [SerializeField] private string climbStartStateName = "Player_ClimbStart";
+
+        private const int BaseLayer = 0;
+        private int _climbStartStateHash;
 
         [SerializeField] private AudioCue damagedCue;
         [SerializeField] private AudioCue footstepCue;
@@ -39,6 +44,7 @@ namespace Characters.Player
         {
             _audioSource = GetComponent<AudioSource>();
             _playerController = GetComponent<PlayerController>();
+            _climbStartStateHash = Animator.StringToHash(climbStartStateName);
         }
 
         private void Start()
@@ -129,10 +135,23 @@ namespace Characters.Player
             animator.SetTrigger(fromGround ? AnimIDClimbStart : AnimIDClimbGrab);
         }
 
+        public bool IsPlayingClimbStart
+        {
+            get
+            {
+                // Entering Climb Start counts as playing; leaving it (its exit-time transition) does not.
+                if (animator.IsInTransition(BaseLayer))
+                {
+                    return animator.GetNextAnimatorStateInfo(BaseLayer).shortNameHash == _climbStartStateHash;
+                }
+                return animator.GetCurrentAnimatorStateInfo(BaseLayer).shortNameHash == _climbStartStateHash;
+            }
+        }
+
         public void ClimbEnded()
         {
             animator.SetBool(AnimIDClimbing, false);
-            // Clear any grab trigger that wasn't consumed, so it can't fire later.
+            // Clear any climb trigger that wasn't consumed, so it can't fire later.
             animator.ResetTrigger(AnimIDClimbStart);
             animator.ResetTrigger(AnimIDClimbGrab);
         }
