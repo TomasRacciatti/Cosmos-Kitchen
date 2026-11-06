@@ -33,9 +33,35 @@ namespace Characters.Player.Climbing
             if (!IsClimbing) return;
 
             Vector2 input = SquareToCircle(_input.move);
-            
-            Vector3 velocity = transform.TransformDirection(input) * settings.ClimbSpeed;
-            _controller.Move(velocity * Time.deltaTime);
+            float dt = Time.deltaTime;
+
+            // Cast from the capsule center (the root pivot is at the feet).
+            Vector3 origin = transform.TransformPoint(_controller.center);
+            if (!Physics.Raycast(origin, transform.forward, out RaycastHit hit, settings.WallCheckDistance,
+                    settings.ClimbableLayers, QueryTriggerInteraction.Ignore))
+            {
+                StopClimbing();
+                return;
+            }
+
+            // Wall-aligned axes: forward into the wall, up along its surface.
+            Quaternion wallRotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
+
+            // Face the wall. Only yaw on the root: the CharacterController capsule can't tilt.
+            Vector3 flatForward = Vector3.ProjectOnPlane(-hit.normal, Vector3.up);
+            if (flatForward.sqrMagnitude > 0.0001f)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(flatForward),
+                    settings.RotationSharpness * dt);
+            }
+
+            // Pull the capsule to a fixed distance from the wall (tutorial: hit.point + hit.normal * offset).
+            float wallDistance = _controller.radius + _controller.skinWidth + settings.WallGap;
+            Vector3 targetOrigin = hit.point + hit.normal * wallDistance;
+            Vector3 snap = Vector3.Lerp(origin, targetOrigin, settings.SnapSharpness * dt) - origin;
+
+            Vector3 velocity = wallRotation * new Vector3(input.x, input.y, 0f) * settings.ClimbSpeed;
+            _controller.Move(snap + velocity * dt);
         }
 
         public void StartClimbing()

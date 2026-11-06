@@ -12,8 +12,22 @@ namespace Characters.Player.Climbing
         [Header("Detection")]
         [Tooltip("Only colliders on these layers can be climbed.")]
         [SerializeField] private LayerMask climbableLayers;
+        [Tooltip("How far ahead (from the capsule center) the wall check ray reaches (m).")]
+        [SerializeField] private float wallCheckDistance = 1f;
+
+        [Header("Wall Alignment")]
+        [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
+        [SerializeField] private float wallGap = 0.01f;
+        [Tooltip("How fast the player is pulled to the correct distance from the wall.")]
+        [SerializeField] private float snapSharpness = 10f;
+        [Tooltip("How fast the player turns to face the wall.")]
+        [SerializeField] private float rotationSharpness = 10f;
 
         public float ClimbSpeed => climbSpeed;
         public LayerMask ClimbableLayers => climbableLayers;
+        public float WallCheckDistance => wallCheckDistance;
+        public float WallGap => wallGap;
+        public float SnapSharpness => snapSharpness;
+        public float RotationSharpness => rotationSharpness;
     }
 }
