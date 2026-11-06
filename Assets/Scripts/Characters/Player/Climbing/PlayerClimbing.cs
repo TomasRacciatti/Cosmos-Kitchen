@@ -286,8 +286,8 @@ namespace Characters.Player.Climbing
 
             _wallPushTimer += dt;
             if (_wallPushTimer < settings.AutoGrabDelay) return;
-
-            bool playClimbStart = _motor.Grounded &&
+            Vector3 origin = transform.TransformPoint(_controller.center);
+            bool playClimbStart = IsFeetOnGround(origin) &&
                                   GetSurfaceTilt(surfaceNormal) >= -settings.ClimbStartMaxInclination;
             StartClimbing(surfaceNormal, playClimbStart);
         }
@@ -359,9 +359,7 @@ namespace Characters.Player.Climbing
         {
             return Vector3.ProjectOnPlane(-normal, Vector3.up).normalized;
         }
-
-        // The surface must continue a little ahead and not be an overhang beyond the max;
-        // otherwise movement that way is blocked instead of dropping the player off the edge.
+        
         private bool CanMoveToward(Vector3 origin, Vector3 moveDirection, Vector3 intoSurface)
         {
             Vector3 probeOrigin = origin + moveDirection * settings.EdgeCheckOffset;
@@ -402,7 +400,6 @@ namespace Characters.Player.Climbing
             _climbStartTime = Time.time;
 
             // Face the surface immediately so the first wall ray finds it, even on shallow ramps
-            // (the model's lean is smoothed separately).
             _climbRotation = Quaternion.LookRotation(-surfaceNormal, Vector3.up);
             _lastWallNormal = surfaceNormal;
             _hasWallPoint = false;
@@ -438,11 +435,7 @@ namespace Characters.Player.Climbing
             ClimbEnded?.Invoke();
             if (_view != null) _view.ClimbEnded();
         }
-
-        // The full capsule has to be placed where it fits. Otherwise the CharacterController shoves itself
-        // out of the geometry in one frame, and PlayerController reads that shove as walking speed.
-        // clearSurface is false at the top of a ramp: its plane doesn't continue past the edge, so pushing
-        // out of it would only shove the player backward.
+        
         private void RestoreStandingCapsule(bool clearSurface)
         {
             _controller.height = _standingHeight;
@@ -451,13 +444,11 @@ namespace Characters.Player.Climbing
             correction += Vector3.up * GetGroundLift(correction);
             if (correction.sqrMagnitude <= 0f) return;
 
-            _controller.enabled = false; // required to teleport a CharacterController
+            _controller.enabled = false; 
             transform.position += correction;
             _controller.enabled = true;
         }
-
-        // On a non-vertical surface one end of the upright capsule leans into it.
-        // Push out along the normal until both end spheres clear the surface plane.
+        
         private Vector3 GetSurfaceClearance()
         {
             if (!_hasWallPoint) return Vector3.zero;
