@@ -24,6 +24,9 @@ namespace Characters.Player.Climbing
         [Range(0f, 89f)] [SerializeField] private float maxInclination = 60f;
         [Tooltip("How far a surface can lean over the player (overhang) and still be climbed (degrees). Steeper overhangs block movement.")]
         [Range(0f, 89f)] [SerializeField] private float maxDeclination = 45f;
+        [Tooltip("Ramps leaning back more than this (degrees from vertical) skip the Climb Start animation " +
+                 "and go straight to climbing, even when grabbed from the ground.")]
+        [Range(0f, 89f)] [SerializeField] private float climbStartMaxInclination = 30f;
 
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
@@ -54,6 +57,7 @@ namespace Characters.Player.Climbing
         public float CrossProbeOffset => crossProbeOffset;
         public float MaxInclination => maxInclination;
         public float MaxDeclination => maxDeclination;
+        public float ClimbStartMaxInclination => climbStartMaxInclination;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

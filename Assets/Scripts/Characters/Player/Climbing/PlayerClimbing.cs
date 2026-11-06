@@ -250,7 +250,12 @@ namespace Characters.Player.Climbing
             }
 
             _wallPushTimer += dt;
-            if (_wallPushTimer >= settings.AutoGrabDelay) StartClimbing(surfaceNormal, _motor.Grounded);
+            if (_wallPushTimer < settings.AutoGrabDelay) return;
+
+            // Climb Start only when grabbing from standing, and not on shallow ramps (you just step onto those).
+            bool playClimbStart = _motor.Grounded &&
+                                  GetSurfaceTilt(surfaceNormal) >= -settings.ClimbStartMaxInclination;
+            StartClimbing(surfaceNormal, playClimbStart);
         }
 
         private void OnJumpPressed()
