@@ -117,7 +117,7 @@ MonoBehaviour:
   CameraDistance: 2.5
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8193
   IgnoreTag: Player
   CameraRadius: 0.15
   DampingIntoCollision: 0
@@ -141,6 +141,8 @@ GameObject:
   - component: {fileID: 7786476632260096319}
   - component: {fileID: 7455017732512246545}
   - component: {fileID: 5439726432950881100}
+  - component: {fileID: 5517711386096988694}
+  - component: {fileID: 646086537603487468}
   m_Layer: 9
   m_Name: PlayerArmature
   m_TagString: Player
@@ -234,7 +236,7 @@ MonoBehaviour:
   grounded: 1
   groundLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 8193
   groundedOffset: 0.1
   cinemachineCameraTarget1: {fileID: 8477347015847489024}
   cinemachineCameraTarget2: {fileID: 3681948017350630616}
@@ -456,6 +458,32 @@ MonoBehaviour:
   m_Events:
     m_Signals: []
     m_Events: []
+--- !u!114 &5517711386096988694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205784997367604600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a7201cc2f42db146907a8b6cc4220f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: c2b8ebf87ab10a3499e054a4a5a093ff, type: 2}
+--- !u!114 &646086537603487468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3205784997367604600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af90dc70eaf140a44b933fbb3c9a2b24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggleKey: 17
 --- !u!1 &3681948017350630616
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +585,7 @@ Transform:
   m_GameObject: {fileID: 6580661204044910940}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3999997, y: 1.5, z: -2.4999998}
+  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -633,7 +661,7 @@ Transform:
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3999997, y: 1.5, z: -2.4999998}
+  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

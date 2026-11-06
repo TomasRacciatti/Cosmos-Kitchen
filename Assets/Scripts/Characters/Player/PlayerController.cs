@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Characters.Customers;
+using Characters.Player.Climbing;
 using Cinemachine;
 using Interfaces;
 using Items.Inventory;
@@ -79,8 +80,11 @@ namespace Characters.Player
         private CharacterController _characterController;
         private PlayerView _playerView;
         private InvSystem _inventory;
+        private PlayerClimbing _climbing; // optional: climbing takes over movement while active
 
         private const float Threshold = 0.01f;
+
+        private bool IsClimbing => _climbing != null && _climbing.IsClimbing;
 
         public InvSystem Inventory => _inventory;
         public PlayerInputs Input => _input;
@@ -113,7 +117,27 @@ namespace Characters.Player
             _input = GetComponent<PlayerInputs>();
             _controller = GetComponent<CharacterController>();
             _inventory = GetComponent<InvSystem>();
+            _climbing = GetComponent<PlayerClimbing>();
             SetCamera(ThirdPersonCamera);
+        }
+
+        private void OnEnable()
+        {
+            if (_climbing != null) _climbing.ClimbStarted += OnClimbStarted;
+        }
+
+        private void OnDisable()
+        {
+            if (_climbing != null) _climbing.ClimbStarted -= OnClimbStarted;
+        }
+
+        // Drop any walking/falling momentum so it doesn't carry over once climbing ends.
+        private void OnClimbStarted()
+        {
+            _verticalVelocity = 0f;
+            _speed = 0f;
+            _animationBlend = 0f;
+            _playerView.SetSpeed(0f);
         }
 
         private void Start()
@@ -129,6 +153,7 @@ namespace Characters.Player
         private void Update()
         {
             GroundedCheck();
+            if (IsClimbing) return; // PlayerClimbing moves the controller instead
             CeilingCheck();
             VerticalMovement();
             HorizontalMovement();
@@ -283,6 +308,7 @@ namespace Characters.Player
 
         public void Jump()
         {
+            if (IsClimbing) return; // jumping off walls is handled by PlayerClimbing (Iteration 2)
             if (_jumpTimeoutDelta <= 0.0f)
             {
                 // the square root of H * -2 * G = how much velocity needed to reach desired height
