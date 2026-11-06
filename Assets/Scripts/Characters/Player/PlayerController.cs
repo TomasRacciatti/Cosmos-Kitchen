@@ -69,7 +69,7 @@ namespace Characters.Player
         private float _targetRotation;
         private float _rotationVelocity;
         private float _verticalVelocity;
-        private Vector3 _launchVelocity; // horizontal push from Launch(), kept until we land
+        private Vector3 _launchVelocity; 
         private const float TerminalVelocity = 50.0f;
 
         // timeout deltatime
@@ -81,7 +81,7 @@ namespace Characters.Player
         private CharacterController _characterController;
         private PlayerView _playerView;
         private InvSystem _inventory;
-        private PlayerClimbing _climbing; // optional: climbing takes over movement while active
+        private PlayerClimbing _climbing; 
 
         private const float Threshold = 0.01f;
 
@@ -216,7 +216,6 @@ namespace Characters.Player
         {
             float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-            // Exclude the launch push, otherwise it gets fed back into _speed every frame and keeps growing.
             float currentHorizontalSpeed =
                 (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
             float speedOffset = 0.1f;

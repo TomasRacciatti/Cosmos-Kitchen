@@ -18,9 +18,9 @@ namespace Characters.Player.Climbing
         [SerializeField] private bool drawDebugRays;
 
         private const float InputDeadZone = 0.01f;
-        private const float ConvexTolerance = 0.05f; // small bumps (< 5 cm) still count as the same surface
-        private const float SameSurfaceDot = 0.99f;  // normals within ~8° count as the same surface
-        private const float MinGrabFacingDot = 0.7f; // must face the wall within ~45° to grab it
+        private const float ConvexTolerance = 0.05f;
+        private const float SameSurfaceDot = 0.99f; 
+        private const float MinGrabFacingDot = 0.7f;
 
         // Corners of the cross-pattern probe, in (right, up) units of CrossProbeOffset.
         private static readonly Vector2[] ProbeCorners =
@@ -33,9 +33,9 @@ namespace Characters.Player.Climbing
         private IPlayerMotor _motor;
         private Transform _cameraTransform;
 
-        private float _wallPushTimer;   // how long we've been walking into a grabbable wall
-        private Vector3 _lastWallNormal; // used for the jump-off direction
-        private float _regrabAllowedTime; // no grabbing before this time (set when jumping off)
+        private float _wallPushTimer;
+        private Vector3 _lastWallNormal;
+        private float _regrabAllowedTime;
 
         public bool IsClimbing { get; private set; }
 
@@ -69,19 +69,16 @@ namespace Characters.Player.Climbing
 
             Vector2 input = SquareToCircle(_input.move);
             float dt = Time.deltaTime;
-
-            // Cast from the capsule center (the root pivot is at the feet).
+            
             Vector3 origin = transform.TransformPoint(_controller.center);
-
-            // Straight-ahead ray is the anchor (this is what carries us around outside corners).
+            
             if (!Physics.Raycast(origin, transform.forward, out RaycastHit hit, settings.WallCheckDistance,
                     settings.ClimbableLayers, QueryTriggerInteraction.Ignore))
             {
                 StopClimbing();
                 return;
             }
-
-            // Only at an inside corner: re-check along the averaged cross-pattern direction to turn into it.
+            
             // Everywhere else the straight-ahead hit is used as-is (same as the single-ray version).
             if (TryGetInsideCornerDirection(origin, hit, out Vector3 checkDirection) &&
                 Physics.Raycast(origin, checkDirection, out RaycastHit averagedHit, settings.WallCheckDistance,
@@ -91,28 +88,23 @@ namespace Characters.Player.Climbing
                 DrawDebugRay(origin, checkDirection, Color.magenta);
             }
             DrawDebugRay(origin, transform.forward * hit.distance, Color.green);
-
-            // Surface got flat enough to walk on (e.g. a ramp at the top) → walk.
-            // Climbing down onto the ground → walk (tutorial: ground raycast switches to WALKING).
+            
             if (!IsClimbableAngle(hit.normal) || (input.y < -InputDeadZone && _motor.Grounded))
             {
                 StopClimbing();
                 return;
             }
             _lastWallNormal = hit.normal;
-
-            // Wall-aligned axes: forward into the wall, up along its surface.
+            
             Quaternion wallRotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
-
-            // Face the wall. Only yaw on the root: the CharacterController capsule can't tilt.
+            
             Vector3 flatForward = Vector3.ProjectOnPlane(-hit.normal, Vector3.up);
             if (flatForward.sqrMagnitude > 0.0001f)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(flatForward),
                     settings.RotationSharpness * dt);
             }
-
-            // Pull the capsule to a fixed distance from the wall (tutorial: hit.point + hit.normal * offset).
+            
             float wallDistance = _controller.radius + _controller.skinWidth + settings.WallGap;
             Vector3 targetOrigin = hit.point + hit.normal * wallDistance;
             Vector3 snap = Vector3.Lerp(origin, targetOrigin, settings.SnapSharpness * dt) - origin;
@@ -154,9 +146,7 @@ namespace Characters.Player.Climbing
                     DrawDebugRay(probeOrigin, forward * settings.WallCheckDistance, Color.red);
                     continue;
                 }
-
-                // Height of the probe hit above the front surface's plane:
-                // behind it = the wall bends away (outside corner), in front of it = it bends toward us (inside corner).
+                
                 float depth = Vector3.Dot(frontHit.normal, probeHit.point - frontHit.point);
                 if (depth < -ConvexTolerance)
                 {
@@ -175,8 +165,7 @@ namespace Characters.Player.Climbing
             direction = normalSum.sqrMagnitude > 0.0001f ? -normalSum.normalized : forward;
             return foundInsideCorner;
         }
-
-        // Walking (or jumping) into a climbable wall for a moment grabs it.
+        
         private void UpdateAutoGrab(float dt)
         {
             bool pushingIntoWall = Time.time >= _regrabAllowedTime &&
@@ -200,15 +189,13 @@ namespace Characters.Player.Climbing
                 JumpOff();
                 return;
             }
-
-            // Tutorial: jump while falling next to a wall grabs it (instant, no push delay needed).
+            
             if (!_motor.Grounded && Time.time >= _regrabAllowedTime && HasGrabbableWallAhead(out _)) StartClimbing();
         }
-
-        // Same convention as walking: input is relative to the camera's yaw.
+        
         private Vector3 GetCameraRelativeMoveDirection()
         {
-            if (_cameraTransform == null) _cameraTransform = Camera.main.transform; // cached on first use
+            if (_cameraTransform == null) _cameraTransform = Camera.main.transform;
             Vector3 move = new Vector3(_input.move.x, 0f, _input.move.y).normalized;
             return Quaternion.Euler(0f, _cameraTransform.eulerAngles.y, 0f) * move;
         }
@@ -221,8 +208,7 @@ namespace Characters.Player.Climbing
             Vector2 jumpOff = settings.JumpOffVelocity;
             _motor.Launch(away * jumpOff.x + Vector3.up * jumpOff.y);
         }
-
-        // A climbable wall close in front, that we're roughly facing.
+        
         private bool HasGrabbableWallAhead(out Vector3 wallNormal)
         {
             wallNormal = Vector3.zero;
@@ -236,15 +222,13 @@ namespace Characters.Player.Climbing
             wallNormal = hit.normal;
             return IsClimbableAngle(hit.normal) && Vector3.Dot(transform.forward, -hit.normal) >= MinGrabFacingDot;
         }
-
-        // Steeper than what the CharacterController can walk on, but not a ceiling.
+        
         private bool IsClimbableAngle(Vector3 normal)
         {
             float angle = Vector3.Angle(normal, Vector3.up);
             return angle > _controller.slopeLimit && angle < 180f - _controller.slopeLimit;
         }
-
-        // True if the wall still continues a little ahead in the move direction.
+        
         private bool HasWallAhead(Vector3 origin, Vector3 moveDirection, Vector3 wallForward)
         {
             Vector3 probeOrigin = origin + moveDirection * settings.EdgeCheckOffset;
@@ -271,8 +255,7 @@ namespace Characters.Player.Climbing
             IsClimbing = false;
             ClimbEnded?.Invoke();
         }
-
-        // Keeps diagonal input from being faster than straight input.
+        
         private static Vector2 SquareToCircle(Vector2 input)
         {
             return input.sqrMagnitude >= 1f ? input.normalized : input;
