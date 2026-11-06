@@ -2,12 +2,7 @@ using UnityEngine;
 
 namespace Characters.Player.Climbing
 {
-    /// <summary>
-    /// While climbing, moves the camera follow targets away from the surface.
-    /// The targets sit on the upright player root, so under overhangs they would end up inside the
-    /// geometry and the camera's collision would pull it into the character's head.
-    /// </summary>
-    [DefaultExecutionOrder(100)] // after PlayerClimbing has updated the climbing frame
+    [DefaultExecutionOrder(100)]
     [RequireComponent(typeof(PlayerClimbing))]
     public class ClimbCameraClearance : MonoBehaviour
     {
@@ -20,7 +15,7 @@ namespace Characters.Player.Climbing
 
         private PlayerClimbing _climbing;
         private Vector3[] _baseLocalPositions;
-        private Vector3 _offset; // current push, in world space
+        private Vector3 _offset;
 
         private void Awake()
         {

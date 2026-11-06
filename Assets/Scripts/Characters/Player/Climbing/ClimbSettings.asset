@@ -18,6 +18,18 @@ MonoBehaviour:
     m_Bits: 8192
   wallCheckDistance: 1.5
   edgeCheckOffset: 0.1
+  crossProbeOffset: 0.3
+  maxInclination: 55
+  maxDeclination: 45
+  climbStartMaxInclination: 30
+  climbMoveDrain: 15
+  climbIdleDrain: 3
+  inclineDrainMultiplier: 0.5
+  declineDrainMultiplier: 2
   wallGap: 0.01
   snapSharpness: 10
   rotationSharpness: 10
+  grabDistance: 0.45
+  autoGrabDelay: 0.1
+  jumpOffVelocity: {x: 2, y: 5}
+  regrabCooldown: 0.3

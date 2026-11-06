@@ -28,6 +28,23 @@ namespace Characters.Player.Climbing
                  "and go straight to climbing, even when grabbed from the ground.")]
         [Range(0f, 89f)] [SerializeField] private float climbStartMaxInclination = 30f;
 
+        [Header("Stamina")]
+        [Min(1f)] [SerializeField] private float maxStamina = 100f;
+        [Tooltip("Stamina regained per second while not climbing.")]
+        [Min(0f)] [SerializeField] private float staminaRegenRate = 25f;
+        [Tooltip("Time after letting go before stamina starts regenerating (s).")]
+        [Min(0f)] [SerializeField] private float staminaRegenDelay = 0.5f;
+        [Tooltip("After running out, walls can't be grabbed until stamina refills to this fraction of the max (1 = full, like BOTW).")]
+        [Range(0f, 1f)] [SerializeField] private float staminaRecoverFraction = 1f;
+        [Tooltip("Stamina spent per second while climbing (moving) on a vertical wall.")]
+        [Min(0f)] [SerializeField] private float climbMoveDrain = 15f;
+        [Tooltip("Stamina spent per second while hanging still on a vertical wall.")]
+        [Min(0f)] [SerializeField] private float climbIdleDrain = 3f;
+        [Tooltip("Drain multiplier on a ramp at Max Inclination (blends from 1 on a vertical wall). Below 1 = cheaper.")]
+        [Min(0f)] [SerializeField] private float inclineDrainMultiplier = 0.5f;
+        [Tooltip("Drain multiplier on an overhang at Max Declination (blends from 1 on a vertical wall). Above 1 = costlier.")]
+        [Min(0f)] [SerializeField] private float declineDrainMultiplier = 2f;
+
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
         [SerializeField] private float wallGap = 0.01f;
@@ -58,6 +75,14 @@ namespace Characters.Player.Climbing
         public float MaxInclination => maxInclination;
         public float MaxDeclination => maxDeclination;
         public float ClimbStartMaxInclination => climbStartMaxInclination;
+        public float MaxStamina => maxStamina;
+        public float StaminaRegenRate => staminaRegenRate;
+        public float StaminaRegenDelay => staminaRegenDelay;
+        public float StaminaRecoverFraction => staminaRecoverFraction;
+        public float ClimbMoveDrain => climbMoveDrain;
+        public float ClimbIdleDrain => climbIdleDrain;
+        public float InclineDrainMultiplier => inclineDrainMultiplier;
+        public float DeclineDrainMultiplier => declineDrainMultiplier;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

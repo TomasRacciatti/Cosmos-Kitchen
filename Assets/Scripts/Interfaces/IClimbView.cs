@@ -7,7 +7,7 @@ namespace Interfaces
         void ClimbStarted(bool fromGround);
         void ClimbEnded();
 
-        /// <summary>True while the Climb Start animation is playing (until its exit transition begins).</summary>
+        // Becomes false as soon as Climb Start's exit transition begins.
         bool IsPlayingClimbStart { get; }
         
         void SetClimbMove(Vector2 move);

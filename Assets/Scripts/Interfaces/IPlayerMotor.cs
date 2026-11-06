@@ -2,9 +2,7 @@ using UnityEngine;
 
 namespace Interfaces
 {
-    /// <summary>
-    /// The player's regular (walking/falling) movement, as seen by other movement modes such as climbing.
-    /// </summary>
+    // The player's regular walking/falling movement, as seen by other movement modes (e.g. climbing).
     public interface IPlayerMotor
     {
         bool Grounded { get; }

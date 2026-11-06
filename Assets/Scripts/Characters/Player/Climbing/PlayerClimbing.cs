@@ -4,12 +4,8 @@ using UnityEngine;
 
 namespace Characters.Player.Climbing
 {
-    /// <summary>
-    /// Climbing movement on walls, ramps (inclination) and overhangs (declination).
-    /// Owns the CharacterController while climbing;
-    /// PlayerController steps aside whenever <see cref="IsClimbing"/> is true.
-    /// Based on the Madalaski BOTW climbing tutorial, adapted to CharacterController + Input System.
-    /// </summary>
+    // Based on the Madalaski BOTW climbing tutorial, adapted to CharacterController + Input System.
+    // PlayerController steps aside while IsClimbing is true.
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInputs))]
     public class PlayerClimbing : MonoBehaviour
@@ -23,10 +19,10 @@ namespace Characters.Player.Climbing
         private const float SameSurfaceDot = 0.99f;
         private const float MinGrabFacingDot = 0.7f;
         private const float ClimbStartEnterTimeout = 0.25f;
-        private const float GroundProbeMargin = 0.1f;  // extra reach below the feet when looking for ground
-        private const float StandUpProbeExtra = 0.5f;  // how far below the feet we look for ground when standing up
+        private const float GroundProbeMargin = 0.1f;
+        private const float StandUpProbeExtra = 0.5f;
 
-        // Corners of the cross-pattern probe, in (right, up) units of CrossProbeOffset.
+        // Cross-pattern probe corners, in (right, up) units of CrossProbeOffset.
         private static readonly Vector2[] ProbeCorners =
         {
             new Vector2(1f, 1f), new Vector2(-1f, 1f), new Vector2(-1f, -1f), new Vector2(1f, -1f)
@@ -36,6 +32,7 @@ namespace Characters.Player.Climbing
         private PlayerInputs _input;
         private IPlayerMotor _motor;
         private IClimbView _view;
+        private IClimbGate[] _gates;
         private Transform _cameraTransform;
 
         private float _wallPushTimer;
@@ -46,23 +43,38 @@ namespace Characters.Player.Climbing
         private bool _climbStartPending;
         private bool _climbStartSeen;
         private float _climbStartTime;
-        
+
+        // Forward into the surface, pitched on ramps/overhangs. The root itself only yaws,
+        // because the CharacterController capsule can't tilt.
         private Quaternion _climbRotation = Quaternion.identity;
         private float _standingHeight;
-        
+
         private Vector3 _contactNormal;
         private int _contactFrame = -1;
 
         public bool IsClimbing { get; private set; }
-        
         public bool IsInClimbStart => _climbStartPending;
-        
         public Vector3 WallNormal => _lastWallNormal;
-        
         public Quaternion ClimbRotation => _climbRotation;
         public Vector3 ClimbForward => _climbRotation * Vector3.forward;
-        
+
+        // Degrees from a vertical wall: negative = ramp (inclination), positive = overhang (declination).
         public float SurfaceTilt { get; private set; }
+
+        // After edge blocking, so it's what the player actually does (x = right, y = up).
+        public Vector2 ClimbInput { get; private set; }
+
+        public bool CanClimb
+        {
+            get
+            {
+                for (int i = 0; i < _gates.Length; i++)
+                {
+                    if (!_gates[i].AllowsClimbing) return false;
+                }
+                return true;
+            }
+        }
 
         public ClimbSettings Settings => settings;
 
@@ -75,6 +87,7 @@ namespace Characters.Player.Climbing
             _input = GetComponent<PlayerInputs>();
             _motor = GetComponent<IPlayerMotor>();
             _view = GetComponent<IClimbView>();
+            _gates = GetComponents<IClimbGate>();
             _standingHeight = _controller.height;
         }
 
@@ -111,7 +124,8 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            // Everywhere else the straight-ahead hit is used as-is (same as the single-ray version).
+            // The straight-ahead ray carries us around outside corners. The averaged cross-pattern ray is
+            // only used at inside corners: averaging everywhere pulls us back onto the face we're leaving.
             if (TryGetInsideCornerDirection(origin, hit, out Vector3 checkDirection) &&
                 Physics.Raycast(origin, checkDirection, out RaycastHit averagedHit, settings.WallCheckDistance,
                     settings.ClimbableLayers, QueryTriggerInteraction.Ignore) &&
@@ -122,14 +136,12 @@ namespace Characters.Player.Climbing
             }
             DrawDebugRay(origin, forward * hit.distance, Color.green);
 
-            // Surface got too flat to climb (e.g. top of a ramp) → stand on it.
             if (GetSurfaceTilt(hit.normal) < -settings.MaxInclination)
             {
                 StopClimbing(clearSurface: false);
                 return;
             }
 
-            // Climbing down onto walkable ground → walk (tutorial: ground raycast switches to WALKING).
             if (input.y < -InputDeadZone && IsFeetOnGround(origin))
             {
                 StopClimbing();
@@ -139,7 +151,6 @@ namespace Characters.Player.Climbing
             _lastWallPoint = hit.point;
             _hasWallPoint = true;
 
-            // Turn the climbing frame to face the surface (tutorial: transform.forward = -hit.normal), smoothed.
             Quaternion surfaceRotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
             _climbRotation = Quaternion.Slerp(_climbRotation, surfaceRotation, settings.RotationSharpness * dt);
             forward = ClimbForward;
@@ -150,7 +161,6 @@ namespace Characters.Player.Climbing
             Vector3 targetOrigin = hit.point + hit.normal * wallDistance;
             Vector3 snap = Vector3.Lerp(origin, targetOrigin, settings.SnapSharpness * dt) - origin;
 
-            // Block movement toward an edge (>90° corner) or onto an overhang steeper than allowed.
             Vector3 right = _climbRotation * Vector3.right;
             Vector3 up = _climbRotation * Vector3.up;
             if (Mathf.Abs(input.x) > InputDeadZone && !CanMoveToward(origin, right * Mathf.Sign(input.x), forward))
@@ -165,22 +175,22 @@ namespace Characters.Player.Climbing
             Vector3 velocity = (right * input.x + up * input.y) * settings.ClimbSpeed;
             _controller.Move(snap + velocity * dt);
 
-            // Animate with the input that was actually applied (blocked edges = idle).
+            ClimbInput = input;
             if (_view != null) _view.SetClimbMove(input);
         }
 
-        // Remember climbable surfaces we bump into (walls, but also ramps under our feet).
+        // Catches climbable surfaces the forward ray can't see, like a ramp under our feet.
         private void OnControllerColliderHit(ControllerColliderHit hit)
         {
             if (IsClimbing || (settings.ClimbableLayers.value & (1 << hit.gameObject.layer)) == 0) return;
-            if (!IsClimbableTilt(GetSurfaceTilt(hit.normal))) return; // e.g. the flat top of a climbable block
+            if (!IsClimbableTilt(GetSurfaceTilt(hit.normal))) return;
             _contactNormal = hit.normal;
             _contactFrame = Time.frameCount;
         }
 
-        // 4 rays from the corners around the capsule center, cast forward.
-        // Returns true if any probe finds a surface angled toward us (inside corner), with the averaged
-        // direction into the wall. Surfaces bending away (outside corners) are ignored.
+        // Tutorial's cross pattern: 4 forward rays around the center. Probe hits behind the front
+        // surface's plane are an outside corner (ignored); hits clearly in front of it with a different
+        // normal are an inside corner. Returns whether one was found, and the averaged direction into it.
         private bool TryGetInsideCornerDirection(Vector3 origin, RaycastHit frontHit, out Vector3 direction)
         {
             Vector3 right = _climbRotation * Vector3.right * settings.CrossProbeOffset;
@@ -218,7 +228,8 @@ namespace Characters.Player.Climbing
             return foundInsideCorner;
         }
 
-        // Releases climb input once the Climb Start animation is over (its exit-time transition has begun).
+        // Input is held until the Animator leaves Climb Start. It only enters the state one frame
+        // after the grab; the timeout keeps the player from getting stuck if it never does.
         private void UpdateClimbStart()
         {
             if (_view.IsPlayingClimbStart)
@@ -227,8 +238,6 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            // The Animator enters the state one frame after the grab. If it never does
-            // (e.g. state renamed), don't leave the player stuck.
             if (_climbStartSeen || Time.time - _climbStartTime > ClimbStartEnterTimeout)
             {
                 _climbStartPending = false;
@@ -239,6 +248,7 @@ namespace Characters.Player.Climbing
         {
             Vector3 surfaceNormal = Vector3.zero;
             bool pushingIntoWall = Time.time >= _regrabAllowedTime &&
+                                   CanClimb &&
                                    _input.move.sqrMagnitude > InputDeadZone * InputDeadZone &&
                                    TryGetGrabbableSurface(out surfaceNormal) &&
                                    Vector3.Dot(GetCameraRelativeMoveDirection(), FlatInto(surfaceNormal)) >= MinGrabFacingDot;
@@ -251,7 +261,6 @@ namespace Characters.Player.Climbing
             _wallPushTimer += dt;
             if (_wallPushTimer < settings.AutoGrabDelay) return;
 
-            // Climb Start only when grabbing from standing, and not on shallow ramps (you just step onto those).
             bool playClimbStart = _motor.Grounded &&
                                   GetSurfaceTilt(surfaceNormal) >= -settings.ClimbStartMaxInclination;
             StartClimbing(surfaceNormal, playClimbStart);
@@ -287,8 +296,6 @@ namespace Characters.Player.Climbing
             _motor.Launch(away * jumpOff.x + Vector3.up * jumpOff.y);
         }
 
-        // A climbable surface we're roughly facing: a wall close in front of the chest,
-        // or a surface the CharacterController just touched (e.g. a ramp under our feet).
         private bool TryGetGrabbableSurface(out Vector3 surfaceNormal)
         {
             Vector3 origin = transform.TransformPoint(_controller.center);
@@ -300,7 +307,7 @@ namespace Characters.Player.Climbing
                 return true;
             }
 
-            // Touched this frame or the previous one (PlayerController may move before or after us).
+            // One frame of slack: PlayerController may move (and report contacts) before or after our Update.
             surfaceNormal = _contactNormal;
             return Time.frameCount - _contactFrame <= 1 && IsGrabbable(_contactNormal);
         }
@@ -316,19 +323,18 @@ namespace Characters.Player.Climbing
             return tilt >= -settings.MaxInclination && tilt <= settings.MaxDeclination;
         }
 
-        // Degrees from a vertical wall: negative = ramp-like (inclination), positive = overhang (declination).
         private static float GetSurfaceTilt(Vector3 normal)
         {
             return Vector3.Angle(normal, Vector3.up) - 90f;
         }
 
-        // Horizontal direction into the surface.
         private static Vector3 FlatInto(Vector3 normal)
         {
             return Vector3.ProjectOnPlane(-normal, Vector3.up).normalized;
         }
 
-        // True if the surface continues a little ahead in the move direction and isn't an overhang beyond the max.
+        // The surface must continue a little ahead and not be an overhang beyond the max;
+        // otherwise movement that way is blocked instead of dropping the player off the edge.
         private bool CanMoveToward(Vector3 origin, Vector3 moveDirection, Vector3 intoSurface)
         {
             Vector3 probeOrigin = origin + moveDirection * settings.EdgeCheckOffset;
@@ -337,7 +343,6 @@ namespace Characters.Player.Climbing
                    GetSurfaceTilt(hit.normal) <= settings.MaxDeclination;
         }
 
-        // Walkable ground right under where our feet would be standing.
         private bool IsFeetOnGround(Vector3 origin)
         {
             float reach = _controller.center.y + GroundProbeMargin;
@@ -346,7 +351,6 @@ namespace Characters.Player.Climbing
                    GetSurfaceTilt(hit.normal) < -settings.MaxInclination;
         }
 
-        // The root follows the climbing frame's heading only (smoothed, like before).
         private void ApplyRootYaw(float dt)
         {
             Vector3 flatForward = Vector3.ProjectOnPlane(ClimbForward, Vector3.up);
@@ -360,26 +364,24 @@ namespace Characters.Player.Climbing
             if (drawDebugRays) Debug.DrawRay(start, direction, color);
         }
 
-        /// <param name="surfaceNormal">Normal of the surface being grabbed (sets the initial climbing frame).</param>
-        /// <param name="fromGround">Grabbing from standing: plays Climb Start and holds input until it finishes.</param>
         public void StartClimbing(Vector3 surfaceNormal, bool fromGround)
         {
-            if (IsClimbing) return;
+            if (IsClimbing || !CanClimb) return;
             IsClimbing = true;
+            ClimbInput = Vector2.zero;
             _wallPushTimer = 0f;
             _climbStartPending = fromGround && _view != null;
             _climbStartSeen = false;
             _climbStartTime = Time.time;
 
-            // Face the surface right away so the first wall ray finds it, even on shallow ramps.
-            // (The model's lean is smoothed separately.)
+            // Face the surface immediately so the first wall ray finds it, even on shallow ramps
+            // (the model's lean is smoothed separately).
             _climbRotation = Quaternion.LookRotation(-surfaceNormal, Vector3.up);
             _lastWallNormal = surfaceNormal;
             _hasWallPoint = false;
             SurfaceTilt = GetSurfaceTilt(surfaceNormal);
 
-            // Shrink the capsule to a sphere around its center: an upright capsule can't lie against
-            // a ramp or tuck under an overhang.
+            // Sphere around the center: an upright capsule can't lie against a ramp or tuck under an overhang.
             _controller.height = _controller.radius * 2f;
 
             ClimbStarted?.Invoke();
@@ -394,15 +396,16 @@ namespace Characters.Player.Climbing
             IsClimbing = false;
             _climbStartPending = false;
             SurfaceTilt = 0f;
+            ClimbInput = Vector2.zero;
             RestoreStandingCapsule(clearSurface);
             ClimbEnded?.Invoke();
             if (_view != null) _view.ClimbEnded();
         }
 
-        // Back to the full capsule, placed where it fits. Otherwise the CharacterController shoves itself
+        // The full capsule has to be placed where it fits. Otherwise the CharacterController shoves itself
         // out of the geometry in one frame, and PlayerController reads that shove as walking speed.
-        /// <param name="clearSurface">False when stepping onto the top of a ramp: the ramp's plane doesn't
-        /// continue past its edge, so pushing out of it would only shove the player backward.</param>
+        // clearSurface is false at the top of a ramp: its plane doesn't continue past the edge, so pushing
+        // out of it would only shove the player backward.
         private void RestoreStandingCapsule(bool clearSurface)
         {
             _controller.height = _standingHeight;
@@ -411,14 +414,13 @@ namespace Characters.Player.Climbing
             correction += Vector3.up * GetGroundLift(correction);
             if (correction.sqrMagnitude <= 0f) return;
 
-            // CharacterController must be disabled to teleport it.
-            _controller.enabled = false;
+            _controller.enabled = false; // required to teleport a CharacterController
             transform.position += correction;
             _controller.enabled = true;
         }
 
-        // On anything but a vertical wall, the top or bottom of the full capsule would stick into the
-        // climbed surface (it leans toward one end). Push out along the surface normal until both ends clear it.
+        // On a non-vertical surface one end of the upright capsule leans into it.
+        // Push out along the normal until both end spheres clear the surface plane.
         private Vector3 GetSurfaceClearance()
         {
             if (!_hasWallPoint) return Vector3.zero;
@@ -433,7 +435,6 @@ namespace Characters.Player.Climbing
             return _lastWallNormal * push;
         }
 
-        // On ramps the feet can end up below the surface we stand up on: lift onto it.
         private float GetGroundLift(Vector3 offset)
         {
             Vector3 center = transform.TransformPoint(_controller.center) + offset;
