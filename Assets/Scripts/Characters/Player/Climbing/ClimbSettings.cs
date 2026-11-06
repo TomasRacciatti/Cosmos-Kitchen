@@ -14,11 +14,9 @@ namespace Characters.Player.Climbing
         [SerializeField] private LayerMask climbableLayers;
         [Tooltip("How far ahead (from the capsule center) the wall check ray reaches (m).")]
         [SerializeField] private float wallCheckDistance = 1f;
-        [Tooltip("How far ahead of the capsule center (in the move direction) we check that the wall continues. " +
-                 "If it doesn't, movement in that direction is blocked (m).")]
+        [Tooltip("How far ahead of the capsule center (in the move direction) we check that the wall continues. If it doesn't, movement in that direction is blocked (m).")]
         [SerializeField] private float edgeCheckOffset = 0.3f;
-        [Tooltip("Distance (right/left and up/down) from the capsule center to each of the 4 cross-pattern probe rays. " +
-                 "Their averaged wall normals decide which way the player faces (m).")]
+        [Tooltip("Distance (right/left and up/down) from the capsule center to each of the 4 cross-pattern probe rays. Their averaged wall normals decide which way the player faces (m).")]
         [SerializeField] private float crossProbeOffset = 0.3f;
 
         [Header("Wall Alignment")]
@@ -38,12 +36,15 @@ namespace Characters.Player.Climbing
         [SerializeField] private Vector2 jumpOffVelocity = new Vector2(2f, 5f);
         [Tooltip("After jumping off a wall, how long before a wall can be grabbed again (s).")]
         [SerializeField] private float regrabCooldown = 0.3f;
+        [Tooltip("When grabbing from the ground, climb input is ignored for this long so the Climb Start animation can play. Match it to the Climb Start clip length (s).")]
+        [SerializeField] private float climbStartDuration = 1f;
 
         public float ClimbSpeed => climbSpeed;
         public float GrabDistance => grabDistance;
         public float AutoGrabDelay => autoGrabDelay;
         public Vector2 JumpOffVelocity => jumpOffVelocity;
         public float RegrabCooldown => regrabCooldown;
+        public float ClimbStartDuration => climbStartDuration;
         public LayerMask ClimbableLayers => climbableLayers;
         public float WallCheckDistance => wallCheckDistance;
         public float EdgeCheckOffset => edgeCheckOffset;

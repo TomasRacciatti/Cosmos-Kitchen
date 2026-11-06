@@ -1,11 +1,16 @@
 using Audio;
+using Interfaces;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Characters.Player
 {
-    public class PlayerView : MonoBehaviour
+    public class PlayerView : MonoBehaviour, IClimbView
     {
+        [Header("Climbing")]
+        [Tooltip("Smoothing time for the climb blend tree parameters (s).")]
+        [SerializeField] private float climbMoveDampTime = 0.1f;
+
         [SerializeField] private AudioCue damagedCue;
         [SerializeField] private AudioCue footstepCue;
         [SerializeField] private AudioCue landingCue;
@@ -22,7 +27,14 @@ namespace Characters.Player
         private int _animIDLanded;
         private int _animIDGrounded;
         private int _animIDFalling;
-        
+
+        // climbing animation IDs
+        private static readonly int AnimIDClimbing = Animator.StringToHash("Climbing");
+        private static readonly int AnimIDClimbStart = Animator.StringToHash("ClimbStart");
+        private static readonly int AnimIDClimbGrab = Animator.StringToHash("ClimbGrab");
+        private static readonly int AnimIDClimbX = Animator.StringToHash("ClimbX");
+        private static readonly int AnimIDClimbY = Animator.StringToHash("ClimbY");
+
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
@@ -105,6 +117,30 @@ namespace Characters.Player
         public void Footstep()
         {
             //AudioSource.PlayClipAtPoint(footstepCue.GetRandomClip(), transform.position);
+        }
+
+        public void ClimbStarted(bool fromGround)
+        {
+            var emission = stepsParticles.emission;
+            emission.enabled = false;
+            animator.SetFloat(AnimIDClimbX, 0f);
+            animator.SetFloat(AnimIDClimbY, 0f);
+            animator.SetBool(AnimIDClimbing, true);
+            animator.SetTrigger(fromGround ? AnimIDClimbStart : AnimIDClimbGrab);
+        }
+
+        public void ClimbEnded()
+        {
+            animator.SetBool(AnimIDClimbing, false);
+            // Clear any grab trigger that wasn't consumed, so it can't fire later.
+            animator.ResetTrigger(AnimIDClimbStart);
+            animator.ResetTrigger(AnimIDClimbGrab);
+        }
+
+        public void SetClimbMove(Vector2 move)
+        {
+            animator.SetFloat(AnimIDClimbX, move.x, climbMoveDampTime, Time.deltaTime);
+            animator.SetFloat(AnimIDClimbY, move.y, climbMoveDampTime, Time.deltaTime);
         }
     }
 }

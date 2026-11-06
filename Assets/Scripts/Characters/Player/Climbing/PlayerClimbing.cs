@@ -31,11 +31,13 @@ namespace Characters.Player.Climbing
         private CharacterController _controller;
         private PlayerInputs _input;
         private IPlayerMotor _motor;
+        private IClimbView _view; // optional
         private Transform _cameraTransform;
 
         private float _wallPushTimer;
         private Vector3 _lastWallNormal;
         private float _regrabAllowedTime;
+        private float _climbStartEndTime; // climb input is ignored until this time (Climb Start animation)
 
         public bool IsClimbing { get; private set; }
 
@@ -47,6 +49,7 @@ namespace Characters.Player.Climbing
             _controller = GetComponent<CharacterController>();
             _input = GetComponent<PlayerInputs>();
             _motor = GetComponent<IPlayerMotor>();
+            _view = GetComponent<IClimbView>();
         }
 
         private void OnEnable()
@@ -67,7 +70,7 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            Vector2 input = SquareToCircle(_input.move);
+            Vector2 input = Time.time < _climbStartEndTime ? Vector2.zero : SquareToCircle(_input.move);
             float dt = Time.deltaTime;
             
             Vector3 origin = transform.TransformPoint(_controller.center);
@@ -124,6 +127,9 @@ namespace Characters.Player.Climbing
 
             Vector3 velocity = wallRotation * new Vector3(input.x, input.y, 0f) * settings.ClimbSpeed;
             _controller.Move(snap + velocity * dt);
+
+            // Animate with the input that was actually applied (blocked edges = idle).
+            if (_view != null) _view.SetClimbMove(input);
         }
 
         // 4 rays from the corners around the capsule center, cast forward.
@@ -179,7 +185,7 @@ namespace Characters.Player.Climbing
             }
 
             _wallPushTimer += dt;
-            if (_wallPushTimer >= settings.AutoGrabDelay) StartClimbing();
+            if (_wallPushTimer >= settings.AutoGrabDelay) StartClimbing(_motor.Grounded);
         }
 
         private void OnJumpPressed()
@@ -241,12 +247,15 @@ namespace Characters.Player.Climbing
             if (drawDebugRays) Debug.DrawRay(start, direction, color);
         }
 
-        public void StartClimbing()
+        /// <param name="fromGround">Grabbing from standing: plays Climb Start and holds input until it finishes.</param>
+        public void StartClimbing(bool fromGround = false)
         {
             if (IsClimbing) return;
             IsClimbing = true;
             _wallPushTimer = 0f;
+            _climbStartEndTime = fromGround ? Time.time + settings.ClimbStartDuration : 0f;
             ClimbStarted?.Invoke();
+            if (_view != null) _view.ClimbStarted(fromGround);
         }
 
         public void StopClimbing()
@@ -254,6 +263,7 @@ namespace Characters.Player.Climbing
             if (!IsClimbing) return;
             IsClimbing = false;
             ClimbEnded?.Invoke();
+            if (_view != null) _view.ClimbEnded();
         }
         
         private static Vector2 SquareToCircle(Vector2 input)
