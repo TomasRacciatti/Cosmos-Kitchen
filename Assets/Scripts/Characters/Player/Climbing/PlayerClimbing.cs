@@ -44,6 +44,14 @@ namespace Characters.Player.Climbing
 
         public bool IsClimbing { get; private set; }
 
+        /// <summary>True while the Climb Start animation plays (climb input held).</summary>
+        public bool IsInClimbStart => _climbStartPending;
+
+        /// <summary>Normal of the wall being climbed (last valid value).</summary>
+        public Vector3 WallNormal => _lastWallNormal;
+
+        public ClimbSettings Settings => settings;
+
         public event Action ClimbStarted;
         public event Action ClimbEnded;
 
