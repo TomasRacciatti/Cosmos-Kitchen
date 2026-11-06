@@ -8,7 +8,8 @@ namespace Interfaces
     public interface IPlayerMotor
     {
         bool Grounded { get; }
-        
+        LayerMask GroundLayers { get; }
+
         void Launch(Vector3 velocity);
     }
 }

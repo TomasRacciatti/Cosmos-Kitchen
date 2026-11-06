@@ -19,6 +19,12 @@ namespace Characters.Player.Climbing
         [Tooltip("Distance (right/left and up/down) from the capsule center to each of the 4 cross-pattern probe rays. Their averaged wall normals decide which way the player faces (m).")]
         [SerializeField] private float crossProbeOffset = 0.3f;
 
+        [Header("Surface Angles (measured from a vertical wall)")]
+        [Tooltip("How far a surface can lean back like a ramp and still be climbed (degrees). Flatter surfaces are walked on.")]
+        [Range(0f, 89f)] [SerializeField] private float maxInclination = 60f;
+        [Tooltip("How far a surface can lean over the player (overhang) and still be climbed (degrees). Steeper overhangs block movement.")]
+        [Range(0f, 89f)] [SerializeField] private float maxDeclination = 45f;
+
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
         [SerializeField] private float wallGap = 0.01f;
@@ -46,6 +52,8 @@ namespace Characters.Player.Climbing
         public float WallCheckDistance => wallCheckDistance;
         public float EdgeCheckOffset => edgeCheckOffset;
         public float CrossProbeOffset => crossProbeOffset;
+        public float MaxInclination => maxInclination;
+        public float MaxDeclination => maxDeclination;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

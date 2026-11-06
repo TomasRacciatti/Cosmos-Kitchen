@@ -33,6 +33,7 @@ namespace Characters.Player
         [Header("Player Grounded")]
         [SerializeField] private bool grounded = true;
         public bool Grounded => grounded;
+        public LayerMask GroundLayers => groundLayers;
         [SerializeField] private LayerMask groundLayers;
         [SerializeField] private float groundedOffset = 0.1f;
 

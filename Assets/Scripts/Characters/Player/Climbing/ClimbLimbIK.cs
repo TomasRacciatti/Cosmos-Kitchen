@@ -59,7 +59,7 @@ namespace Characters.Player.Climbing
             _weight = Mathf.MoveTowards(_weight, active ? 1f : 0f, blendSpeed * dt);
             if (_weight <= 0f) return;
             
-            Vector3 intoWall = transform.forward;
+            Vector3 intoWall = _climbing.ClimbForward;
             Vector3 awayFromWall = -intoWall;
             LayerMask climbable = _climbing.Settings.ClimbableLayers;
 
