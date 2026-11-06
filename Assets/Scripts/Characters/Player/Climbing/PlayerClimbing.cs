@@ -14,6 +14,8 @@ namespace Characters.Player.Climbing
     {
         [SerializeField] private ClimbSettings settings;
 
+        private const float InputDeadZone = 0.01f;
+
         private CharacterController _controller;
         private PlayerInputs _input;
 
@@ -60,8 +62,29 @@ namespace Characters.Player.Climbing
             Vector3 targetOrigin = hit.point + hit.normal * wallDistance;
             Vector3 snap = Vector3.Lerp(origin, targetOrigin, settings.SnapSharpness * dt) - origin;
 
+            // Block movement toward an edge (>90° corner) 
+            Vector3 wallForward = -hit.normal;
+            if (Mathf.Abs(input.x) > InputDeadZone &&
+                !HasWallAhead(origin, wallRotation * Vector3.right * Mathf.Sign(input.x), wallForward))
+            {
+                input.x = 0f;
+            }
+            if (Mathf.Abs(input.y) > InputDeadZone &&
+                !HasWallAhead(origin, wallRotation * Vector3.up * Mathf.Sign(input.y), wallForward))
+            {
+                input.y = 0f;
+            }
+
             Vector3 velocity = wallRotation * new Vector3(input.x, input.y, 0f) * settings.ClimbSpeed;
             _controller.Move(snap + velocity * dt);
+        }
+
+        // True if the wall still continues a little ahead in the move direction.
+        private bool HasWallAhead(Vector3 origin, Vector3 moveDirection, Vector3 wallForward)
+        {
+            Vector3 probeOrigin = origin + moveDirection * settings.EdgeCheckOffset;
+            return Physics.Raycast(probeOrigin, wallForward, settings.WallCheckDistance,
+                settings.ClimbableLayers, QueryTriggerInteraction.Ignore);
         }
 
         public void StartClimbing()

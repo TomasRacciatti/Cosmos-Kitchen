@@ -14,6 +14,9 @@ namespace Characters.Player.Climbing
         [SerializeField] private LayerMask climbableLayers;
         [Tooltip("How far ahead (from the capsule center) the wall check ray reaches (m).")]
         [SerializeField] private float wallCheckDistance = 1f;
+        [Tooltip("How far ahead of the capsule center (in the move direction) we check that the wall continues. " +
+                 "If it doesn't, movement in that direction is blocked (m).")]
+        [SerializeField] private float edgeCheckOffset = 0.3f;
 
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
@@ -26,6 +29,7 @@ namespace Characters.Player.Climbing
         public float ClimbSpeed => climbSpeed;
         public LayerMask ClimbableLayers => climbableLayers;
         public float WallCheckDistance => wallCheckDistance;
+        public float EdgeCheckOffset => edgeCheckOffset;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;
