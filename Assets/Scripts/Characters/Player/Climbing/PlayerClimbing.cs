@@ -40,36 +40,28 @@ namespace Characters.Player.Climbing
 
         private float _wallPushTimer;
         private Vector3 _lastWallNormal;
+        private Vector3 _lastWallPoint;
+        private bool _hasWallPoint;
         private float _regrabAllowedTime;
         private bool _climbStartPending;
         private bool _climbStartSeen;
         private float _climbStartTime;
-
-        // Climbing frame: forward into the surface, up along it (tilts on ramps and overhangs).
-        // The root only yaws, because the CharacterController capsule can't tilt.
+        
         private Quaternion _climbRotation = Quaternion.identity;
         private float _standingHeight;
-
-        // Last climbable surface the CharacterController touched (used to grab ramps under our feet).
+        
         private Vector3 _contactNormal;
         private int _contactFrame = -1;
 
         public bool IsClimbing { get; private set; }
-
-        /// <summary>True while the Climb Start animation plays (climb input held).</summary>
+        
         public bool IsInClimbStart => _climbStartPending;
-
-        /// <summary>Normal of the wall being climbed (last valid value).</summary>
+        
         public Vector3 WallNormal => _lastWallNormal;
-
-        /// <summary>Smoothed climbing frame: forward into the surface, up along it.</summary>
+        
         public Quaternion ClimbRotation => _climbRotation;
         public Vector3 ClimbForward => _climbRotation * Vector3.forward;
-
-        /// <summary>
-        /// Tilt of the climbed surface relative to a vertical wall, in degrees.
-        /// Negative = leans back like a ramp (inclination), positive = leans over the player (declination).
-        /// </summary>
+        
         public float SurfaceTilt { get; private set; }
 
         public ClimbSettings Settings => settings;
@@ -130,15 +122,22 @@ namespace Characters.Player.Climbing
             }
             DrawDebugRay(origin, forward * hit.distance, Color.green);
 
-            // Surface got too flat to climb (e.g. top of a ramp) → stand.
+            // Surface got too flat to climb (e.g. top of a ramp) → stand on it.
+            if (GetSurfaceTilt(hit.normal) < -settings.MaxInclination)
+            {
+                StopClimbing(clearSurface: false);
+                return;
+            }
+
             // Climbing down onto walkable ground → walk (tutorial: ground raycast switches to WALKING).
-            if (GetSurfaceTilt(hit.normal) < -settings.MaxInclination ||
-                (input.y < -InputDeadZone && IsFeetOnGround(origin)))
+            if (input.y < -InputDeadZone && IsFeetOnGround(origin))
             {
                 StopClimbing();
                 return;
             }
             _lastWallNormal = hit.normal;
+            _lastWallPoint = hit.point;
+            _hasWallPoint = true;
 
             // Turn the climbing frame to face the surface (tutorial: transform.forward = -hit.normal), smoothed.
             Quaternion surfaceRotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
@@ -376,6 +375,7 @@ namespace Characters.Player.Climbing
             // (The model's lean is smoothed separately.)
             _climbRotation = Quaternion.LookRotation(-surfaceNormal, Vector3.up);
             _lastWallNormal = surfaceNormal;
+            _hasWallPoint = false;
             SurfaceTilt = GetSurfaceTilt(surfaceNormal);
 
             // Shrink the capsule to a sphere around its center: an upright capsule can't lie against
@@ -386,37 +386,66 @@ namespace Characters.Player.Climbing
             if (_view != null) _view.ClimbStarted(fromGround);
         }
 
-        public void StopClimbing()
+        public void StopClimbing() => StopClimbing(true);
+
+        private void StopClimbing(bool clearSurface)
         {
             if (!IsClimbing) return;
             IsClimbing = false;
             _climbStartPending = false;
             SurfaceTilt = 0f;
-            RestoreStandingCapsule();
+            RestoreStandingCapsule(clearSurface);
             ClimbEnded?.Invoke();
             if (_view != null) _view.ClimbEnded();
         }
 
-        // Back to the full capsule. On ramps the feet can end up below the surface, so lift onto it.
-        private void RestoreStandingCapsule()
+        // Back to the full capsule, placed where it fits. Otherwise the CharacterController shoves itself
+        // out of the geometry in one frame, and PlayerController reads that shove as walking speed.
+        /// <param name="clearSurface">False when stepping onto the top of a ramp: the ramp's plane doesn't
+        /// continue past its edge, so pushing out of it would only shove the player backward.</param>
+        private void RestoreStandingCapsule(bool clearSurface)
         {
             _controller.height = _standingHeight;
 
+            Vector3 correction = clearSurface ? GetSurfaceClearance() : Vector3.zero;
+            correction += Vector3.up * GetGroundLift(correction);
+            if (correction.sqrMagnitude <= 0f) return;
+
+            // CharacterController must be disabled to teleport it.
+            _controller.enabled = false;
+            transform.position += correction;
+            _controller.enabled = true;
+        }
+
+        // On anything but a vertical wall, the top or bottom of the full capsule would stick into the
+        // climbed surface (it leans toward one end). Push out along the surface normal until both ends clear it.
+        private Vector3 GetSurfaceClearance()
+        {
+            if (!_hasWallPoint) return Vector3.zero;
+
             Vector3 center = transform.TransformPoint(_controller.center);
+            float halfSegment = Mathf.Max(0f, _controller.height * 0.5f - _controller.radius);
+            float clearance = _controller.radius + _controller.skinWidth;
+
+            float topDepth = clearance - Vector3.Dot(_lastWallNormal, center + Vector3.up * halfSegment - _lastWallPoint);
+            float bottomDepth = clearance - Vector3.Dot(_lastWallNormal, center - Vector3.up * halfSegment - _lastWallPoint);
+            float push = Mathf.Max(0f, Mathf.Max(topDepth, bottomDepth));
+            return _lastWallNormal * push;
+        }
+
+        // On ramps the feet can end up below the surface we stand up on: lift onto it.
+        private float GetGroundLift(Vector3 offset)
+        {
+            Vector3 center = transform.TransformPoint(_controller.center) + offset;
             float reach = _controller.center.y + StandUpProbeExtra;
             if (!Physics.Raycast(center, Vector3.down, out RaycastHit hit, reach, _motor.GroundLayers,
                     QueryTriggerInteraction.Ignore))
             {
-                return;
+                return 0f;
             }
 
-            float lift = hit.point.y + _controller.skinWidth - transform.position.y;
-            if (lift <= 0f) return;
-
-            // CharacterController must be disabled to teleport it.
-            _controller.enabled = false;
-            transform.position += Vector3.up * lift;
-            _controller.enabled = true;
+            float feetY = transform.position.y + offset.y;
+            return Mathf.Max(0f, hit.point.y + _controller.skinWidth - feetY);
         }
 
         private static Vector2 SquareToCircle(Vector2 input)

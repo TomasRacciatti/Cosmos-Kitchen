@@ -70,10 +70,10 @@ namespace Characters.Player
         private float _targetRotation;
         private float _rotationVelocity;
         private float _verticalVelocity;
-        private Vector3 _launchVelocity; 
+        private Vector3 _launchVelocity;
+        private bool _ignoreMeasuredSpeed; 
         private const float TerminalVelocity = 50.0f;
-
-        // timeout deltatime
+        
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
@@ -125,15 +125,24 @@ namespace Characters.Player
 
         private void OnEnable()
         {
-            if (_climbing != null) _climbing.ClimbStarted += OnClimbStarted;
+            if (_climbing == null) return;
+            _climbing.ClimbStarted += OnClimbStarted;
+            _climbing.ClimbEnded += OnClimbEnded;
         }
 
         private void OnDisable()
         {
-            if (_climbing != null) _climbing.ClimbStarted -= OnClimbStarted;
+            if (_climbing == null) return;
+            _climbing.ClimbStarted -= OnClimbStarted;
+            _climbing.ClimbEnded -= OnClimbEnded;
         }
-
-        // Drop any walking/falling momentum so it doesn't carry over once climbing ends.
+        
+        private void OnClimbEnded()
+        {
+            _speed = 0f;
+            _ignoreMeasuredSpeed = true;
+        }
+        
         private void OnClimbStarted()
         {
             _verticalVelocity = 0f;
@@ -217,8 +226,10 @@ namespace Characters.Player
         {
             float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-            float currentHorizontalSpeed =
-                (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
+            float currentHorizontalSpeed = _ignoreMeasuredSpeed
+                ? 0f
+                : (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
+            _ignoreMeasuredSpeed = false;
             float speedOffset = 0.1f;
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
@@ -283,7 +294,7 @@ namespace Characters.Player
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -1f;
-                    _launchVelocity = Vector3.zero; // landed
+                    _launchVelocity = Vector3.zero;
                 }
 
                 if (_jumpTimeoutDelta >= 0.0f)
@@ -313,10 +324,9 @@ namespace Characters.Player
 
         public void Jump()
         {
-            if (IsClimbing) return; // jumping off walls is handled by PlayerClimbing (Iteration 2)
+            if (IsClimbing) return; 
             if (_jumpTimeoutDelta <= 0.0f)
             {
-                // the square root of H * -2 * G = how much velocity needed to reach desired height
                 _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
                 _playerView.Jumped();
             }
