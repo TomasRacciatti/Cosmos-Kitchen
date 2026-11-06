@@ -15,4 +15,9 @@ MonoBehaviour:
   climbSpeed: 2
   climbableLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
+  wallCheckDistance: 1.5
+  edgeCheckOffset: 0.1
+  wallGap: 0.01
+  snapSharpness: 10
+  rotationSharpness: 10
