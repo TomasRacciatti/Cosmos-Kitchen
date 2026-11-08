@@ -56,6 +56,11 @@ namespace Characters.Player.Climbing
         [Tooltip("Sideways speed while sliding (m/s). Up/down input is ignored.")]
         [Min(0f)] [SerializeField] private float slideSideSpeed = 1f;
 
+        [Header("Ledge Climb-Up")]
+        [Tooltip("Surfaces leaning back more than this (degrees from vertical) just stand the player up at the top. " +
+                 "Steeper ones play the climb-up animation.")]
+        [Range(0f, 89f)] [SerializeField] private float ledgeClimbMaxInclination = 45f;
+
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
         [SerializeField] private float wallGap = 0.01f;
@@ -98,6 +103,7 @@ namespace Characters.Player.Climbing
         public float SlideSpeed => slideSpeed;
         public float SlideAcceleration => slideAcceleration;
         public float SlideSideSpeed => slideSideSpeed;
+        public float LedgeClimbMaxInclination => ledgeClimbMaxInclination;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

@@ -216,7 +216,7 @@ MonoBehaviour:
   ledgeClimbStateName: Player_ClimbLedge
   slideDustRate: 20
   climbIdleClip: {fileID: 7400000, guid: 381a90ca163660b46af1f53c53a8899a, type: 2}
-  ledgeClimbClip: {fileID: 7400000, guid: 00d121c97b2fa4c42bf494812064c505, type: 2}
+  ledgeClimbClip: {fileID: 7400000, guid: 0a98f224ab4cee543aaaeadeb31c906d, type: 2}
   bodyReferenceBone: {fileID: 6258417895923722552}
   damagedCue: {fileID: 0}
   footstepCue: {fileID: 0}
@@ -515,6 +515,7 @@ MonoBehaviour:
   castBack: 0.5
   castReach: 0.5
   blendSpeed: 5
+  handProbeHeight: 0.4
 --- !u!114 &7123913764549212692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,6 +530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 4466399071015956277}
   leanSharpness: 10
+  standUpSharpness: 8
+  ledgeWarpPortion: 0.8
 --- !u!114 &3406191283454374726
 MonoBehaviour:
   m_ObjectHideFlags: 0

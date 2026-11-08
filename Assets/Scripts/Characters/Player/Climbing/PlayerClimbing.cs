@@ -24,6 +24,7 @@ namespace Characters.Player.Climbing
         private const float LedgeProbeHeadroom = 0.5f;
         private const float LedgeRiseTolerance = 0.3f;
         private const float CapsuleFitMargin = 0.05f;
+        private const float TopProbeHeight = 0.5f;
 
         // Waits for an Animator state we triggered to finish. The state is only entered a frame after the
         // trigger; the timeout keeps the player from getting stuck if it never is (e.g. the state was renamed).
@@ -89,8 +90,9 @@ namespace Characters.Player.Climbing
         // Playing the climb-up onto a ledge: the player already stands on top, the animation catches up.
         public bool IsLedgeClimbing { get; private set; }
 
-        // How far the player was moved onto the ledge when the climb-up started.
+        // How far the player was moved onto the ledge when the climb-up started, and where the body was then.
         public Vector3 LedgeClimbDelta { get; private set; }
+        public Vector3 LedgeStartBodyPosition { get; private set; }
         public float LedgeClimbProgress => IsLedgeClimbing && _view != null ? _view.LedgeClimbProgress : 0f;
         public Vector3 WallNormal => _lastWallNormal;
         public Quaternion ClimbRotation => _climbRotation;
@@ -118,6 +120,10 @@ namespace Characters.Player.Climbing
 
         public event Action ClimbStarted;
         public event Action ClimbEnded;
+
+        // The player root was shifted to fit the standing capsule when climbing ended (world delta).
+        // Visual followers absorb it so the character doesn't pop.
+        public event Action<Vector3> StandUpShifted;
 
         private void Awake()
         {
@@ -181,8 +187,16 @@ namespace Characters.Player.Climbing
             }
             DrawDebugRay(origin, forward * hit.distance, Color.green);
 
+            // Reached a surface flat enough to stand on (e.g. the top of a ramp): climb up onto it if the slope
+            // we're on is steep, otherwise just stand up.
             if (GetSurfaceTilt(hit.normal) < -settings.MaxInclination)
             {
+                if (input.y > InputDeadZone && !IsSliding && IsSteepEnoughForLedgeClimb() &&
+                    TryGetStandPointOnTop(hit.point, out Vector3 topStandPoint))
+                {
+                    StartLedgeClimb(topStandPoint);
+                    return;
+                }
                 StopClimbing(clearSurface: false);
                 return;
             }
@@ -209,7 +223,8 @@ namespace Characters.Player.Climbing
             SurfaceTilt = GetSurfaceTilt(-forward);
             ApplyRootYaw(dt);
 
-            if (input.y > InputDeadZone && !IsSliding && TryGetLedgeStandPoint(out Vector3 standPoint))
+            if (input.y > InputDeadZone && !IsSliding && IsSteepEnoughForLedgeClimb() &&
+                TryGetLedgeStandPoint(out Vector3 standPoint))
             {
                 StartLedgeClimb(standPoint);
                 return;
@@ -326,20 +341,50 @@ namespace Characters.Player.Climbing
             if (rise > clipRise || GetSurfaceTilt(hit.normal) >= -settings.MaxInclination) return false;
 
             standPoint = hit.point + Vector3.up * _controller.skinWidth;
+            return CapsuleFitsAt(standPoint);
+        }
+
+        // Top of a ramp: the climbing ray has hit the flat top. Step a capsule radius further onto it so the
+        // standing capsule is clear of the edge, and land the feet exactly on the surface there.
+        private bool TryGetStandPointOnTop(Vector3 topHitPoint, out Vector3 standPoint)
+        {
+            standPoint = default;
+            if (_view == null || !_view.TryGetLedgeClimbOffset(out _)) return false;
+
+            Vector3 inset = topHitPoint + transform.forward * (_controller.radius + CapsuleFitMargin);
+            if (!Physics.Raycast(inset + Vector3.up * TopProbeHeight, Vector3.down, out RaycastHit hit,
+                    TopProbeHeight * 2f, _motor.GroundLayers, QueryTriggerInteraction.Ignore) ||
+                GetSurfaceTilt(hit.normal) >= -settings.MaxInclination)
+            {
+                return false;
+            }
+
+            standPoint = hit.point + Vector3.up * _controller.skinWidth;
+            return CapsuleFitsAt(standPoint);
+        }
+
+        private bool CapsuleFitsAt(Vector3 feet)
+        {
             float radius = _controller.radius;
-            Vector3 bottom = standPoint + Vector3.up * (radius + CapsuleFitMargin);
-            Vector3 top = standPoint + Vector3.up * (_standingHeight - radius);
+            Vector3 bottom = feet + Vector3.up * (radius + CapsuleFitMargin);
+            Vector3 top = feet + Vector3.up * (_standingHeight - radius);
             return !Physics.CheckCapsule(bottom, top, radius, _motor.GroundLayers | settings.ClimbableLayers,
                 QueryTriggerInteraction.Ignore);
         }
 
-        // Moves the player to the stand point and starts the clip in the same frame: its first frame draws the
-        // body back where it was, and the animation then carries it up onto the ledge.
+        private bool IsSteepEnoughForLedgeClimb()
+        {
+            return SurfaceTilt >= -settings.LedgeClimbMaxInclination;
+        }
+
+        // Moves the player to the stand point and starts the clip in the same frame. ClimbBodyLean then warps
+        // the model so the clip starts exactly where the body was and ends on the stand point.
         private void StartLedgeClimb(Vector3 standPoint)
         {
             IsLedgeClimbing = true;
             ClimbInput = Vector2.zero;
             _ledgeClimbWait.Begin();
+            LedgeStartBodyPosition = _view.BodyPosition;
 
             _controller.height = _standingHeight;
             LedgeClimbDelta = standPoint - transform.position;
@@ -525,9 +570,10 @@ namespace Characters.Player.Climbing
             correction += Vector3.up * GetGroundLift(correction);
             if (correction.sqrMagnitude <= 0f) return;
 
-            _controller.enabled = false; 
+            _controller.enabled = false;
             transform.position += correction;
             _controller.enabled = true;
+            StandUpShifted?.Invoke(correction);
         }
         
         private Vector3 GetSurfaceClearance()

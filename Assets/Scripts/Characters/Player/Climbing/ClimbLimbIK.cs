@@ -1,4 +1,5 @@
 using System;
+using Interfaces;
 using UnityEngine;
 
 namespace Characters.Player.Climbing
@@ -37,13 +38,23 @@ namespace Characters.Player.Climbing
         [Tooltip("How fast the IK fades in and out (weight per second, 5 = 0.2 s).")]
         [SerializeField] private float blendSpeed = 5f;
 
+        [Header("Climb-Up")]
+        [Tooltip("How far above the animated hand the ray looking for the ledge top starts (m).")]
+        [SerializeField] private float handProbeHeight = 0.4f;
+
+        private const int HandCount = 2; // _limbs holds the hands first, then the feet
+
         private PlayerClimbing _climbing;
+        private IClimbView _view;
+        private IPlayerMotor _motor;
         private Limb[] _limbs;
-        private float _weight; 
+        private float _weight;
 
         private void Awake()
         {
             _climbing = GetComponent<PlayerClimbing>();
+            _view = GetComponent<IClimbView>();
+            _motor = GetComponent<IPlayerMotor>();
             _limbs = new[] { leftHand, rightHand, leftFoot, rightFoot };
 
             foreach (Limb limb in _limbs)
@@ -54,6 +65,13 @@ namespace Characters.Player.Climbing
         
         private void LateUpdate()
         {
+            if (_climbing.IsLedgeClimbing)
+            {
+                _weight = 0f;
+                SolveLedgeClimb();
+                return;
+            }
+
             float dt = Time.deltaTime;
             bool active = _climbing.IsClimbing && !_climbing.IsInClimbStart && !_climbing.IsLedgeClimbing;
             _weight = Mathf.MoveTowards(_weight, active ? 1f : 0f, blendSpeed * dt);
@@ -81,6 +99,52 @@ namespace Characters.Player.Climbing
                 // Elbows and knees point away from the wall if the limb is fully straight.
                 TwoBoneIKSolver.Solve(limb.upper, limb.lower, limb.end,
                     Vector3.Lerp(animated, limb.Target, weight), awayFromWall);
+            }
+        }
+
+        // During the climb-up the clip's curves say when hands and feet are planted: hands on the ledge top
+        // (ray straight down), feet on the surface that was climbed (ray along its normal).
+        private void SolveLedgeClimb()
+        {
+            if (_view == null || _motor == null) return;
+            _view.GetLedgeClimbIKWeights(out float handsWeight, out float feetWeight);
+            if (handsWeight <= 0f && feetWeight <= 0f) return;
+
+            Vector3 wallNormal = _climbing.WallNormal;
+            LayerMask climbable = _climbing.Settings.ClimbableLayers;
+
+            for (int i = 0; i < _limbs.Length; i++)
+            {
+                Limb limb = _limbs[i];
+                bool isHand = i < HandCount;
+                float weight = isHand ? handsWeight : feetWeight;
+                if (weight <= 0f || !limb.IsValid) continue;
+
+                Vector3 animated = limb.end.position;
+                Vector3 target;
+                Vector3 bendHint;
+                if (isHand)
+                {
+                    if (!Physics.Raycast(animated + Vector3.up * handProbeHeight, Vector3.down, out RaycastHit topHit,
+                            handProbeHeight + castReach, _motor.GroundLayers, QueryTriggerInteraction.Ignore))
+                    {
+                        continue;
+                    }
+                    target = topHit.point + Vector3.up * surfaceOffset;
+                    bendHint = -transform.forward;
+                }
+                else
+                {
+                    if (!Physics.Raycast(animated + wallNormal * castBack, -wallNormal, out RaycastHit wallHit,
+                            castBack + castReach, climbable, QueryTriggerInteraction.Ignore))
+                    {
+                        continue;
+                    }
+                    target = wallHit.point + wallNormal * surfaceOffset;
+                    bendHint = wallNormal;
+                }
+
+                TwoBoneIKSolver.Solve(limb.upper, limb.lower, limb.end, Vector3.Lerp(animated, target, weight), bendHint);
             }
         }
 

@@ -29,7 +29,10 @@ namespace Characters.Player
         private int _climbStartStateHash;
         private int _ledgeClimbStateHash;
         private Vector3 _ledgeClimbOffset; // measured at start; visible in Debug inspector mode
+        private Vector3 _ledgeClimbStartBody;
         private bool _hasLedgeClimbOffset;
+        private bool _hasHandsIKCurve;
+        private bool _hasFeetIKCurve;
         private SkinnedMeshRenderer[] _skinnedRenderers;
         private bool[] _defaultUpdateWhenOffscreen;
         private bool _slideEffectActive;
@@ -58,6 +61,9 @@ namespace Characters.Player
         private static readonly int AnimIDClimbGrab = Animator.StringToHash("ClimbGrab");
         private static readonly int AnimIDClimbX = Animator.StringToHash("ClimbX");
         private static readonly int AnimIDClimbY = Animator.StringToHash("ClimbY");
+        // Float parameters driven by curves on the climb-up clip (optional).
+        private static readonly int AnimIDHandsIK = Animator.StringToHash("HandsIK");
+        private static readonly int AnimIDFeetIK = Animator.StringToHash("FeetIK");
 
         private void Awake()
         {
@@ -71,6 +77,12 @@ namespace Characters.Player
             for (int i = 0; i < _skinnedRenderers.Length; i++)
             {
                 _defaultUpdateWhenOffscreen[i] = _skinnedRenderers[i].updateWhenOffscreen;
+            }
+
+            foreach (AnimatorControllerParameter parameter in animator.parameters)
+            {
+                if (parameter.nameHash == AnimIDHandsIK) _hasHandsIKCurve = true;
+                if (parameter.nameHash == AnimIDFeetIK) _hasFeetIKCurve = true;
             }
         }
 
@@ -98,6 +110,7 @@ namespace Characters.Player
             Vector3 ledgeStartBody = transform.InverseTransformPoint(bodyReferenceBone.position);
 
             _ledgeClimbOffset = climbingBody - ledgeStartBody;
+            _ledgeClimbStartBody = ledgeStartBody;
             _hasLedgeClimbOffset = true;
         }
 
@@ -105,6 +118,20 @@ namespace Characters.Player
         {
             localOffset = _ledgeClimbOffset;
             return _hasLedgeClimbOffset;
+        }
+
+        public bool TryGetLedgeClimbStartBody(out Vector3 localPosition)
+        {
+            localPosition = _ledgeClimbStartBody;
+            return _hasLedgeClimbOffset;
+        }
+
+        public Vector3 BodyPosition => HudAnchor.position;
+
+        public void GetLedgeClimbIKWeights(out float hands, out float feet)
+        {
+            hands = _hasHandsIKCurve ? animator.GetFloat(AnimIDHandsIK) : 0f;
+            feet = _hasFeetIKCurve ? animator.GetFloat(AnimIDFeetIK) : 0f;
         }
 
         public Transform HudAnchor => bodyReferenceBone != null ? bodyReferenceBone : transform;

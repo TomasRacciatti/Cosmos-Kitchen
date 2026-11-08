@@ -29,6 +29,22 @@ namespace Characters.Player.Climbing
             }
         }
 
+        private void OnEnable()
+        {
+            _climbing.StandUpShifted += OnStandUpShifted;
+        }
+
+        private void OnDisable()
+        {
+            _climbing.StandUpShifted -= OnStandUpShifted;
+        }
+
+        // Keep the targets in place when the player is shifted to stand up; Update eases them back.
+        private void OnStandUpShifted(Vector3 shift)
+        {
+            _offset -= shift;
+        }
+
         private void Update()
         {
             if (_climbing.IsLedgeClimbing)
