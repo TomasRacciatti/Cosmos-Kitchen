@@ -18,9 +18,36 @@ namespace Characters.Player.Climbing
         private const float ConvexTolerance = 0.05f;
         private const float SameSurfaceDot = 0.99f;
         private const float MinGrabFacingDot = 0.7f;
-        private const float ClimbStartEnterTimeout = 0.25f;
+        private const float AnimatorStateEnterTimeout = 0.25f;
         private const float GroundProbeMargin = 0.1f;
         private const float StandUpProbeExtra = 0.5f;
+        private const float LedgeProbeHeadroom = 0.5f;
+        private const float LedgeRiseTolerance = 0.3f;
+        private const float CapsuleFitMargin = 0.05f;
+
+        // Waits for an Animator state we triggered to finish. The state is only entered a frame after the
+        // trigger; the timeout keeps the player from getting stuck if it never is (e.g. the state was renamed).
+        private struct AnimatorStateWait
+        {
+            private bool _seen;
+            private float _startTime;
+
+            public void Begin()
+            {
+                _seen = false;
+                _startTime = Time.time;
+            }
+
+            public bool IsDone(bool isPlaying)
+            {
+                if (isPlaying)
+                {
+                    _seen = true;
+                    return false;
+                }
+                return _seen || Time.time - _startTime > AnimatorStateEnterTimeout;
+            }
+        }
 
         // Cross-pattern probe corners, in (right, up) units of CrossProbeOffset.
         private static readonly Vector2[] ProbeCorners =
@@ -41,8 +68,8 @@ namespace Characters.Player.Climbing
         private bool _hasWallPoint;
         private float _regrabAllowedTime;
         private bool _climbStartPending;
-        private bool _climbStartSeen;
-        private float _climbStartTime;
+        private AnimatorStateWait _climbStartWait;
+        private AnimatorStateWait _ledgeClimbWait;
 
         // Forward into the surface, pitched on ramps/overhangs. The root itself only yaws,
         // because the CharacterController capsule can't tilt.
@@ -58,6 +85,9 @@ namespace Characters.Player.Climbing
 
         // Out of stamina on a ramp: still on the surface, but dragged down it.
         public bool IsSliding { get; private set; }
+
+        // Playing the climb-up onto a ledge: the player already stands on top, the animation catches up.
+        public bool IsLedgeClimbing { get; private set; }
         public Vector3 WallNormal => _lastWallNormal;
         public Quaternion ClimbRotation => _climbRotation;
         public Vector3 ClimbForward => _climbRotation * Vector3.forward;
@@ -113,7 +143,13 @@ namespace Characters.Player.Climbing
                 return;
             }
 
-            if (_climbStartPending) UpdateClimbStart();
+            if (IsLedgeClimbing)
+            {
+                if (_ledgeClimbWait.IsDone(_view.IsPlayingLedgeClimb)) StopClimbing(clearSurface: false);
+                return;
+            }
+
+            if (_climbStartPending && _climbStartWait.IsDone(_view.IsPlayingClimbStart)) _climbStartPending = false;
 
             Vector2 input = _climbStartPending ? Vector2.zero : SquareToCircle(_input.move);
             if (IsSliding) input.y = 0f;
@@ -168,6 +204,12 @@ namespace Characters.Player.Climbing
             forward = ClimbForward;
             SurfaceTilt = GetSurfaceTilt(-forward);
             ApplyRootYaw(dt);
+
+            if (input.y > InputDeadZone && !IsSliding && TryGetLedgeStandPoint(out Vector3 standPoint))
+            {
+                StartLedgeClimb(standPoint);
+                return;
+            }
 
             float wallDistance = _controller.radius + _controller.skinWidth + settings.WallGap;
             Vector3 targetOrigin = hit.point + hit.normal * wallDistance;
@@ -254,20 +296,50 @@ namespace Characters.Player.Climbing
             return foundInsideCorner;
         }
 
-        // Input is held until the Animator leaves Climb Start. It only enters the state one frame
-        // after the grab; the timeout keeps the player from getting stuck if it never does.
-        private void UpdateClimbStart()
+        // The climb-up clip ends standing at its origin, with the body starting LedgeRise below and
+        // LedgeForward behind it. So the stand point is LedgeForward ahead of the feet, on the ledge top,
+        // reached once the top is no more than LedgeRise above the feet.
+        private bool TryGetLedgeStandPoint(out Vector3 standPoint)
         {
-            if (_view.IsPlayingClimbStart)
+            standPoint = default;
+            if (_view == null) return false;
+
+            Vector3 feet = transform.position;
+            Vector3 probeStart = feet + transform.forward * settings.LedgeForward +
+                                 Vector3.up * (settings.LedgeRise + LedgeProbeHeadroom);
+            // A ray starting inside a taller wall doesn't hit it, so a wall without a ledge here finds nothing.
+            if (!Physics.Raycast(probeStart, Vector3.down, out RaycastHit hit, LedgeProbeHeadroom + LedgeRiseTolerance,
+                    _motor.GroundLayers, QueryTriggerInteraction.Ignore))
             {
-                _climbStartSeen = true;
-                return;
+                return false;
             }
 
-            if (_climbStartSeen || Time.time - _climbStartTime > ClimbStartEnterTimeout)
-            {
-                _climbStartPending = false;
-            }
+            float rise = hit.point.y - feet.y;
+            if (rise > settings.LedgeRise || GetSurfaceTilt(hit.normal) >= -settings.MaxInclination) return false;
+
+            standPoint = hit.point + Vector3.up * _controller.skinWidth;
+            float radius = _controller.radius;
+            Vector3 bottom = standPoint + Vector3.up * (radius + CapsuleFitMargin);
+            Vector3 top = standPoint + Vector3.up * (_standingHeight - radius);
+            return !Physics.CheckCapsule(bottom, top, radius, _motor.GroundLayers | settings.ClimbableLayers,
+                QueryTriggerInteraction.Ignore);
+        }
+
+        // Moves the player to the stand point and starts the clip in the same frame: its first frame draws the
+        // body back where it was, and the animation then carries it up onto the ledge.
+        private void StartLedgeClimb(Vector3 standPoint)
+        {
+            IsLedgeClimbing = true;
+            ClimbInput = Vector2.zero;
+            _ledgeClimbWait.Begin();
+
+            _controller.height = _standingHeight;
+            _controller.enabled = false; // required to teleport a CharacterController
+            transform.position = standPoint;
+            _controller.enabled = true;
+
+            _view.SetClimbMove(Vector2.zero);
+            _view.PlayLedgeClimb();
         }
 
         private void UpdateAutoGrab(float dt)
@@ -296,7 +368,7 @@ namespace Characters.Player.Climbing
         {
             if (IsClimbing)
             {
-                if (!IsSliding) JumpOff();
+                if (!IsSliding && !IsLedgeClimbing) JumpOff();
                 return;
             }
 
@@ -396,8 +468,7 @@ namespace Characters.Player.Climbing
             ClimbInput = Vector2.zero;
             _wallPushTimer = 0f;
             _climbStartPending = fromGround && _view != null;
-            _climbStartSeen = false;
-            _climbStartTime = Time.time;
+            _climbStartWait.Begin();
 
             // Face the surface immediately so the first wall ray finds it, even on shallow ramps
             _climbRotation = Quaternion.LookRotation(-surfaceNormal, Vector3.up);
@@ -430,6 +501,7 @@ namespace Characters.Player.Climbing
             ClimbInput = Vector2.zero;
             if (IsSliding && _view != null) _view.SetSlideEffect(false, Vector3.zero);
             IsSliding = false;
+            IsLedgeClimbing = false;
             _slideSpeed = 0f;
             RestoreStandingCapsule(clearSurface);
             ClimbEnded?.Invoke();

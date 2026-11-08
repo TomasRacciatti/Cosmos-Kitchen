@@ -29,7 +29,7 @@ namespace Characters.Player.Climbing
         private void Update()
         {
             // Climbing frame relative to the (yaw-only) root = the pitch the model should have.
-            Quaternion target = _climbing.IsClimbing
+            Quaternion target = _climbing.IsClimbing && !_climbing.IsLedgeClimbing
                 ? Quaternion.Inverse(transform.rotation) * _climbing.ClimbRotation
                 : Quaternion.identity;
             _lean = Quaternion.Slerp(_lean, target, leanSharpness * Time.deltaTime);

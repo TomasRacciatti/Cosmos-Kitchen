@@ -29,7 +29,8 @@ namespace Characters.Player.Climbing
 
         private void Update()
         {
-            Vector3 target = _climbing.IsClimbing ? -_climbing.ClimbForward * clearance : Vector3.zero;
+            bool onSurface = _climbing.IsClimbing && !_climbing.IsLedgeClimbing;
+            Vector3 target = onSurface ? -_climbing.ClimbForward * clearance : Vector3.zero;
             _offset = Vector3.Lerp(_offset, target, sharpness * Time.deltaTime);
 
             Vector3 localOffset = transform.InverseTransformDirection(_offset);

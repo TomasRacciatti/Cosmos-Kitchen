@@ -7,8 +7,11 @@ namespace Interfaces
         void ClimbStarted(bool fromGround);
         void ClimbEnded();
 
-        // Becomes false as soon as Climb Start's exit transition begins.
+        // Become false as soon as the state's exit transition begins.
         bool IsPlayingClimbStart { get; }
+        bool IsPlayingLedgeClimb { get; }
+
+        void PlayLedgeClimb();
         
         void SetClimbMove(Vector2 move);
 

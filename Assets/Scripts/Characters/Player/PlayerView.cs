@@ -12,11 +12,14 @@ namespace Characters.Player
         [SerializeField] private float climbMoveDampTime = 0.1f;
         [Tooltip("Name of the Climb Start state in the Animator (Base Layer). Climb input is held while it plays.")]
         [SerializeField] private string climbStartStateName = "Player_ClimbStart";
+        [Tooltip("Name of the ledge climb-up state in the Animator (Base Layer). Input is held while it plays.")]
+        [SerializeField] private string ledgeClimbStateName = "Player_ClimbEdge";
         [Tooltip("Dust particles per second while sliding down a ramp (uses the footstep particles).")]
         [Min(0f)] [SerializeField] private float slideDustRate = 20f;
 
         private const int BaseLayer = 0;
         private int _climbStartStateHash;
+        private int _ledgeClimbStateHash;
         private bool _slideEffectActive;
         private Vector3 _stepsParticlesLocalPosition;
 
@@ -43,12 +46,14 @@ namespace Characters.Player
         private static readonly int AnimIDClimbGrab = Animator.StringToHash("ClimbGrab");
         private static readonly int AnimIDClimbX = Animator.StringToHash("ClimbX");
         private static readonly int AnimIDClimbY = Animator.StringToHash("ClimbY");
+        private static readonly int AnimIDClimbLedge = Animator.StringToHash("ClimbLedge");
 
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
             _playerController = GetComponent<PlayerController>();
             _climbStartStateHash = Animator.StringToHash(climbStartStateName);
+            _ledgeClimbStateHash = Animator.StringToHash(ledgeClimbStateName);
         }
 
         private void Start()
@@ -139,17 +144,22 @@ namespace Characters.Player
             animator.SetTrigger(fromGround ? AnimIDClimbStart : AnimIDClimbGrab);
         }
 
-        public bool IsPlayingClimbStart
+        public bool IsPlayingClimbStart => IsPlayingState(_climbStartStateHash);
+        public bool IsPlayingLedgeClimb => IsPlayingState(_ledgeClimbStateHash);
+
+        public void PlayLedgeClimb()
         {
-            get
+            animator.SetTrigger(AnimIDClimbLedge);
+        }
+
+        // Entering the state counts as playing; leaving it (its exit-time transition) does not.
+        private bool IsPlayingState(int stateHash)
+        {
+            if (animator.IsInTransition(BaseLayer))
             {
-                // Entering Climb Start counts as playing; leaving it (its exit-time transition) does not.
-                if (animator.IsInTransition(BaseLayer))
-                {
-                    return animator.GetNextAnimatorStateInfo(BaseLayer).shortNameHash == _climbStartStateHash;
-                }
-                return animator.GetCurrentAnimatorStateInfo(BaseLayer).shortNameHash == _climbStartStateHash;
+                return animator.GetNextAnimatorStateInfo(BaseLayer).shortNameHash == stateHash;
             }
+            return animator.GetCurrentAnimatorStateInfo(BaseLayer).shortNameHash == stateHash;
         }
 
         public void ClimbEnded()
@@ -158,6 +168,7 @@ namespace Characters.Player
             // Clear any climb trigger that wasn't consumed, so it can't fire later.
             animator.ResetTrigger(AnimIDClimbStart);
             animator.ResetTrigger(AnimIDClimbGrab);
+            animator.ResetTrigger(AnimIDClimbLedge);
         }
 
         public void SetClimbMove(Vector2 move)

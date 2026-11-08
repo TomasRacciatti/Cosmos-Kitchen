@@ -55,7 +55,7 @@ namespace Characters.Player.Climbing
         private void LateUpdate()
         {
             float dt = Time.deltaTime;
-            bool active = _climbing.IsClimbing && !_climbing.IsInClimbStart;
+            bool active = _climbing.IsClimbing && !_climbing.IsInClimbStart && !_climbing.IsLedgeClimbing;
             _weight = Mathf.MoveTowards(_weight, active ? 1f : 0f, blendSpeed * dt);
             if (_weight <= 0f) return;
             

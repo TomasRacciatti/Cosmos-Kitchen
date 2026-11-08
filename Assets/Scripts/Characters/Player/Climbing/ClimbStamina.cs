@@ -42,7 +42,7 @@ namespace Characters.Player.Climbing
             }
 
             _lastUseTime = Time.time;
-            if (_climbing.IsInClimbStart || _climbing.IsSliding) return;
+            if (_climbing.IsInClimbStart || _climbing.IsSliding || _climbing.IsLedgeClimbing) return;
             Consume(GetDrainPerSecond() * Time.deltaTime);
         }
 
