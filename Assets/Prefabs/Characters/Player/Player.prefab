@@ -213,6 +213,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   climbMoveDampTime: 0.1
   climbStartStateName: Player_ClimbStart
+  ledgeClimbStateName: Player_ClimbLedge
+  slideDustRate: 20
+  climbIdleClip: {fileID: 7400000, guid: 381a90ca163660b46af1f53c53a8899a, type: 2}
+  ledgeClimbClip: {fileID: 7400000, guid: 00d121c97b2fa4c42bf494812064c505, type: 2}
+  bodyReferenceBone: {fileID: 6258417895923722552}
   damagedCue: {fileID: 0}
   footstepCue: {fileID: 0}
   landingCue: {fileID: 0}
@@ -2310,6 +2315,12 @@ Transform:
 --- !u!4 &5377526543437693378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8129455624646920476, guid: 3c440dd546111df419b046c66a324bb8,
+    type: 3}
+  m_PrefabInstance: {fileID: 4211269412805085406}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6258417895923722552 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7830408302114382310, guid: 3c440dd546111df419b046c66a324bb8,
     type: 3}
   m_PrefabInstance: {fileID: 4211269412805085406}
   m_PrefabAsset: {fileID: 0}

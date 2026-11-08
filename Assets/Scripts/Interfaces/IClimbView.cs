@@ -11,7 +11,14 @@ namespace Interfaces
         bool IsPlayingClimbStart { get; }
         bool IsPlayingLedgeClimb { get; }
 
+        // 0..1 through the climb-up clip; 0 until the Animator has entered it.
+        float LedgeClimbProgress { get; }
+
         void PlayLedgeClimb();
+
+        // How far the player must be moved (in its local space) when the climb-up starts, so the clip's
+        // first frame lines up with the climbing pose. False if it couldn't be measured.
+        bool TryGetLedgeClimbOffset(out Vector3 localOffset);
         
         void SetClimbMove(Vector2 move);
 

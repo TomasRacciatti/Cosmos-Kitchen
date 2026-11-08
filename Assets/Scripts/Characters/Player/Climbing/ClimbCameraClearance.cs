@@ -16,6 +16,8 @@ namespace Characters.Player.Climbing
         private PlayerClimbing _climbing;
         private Vector3[] _baseLocalPositions;
         private Vector3 _offset;
+        private bool _wasLedgeClimbing;
+        private Vector3 _ledgeStartOffset;
 
         private void Awake()
         {
@@ -29,15 +31,32 @@ namespace Characters.Player.Climbing
 
         private void Update()
         {
-            bool onSurface = _climbing.IsClimbing && !_climbing.IsLedgeClimbing;
-            Vector3 target = onSurface ? -_climbing.ClimbForward * clearance : Vector3.zero;
-            _offset = Vector3.Lerp(_offset, target, sharpness * Time.deltaTime);
+            if (_climbing.IsLedgeClimbing)
+            {
+                _offset = GetLedgeClimbOffset();
+            }
+            else
+            {
+                Vector3 target = _climbing.IsClimbing ? -_climbing.ClimbForward * clearance : Vector3.zero;
+                _offset = Vector3.Lerp(_offset, target, sharpness * Time.deltaTime);
+            }
+            _wasLedgeClimbing = _climbing.IsLedgeClimbing;
 
             Vector3 localOffset = transform.InverseTransformDirection(_offset);
             for (int i = 0; i < cameraTargets.Length; i++)
             {
                 cameraTargets[i].localPosition = _baseLocalPositions[i] + localOffset;
             }
+        }
+
+        // The player is teleported onto the ledge when the climb-up starts. Keep the targets where they were
+        // that frame, then carry them up with the clip's progress so the camera follows the body instead of
+        // snapping ahead of it.
+        private Vector3 GetLedgeClimbOffset()
+        {
+            if (!_wasLedgeClimbing) _ledgeStartOffset = _offset - _climbing.LedgeClimbDelta;
+            float t = Mathf.SmoothStep(0f, 1f, _climbing.LedgeClimbProgress);
+            return Vector3.Lerp(_ledgeStartOffset, Vector3.zero, t);
         }
     }
 }

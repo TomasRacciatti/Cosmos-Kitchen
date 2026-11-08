@@ -56,14 +56,6 @@ namespace Characters.Player.Climbing
         [Tooltip("Sideways speed while sliding (m/s). Up/down input is ignored.")]
         [Min(0f)] [SerializeField] private float slideSideSpeed = 1f;
 
-        [Header("Ledge Climb-Up")]
-        [Tooltip("How high the climb-up clip lifts the feet, from the hanging pose to standing on top (m). " +
-                 "From the clip: the root starts this far below its final position.")]
-        [Min(0f)] [SerializeField] private float ledgeRise = 1.19f;
-        [Tooltip("How far forward the climb-up clip moves the feet onto the ledge (m). " +
-                 "From the clip: the root starts this far behind its final position.")]
-        [Min(0f)] [SerializeField] private float ledgeForward = 0.45f;
-
         [Header("Wall Alignment")]
         [Tooltip("Extra space kept between the capsule and the wall, on top of radius + skin width (m).")]
         [SerializeField] private float wallGap = 0.01f;
@@ -106,8 +98,6 @@ namespace Characters.Player.Climbing
         public float SlideSpeed => slideSpeed;
         public float SlideAcceleration => slideAcceleration;
         public float SlideSideSpeed => slideSideSpeed;
-        public float LedgeRise => ledgeRise;
-        public float LedgeForward => ledgeForward;
         public float WallGap => wallGap;
         public float SnapSharpness => snapSharpness;
         public float RotationSharpness => rotationSharpness;

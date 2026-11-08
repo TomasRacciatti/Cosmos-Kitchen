@@ -88,6 +88,10 @@ namespace Characters.Player.Climbing
 
         // Playing the climb-up onto a ledge: the player already stands on top, the animation catches up.
         public bool IsLedgeClimbing { get; private set; }
+
+        // How far the player was moved onto the ledge when the climb-up started.
+        public Vector3 LedgeClimbDelta { get; private set; }
+        public float LedgeClimbProgress => IsLedgeClimbing && _view != null ? _view.LedgeClimbProgress : 0f;
         public Vector3 WallNormal => _lastWallNormal;
         public Quaternion ClimbRotation => _climbRotation;
         public Vector3 ClimbForward => _climbRotation * Vector3.forward;
@@ -296,17 +300,21 @@ namespace Characters.Player.Climbing
             return foundInsideCorner;
         }
 
-        // The climb-up clip ends standing at its origin, with the body starting LedgeRise below and
-        // LedgeForward behind it. So the stand point is LedgeForward ahead of the feet, on the ledge top,
-        // reached once the top is no more than LedgeRise above the feet.
+        // The climb-up clip ends standing at its origin; its offset (measured from the clips) is how far that is
+        // from where the player stands while climbing. So the stand point is that far ahead/up from the feet,
+        // on the ledge top, reached once the top is no higher above the feet than the clip rises.
         private bool TryGetLedgeStandPoint(out Vector3 standPoint)
         {
             standPoint = default;
-            if (_view == null) return false;
+            if (_view == null || !_view.TryGetLedgeClimbOffset(out Vector3 localOffset) || localOffset.y <= 0f)
+            {
+                return false;
+            }
 
+            float clipRise = localOffset.y;
             Vector3 feet = transform.position;
-            Vector3 probeStart = feet + transform.forward * settings.LedgeForward +
-                                 Vector3.up * (settings.LedgeRise + LedgeProbeHeadroom);
+            Vector3 horizontal = transform.TransformDirection(new Vector3(localOffset.x, 0f, localOffset.z));
+            Vector3 probeStart = feet + horizontal + Vector3.up * (clipRise + LedgeProbeHeadroom);
             // A ray starting inside a taller wall doesn't hit it, so a wall without a ledge here finds nothing.
             if (!Physics.Raycast(probeStart, Vector3.down, out RaycastHit hit, LedgeProbeHeadroom + LedgeRiseTolerance,
                     _motor.GroundLayers, QueryTriggerInteraction.Ignore))
@@ -315,7 +323,7 @@ namespace Characters.Player.Climbing
             }
 
             float rise = hit.point.y - feet.y;
-            if (rise > settings.LedgeRise || GetSurfaceTilt(hit.normal) >= -settings.MaxInclination) return false;
+            if (rise > clipRise || GetSurfaceTilt(hit.normal) >= -settings.MaxInclination) return false;
 
             standPoint = hit.point + Vector3.up * _controller.skinWidth;
             float radius = _controller.radius;
@@ -334,6 +342,7 @@ namespace Characters.Player.Climbing
             _ledgeClimbWait.Begin();
 
             _controller.height = _standingHeight;
+            LedgeClimbDelta = standPoint - transform.position;
             _controller.enabled = false; // required to teleport a CharacterController
             transform.position = standPoint;
             _controller.enabled = true;
