@@ -201,18 +201,13 @@ namespace Characters.Player
                 return state.shortNameHash == _ledgeClimbStateHash ? Mathf.Clamp01(state.normalizedTime) : 0f;
             }
         }
-
-        // Played directly instead of through a transition: the player is teleported onto the ledge this same
-        // frame, so any blend would draw the old climbing pose at the new position (a visible pop).
+        
         public void PlayLedgeClimb()
         {
             SetBoundsFollowBones(true);
             animator.Play(_ledgeClimbStateHash, BaseLayer, 0f);
         }
-
-        // Skinned mesh bounds are placed around their root bone (BMain). In the climb-up clip the root stays at
-        // the start while the body moves ~1.2 m away from it, so the bounds leave the view and Unity culls body
-        // parts that are actually on screen. Recompute bounds from the bones only while that clip plays (costly).
+        
         private void SetBoundsFollowBones(bool follow)
         {
             for (int i = 0; i < _skinnedRenderers.Length; i++)
@@ -220,8 +215,7 @@ namespace Characters.Player
                 _skinnedRenderers[i].updateWhenOffscreen = follow || _defaultUpdateWhenOffscreen[i];
             }
         }
-
-        // Entering the state counts as playing; leaving it (its exit-time transition) does not.
+        
         private bool IsPlayingState(int stateHash)
         {
             if (animator.IsInTransition(BaseLayer))
@@ -235,7 +229,6 @@ namespace Characters.Player
         {
             SetBoundsFollowBones(false);
             animator.SetBool(AnimIDClimbing, false);
-            // Clear any climb trigger that wasn't consumed, so it can't fire later.
             animator.ResetTrigger(AnimIDClimbStart);
             animator.ResetTrigger(AnimIDClimbGrab);
         }
@@ -245,9 +238,7 @@ namespace Characters.Player
             animator.SetFloat(AnimIDClimbX, move.x, climbMoveDampTime, Time.deltaTime);
             animator.SetFloat(AnimIDClimbY, move.y, climbMoveDampTime, Time.deltaTime);
         }
-
-        // Reuses the footstep dust. It's moved to the contact point on the ramp, because the feet pivot
-        // ends up inside the ramp while the body lies along it.
+        
         public void SetSlideEffect(bool active, Vector3 surfacePoint)
         {
             var emission = stepsParticles.emission;
