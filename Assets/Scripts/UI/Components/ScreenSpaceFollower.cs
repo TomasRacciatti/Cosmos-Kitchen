@@ -1,3 +1,4 @@
+using Interfaces;
 using Managers;
 using UnityEngine;
 
@@ -6,10 +7,10 @@ namespace UI.Components
     [RequireComponent(typeof(RectTransform))]
     public class ScreenSpaceFollower : MonoBehaviour
     {
-        [Tooltip("World object to follow. If empty, the registered player is used.")]
+        [Tooltip("World object to follow. If empty, the registered player's HUD anchor (its body bone) is used.")]
         [SerializeField] private Transform target;
-        [Tooltip("Point to follow, relative to the target in world space (m). E.g. the head.")]
-        [SerializeField] private Vector3 worldOffset = new Vector3(0f, 1.4f, 0f);
+        [Tooltip("Point to follow, relative to the target in world space (m). E.g. from the hips up to the head.")]
+        [SerializeField] private Vector3 worldOffset = new Vector3(0f, 0.8f, 0f);
         [Tooltip("Shift on screen from that point, in canvas units (x < 0 = left, y > 0 = up).")]
         [SerializeField] private Vector2 screenOffset = new Vector2(-120f, 60f);
 
@@ -53,7 +54,11 @@ namespace UI.Components
         {
             if (GameManager.Player != null)
             {
-                if (target == null) target = GameManager.Player.transform;
+                if (target == null)
+                {
+                    IHudAnchor anchor = GameManager.Player.GetComponent<IHudAnchor>();
+                    target = anchor != null ? anchor.HudAnchor : GameManager.Player.transform;
+                }
                 if (_camera == null) _camera = GameManager.Player.MainCamera;
             }
             return target != null && _camera != null;

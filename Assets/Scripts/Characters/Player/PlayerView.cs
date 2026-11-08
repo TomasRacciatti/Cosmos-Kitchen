@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 namespace Characters.Player
 {
-    public class PlayerView : MonoBehaviour, IClimbView
+    public class PlayerView : MonoBehaviour, IClimbView, IHudAnchor
     {
         [Header("Climbing")]
         [Tooltip("Smoothing time for the climb blend tree parameters (s).")]
@@ -106,6 +106,8 @@ namespace Characters.Player
             localOffset = _ledgeClimbOffset;
             return _hasLedgeClimbOffset;
         }
+
+        public Transform HudAnchor => bodyReferenceBone != null ? bodyReferenceBone : transform;
 
         private void AssignAnimationIDs()
         {
