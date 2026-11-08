@@ -35,6 +35,8 @@ namespace Items.Core
 
         public static void Updated()
         {
+            if (_instance._itemAmount == null) return;
+
             if (_instance._itemAmount.IsEmpty)
             {
                 Hide();
@@ -56,6 +58,7 @@ namespace Items.Core
 
         public static void Hide()
         {
+            _instance._itemAmount = null;
             _instance.gameObject.SetActive(false);
         }
 
