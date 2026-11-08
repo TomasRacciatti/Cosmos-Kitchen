@@ -118,7 +118,7 @@ namespace Stations
                 var item = invSystem.Items[i];
                 if (item.IsEmpty) continue;
                 
-                if (item.Prep.Doneness == Cooking.Doneness.Burnt) continue;
+                if (item.IsRuined) continue;
                 
                 // Validacion de prereq
                 if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))

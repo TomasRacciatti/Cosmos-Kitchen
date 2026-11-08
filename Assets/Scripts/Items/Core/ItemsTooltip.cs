@@ -42,7 +42,9 @@ namespace Items.Core
             }
             
             _instance.itemNameText.text = _instance._itemAmount.SoItem.ItemName;
-            _instance.itemDescriptionText.text = _instance._itemAmount.GetProcessHistoryText();
+            _instance.itemDescriptionText.text = _instance._itemAmount.IsRuined
+                ? _instance._itemAmount.SoItem.Description
+                : _instance._itemAmount.GetProcessHistoryText();
             _instance.itemIcon.sprite = ItemSpriteResolver.Resolve(_instance._itemAmount, null);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();

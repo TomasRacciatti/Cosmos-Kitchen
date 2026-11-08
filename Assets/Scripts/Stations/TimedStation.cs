@@ -140,11 +140,7 @@ namespace Stations
             var item = invSystem.Item(0);
             if (item.IsEmpty) return;
             
-            if (item.Prep.Doneness == Doneness.Burnt)
-            {
-                // No permitimos cocinar ingredientes arruinados
-                return;
-            }
+            if (item.IsRuined) return;
             
             // Validacion de prereq
             if (!ProcessingPrerequisiteChecker.CanProcess(item, method, out string failureReason))
@@ -249,7 +245,8 @@ namespace Stations
             if (index != 0) return;
             bool wasRunning = _session != null;
             StopCooking();
-            
+            if (current.IsRuined) return;
+
             if (!wasRunning && !current.IsEmpty)
             {
                 var prepState = current.Prep;
@@ -288,30 +285,21 @@ namespace Stations
         
         private void HandleBurnt()
         {
+            StopCooking();
+
             var item = invSystem.Item(0);
-            if (item.IsEmpty)
+            if (item.IsEmpty) return;
+
+            var ruinedItem = PrefabsManager.RuinedItem;
+            if (ruinedItem == null)
             {
-                StopCooking();
+                Debug.LogError($"{name}: PrefabsManager has no Ruined Item assigned.");
                 return;
             }
 
-             var prepState = item.Prep;
-             prepState.method = method;
-             prepState.turnsCooked = maxTurnsBeforeBurn + 1f;
-             item.Prep = prepState;
-             
-             if (!_recordedThisSession)
-             {
-                 item.AddProcessStep(method, 4);
-                 _recordedThisSession = true;
-             }
-             
-             invSystem.NotifySlotChanged(0);
-             ItemsTooltip.Updated();
-             
-             StopCooking();
-            
-            //Debug.Log($"[{name}] BURNT (Method={method})"); // BORRAR despues
+            item.Ruin(ruinedItem);
+            invSystem.NotifySlotChanged(0);
+            ItemsTooltip.Updated();
         }
         
         protected override IEnumerable<InvSystem> GetInventoriesForAcceptance()

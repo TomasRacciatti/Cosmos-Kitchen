@@ -1,3 +1,4 @@
+using Items.Core;
 using UnityEngine;
 
 namespace Managers
@@ -16,7 +17,9 @@ namespace Managers
         [SerializeField] private GameObject slotPrefabUI;
         [SerializeField] private Mesh itemMesh;
         [SerializeField] private Material[] itemMaterials;
-        
+        [Tooltip("Every ingredient left too long in a station turns into this item.")]
+        [SerializeField] private SoRuinedItem ruinedItem;
+
         [Header("Notifications")]
         [SerializeField] private GameObject notificationPrefabUI;
         [SerializeField] private Sprite notificationWinUI;
@@ -37,6 +40,7 @@ namespace Managers
         public static GameObject SlotPrefabUI => _instance.slotPrefabUI;
         public static Mesh ItemMesh => _instance.itemMesh;
         public static Material[] ItemMaterials => _instance.itemMaterials;
+        public static SoRuinedItem RuinedItem => _instance.ruinedItem;
         public static GameObject NotificationPrefabUI => _instance.notificationPrefabUI;
         public static Sprite NotificationWinUI => _instance.notificationWinUI;
         public static Sprite NotificationLoseUI => _instance.notificationLoseUI;

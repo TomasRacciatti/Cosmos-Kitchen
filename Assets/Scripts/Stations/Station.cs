@@ -64,7 +64,7 @@ namespace Stations
         protected virtual bool CanAcceptAtThisStation(ItemAmount it)
         {
             if (it == null || it.IsEmpty) return false;
-            return it.Prep.Doneness != Doneness.Burnt;
+            return !it.IsRuined;
         }
 
         protected virtual void EnterStation()

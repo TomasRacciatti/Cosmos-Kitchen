@@ -27,6 +27,7 @@ namespace Items.Core
         public bool ValidSoItem => soItem != null;
         public bool IsEmpty => soItem == null || amount <= 0;
         public bool IsFull => soItem != null && amount >= Stack;
+        public bool IsRuined => soItem is SoRuinedItem;
         public int Rating => rating;
         public Sprite GetRatingSprite => !IsEmpty ? PrefabsManager.ItemStars[rating] : null;
         public PreparationState Prep { get => prep; set => prep = value; }
@@ -109,6 +110,14 @@ namespace Items.Core
             
             prep.method = CookingMethod.None;
             prep.turnsCooked = 0f;
+        }
+
+        public void Ruin(SoRuinedItem ruinedItem)
+        {
+            soItem = ruinedItem;
+            prep = default;
+            processHistory.Clear();
+            SetAmount(amount);
         }
 
         // Rating - Tomi
