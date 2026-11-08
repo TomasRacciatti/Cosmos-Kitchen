@@ -13,7 +13,14 @@ namespace Items.Inventory
         [SerializeField] private TextMeshProUGUI amountText;
         [SerializeField] private ItemAmount itemAmount;
         [SerializeField] private Image starIcon;
-        
+
+        [Header("Amount Outline")]
+        [SerializeField] private Color amountOutlineColor = Color.white;
+        [Tooltip("TextMeshPro outline width (0-1). Keeps the stack number readable on dark sprites.")]
+        [SerializeField, Range(0f, 1f)] private float amountOutlineWidth = 0.25f;
+
+        private static Material _amountOutlineMaterial;
+
         //Getters
         public ItemAmount ItemAmount => itemAmount;
         public InvSlotUI SlotUI => _invSlotUI;
@@ -27,6 +34,21 @@ namespace Items.Inventory
             _canvas = GetComponent<Canvas>();
             _canvas.sortingOrder = 10;
             amountText.raycastTarget = false;
+            ApplyAmountOutline();
+        }
+
+        // One shared material for every item UI, so slots keep batching together.
+        private void ApplyAmountOutline()
+        {
+            if (_amountOutlineMaterial == null)
+            {
+                _amountOutlineMaterial = new Material(amountText.fontSharedMaterial);
+                _amountOutlineMaterial.EnableKeyword(ShaderUtilities.Keyword_Outline);
+                _amountOutlineMaterial.SetColor(ShaderUtilities.ID_OutlineColor, amountOutlineColor);
+                _amountOutlineMaterial.SetFloat(ShaderUtilities.ID_OutlineWidth, amountOutlineWidth);
+                ShaderUtilities.UpdateShaderRatios(_amountOutlineMaterial);
+            }
+            amountText.fontSharedMaterial = _amountOutlineMaterial;
         }
 
         public void SetSlotUI(InvSlotUI invSlotUI)
