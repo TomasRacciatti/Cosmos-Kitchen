@@ -123,7 +123,14 @@ namespace Characters.Player
         public void OnBackUI(InputValue value)
         {
             if (!active || !value.isPressed) return;
-            
+
+            if (bookOpen)
+            {
+                bookOpen = GameManager.Canvas.ToggleBook();
+                CheckCursor();
+                return;
+            }
+
             menuOpen = GameManager.Canvas.TogglePauseMenu();
             CheckCursor();
         }
