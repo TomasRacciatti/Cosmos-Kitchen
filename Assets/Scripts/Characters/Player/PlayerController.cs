@@ -71,7 +71,6 @@ namespace Characters.Player
         private float _rotationVelocity;
         private float _verticalVelocity;
         private Vector3 _launchVelocity;
-        private bool _ignoreMeasuredSpeed; 
         private const float TerminalVelocity = 50.0f;
         
         private float _jumpTimeoutDelta;
@@ -140,7 +139,6 @@ namespace Characters.Player
         private void OnClimbEnded()
         {
             _speed = 0f;
-            _ignoreMeasuredSpeed = true;
         }
         
         private void OnClimbStarted()
@@ -226,10 +224,12 @@ namespace Characters.Player
         {
             float targetSpeed = _input.sprint ? sprintSpeed : moveSpeed;
             if (_input.move == Vector2.zero) targetSpeed = 0.0f;
-            float currentHorizontalSpeed = _ignoreMeasuredSpeed
-                ? 0f
-                : (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
-            _ignoreMeasuredSpeed = false;
+            // The measured velocity also contains movement we didn't ask for (launch push, the controller
+            // pushing itself out of geometry...). Let it only lower the speed (e.g. walking into a wall), never
+            // raise it, or that extra movement feeds back into _speed and the player gets shoved.
+            float measuredSpeed =
+                (new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z) - _launchVelocity).magnitude;
+            float currentHorizontalSpeed = Mathf.Min(measuredSpeed, _speed);
             float speedOffset = 0.1f;
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)

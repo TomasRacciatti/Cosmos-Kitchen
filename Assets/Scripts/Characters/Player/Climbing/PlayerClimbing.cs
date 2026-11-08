@@ -340,7 +340,7 @@ namespace Characters.Player.Climbing
             float rise = hit.point.y - feet.y;
             if (rise > clipRise || GetSurfaceTilt(hit.normal) >= -settings.MaxInclination) return false;
 
-            standPoint = hit.point + Vector3.up * _controller.skinWidth;
+            standPoint = GetStandPoint(hit);
             return CapsuleFitsAt(standPoint);
         }
 
@@ -359,8 +359,17 @@ namespace Characters.Player.Climbing
                 return false;
             }
 
-            standPoint = hit.point + Vector3.up * _controller.skinWidth;
+            standPoint = GetStandPoint(hit);
             return CapsuleFitsAt(standPoint);
+        }
+
+        // On a slope the capsule's round bottom would cut into the surface if the feet sat on the hit point;
+        // lift it until the bottom sphere just touches the slope (radius / cos(angle) - radius).
+        private Vector3 GetStandPoint(RaycastHit hit)
+        {
+            float cosAngle = Mathf.Max(hit.normal.y, 0.1f);
+            float slopeLift = _controller.radius / cosAngle - _controller.radius;
+            return hit.point + Vector3.up * (_controller.skinWidth + slopeLift);
         }
 
         private bool CapsuleFitsAt(Vector3 feet)
