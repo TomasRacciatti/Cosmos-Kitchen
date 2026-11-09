@@ -10,6 +10,8 @@ namespace Characters.Player
         [Header("Climbing")]
         [Tooltip("Smoothing time for the climb blend tree parameters (s).")]
         [SerializeField] private float climbMoveDampTime = 0.1f;
+        [Tooltip("Time for the climb cycle to slow down to a pause / speed back up when stopping or moving again (s).")]
+        [SerializeField] private float climbStopDampTime = 0.1f;
         [Tooltip("Name of the Climb Start state in the Animator (Base Layer). Climb input is held while it plays.")]
         [SerializeField] private string climbStartStateName = "Player_ClimbStart";
         [Tooltip("Name of the ledge climb-up state in the Animator (Base Layer). Input is held while it plays.")]
@@ -33,6 +35,7 @@ namespace Characters.Player
         private bool _hasLedgeClimbOffset;
         private bool _hasHandsIKCurve;
         private bool _hasFeetIKCurve;
+        private bool _hasClimbAnimSpeed;
         private SkinnedMeshRenderer[] _skinnedRenderers;
         private bool[] _defaultUpdateWhenOffscreen;
         private bool _slideEffectActive;
@@ -64,6 +67,9 @@ namespace Characters.Player
         // Float parameters driven by curves on the climb-up clip (optional).
         private static readonly int AnimIDHandsIK = Animator.StringToHash("HandsIK");
         private static readonly int AnimIDFeetIK = Animator.StringToHash("FeetIK");
+        // Optional: drives the ClimbMove state's speed multiplier.
+        private static readonly int AnimIDClimbAnimSpeed = Animator.StringToHash("ClimbAnimSpeed");
+        private const float MovingThreshold = 0.0001f;
 
         private void Awake()
         {
@@ -83,6 +89,7 @@ namespace Characters.Player
             {
                 if (parameter.nameHash == AnimIDHandsIK) _hasHandsIKCurve = true;
                 if (parameter.nameHash == AnimIDFeetIK) _hasFeetIKCurve = true;
+                if (parameter.nameHash == AnimIDClimbAnimSpeed) _hasClimbAnimSpeed = true;
             }
         }
 
@@ -215,6 +222,7 @@ namespace Characters.Player
             emission.enabled = false;
             animator.SetFloat(AnimIDClimbX, 0f);
             animator.SetFloat(AnimIDClimbY, 0f);
+            if (_hasClimbAnimSpeed) animator.SetFloat(AnimIDClimbAnimSpeed, 0f);
             animator.SetBool(AnimIDClimbing, true);
             animator.SetTrigger(fromGround ? AnimIDClimbStart : AnimIDClimbGrab);
         }
@@ -262,10 +270,22 @@ namespace Characters.Player
             animator.ResetTrigger(AnimIDClimbGrab);
         }
 
+        // When the player stops, the direction is kept and the cycle is paused where it is, instead of blending
+        // back to the idle pose; moving again resumes from that same point. The IK keeps paused hands and feet on
+        // the wall. Without the ClimbAnimSpeed parameter it falls back to blending to idle.
         public void SetClimbMove(Vector2 move)
         {
-            animator.SetFloat(AnimIDClimbX, move.x, climbMoveDampTime, Time.deltaTime);
-            animator.SetFloat(AnimIDClimbY, move.y, climbMoveDampTime, Time.deltaTime);
+            bool moving = move.sqrMagnitude > MovingThreshold;
+            if (moving || !_hasClimbAnimSpeed)
+            {
+                animator.SetFloat(AnimIDClimbX, move.x, climbMoveDampTime, Time.deltaTime);
+                animator.SetFloat(AnimIDClimbY, move.y, climbMoveDampTime, Time.deltaTime);
+            }
+
+            if (_hasClimbAnimSpeed)
+            {
+                animator.SetFloat(AnimIDClimbAnimSpeed, moving ? 1f : 0f, climbStopDampTime, Time.deltaTime);
+            }
         }
         
         public void SetSlideEffect(bool active, Vector3 surfacePoint)
