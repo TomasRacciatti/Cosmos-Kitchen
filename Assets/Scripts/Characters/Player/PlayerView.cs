@@ -27,6 +27,12 @@ namespace Characters.Player
         [Tooltip("A bone that represents where the body is, e.g. the hips (Bspine).")]
         [SerializeField] private Transform bodyReferenceBone;
 
+        [Header("Climb Start Handover")]
+        [Tooltip("The Climb Start clip. Its last pose is matched against the climb-up cycle.")]
+        [SerializeField] private AnimationClip climbStartClip;
+        [Tooltip("The climb-up cycle (up direction of the ClimbMove blend tree, e.g. Player_ClimbVertical).")]
+        [SerializeField] private AnimationClip climbUpClip;
+
         private const int BaseLayer = 0;
         private int _climbStartStateHash;
         private int _ledgeClimbStateHash;
@@ -36,6 +42,9 @@ namespace Characters.Player
         private bool _hasHandsIKCurve;
         private bool _hasFeetIKCurve;
         private bool _hasClimbAnimSpeed;
+        private bool _hasClimbCycleOffset;
+        private float _climbStartHandoverPhase; // measured at start; visible in Debug inspector mode
+        private bool _hasClimbStartHandover;
         private SkinnedMeshRenderer[] _skinnedRenderers;
         private bool[] _defaultUpdateWhenOffscreen;
         private bool _slideEffectActive;
@@ -69,7 +78,10 @@ namespace Characters.Player
         private static readonly int AnimIDFeetIK = Animator.StringToHash("FeetIK");
         // Optional: drives the ClimbMove state's speed multiplier.
         private static readonly int AnimIDClimbAnimSpeed = Animator.StringToHash("ClimbAnimSpeed");
+        // Optional: drives the ClimbMove state's cycle offset.
+        private static readonly int AnimIDClimbCycleOffset = Animator.StringToHash("ClimbCycleOffset");
         private const float MovingThreshold = 0.0001f;
+        private const int HandoverSamples = 60;
 
         private void Awake()
         {
@@ -90,6 +102,7 @@ namespace Characters.Player
                 if (parameter.nameHash == AnimIDHandsIK) _hasHandsIKCurve = true;
                 if (parameter.nameHash == AnimIDFeetIK) _hasFeetIKCurve = true;
                 if (parameter.nameHash == AnimIDClimbAnimSpeed) _hasClimbAnimSpeed = true;
+                if (parameter.nameHash == AnimIDClimbCycleOffset) _hasClimbCycleOffset = true;
             }
         }
 
@@ -97,6 +110,43 @@ namespace Characters.Player
         {
             AssignAnimationIDs();
             MeasureLedgeClimbOffset();
+            MeasureClimbStartHandover();
+        }
+
+        // Climb Start ends in a different pose than the climb idle (the other arm up), so handing over to the idle
+        // slides the limbs. Find the point in the climb-up cycle whose pose is closest to Climb Start's last frame
+        // (every bone, relative to the hips). ClimbMove then starts there, paused, through its Cycle Offset.
+        private void MeasureClimbStartHandover()
+        {
+            if (climbStartClip == null || climbUpClip == null || bodyReferenceBone == null ||
+                !_hasClimbCycleOffset || !_hasClimbAnimSpeed)
+            {
+                return;
+            }
+
+            GameObject model = animator.gameObject;
+            Transform[] bones = animator.GetComponentsInChildren<Transform>();
+            Vector3[] targetPose = new Vector3[bones.Length];
+
+            climbStartClip.SampleAnimation(model, climbStartClip.length);
+            Vector3 hips = bodyReferenceBone.position;
+            for (int i = 0; i < bones.Length; i++) targetPose[i] = bones[i].position - hips;
+
+            float bestError = float.MaxValue;
+            for (int sample = 0; sample < HandoverSamples; sample++)
+            {
+                float phase = sample / (float)HandoverSamples;
+                climbUpClip.SampleAnimation(model, phase * climbUpClip.length);
+                hips = bodyReferenceBone.position;
+
+                float error = 0f;
+                for (int i = 0; i < bones.Length; i++) error += (bones[i].position - hips - targetPose[i]).sqrMagnitude;
+                if (error >= bestError) continue;
+
+                bestError = error;
+                _climbStartHandoverPhase = phase;
+            }
+            _hasClimbStartHandover = true;
         }
 
         // The climb-up clip is authored relative to where it ends (standing on top), so its first frame draws
@@ -220,8 +270,11 @@ namespace Characters.Player
         {
             var emission = stepsParticles.emission;
             emission.enabled = false;
+            // After Climb Start, ClimbMove waits paused on the climb-up cycle at the pose matching Climb Start's end.
+            bool matchClimbStart = fromGround && _hasClimbStartHandover;
             animator.SetFloat(AnimIDClimbX, 0f);
-            animator.SetFloat(AnimIDClimbY, 0f);
+            animator.SetFloat(AnimIDClimbY, matchClimbStart ? 1f : 0f);
+            if (_hasClimbCycleOffset) animator.SetFloat(AnimIDClimbCycleOffset, matchClimbStart ? _climbStartHandoverPhase : 0f);
             if (_hasClimbAnimSpeed) animator.SetFloat(AnimIDClimbAnimSpeed, 0f);
             animator.SetBool(AnimIDClimbing, true);
             animator.SetTrigger(fromGround ? AnimIDClimbStart : AnimIDClimbGrab);

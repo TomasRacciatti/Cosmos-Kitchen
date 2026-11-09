@@ -212,12 +212,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   climbMoveDampTime: 0.1
+  climbStopDampTime: 0.1
   climbStartStateName: Player_ClimbStart
   ledgeClimbStateName: Player_ClimbLedge
   slideDustRate: 20
   climbIdleClip: {fileID: 7400000, guid: 381a90ca163660b46af1f53c53a8899a, type: 2}
   ledgeClimbClip: {fileID: 7400000, guid: 0a98f224ab4cee543aaaeadeb31c906d, type: 2}
   bodyReferenceBone: {fileID: 6258417895923722552}
+  climbStartClip: {fileID: 7400000, guid: 44f938c202c96b24a884d2de9dfb79cf, type: 2}
+  climbUpClip: {fileID: 7400000, guid: a060f4199c137a641b4e8946a7918593, type: 2}
   damagedCue: {fileID: 0}
   footstepCue: {fileID: 0}
   landingCue: {fileID: 0}
