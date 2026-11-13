@@ -38,6 +38,11 @@ namespace Stations
         protected GameObject CanvasInstance;
         private Outline _outlineComponent;
 
+        protected virtual bool OpensInventory => true;
+        protected virtual bool RequiresCamera => true;
+
+        private bool _switchedCamera;
+
         protected virtual void Awake()
         {
             _outlineComponent = GetComponent<Outline>();
@@ -71,20 +76,21 @@ namespace Stations
 
         protected virtual void EnterStation()
         {
-            if (stationCamera == null)
+            if (stationCamera == null && RequiresCamera)
             {
                 Debug.LogWarning($"Station {gameObject.name} is missing stationCamera or playerPosition reference!");
                 return;
             }
-            
-            GameManager.Player.SetCamera(stationCamera);
+
+            _switchedCamera = stationCamera != null;
+            if (_switchedCamera) GameManager.Player.SetCamera(stationCamera);
 
             // El teleport este rompia las camaras porque probablemente triggereaba un exit de la cocina sin que nos demos cuenta
             //StartCoroutine(TeleportPlayerAfterDelay());
             
             CanvasInstance = ObjectPool.SpawnObject(canvas, transform.position, Quaternion.identity);
             GameManager.Player.SetInputActive(false);
-            GameManager.Canvas.InvManager.ForceInventory(true);
+            if (OpensInventory) GameManager.Canvas.InvManager.ForceInventory(true);
             PlayerInputs.SetCursor(true);
             
             foreach (var inv in GetInventoriesForAcceptance())
@@ -96,11 +102,12 @@ namespace Stations
             foreach (var inv in GetInventoriesForAcceptance())
                             if (inv != null) inv.CanAcceptItem = null;
             
-            GameManager.Player.SetFirstPersonCamera();
-            
+            if (_switchedCamera) GameManager.Player.SetFirstPersonCamera();
+            _switchedCamera = false;
+
             ObjectPool.ReturnObjectToPool(CanvasInstance);
             GameManager.Player.SetInputActive(true);
-            GameManager.Canvas.InvManager.ForceInventory(false);
+            if (OpensInventory) GameManager.Canvas.InvManager.ForceInventory(false);
             PlayerInputs.SetCursor(false);
             CanvasInstance = null;
         }

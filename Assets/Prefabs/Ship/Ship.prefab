@@ -3816,6 +3816,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2180995196079190933}
+  - component: {fileID: 6681265038368256515}
+  - component: {fileID: 2495623848058141981}
+  - component: {fileID: 4946711688431591343}
   m_Layer: 0
   m_Name: Chair
   m_TagString: Untagged
@@ -3839,6 +3842,66 @@ Transform:
   - {fileID: 8749931114632402703}
   m_Father: {fileID: 464231922290731655}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6681265038368256515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911554964701049893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  fadeStartDistance: 15
+  fadeEndDistance: 20
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+--- !u!114 &2495623848058141981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911554964701049893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb390c83cb14473db7d501ca3f243557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 5255830946825594412, guid: f1a53ebc3c9297c408ed3be8ca289bc3, type: 3}
+  stationCamera: {fileID: 0}
+  audioSource: {fileID: 0}
+  processingClip: {fileID: 0}
+  enableClip: {fileID: 0}
+  disableClip: {fileID: 0}
+  animator: {fileID: 6139587664893319724}
+--- !u!65 &4946711688431591343
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8911554964701049893}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.5, z: 0.275}
+  m_Center: {x: 0, y: -0.1, z: -0.015}
 --- !u!1 &8988233426648582803
 GameObject:
   m_ObjectHideFlags: 0
