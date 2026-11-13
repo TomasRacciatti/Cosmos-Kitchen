@@ -12,6 +12,7 @@ namespace Managers
         public static CanvasManager Canvas { get; private set; }
         public static NovaProgress Novas { get; private set; }
         public static ISceneLoader Scenes { get; private set; }
+        public static InventoryCarryOver CarriedInventory { get; private set; }
 
         private void Awake()
         {
@@ -22,6 +23,7 @@ namespace Managers
             }
             Instance = this;
             Novas = new NovaProgress();
+            CarriedInventory = new InventoryCarryOver();
             Scenes ??= new SceneLoader();
             DontDestroyOnLoad(gameObject);
         }

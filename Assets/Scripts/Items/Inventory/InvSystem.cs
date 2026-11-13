@@ -156,6 +156,24 @@ namespace Items.Inventory
         }
         
         
+        // Replaces the whole contents (e.g. restoring a carried-over inventory). Fixed inventories keep their slot count.
+        public void LoadItems(IReadOnlyList<ItemAmount> source)
+        {
+            if (Infinite)
+            {
+                items.Clear();
+                for (int i = 0; i < source.Count; i++)
+                    if (!source[i].IsEmpty) items.Add(new ItemAmount(source[i]));
+            }
+            else
+            {
+                for (int i = 0; i < items.Count; i++)
+                    items[i] = i < source.Count ? new ItemAmount(source[i]) : new ItemAmount();
+            }
+
+            NotifyInventoryChanged();
+        }
+
         public void ClearSlot(int i)
         {
             if (Infinite)

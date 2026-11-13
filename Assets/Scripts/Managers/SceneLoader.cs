@@ -1,3 +1,4 @@
+using System;
 using Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -7,6 +8,8 @@ namespace Managers
     public sealed class SceneLoader : ISceneLoader
     {
         public bool IsLoading { get; private set; }
+
+        public event Action LoadStarting;
 
         public SceneLoader()
         {
@@ -26,6 +29,7 @@ namespace Managers
             }
 
             IsLoading = true;
+            LoadStarting?.Invoke();
             SceneManager.LoadSceneAsync(sceneName);
             return true;
         }
