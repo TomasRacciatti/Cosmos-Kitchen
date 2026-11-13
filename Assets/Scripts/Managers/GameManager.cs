@@ -1,4 +1,5 @@
 using Characters.Player;
+using Progress;
 using UnityEngine;
 
 namespace Managers
@@ -8,7 +9,8 @@ namespace Managers
         public static GameManager Instance { get; private set; }
         public static PlayerController Player { get; private set; }
         public static CanvasManager Canvas { get; private set; }
-        
+        public static NovaProgress Novas { get; private set; }
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -17,6 +19,7 @@ namespace Managers
                 return;
             }
             Instance = this;
+            Novas = new NovaProgress();
             DontDestroyOnLoad(gameObject);
         }
         

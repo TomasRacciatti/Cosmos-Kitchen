@@ -164,6 +164,7 @@ namespace Characters.Customers
                     state = CustomerState.Served;
                     PlatesOrdered.RemoveCustomer(this);
                     GameManager.Player.AddScore(!soClient.isCritic ? 1 : 10);
+                    if (soClient.isCritic) GameManager.Novas.TryAward(soClient);
                     animator.SetBool("IsCorrect", true);
                 }
                 else
