@@ -15,9 +15,9 @@ namespace UI.Travel
         [Header("Texts")]
         [SerializeField, Tooltip("{0} = Novas collected, {1} = Novas required")]
         private string progressFormat = "{0}/{1}";
-        [SerializeField, Tooltip("{0} = Novas missing")]
+        [SerializeField, TextArea(2, 4), Tooltip("{0} = Novas missing")]
         private string missingFormat = "Need {0} more Novas";
-        [SerializeField, Tooltip("Used when exactly one Nova is missing.")]
+        [SerializeField, TextArea(2, 4), Tooltip("Used when exactly one Nova is missing.")]
         private string missingOneText = "Need 1 more Nova";
 
         public void Show(SoPlanet planet, INovaProgress progress)
