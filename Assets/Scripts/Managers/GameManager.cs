@@ -1,4 +1,5 @@
 using Characters.Player;
+using Interfaces;
 using Progress;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Managers
         public static PlayerController Player { get; private set; }
         public static CanvasManager Canvas { get; private set; }
         public static NovaProgress Novas { get; private set; }
+        public static ISceneLoader Scenes { get; private set; }
 
         private void Awake()
         {
@@ -20,6 +22,7 @@ namespace Managers
             }
             Instance = this;
             Novas = new NovaProgress();
+            Scenes ??= new SceneLoader();
             DontDestroyOnLoad(gameObject);
         }
         

@@ -28,6 +28,8 @@ namespace Regulators
         {
             if (_instance != null && _instance != this)
             {
+                // The old pool's objects die with it; its OnDestroy won't clear them since it's no longer the instance.
+                ObjectPools.Clear();
                 Destroy(_instance.gameObject);
             }
             _instance = this;
