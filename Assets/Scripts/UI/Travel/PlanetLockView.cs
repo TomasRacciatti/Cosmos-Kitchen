@@ -15,10 +15,16 @@ namespace UI.Travel
         [Header("Texts")]
         [SerializeField, Tooltip("{0} = Novas collected, {1} = Novas required")]
         private string progressFormat = "{0}/{1}";
-        [SerializeField, TextArea(2, 4), Tooltip("{0} = Novas missing")]
+        [SerializeField, TextArea(2, 4), Tooltip("{0} = Novas missing. Type \\n for a line break.")]
         private string missingFormat = "Need {0} more Novas";
-        [SerializeField, TextArea(2, 4), Tooltip("Used when exactly one Nova is missing.")]
-        private string missingOneText = "Need 1 more Nova";
+
+        private void Awake()
+        {
+            progressFormat = WithLineBreaks(progressFormat);
+            missingFormat = WithLineBreaks(missingFormat);
+        }
+
+        private static string WithLineBreaks(string text) => text?.Replace("\\n", "\n");
 
         public void Show(SoPlanet planet, INovaProgress progress)
         {
@@ -30,8 +36,7 @@ namespace UI.Travel
 
             if (progressFill != null) progressFill.fillAmount = required > 0 ? (float)collected / required : 1f;
             if (progressText != null) progressText.text = string.Format(progressFormat, collected, required);
-            if (missingText != null)
-                missingText.text = missing == 1 ? missingOneText : string.Format(missingFormat, missing);
+            if (missingText != null) missingText.text = string.Format(missingFormat, missing);
         }
 
         public void Hide() => gameObject.SetActive(false);
