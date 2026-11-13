@@ -9,8 +9,9 @@ namespace Progress
     public sealed class NovaProgress : INovaProgress
     {
         private readonly HashSet<ClientSO> _rewardingCritics = new();
+        private int _debugOffset;
 
-        public int Novas => _rewardingCritics.Count;
+        public int Novas => Math.Max(0, _rewardingCritics.Count + _debugOffset);
 
         public event Action<int> Changed;
 
@@ -22,6 +23,13 @@ namespace Progress
 
             Changed?.Invoke(Novas);
             return true;
+        }
+
+        // Debug only: shifts the total without touching which critics were actually served.
+        public void SetDebugNovas(int novas)
+        {
+            _debugOffset = Math.Max(0, novas) - _rewardingCritics.Count;
+            Changed?.Invoke(Novas);
         }
     }
 }
