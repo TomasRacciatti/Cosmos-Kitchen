@@ -16,7 +16,7 @@ namespace Characters.Player
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(PlayerInputs))]
     [RequireComponent(typeof(PlayerView))]
-    public class PlayerController : MonoBehaviour, IPlayerMotor
+    public class PlayerController : MonoBehaviour, IPlayerMotor, ISuspendableMotor
     {
         [Header("Player")] public float moveSpeed = 3.0f;
         public float sprintSpeed = 4.5f;
@@ -86,6 +86,7 @@ namespace Characters.Player
         private const float Threshold = 0.01f;
 
         private bool IsClimbing => _climbing != null && _climbing.IsClimbing;
+        private bool _suspended;
 
         public InvSystem Inventory => _inventory;
         public PlayerInputs Input => _input;
@@ -164,6 +165,7 @@ namespace Characters.Player
         {
             GroundedCheck();
             if (IsClimbing) return; // PlayerClimbing moves the controller instead
+            if (_suspended) return;
             CeilingCheck();
             VerticalMovement();
             HorizontalMovement();
@@ -338,6 +340,16 @@ namespace Characters.Player
             _launchVelocity = new Vector3(velocity.x, 0f, velocity.z);
             _jumpTimeoutDelta = jumpTimeout;
             _playerView.Jumped();
+        }
+
+        public void SetSuspended(bool suspended)
+        {
+            _suspended = suspended;
+            _verticalVelocity = 0f;
+            _launchVelocity = Vector3.zero;
+            _speed = 0f;
+            _animationBlend = 0f;
+            _playerView.SetSpeed(0f);
         }
 
         private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

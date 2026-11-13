@@ -739,8 +739,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7992730067045325368}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4000001, y: 1.5, z: -2.5}
+  m_LocalRotation: {x: 0.0025865086, y: -0.999139, z: -0.03263588, w: -0.025485737}
+  m_LocalPosition: {x: 23.927597, y: -1.3599062, z: -21.424244}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -777,8 +777,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
-  far clip plane: 500
+  near clip plane: 0.1
+  far clip plane: 5000
   field of view: 60
   orthographic: 0
   orthographic size: 10
@@ -2240,6 +2240,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 5321314019421017773}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c440dd546111df419b046c66a324bb8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8856918793452828301}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 3c440dd546111df419b046c66a324bb8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 935625200988125028}
   m_SourcePrefab: {fileID: 100100000, guid: 3c440dd546111df419b046c66a324bb8, type: 3}
 --- !u!4 &544796270090833846 stripped
 Transform:
@@ -2306,6 +2314,63 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5e82662f94522194c995f1c4304a3bb6, type: 3}
   - {fileID: 8300000, guid: cb9ca7dec2360f346b25f582955fff41, type: 3}
   - {fileID: 8300000, guid: 90c43eb88a68b1f4090bb81768801669, type: 3}
+--- !u!114 &8856918793452828301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940657259393725839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b2d79fa73e4354e9f498c5fe259f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &935625200988125028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3940657259393725839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: 3a5b06086030163409a9c95f12adf08f, type: 2}
+    - {fileID: 11400000, guid: 827abe8ee4ccd964eb538336c944c3de, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8856918793452828301}
+          m_TargetAssemblyTypeName: Characters.Player.PlayerCutsceneHold, Assembly-CSharp
+          m_MethodName: Hold
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 8856918793452828301}
+          m_TargetAssemblyTypeName: Characters.Player.PlayerCutsceneHold, Assembly-CSharp
+          m_MethodName: Release
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &4466399071015956277 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3c440dd546111df419b046c66a324bb8,
