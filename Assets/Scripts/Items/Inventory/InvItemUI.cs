@@ -24,6 +24,7 @@ namespace Items.Inventory
         //Getters
         public ItemAmount ItemAmount => itemAmount;
         public InvSlotUI SlotUI => _invSlotUI;
+        public Sprite Sprite => image != null ? image.sprite : null;
         
         //Privates
         private InvSlotUI _invSlotUI;

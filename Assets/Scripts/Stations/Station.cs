@@ -16,6 +16,8 @@ namespace Stations
 {
     public abstract class Station : MonoBehaviour, IInteractable
     {
+        private static readonly int IsOverHash = Animator.StringToHash("IsOver");
+
         public Transform InteractionPoint => transform;
         
         [Header("Canvas")]
@@ -110,8 +112,8 @@ namespace Stations
                 _outlineComponent.enabled = true;
             }
             
-            animator.SetBool("IsOver", true);
-            
+            if (animator != null) animator.SetBool(IsOverHash, true);
+
             if (enableClip != null && audioSource != null)
             {
                 audioSource.PlayOneShot(enableClip);
@@ -125,9 +127,9 @@ namespace Stations
                 _outlineComponent.enabled = false;
             }
             
-            animator.SetBool("IsOver", false);
-            
-            if (enableClip != null && audioSource != null)
+            if (animator != null) animator.SetBool(IsOverHash, false);
+
+            if (disableClip != null && audioSource != null)
             {
                 audioSource.PlayOneShot(disableClip);
             }
